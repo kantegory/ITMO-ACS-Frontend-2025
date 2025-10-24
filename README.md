@@ -66,7 +66,7 @@
 
 Собрать отчёт по шаблону (https://docs.google.com/document/d/1zgXRYAh9iO21NDcp5Cua3mOiNRWbAVZJBfgGiqGsMsU/edit?usp=sharing). Экспортировать в pdf и открыть Pull Request в этот репозиторий.
 
-Дедлайн (ФР1): 13.10.2025
+Дедлайн (ФР1): 13.10.2025  
 Дедлайн (ФР2): 31.10.2025
 
 ### Язык CSS: изоляция стилей
