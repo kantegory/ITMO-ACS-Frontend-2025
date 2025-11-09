@@ -8,17 +8,18 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <nav class="navbar bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div class="container">
-            <a class="navbar-brand text-white">Рестораны</a>
-            <button class="btn btn-sm btn-outline-secondary">
-                <a href="sign-in.html" class="text-reset text-decoration-none">Выйти</a>
-            </button>
+            <a class="navbar-brand" href="restaurant-list.html">Рестораны</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="profile.html">Профиль</a>
+                <a class="nav-link" href="sign-in.html">Выйти</a>
+            </div>
         </div>
     </nav>
 
     <div class="container">
-        <div class="card mb-4">
+        <div class="card mb-5">
             <div class="card-body">
                 <h5 class="card-title">Фильтры</h5>
                 <div class="row g-3">
@@ -62,31 +63,30 @@
                 </div>
             </div>
         </div>
+
         <h2 class="mb-4">Доступные рестораны</h2>
-        <div class="card-list row row-cols-4 g-4 mb-4">
+        <div class="card-list row row-cols-4 g-4 mb-5">
             ...
         </div>
     </div>
 
     <script>
-        function addCard(index) {
-            const title = `Ресторан${index}`
-
+        function addCard(title, imageUrl, description, city, kitchenType, price) {
             return `
                 <div class="col">
                     <div class="card">
                         <img 
-                            src="https://avatars.mds.yandex.net/i?id=73f90d13e46cb8de44a84c81cbb4de05_l-4219539-images-thumbs&n=13"
+                            src="${imageUrl}"
                             class="card-img-top"
                             alt="${title}"
                         >
                         <div class="card-body">
                             <h5 class="card-title">${title}</h5>
-                            <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa magni eveniet, doloremque similique facilis repellendus dolor veritatis, officia numquam...</p>
+                            <p class="card-text">${description}</p>
                             <ul class="list-group list-group-flush mb-3">
-                                <li class="list-group-item">Город: Москва</li>
-                                <li class="list-group-item">Кухня: Азиатская</li>
-                                <li class="list-group-item">Цена: От 1000 рублей</li>
+                                <li class="list-group-item">Город: ${city}</li>
+                                <li class="list-group-item">Кухня: ${kitchenType}</li>
+                                <li class="list-group-item">Цена: От ${price} рублей</li>
                             </ul>
                             <a href="restaurant-detail.html" class="btn btn-info text-white">Подробнее</a>
                         </div>
@@ -97,7 +97,19 @@
 
         function renderCards() {
             const container = document.querySelector(".card-list");
-            container.innerHTML = Array.from({length: 10}, (_, i) => i + 1).map(index => addCard(index)).join("");
+            container.innerHTML = 
+                Array
+                .from({length: 10}, (_, i) => i + 1)
+                .map(index => 
+                    addCard(
+                        `Ресторан-${index}`,
+                        "https://avatars.mds.yandex.net/i?id=73f90d13e46cb8de44a84c81cbb4de05_l-4219539-images-thumbs&n=13",
+                        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa magni eveniet, doloremque similique facilis repellendus dolor veritatis, officia numquam...",
+                        "Санкт-Петербург",
+                        "Азиатская",
+                        "1000",
+                    )
+                ).join("");
         }
 
         document.addEventListener('DOMContentLoaded', renderCards);

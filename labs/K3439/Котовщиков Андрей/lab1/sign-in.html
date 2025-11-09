@@ -8,26 +8,26 @@
 </head>
 <body>
     <div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title fs-5">Введите код</h2>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Код</label>
-                    <input type="text" class="form-control" placeholder="xxxx">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5">Введите код</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Код</label>
+                        <input type="text" class="form-control" placeholder="xxxx">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        <a href="restaurant-list.html" class="text-reset text-decoration-none">
+                            Войти
+                        </a>
+                    </button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
-                    <a href="restaurant-list.html" class="text-reset text-decoration-none">
-                        Войти
-                    </a>
-                </button>
-            </div>
         </div>
-    </div>
     </div>
 
     <div class="container min-vh-100 d-flex align-items-center">
@@ -57,11 +57,15 @@
     </script>
 
     <script>
-        document.querySelector(".send-code").addEventListener("click", function(e) {
-            e.preventDefault()
-            const myModal = new bootstrap.Modal(document.querySelector(".modal"));
-            myModal.show();
-        });
+        function handleOpenModal() {
+            document.querySelector(".send-code").addEventListener("click", function(e) {
+                e.preventDefault()
+                const myModal = new bootstrap.Modal(document.querySelector(".modal"));
+                myModal.show();
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', handleOpenModal);
     </script>
 </body>
 </html>
