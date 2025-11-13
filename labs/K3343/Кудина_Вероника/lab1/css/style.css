@@ -44,3 +44,24 @@ text-shadow: 0 0 20px var(--accent2), 0 0 8px var(--accent);
 font-size: 1.3rem;
 color: var(--text-secondary);
 }
+
+.navbar {
+background-color: var(--bg-secondary);
+box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15);
+}
+
+.navbar-brand {
+font-size: 1.5rem;
+font-weight: bold;
+color: var(--accent) !important;
+}
+
+.nav-link {
+color: var(--text-secondary) !important;
+transition: color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+color: var(--accent-hover) !important;
+}
