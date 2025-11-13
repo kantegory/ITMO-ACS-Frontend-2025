@@ -82,3 +82,35 @@ color: var(--accent-hover) !important;
     box-shadow: 0 0 15px var(--accent2);
     outline: none;
 }
+
+.card {
+background: rgba(50, 29, 85, 0.5);
+border: 1.5px solid rgba(255, 255, 255, 0.1);
+border-radius: 18px;
+backdrop-filter: blur(10px);
+box-shadow: 0 8px 24px rgba(40, 25, 50, 0.2);
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+transform: translateY(-8px);
+box-shadow: 0 12px 30px rgba(255, 215, 0, 0.3);
+}
+
+.card-img-top {
+border-top-left-radius: 18px;
+border-top-right-radius: 18px;
+height: 220px;
+object-fit: cover;
+}
+
+.card-title {
+font-family: "Unbounded", "Inter", sans-serif;
+font-weight: 700;
+color: var(--accent);
+font-size: 1.3rem;
+}
+
+.card-text {
+color: var(--text-secondary);
+}
