@@ -65,3 +65,20 @@ transition: color 0.3s;
 .nav-link.active {
 color: var(--accent-hover) !important;
 }
+
+.form-control,
+.form-select {
+    background: rgba(50, 29, 85, 0.5);
+    color: var(--text-primary);
+    border: 1px solid var(--accent2);
+    border-radius: 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(50, 29, 85, 0.6);
+    color: var(--text-primary);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent2);
+    outline: none;
+}
