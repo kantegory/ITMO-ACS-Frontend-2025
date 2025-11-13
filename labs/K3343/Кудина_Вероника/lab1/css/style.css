@@ -83,6 +83,12 @@ color: var(--accent-hover) !important;
     outline: none;
 }
 
+.form-control::placeholder,
+.form-select::placeholder {
+color: var(--text-secondary);
+opacity: 0.7;
+}
+
 .card {
 background: rgba(50, 29, 85, 0.5);
 border: 1.5px solid rgba(255, 255, 255, 0.1);
