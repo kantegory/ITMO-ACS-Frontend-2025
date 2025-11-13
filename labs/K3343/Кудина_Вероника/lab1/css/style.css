@@ -114,3 +114,20 @@ font-size: 1.3rem;
 .card-text {
 color: var(--text-secondary);
 }
+
+.btn-primary {
+    background: var(--accent);
+    border: none;
+    color: #1b1432;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    color: #1b1432;
+    box-shadow: 0 0 20px var(--accent);
+    transform: translateY(-2px);
+}
