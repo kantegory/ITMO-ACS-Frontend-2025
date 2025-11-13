@@ -131,3 +131,18 @@ color: var(--text-secondary);
     box-shadow: 0 0 20px var(--accent);
     transform: translateY(-2px);
 }
+
+.footer {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+.footer p {
+    margin: 0;
+}
+
+.footer .small {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
