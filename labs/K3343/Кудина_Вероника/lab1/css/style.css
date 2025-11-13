@@ -24,3 +24,23 @@ min-height: 100vh;
 background-attachment: fixed;
 }
 
+.hero {
+padding: 100px 0;
+text-align: center;
+}
+
+.hero-title {
+font-family: "Unbounded", "Inter", sans-serif;
+font-size: 3.5rem;
+font-weight: 900;
+color: var(--text-primary);
+line-height: 1;
+letter-spacing: 1px;
+margin-bottom: 20px;
+text-shadow: 0 0 20px var(--accent2), 0 0 8px var(--accent);
+}
+
+.hero-subtitle {
+font-size: 1.3rem;
+color: var(--text-secondary);
+}
