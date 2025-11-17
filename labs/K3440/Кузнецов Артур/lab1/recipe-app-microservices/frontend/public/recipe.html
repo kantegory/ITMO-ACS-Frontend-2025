@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Рецепт</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+<main class="container py-4">
+    <div id="recipeAlert" class="alert inline-alert"></div>
+
+    <section class="page-header d-flex flex-wrap justify-content-between gap-3">
+        <div>
+            <p class="text-muted mb-1">Рецепт</p>
+            <h1 id="recipeTitle" class="mb-2">Загрузка...</h1>
+            <p id="recipeMeta" class="text-muted mb-1"></p>
+            <p id="recipeAuthor" class="text-muted mb-0">Автор: неизвестно</p>
+        </div>
+    </section>
+
+    <div class="row g-4 mt-1">
+        <div class="col-lg-8">
+            <article class="card shadow-sm">
+                <div class="card-body">
+                    <img id="recipeImage" class="img-fluid rounded mb-3" alt="Изображение рецепта" src="">
+                    <p id="recipeDescription" class="mb-0"></p>
+                </div>
+            </article>
+
+            <article class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <h2 class="h5">Шаги приготовления</h2>
+                    <div id="stepsList" class="mt-3"></div>
+                </div>
+            </article>
+
+            <article class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="h5 mb-0">Комментарии</h2>
+                        <span class="data-summary">Всего: <span id="commentsCount">0</span></span>
+                    </div>
+                    <div id="commentsContainer"></div>
+                    <div id="commentFormWrapper" class="mt-4">
+                        <form id="commentForm">
+                            <div class="mb-3">
+                                <label for="commentText" class="form-label">Ваш комментарий</label>
+                                <textarea id="commentText" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <button id="commentSubmitButton" class="btn btn-primary" type="submit">
+                                Отправить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-lg-4">
+            <section class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="h5 mb-0">Ингредиенты</h2>
+                        <span class="badge bg-light text-dark">Всего <span id="ingredientsCount">0</span></span>
+                    </div>
+                    <ul id="ingredientsList" class="list-group list-group-flush"></ul>
+                </div>
+            </section>
+
+            <section class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <h2 class="h6 text-uppercase text-muted">Действия</h2>
+                    <p class="mb-1">Лайков: <strong id="likesCount">0</strong></p>
+                    <button id="likeButton" class="btn btn-outline-primary w-100 mb-2">Нравится</button>
+                    <button id="editRecipeButton" class="btn btn-outline-secondary w-100 mb-2 d-none">
+                        Редактировать
+                    </button>
+                    <button class="btn btn-outline-dark w-100" data-bs-toggle="modal" data-bs-target="#shareModal">
+                        Поделиться
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<div class="modal fade" id="shareModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Поделиться рецептом</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-2">Скопируйте ссылку и поделитесь рецептом с друзьями:</p>
+                <div class="input-group">
+                    <input id="shareLinkInput" class="form-control" type="text" readonly>
+                    <button class="btn btn-outline-primary" type="button" onclick="copyShareLink()">Скопировать</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/session.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/recipe-page.js"></script>
+<script src="js/components.js"></script>
+</body>
+</html>
+
