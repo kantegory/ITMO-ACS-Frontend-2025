@@ -126,7 +126,7 @@
 
       <div id="comments-container">
         <div class="card p-3 my-3">
-          <p><strong>Катя:</strong> Потрясающие эклеры! Крем просто волшебный 💛</p>
+          <p><strong>Катя:</strong> Потрясающие эклеры! Крем просто волшебный, спасбо!</p>
         </div>
       </div>
 
@@ -147,86 +147,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    const container = document.getElementById("comments-container");
-    const form = document.getElementById("comment-form");
-    const input = document.getElementById("comment-input");
-
-    function loadComments() {
-      const saved = JSON.parse(localStorage.getItem("eclair_comments")) || [];
-      saved.forEach(text => addCommentToPage(text, "Вы"));
-    }
-
-    function addCommentToPage(text, author = "Вы") {
-      const card = document.createElement("div");
-      card.className = "card p-3 my-3";
-      card.innerHTML = `<p><strong>${author}:</strong> ${text}</p>`;
-      container.appendChild(card);
-    }
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const text = input.value.trim();
-      if (!text) return;
-
-      const saved = JSON.parse(localStorage.getItem("eclair_comments")) || [];
-      saved.push(text);
-      localStorage.setItem("eclair_comments", JSON.stringify(saved));
-
-      addCommentToPage(text, "Вы");
-      input.value = "";
-    });
-
-    loadComments();
-  </script>
-
-  <script>
-    const recipe = {
-      id: "eclair",
-      title: "Эклеры с заварным кремом",
-      image: "https://images.unsplash.com/photo-1591076482161-42bfa2e22602?q=80&w=1200",
-      description: "Нежные французские эклеры с заварным кремом.",
-      link: "recipe_eclair.html"
-    };
-
-    const btn = document.getElementById("saveRecipeBtn");
-
-    function loadSavedRecipes() {
-      return JSON.parse(localStorage.getItem("saved_recipes") || "[]");
-    }
-    function saveRecipes(list) {
-      localStorage.setItem("saved_recipes", JSON.stringify(list));
-    }
-    function updateButton() {
-      const saved = loadSavedRecipes();
-      const exists = saved.some(r => r.id === recipe.id);
-      btn.textContent = exists ? "💔 Убрать из сохранённых" : "💖 Сохранить";
-    }
-
-    btn.addEventListener("click", () => {
-      let saved = loadSavedRecipes();
-      const exists = saved.some(r => r.id === recipe.id);
-
-      if (exists) {
-        saved = saved.filter(r => r.id !== recipe.id);
-      } else {
-        saved.push(recipe);
-      }
-
-      saveRecipes(saved);
-      updateButton();
-    });
-
-    updateButton();
-  </script>
-  <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const username = localStorage.getItem("user_name");
-    const author = username ? username : "Злата";
-    document.getElementById("recipe-author").textContent = author;
-});
-</script>
+  <script src="script.js"></script>
 
 </body>
 </html>

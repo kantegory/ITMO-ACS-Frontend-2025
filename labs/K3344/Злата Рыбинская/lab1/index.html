@@ -31,7 +31,7 @@
 
   <section class="hero">
     <h1>Добро пожаловать в «Лакомку»!</h1>
-    <p class="lead">Находите вдохновение и делитесь любимыми рецептами с другими сладкоежками 🍰</p>
+    <p class="lead">Находите вдохновение и делитесь любимыми рецептами с другими сладкоежками :3 </p>
   </section>
 
   <section class="container filter-section">
@@ -112,66 +112,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('searchForm');
-      const searchInput = document.getElementById('searchInput');
-      const typeSelect = document.getElementById('typeSelect');
-      const difficultySelect = document.getElementById('difficultySelect');
-      const resetBtn = document.getElementById('resetBtn');
-      const recipeCols = Array.from(document.querySelectorAll('.recipe-card-col'));
-      const noResults = document.getElementById('noResults');
+  <script src="script.js"></script>
 
-      function normalize(str) {
-        return String(str || '').trim().toLowerCase();
-      }
-
-      function applyFilters() {
-        const query = normalize(searchInput.value);
-        const type = typeSelect.value;
-        const difficulty = difficultySelect.value;
-
-        let visibleCount = 0;
-
-        recipeCols.forEach(col => {
-          const card = col.querySelector('.recipe-card');
-          const title = normalize(card.dataset.title);
-          const cardType = card.dataset.type || '';
-          const cardDifficulty = card.dataset.difficulty || '';
-
-          const matchesQuery = !query || title.includes(query);
-          const matchesType = !type || cardType === type;
-          const matchesDifficulty = !difficulty || cardDifficulty === difficulty;
-
-          if (matchesQuery && matchesType && matchesDifficulty) {
-            col.style.display = '';
-            visibleCount++;
-          } else {
-            col.style.display = 'none';
-          }
-        });
-
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        applyFilters();
-      });
-
-      searchInput.addEventListener('input', applyFilters);
-      typeSelect.addEventListener('change', applyFilters);
-      difficultySelect.addEventListener('change', applyFilters);
-
-      resetBtn.addEventListener('click', function () {
-        searchInput.value = '';
-        typeSelect.value = '';
-        difficultySelect.value = '';
-        applyFilters();
-      });
-
-      applyFilters();
-    });
-  </script>
 </body>
 </html>
