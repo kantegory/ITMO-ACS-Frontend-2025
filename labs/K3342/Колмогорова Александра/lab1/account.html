@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Account</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon-cook.ico" type="image/x-icon">
   </head>
   <body>
     <header>
@@ -17,7 +20,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="main.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.html">Blog</a>
@@ -33,8 +36,180 @@
         </nav>
     </header>
     <main>
-        <h1>Account info</h1>
+        <div class="profile-header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <img src="account-image.png" class="profile-avatar rounded float-start" alt="...">
+                    </div>
+                    <div class="col">
+                        <h1 class="h2 mb-1" id="profileName">Александра</h1>
+                        <p class="mb-2 opacity-75" id="profileUsername">@sasha_is_cooking</p>
+                        <p class="mb-0" id="profileBio">Люблю итальянскую и греческую кухни, а также пробовать новое</p>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#editProfileModal">Редактировать профиль</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProfileModalLabel">Редактирование профиля</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="profileForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="editName" class="form-label">Имя и фамилия</label>
+                                    <input type="text" class="form-control" id="editName" value="Александра" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="editUsername" class="form-label">Имя пользователя</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">@</span>
+                                        <input type="text" class="form-control" id="editUsername" value="sasha_is_cooking" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editBio" class="form-label">О себе</label>
+                                <textarea class="form-control" id="editBio" rows="3" 
+                                        placeholder="Расскажите о своих кулинарных предпочтениях...">Люблю итальянскую и греческую кухни, а также пробовать новое</textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-success" onclick="updateProfile()">Сохранить изменения</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="stats-card bg-white p-4 border-end">
+                            <h5 class="mb-4">Статистика</h5>
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="h3 text-success mb-1">146</div>
+                                    <small class="text-muted">Подписчики</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="h3 text-success mb-1">12</div>
+                                    <small class="text-muted">Подписки</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="h3 text-success mb-1">267</div>
+                                    <small class="text-muted">Лайки</small>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="mt-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Рецептов опубликовано:</span>
+                                    <strong>24</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Рецептов сохранено:</span>
+                                    <strong>18</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <ul class="nav nav-tabs mb-4">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#saved" data-bs-toggle="tab">Сохранённое</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#my-recipes" data-bs-toggle="tab">Мои рецепты</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="saved">
+
+                            </div>
+                            <div class="tab-pane fade" id="my-recipes">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        function updateProfile() {
+        const name = document.getElementById('editName').value;
+        const username = document.getElementById('editUsername').value;
+        const bio = document.getElementById('editBio').value;
+        
+        document.getElementById('profileName').textContent = name;
+        document.getElementById('profileUsername').textContent = '@' + username;
+        document.getElementById('profileBio').textContent = bio;
+        
+        const profileData = {
+            name: name,
+            username: username,
+            bio: bio
+        };
+        
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
+        
+        showNotification('Профиль успешно обновлен!', 'success');
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+        modal.hide();
+    }
+
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1060; min-width: 300px;';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedProfile = localStorage.getItem('userProfile');
+        if (savedProfile) {
+            const profileData = JSON.parse(savedProfile);
+            
+            document.getElementById('profileName').textContent = profileData.name;
+            document.getElementById('profileUsername').textContent = '@' + profileData.username;
+            document.getElementById('profileBio').textContent = profileData.bio;
+            
+            document.getElementById('editName').value = profileData.name;
+            document.getElementById('editUsername').value = profileData.username;
+            document.getElementById('editBio').value = profileData.bio;
+        }
+        
+        document.getElementById('profileForm').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                updateProfile();
+            }
+        });
+    });
+
+    document.getElementById('editUsername').addEventListener('input', function(e) {
+        this.value = this.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
+    });
+    </script>
   </body>
 </html>
