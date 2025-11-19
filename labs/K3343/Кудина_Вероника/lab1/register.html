@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>РестоБронь - Бронирование столиков в ресторанах</title>
+    <title>Регистрация - РестоБронь</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Главная</a>
+                        <a class="nav-link" href="index.html">Главная</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="restaurants.html">Рестораны</a>
@@ -37,7 +37,7 @@
                         <a class="nav-link" href="login.html">Вход</a>
                     </li>
                     <li class="nav-item" id="nav-register">
-                        <a class="nav-link" href="register.html">Регистрация</a>
+                        <a class="nav-link active" href="register.html">Регистрация</a>
                     </li>
                     <li class="nav-item" id="nav-logout" style="display: none;">
                         <a class="nav-link" href="#" onclick="logout()">Выход</a>
@@ -47,28 +47,48 @@
         </div>
     </nav>
 
-    <div id="page-home" class="page-content active">
-        <div class="hero-section">
-            <div class="container text-center">
-                <div class="hero-content">
-                    <h1 class="hero-title">Бронирование столиков в лучших ресторанах</h1>
-                    <p class="hero-subtitle">Найдите идеальное место для вашего ужина</p>
-                    <button class="btn btn-primary btn-lg modern-btn" onclick="window.location.href='restaurants.html'">
-                        <i class="bi bi-search"></i> Найти ресторан
-                    </button>
+    <div class="page-content active">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <h2 class="text-center mb-4">Регистрация</h2>
+                            <form onsubmit="handleRegister(event)">
+                                <div class="mb-3">
+                                    <label for="register-name" class="form-label">Имя</label>
+                                    <input type="text" class="form-control" id="register-name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="register-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-phone" class="form-label">Телефон</label>
+                                    <input type="tel" class="form-control" id="register-phone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-password" class="form-label">Пароль</label>
+                                    <input type="password" class="form-control" id="register-password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-confirm-password" class="form-label">Подтвердите пароль</label>
+                                    <input type="password" class="form-control" id="register-confirm-password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="agree-terms" required>
+                                    <label class="form-check-label" for="agree-terms">
+                                        Я согласен с условиями использования
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Зарегистрироваться</button>
+                                <div class="text-center">
+                                    <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="container my-5">
-            <h2 class="text-center mb-5 section-title">Популярные рестораны</h2>
-            <div class="row" id="featured-restaurants">
-            </div>
-
-            <div class="text-center mt-5">
-                <button class="btn btn-outline-primary btn-lg" onclick="window.location.href='restaurants.html'">
-                    Посмотреть все рестораны <i class="bi bi-arrow-right ms-2"></i>
-                </button>
             </div>
         </div>
     </div>
@@ -107,7 +127,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             initializeApp();
-            displayFeaturedRestaurants();
         });
     </script>
 </body>
