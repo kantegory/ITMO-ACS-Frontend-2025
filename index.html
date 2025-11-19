@@ -27,3 +27,42 @@
   <script src="js/script.js"></script>
 </body>
 </html>
+
+<div class="container my-4">
+  <h1 class="mb-3">Найдите ресторан</h1>
+
+  <form id="filters" class="row g-2 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label">Кухня</label>
+      <select id="filterCuisine" class="form-select">
+        <option value="">Любая</option>
+        <option>Итальянская</option>
+        <option>Японская</option>
+        <option>Русская</option>
+        <option>Международная</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Район / Город</label>
+      <input id="filterLocation" type="text" class="form-control" placeholder="Например, центр">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Цена</label>
+      <select id="filterPrice" class="form-select">
+        <option value="">Любая</option>
+        <option value="1">₽ (дёшево)</option>
+        <option value="2">₽₽ (средне)</option>
+        <option value="3">₽₽₽ (дорого)</option>
+      </select>
+    </div>
+    <div class="col-md-2 d-grid">
+      <button id="applyFilters" type="button" class="btn btn-primary">Показать</button>
+    </div>
+  </form>
+
+  <hr>
+
+  <div id="restaurants" class="row row-cols-1 row-cols-md-2 g-3">
+    <!-- карточки ресторанов динамически вставляются JS -->
+  </div>
+</div>
