@@ -34,3 +34,33 @@ body {
     border-color: #0a58ca;
 }
 
+.property-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.card-img-top {
+    transition: transform 0.3s;
+}
+
+.property-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.carousel-item img {
+    border-radius: 10px;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.display-4 {
+    color: #212529;
+    font-weight: 600;
+}
+
