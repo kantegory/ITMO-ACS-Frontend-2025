@@ -15,17 +15,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="register.html">Регистрация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="search.html">Поиск</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </nav>
@@ -73,24 +62,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorDiv = document.getElementById('passwordError');
-            
-            if (password !== confirmPassword) {
-                errorDiv.classList.remove('d-none');
-                return;
-            }
-            
-            errorDiv.classList.add('d-none');
-            // Здесь будет логика регистрации (будет добавлена в main.js)
-            alert('Функция регистрации будет реализована в следующем коммите');
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
 
