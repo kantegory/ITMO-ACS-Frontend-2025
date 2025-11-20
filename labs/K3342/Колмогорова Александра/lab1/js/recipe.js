@@ -80,15 +80,24 @@ function loadRecipe() {
 
         <div class="card mb-4">
             <div class="card-header">
-                <h3>Пошаговая инструкция приготовления</h3>
+                <h3>Приготовление</h3>
             </div>
             <div class="card-body">
-                ${recipe.steps.map((step, index) => `
-                    <div class="mb-3">
-                        <h5>Шаг ${index + 1}</h5>
-                        <p>${step}</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Пошаговая инструкция</h4>
+                        ${recipe.steps.map((step, index) => `
+                            <div class="mb-3">
+                                <h5>Шаг ${index + 1}</h5>
+                                <p>${step}</p>
+                            </div>
+                        `).join('')}
                     </div>
-                `).join('')}
+                    <div class="col-md-6">
+                        <h4 class="text-center">Видео-инструкция</h4>
+                        <video src="${recipe.video}" controls class="w-100" style="max-height: 600px;"></video>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -97,7 +106,7 @@ function loadRecipe() {
                 <h3>Фото готового блюда</h3>
             </div>
             <div class="card-body text-center">
-                <img src="${recipe.image}" class="img-fluid" alt="${recipe.title}">
+                <img src="${recipe.image}" class="img-fluid" alt="${recipe.title}" style="max-height: 400px; width: auto;">
             </div>
         </div>
 
