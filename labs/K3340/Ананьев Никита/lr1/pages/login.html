@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../styles/auth.css">
+
+  <title>Войти</title>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Вход</h2>
+
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Пароль" />
+
+    <button onclick="login()">Войти</button>
+    <div class="link">Нет аккаунта? <a href="register.html">Регистрация</a></div>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (!user) {
+        alert('Пользователь не найден. Зарегистрируйтесь.');
+        return;
+      }
+
+      if (user.email === email && user.password === password) {
+        alert('Успешный вход!');
+        window.location.href = 'main.html';
+      } else {
+        alert('Неверный email или пароль!');
+      }
+    }
+  </script>
+</body>
+</html>
