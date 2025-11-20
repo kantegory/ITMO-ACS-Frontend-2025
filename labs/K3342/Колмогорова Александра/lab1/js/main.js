@@ -5,6 +5,10 @@ function loadRecipeCards(recipes, filters = {}) {
     const filteredRecipes = Object.values(recipes).filter(r => {
         if (filters.type && r.type !== filters.type) return false;
         if (filters.difficulty && r.difficulty !== filters.difficulty) return false;
+        if (filters.search) {
+            const searchTerm = filters.search.toLowerCase();
+            return r.title.toLowerCase().includes(searchTerm);
+        }
         return true;
     });
                       
@@ -29,6 +33,8 @@ function loadRecipeCards(recipes, filters = {}) {
         document.getElementById('difficulty-dropdown').classList.add('active');
         document.getElementById('difficulty-dropdown').textContent = diff_transcript[filters.difficulty] || filters.difficulty;
     } 
+    else if (filters.search) {
+    }
     else {
         document.getElementById('all-recipes').classList.add('active');
     }
@@ -47,7 +53,7 @@ function loadRecipeCards(recipes, filters = {}) {
                             <h5 class="card-title">${r.title}</h5>
                             <p class="card-text m-0">${r.type}</p>
                             <p class="card-text">Сложность: ${r.difficulty}</p>
-                            <a href="recipe.html?id=${r.id}" class="btn btn-success">Читать полностью</a>
+                            <a href="recipe.html?id=${r.id}" class="btn btn-success">Посмотреть полностью</a>
                         </div>
                     </div>
                 </div>`;
@@ -55,6 +61,16 @@ function loadRecipeCards(recipes, filters = {}) {
     }
             
     container.innerHTML = html; 
+}
+
+function searchRecipe(event) {
+    event.preventDefault();
+    const searchTerm = document.getElementById('searchInput').value.trim();
+    if (searchTerm) {
+        loadRecipeCards(recipes, { search: searchTerm });
+    } else {
+        loadRecipeCards(recipes);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
