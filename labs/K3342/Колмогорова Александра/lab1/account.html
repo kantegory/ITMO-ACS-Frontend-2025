@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -25,8 +25,11 @@
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="account.html">Account</a>
+                            <a class="nav-link" href="index.html">Log out</a>
                         </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="account.html">Account</a>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -122,91 +125,163 @@
                     <div class="col-lg-8">
                         <ul class="nav nav-tabs mb-4">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#saved" data-bs-toggle="tab">Сохранённое</a>
+                                <a class="nav-link active" aria-current="page" href="#my-recipes" data-bs-toggle="tab">Мои рецепты</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#my-recipes" data-bs-toggle="tab">Мои рецепты</a>
+                                <a class="nav-link" href="#saved" data-bs-toggle="tab">Сохранённое</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="saved">
-
+                            <div class="tab-pane fade" id="saved">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    </div>    
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="my-recipes">
-
+                            <div class="tab-pane fade show active" id="my-recipes">
+                                <div class="d-flex justify-content-end align-items-center mb-4">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createRecipeModal">Создать новый рецепт</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="recipe-card">
+                                        
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
     </main>
-    <script>
-        function updateProfile() {
-        const name = document.getElementById('editName').value;
-        const username = document.getElementById('editUsername').value;
-        const bio = document.getElementById('editBio').value;
-        
-        document.getElementById('profileName').textContent = name;
-        document.getElementById('profileUsername').textContent = '@' + username;
-        document.getElementById('profileBio').textContent = bio;
-        
-        const profileData = {
-            name: name,
-            username: username,
-            bio: bio
-        };
-        
-        localStorage.setItem('userProfile', JSON.stringify(profileData));
-        
-        showNotification('Профиль успешно обновлен!', 'success');
-        
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
-        modal.hide();
-    }
 
-    function showNotification(message, type = 'success') {
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1060; min-width: 300px;';
-        notification.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 3000);
-    }
+    <div class="modal fade" id="createRecipeModal" tabindex="-1" aria-labelledby="createRecipeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="createRecipeModalLabel">Создание рецепта</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="recipeForm">
+              <div class="mb-3">
+                <label for="recipeName" class="form-label">Название блюда</label>
+                <input type="text" class="form-control" id="recipeName" name="recipeName" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="recipeDescription" class="form-label">Пошаговая инструкция приготовления</label>
+                <textarea class="form-control" id="recipeDescription" name="recipeDescription" rows="3" placeholder="Опишите по пунктам процесс приготовления. Например, 
+                1. Нарезать овощи мелким кубиком. 
+                2. Для соуса смешать ..."></textarea>
+              </div>
+              
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="recipeType" class="form-label">Тип</label>
+                  <select class="form-select" id="recipeType" name="recipeType" required>
+                    <option value=""> </option>
+                    <option value="breakfast-meal">Завтрак</option>
+                    <option value="dessert">Десерт</option>
+                    <option value="main-meal">Основное блюдо</option>
+                    <option value="soup">Суп</option>
+                    <option value="salad">Салат</option>
+                    <option value="drink">Напиток</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="recipeDifficulty" class="form-label">Сложность</label>
+                  <select class="form-select" id="recipeDifficulty" name="recipeDifficulty" required>
+                    <option value=""> </option>
+                    <option value="Легкое">Низкая</option>
+                    <option value="Среднесложное">Средняя</option>
+                    <option value="Сложное">Высокая</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Основные ингредиенты</label>
+                    <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="meat" id="ingredientMeat">
+                            <label class="form-check-label" for="ingredientMeat">Мясо</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="fish" id="ingredientFish">
+                            <label class="form-check-label" for="ingredientFish">Рыба</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="veggies" id="ingredientVeggies">
+                            <label class="form-check-label" for="ingredientVeggies">Овощи</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="poultry" id="ingredientPoultry">
+                            <label class="form-check-label" for="ingredientPoultry">Птица</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="dairy" id="ingredientMilk">
+                            <label class="form-check-label" for="ingredientMilk">Молочные продукты</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="grains" id="ingredientGrains">
+                            <label class="form-check-label" for="ingredientGrains">Крупы и злаки</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="fruits" id="ingredientFruits">
+                            <label class="form-check-label" for="ingredientFruits">Фрукты</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="seafood" id="ingredientSeafood">
+                            <label class="form-check-label" for="ingredientSeafood">Морепродукты</label>
+                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <small class="text-muted">Выберите один или несколько ингредиентов</small>
+                    </div>
+                </div>
+           
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="button" class="btn btn-success" onclick="createRecipe()">Создать рецепт</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const savedProfile = localStorage.getItem('userProfile');
-        if (savedProfile) {
-            const profileData = JSON.parse(savedProfile);
-            
-            document.getElementById('profileName').textContent = profileData.name;
-            document.getElementById('profileUsername').textContent = '@' + profileData.username;
-            document.getElementById('profileBio').textContent = profileData.bio;
-            
-            document.getElementById('editName').value = profileData.name;
-            document.getElementById('editUsername').value = profileData.username;
-            document.getElementById('editBio').value = profileData.bio;
-        }
-        
-        document.getElementById('profileForm').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                updateProfile();
-            }
-        });
-    });
-
-    document.getElementById('editUsername').addEventListener('input', function(e) {
-        this.value = this.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
-    });
-    </script>
+    <div class="modal fade" id="viewRecipeModal" tabindex="-1" aria-labelledby="viewRecipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewRecipeTitle">Название рецепта</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <strong>Тип:</strong> <span id="viewRecipeType"></span><br>
+                        <strong>Сложность:</strong> <span id="viewRecipeDifficulty"></span><br>
+                        <strong>Дата создания:</strong> <span id="viewRecipeDate"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong>Ингредиенты:</strong>
+                        <ul class="list-group mt-2" id="viewRecipeIngredients">
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong>Описание:</strong>
+                        <p class="mt-2" id="viewRecipeDescription" style="white-space: pre-line;"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/recipes-data.js"></script>
+    <script src="js/account.js"></script>
   </body>
 </html>
