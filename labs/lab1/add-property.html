@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить объект - RentEstate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">RentEstate</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="main.html">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="profile.html">Личный кабинет</a></li>
+                    <li class="breadcrumb-item active">Добавить объект</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Добавить новый объект недвижимости</h4>
+                </div>
+                <div class="card-body">
+                    <form id="addPropertyForm">
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2">Основная информация</h5>
+
+                            <div class="mb-3">
+                                <label for="propertyTitle" class="form-label">Название объекта *</label>
+                                <input type="text" class="form-control" id="propertyTitle" required
+                                       placeholder="Например: Уютная квартира в центре">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="propertyDescription" class="form-label">Описание *</label>
+                                <textarea class="form-control" id="propertyDescription" rows="3" required
+                                          placeholder="Опишите ваш объект..."></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="propertyType" class="form-label">Тип недвижимости *</label>
+                                        <select class="form-select" id="propertyType" required>
+                                            <option value="">Выберите тип</option>
+                                            <option value="apartment">Квартира</option>
+                                            <option value="house">Дом</option>
+                                            <option value="room">Комната</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="rentalType" class="form-label">Тип аренды *</label>
+                                        <select class="form-select" id="rentalType" required>
+                                            <option value="">Выберите тип аренды</option>
+                                            <option value="daily">Посуточно</option>
+                                            <option value="monthly">Помесячно</option>
+                                            <option value="longterm">Долгосрочная</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2">Местоположение и цена</h5>
+
+                            <div class="mb-3">
+                                <label for="propertyLocation" class="form-label">Адрес *</label>
+                                <input type="text" class="form-control" id="propertyLocation" required
+                                       placeholder="Город, район, улица">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="propertyPrice" class="form-label">Цена аренды *</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="propertyPrice" required
+                                           placeholder="0" min="1">
+                                    <span class="input-group-text">₽</span>
+                                </div>
+                                <div class="form-text">Цена будет отображаться соответственно выбранному типу аренды</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2">Дополнительная информация</h5>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="propertyArea" class="form-label">Площадь (м²)</label>
+                                        <input type="number" class="form-control" id="propertyArea"
+                                               placeholder="Например: 65" min="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="propertyRooms" class="form-label">Количество комнат</label>
+                                        <input type="number" class="form-control" id="propertyRooms"
+                                               placeholder="Например: 2" min="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Удобства</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="Wi-Fi" id="amenityWifi">
+                                        <label class="form-check-label" for="amenityWifi">Wi-Fi</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="TV" id="amenityTV">
+                                        <label class="form-check-label" for="amenityTV">TV</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="Кондиционер" id="amenityAC">
+                                        <label class="form-check-label" for="amenityAC">Кондиционер</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="Кухня" id="amenityKitchen">
+                                        <label class="form-check-label" for="amenityKitchen">Кухня</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="Стиральная машина" id="amenityWasher">
+                                        <label class="form-check-label" for="amenityWasher">Стиральная машина</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="Парковка" id="amenityParking">
+                                        <label class="form-check-label" for="amenityParking">Парковка</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2">Изображение</h5>
+                            <div class="mb-3">
+                                <label for="propertyImage" class="form-label">Ссылка на изображение</label>
+                                <input type="url" class="form-control" id="propertyImage"
+                                       placeholder="https://example.com/image.jpg">
+                                <div class="form-text">Можно добавить ссылку на основное изображение объекта</div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="profile.html" class="btn btn-secondary me-md-2">Отмена</a>
+                            <button type="submit" class="btn btn-primary">Добавить объект</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/app.js"></script>
+<script src="./js/modules/data.js"></script>
+<script src="./js/modules/auth.js"></script>
+<script src="./js/modules/properties.js"></script>
+<script src="./js/modules/rentals.js"></script>
+<script src="./js/modules/utils.js"></script>
+<script src="./js/pages/add-property.js"></script>
+
+</body>
+</html>
