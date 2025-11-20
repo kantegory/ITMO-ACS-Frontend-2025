@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Квартира, ЖК "Нева Хаус"</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-light bg-light border-bottom">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="search.html">Аренда жилья</a>
+            <div>
+                <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
+                <a href="profile.html" class="btn btn-outline-primary btn-sm me-2">Профиль</a>
+                <a href="signin.html" class="btn btn-outline-secondary btn-sm">Выйти</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal fade" id="messageModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-6">Написать владельцу</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="messageForm">
+                        <div class="mb-3">
+                            <label class="form-label">Тема</label>
+                            <input type="text" class="form-control" id="messageSubject" placeholder="Например: Вопрос по аренде">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Сообщение</label>
+                            <textarea class="form-control" id="messageText" rows="4" placeholder="Здравствуйте, скажите, пожалуйста..."></textarea>
+                        </div>
+                        <p class="text-danger small mb-0 d-none" id="messageError">
+                            Напишите, пожалуйста, текст сообщения.
+                        </p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="sendMessageBtn">Отправить сообщение</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-6">Отправлено</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" id="successText">
+                        Сообщение отправлено владельцу. В личном кабинете оно появится в разделе «История сообщений».
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-dismiss="modal">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="search.html">Поиск</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Квартира, ЖК "Нева Хаус"</li>
+            </ol>
+        </nav>
+
+        <h2 class="mb-1">Квартира, ЖК "Нева Хаус"</h2>
+        <p class="text-muted mb-4">Санкт-Петербург, Петровский просп., 11к3</p>
+
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-lg-7">
+                <div class="card mb-3 property-main-photo position-relative">
+                    <img
+                        id="mainPhoto"
+                        src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988618-1.jpg"
+                        class="card-img-top"
+                        alt="Квартира в ЖК Нева Хаус">
+
+                    <button class="btn btn-light btn-sm gallery-nav gallery-prev">&#10094;</button>
+                    <button class="btn btn-light btn-sm gallery-nav gallery-next">&#10095;</button>
+                </div>
+
+                <div class="row g-2 gallery-thumbs">
+                    <div class="col-4">
+                        <img
+                            src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988618-1.jpg"
+                            class="img-fluid rounded js-thumb active-thumb"
+                            alt="Фото квартиры">
+                    </div>
+                    <div class="col-4">
+                        <img
+                            src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988621-1.jpg"
+                            class="img-fluid rounded js-thumb"
+                            alt="Фото квартиры">
+                    </div>
+                    <div class="col-4">
+                        <img
+                            src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988620-1.jpg"
+                            class="img-fluid rounded js-thumb"
+                            alt="Фото кухни">
+                    </div>
+                   <div class="col-4">
+                        <img
+                            src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988625-1.jpg"
+                            class="img-fluid rounded js-thumb"
+                            alt="Фото гостиной">
+                    </div>
+                    <div class="col-4">
+                        <img
+                            src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988631-1.jpg"
+                            class="img-fluid rounded js-thumb"
+                            alt="Фото спальни">
+                    </div>
+                    <div class="col-4">
+                        <img
+                            src="https://images.cdn-cian.ru/images/kvartira-sanktpeterburg-petrovskiy-prospekt-2673988764-1.jpg"
+                            class="img-fluid rounded js-thumb"
+                            alt="Фото туалета">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">180 000 ₽ / месяц</h4>
+                        <p class="mb-1"><strong>Тип:</strong> Квартира</p>
+                        <p class="mb-1"><strong>Комнат:</strong> 3 </p>
+                        <p class="mb-1"><strong>Площадь:</strong> 112,5 м²</p>
+                        <p class="mb-1"><strong>Этаж:</strong> 3 из 9</p>
+                        <p class="mb-1"><strong>Метро:</strong> Чкаловская (5 минут транспортом)</p>
+                        <p class="mb-0"><strong>Статус:</strong> Свободна</p>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Владелец</h5>
+                        <p class="mb-1"><strong>Имя:</strong> Ольга</p>
+                        <p class="mb-2">
+                            <strong>Телефон:</strong>
+                            <span id="ownerPhone" class="text-muted">+7-***-***-**-**</span>
+                        </p>
+                        <button class="btn btn-outline-primary btn-sm" id="showPhoneBtn">
+                            Показать номер
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Условия аренды</h5>
+                        <ul class="mb-0">
+                            <li>Залог: 180 000 ₽ (1 месяц аренды)</li>
+                            <li>Минимальный срок аренды: 3 месяцев</li>
+                            <li>Без животных</li>
+                            <li>Коммунальные услуги оплачиваются отдельно</li>
+                            <li>Интернет включён в стоимость</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#messageModal">
+                        Написать владельцу
+                    </button>
+                    <a href="search.html" class="btn btn-outline-secondary">
+                        Вернуться к поиску
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <div class="col-12 col-lg-8">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Описание</h5>
+                        <p>
+                            Авторский вневременной дизайн, в котором сочетаются современный и классические стили, 
+                            продуманная до мелочей планировка, наполнение и оснащение от топовых фабрик и производителей.
+                        </p>
+                        <p>
+                            Просторная кухня - гостиная 47 м2 с двумя окнами поделена на 3 зоны: 
+                            кухонная с островом / обеденный стол на 6 персон / удобный диван с большим TV.
+                            Мастер спальня с гардеробом и сан узлом.
+                            Детская в нейтральных тонах, подойдет как для мальчика, так и для девочки.
+                            Кабинет при необходимость можно легко переоборудовать во вторую детскую, заменив диван на кровать.
+                        </p>
+                        <p class="mb-0">
+                            Приглашаем на просмотр, работаем с брокерами
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Особенности</h5>
+                        <ul class="mb-0">
+                            <li>Новый дом, чистый подъезд</li>
+                            <li>Лифт</li>
+                            <li>Охраняемая территория</li>
+                            <li>Паркинг внутри дома</li>
+                            <li>Wi-Fi в квартире</li>
+                            <li>Официальный договор аренды</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainPhoto = document.getElementById('mainPhoto');
+            const thumbNodes = document.querySelectorAll('.js-thumb');
+            const thumbs = Array.from(thumbNodes);
+            const prevBtn = document.querySelector('.gallery-prev');
+            const nextBtn = document.querySelector('.gallery-next');
+
+            let currentIndex = 0;
+
+            function setActivePhoto(index) {
+                currentIndex = index;
+                mainPhoto.src = thumbs[currentIndex].src;
+                thumbs.forEach(t => t.classList.remove('active-thumb'));
+                thumbs[currentIndex].classList.add('active-thumb');
+            }
+
+            thumbs.forEach((thumb, index) => {
+                thumb.addEventListener('click', function () {
+                    setActivePhoto(index);
+                });
+            });
+
+            prevBtn.addEventListener('click', function () {
+                const newIndex = (currentIndex - 1 + thumbs.length) % thumbs.length;
+                setActivePhoto(newIndex);
+            });
+
+            nextBtn.addEventListener('click', function () {
+                const newIndex = (currentIndex + 1) % thumbs.length;
+                setActivePhoto(newIndex);
+            });
+
+            const showPhoneBtn = document.getElementById('showPhoneBtn');
+            const ownerPhone = document.getElementById('ownerPhone');
+
+            showPhoneBtn.addEventListener('click', function () {
+                ownerPhone.textContent = '+7-921-123-55-55';
+                ownerPhone.classList.remove('text-muted');
+                showPhoneBtn.disabled = true;
+                showPhoneBtn.textContent = 'Номер показан';
+            });
+
+            const messageForm = document.getElementById('messageForm');
+            const messageText = document.getElementById('messageText');
+            const messageError = document.getElementById('messageError');
+            const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+            const messageModalElement = document.getElementById('messageModal');
+            const successModalElement = document.getElementById('successModal');
+
+            const messageModal = new bootstrap.Modal(messageModalElement);
+            const successModal = new bootstrap.Modal(successModalElement);
+
+            sendMessageBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const textValue = messageText.value.trim();
+
+                if (!textValue) {
+                    messageError.classList.remove('d-none');
+                    return;
+                }
+
+                messageError.classList.add('d-none');
+                messageForm.reset();
+
+                document.getElementById('successText').textContent =
+                    'Сообщение отправлено владельцу. В личном кабинете оно появится в разделе «История сообщений».';
+
+                messageModal.hide();
+                successModal.show();
+            });
+        });
+    </script>
+</body>
+</html>
