@@ -2,6 +2,7 @@ const recipes = {
     'borsch': {
         id: 'borsch',
         title: 'Борщ',
+        author: '@cheif_№1',
         difficulty: '★★',
         type: 'Суп',
         ingredients: [
@@ -24,11 +25,13 @@ const recipes = {
             'Снять с огня и добавить зелень по желанию',
             'Подавать со сметаной и чесночными булочками'
         ],
-        image: 'img/borsch.jpg'
+        image: 'img/borsch.jpg',
+        video: "video/borsch-video.MP4"
     },
     'syrniki': {
         id: 'syrniki',
         title: 'Сырники',
+        author: '@cheif_№1',
         difficulty: '★', 
         type: 'Завтрак',
         ingredients: [
@@ -46,14 +49,17 @@ const recipes = {
             'Обжарить на среднем огне до золотистой корочки',
             'Подавать со сметаной/сгущёным молоком/вареньем'
             ],
-        image: 'img/syrniki.jpg'
+        image: 'img/syrniki.jpg',
+        video: 'video/syrniki-video.MP4'
     },
     'chicken-cutlets': {
         id: 'chicken-cutlets',
         title: 'Куриные котлеты',
+        author: '@cheif_№2',
         difficulty: '★',
         type: 'Основное блюдо',
         image: 'img/cutlets.jpg',
+        video: 'video/cutlets-video.MP4',
         ingredients: [
             'Куриный фарш - 500г',
             'Лук - 1 шт',
@@ -73,9 +79,11 @@ const recipes = {
     'stuffed-peppers': {
         id: 'stuffed-peppers',
         title: 'Фаршированные перцы',
+        author: '@cheif_№2',
         difficulty: '★★',
         type: 'Основное блюдо',
         image: 'img/peppers.jpg',
+        video: 'video/peppers-video.MP4',
         ingredients: [
             'Болгарские перцы - 6 шт',
             'Фарш мясной - 500г',
@@ -98,9 +106,11 @@ const recipes = {
     'pumpkin-soup': {
         id: 'pumpkin-soup',
         title: 'Тыквенный крем-суп',
+        author: '@cheif_Bob',
         difficulty: '★',
         type: 'Суп',
         image: 'img/pumpkin-soup.jpg',
+        video: 'video/pumpkin-soup-video.MP4',
         ingredients: [
             'Тыква - 500г',
             'Картофель - 2 шт',
@@ -122,9 +132,11 @@ const recipes = {
     'charlotte': {
         id: 'charlotte',
         title: 'Шарлотка',
+        author: '@Mary_N',
         difficulty: '★',
         type: 'Десерт',
         image: 'img/charlotte.jpg',
+        video: 'video/charlotte-video.MP4',
         ingredients: [
             'Яблоки - 3-4 шт',
             'Яйца - 4 шт',
@@ -145,9 +157,11 @@ const recipes = {
     'dried-fruit-compote': {
         id: 'dried-fruit-compote',
         title: 'Компот из сухофруктов',
+        author: '@granny',
         difficulty: '★',
         type: 'Напиток',
         image: 'img/kompot.jpg',
+        video: 'video/compote-video.MP4',
         ingredients: [
             'Смесь сухофруктов - 300г',
             'Вода - 3л',
@@ -166,9 +180,11 @@ const recipes = {
     'greek-salad': {
         id: 'greek-salad',
         title: 'Греческий салат',
+        author: '@aleks',
         difficulty: '★',
         type: 'Салат',
         image: 'img/greek-salad.jpg',
+        video: 'video/greek-salad-video.MP4',
         ingredients: [
             'Помидоры - 3 шт',
             'Огурцы - 2 шт',
@@ -195,6 +211,7 @@ const recipes = {
         difficulty: '★',
         type: 'Завтрак',
         image: 'img/scramble.jpg',
+        video: 'video/scramble-video.MP4',
         ingredients: [
             'Яйца - 3 шт',
             'Молоко - 2 ст.л.',
