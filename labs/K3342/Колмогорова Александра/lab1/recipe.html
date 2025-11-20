@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's cook - Рецепты</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="favicon-cook.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">Let's cook</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="main.html">Home</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="account.html">Account</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container mt-4" id="recipe-container">
+
+        </div>
+    </main>
+    
+    <script src="recipes.js"></script>
+    <script>
+        function loadRecipe() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipeId = urlParams.get('id');
+            const recipe = recipes[recipeId];
+            
+            if (!recipe) {
+                document.getElementById('recipe-container').innerHTML = '<p>Рецепт не найден</p>';
+                return;
+            }
+
+            document.title = recipe.title;
+            document.getElementById('recipe-container').innerHTML = `
+                <div class="text-center mb-4">
+                    <h1>${recipe.title}</h1>
+                    <div class="mt-2">
+                        <span class="badge bg-secondary me-2">Сложность: ${recipe.difficulty}</span>
+                        <span class="badge bg-primary me-2">${recipe.type}</span>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Ингредиенты</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            ${recipe.ingredients.map(ing => `<li class="list-group-item">${ing}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Пошаговая инструкция приготовления</h3>
+                    </div>
+                    <div class="card-body">
+                        ${recipe.steps.map((step, index) => `
+                            <div class="mb-3">
+                                <h5>Шаг ${index + 1}</h5>
+                                <p>${step}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Фото готового блюда</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="${recipe.image}" class="img-fluid" alt="${recipe.title}">
+                    </div>
+                </div>
+            `;
+        }
+
+        loadRecipe();
+    </script>
+</body>
+</html>
