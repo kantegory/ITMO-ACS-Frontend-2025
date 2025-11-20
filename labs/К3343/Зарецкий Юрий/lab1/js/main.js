@@ -544,29 +544,27 @@ function updateNavigation() {
         <a class="nav-link ${currentPage === 'search.html' ? 'active' : ''}" href="search.html">Поиск</a>
     </li>`;
 
-    if (currentUser) {
-        // Если пользователь авторизован, показываем личный кабинет
-        navHTML += `<li class="nav-item">
-            <a class="nav-link ${currentPage === 'profile.html' ? 'active' : ''}" href="profile.html">Личный кабинет</a>
-        </li>`;
-    } else {
-        // Если не авторизован, показываем кнопки входа и регистрации только на страницах входа/регистрации
-        if (currentPage === 'login.html' || currentPage === 'register.html') {
-            if (currentPage === 'login.html') {
-                navHTML += `<li class="nav-item">
-                    <a class="nav-link active" href="login.html">Вход</a>
-                </li>`;
-                navHTML += `<li class="nav-item">
-                    <a class="nav-link" href="register.html">Регистрация</a>
-                </li>`;
-            } else {
-                navHTML += `<li class="nav-item">
-                    <a class="nav-link" href="login.html">Вход</a>
-                </li>`;
-                navHTML += `<li class="nav-item">
-                    <a class="nav-link active" href="register.html">Регистрация</a>
-                </li>`;
-            }
+    // Всегда показываем личный кабинет (проверка авторизации будет на странице profile.html)
+    navHTML += `<li class="nav-item">
+        <a class="nav-link ${currentPage === 'profile.html' ? 'active' : ''}" href="profile.html">Личный кабинет</a>
+    </li>`;
+
+    // Если не авторизован, показываем кнопки входа и регистрации только на страницах входа/регистрации
+    if (!currentUser && (currentPage === 'login.html' || currentPage === 'register.html')) {
+        if (currentPage === 'login.html') {
+            navHTML += `<li class="nav-item">
+                <a class="nav-link active" href="login.html">Вход</a>
+            </li>`;
+            navHTML += `<li class="nav-item">
+                <a class="nav-link" href="register.html">Регистрация</a>
+            </li>`;
+        } else {
+            navHTML += `<li class="nav-item">
+                <a class="nav-link" href="login.html">Вход</a>
+            </li>`;
+            navHTML += `<li class="nav-item">
+                <a class="nav-link active" href="register.html">Регистрация</a>
+            </li>`;
         }
     }
     
