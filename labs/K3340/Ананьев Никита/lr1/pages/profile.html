@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="../styles/profile.css">
+
+    <title>Профиль</title>
+</head>
+<body>
+
+    <div class="profile-container">
+        <h2>Профиль пользователя</h2>
+
+        <div class="profile-header">
+            <img src="../media/images/default.jpg" class="avatar" id="avatar" />
+            <div class="user-info" id="userInfo"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="enableEdit()" id="editBtn">Редактировать</button>
+
+        <div class="edit-block" id="editBlock" style="display:none;"></div>
+
+        <div class="history">
+            <h3>История сделок</h3>
+            <div class="deal">Аренда квартиры — Москва, ул. Лесная, 12 — 45 000 ₽</div>
+            <div class="deal">Аренда комнаты — Санкт-Петербург, Невский 88 — 18 000 ₽</div>
+        </div>
+
+        <button class="btn btn-danger" onclick="logout()">Выйти из аккаунта</button>
+    </div>
+
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+        const userInfoDiv = document.getElementById('userInfo');
+        const editBlock = document.getElementById('editBlock');
+        const editBtn = document.getElementById('editBtn');
+
+        const userMap = new Map([
+            ["Имя", () => user.name], 
+            ["Email", () => user.email], 
+            ["Телефон", () => user.phone],
+            ["Город", () => user.city || 'Санкт-Петербург']
+        ]);
+
+        const translationMap = new Map([
+            ["Имя", "Name"], 
+            ["Email", "Email"], 
+            ["Телефон", "Phone"],
+            ["Город", "City"]
+        ]);
+        
+        if (!user) {
+            userInfoDiv.innerHTML = "<b>Ошибка:</b> пользователь не найден.";
+        } else {
+            renderUserInfo();
+        }
+
+        function renderUserInfo() {
+            userInfoDiv.innerHTML = ``;
+            userMap.forEach((val_getter, key, _) => {
+                userInfoDiv.innerHTML += `<div><b>${key}:</b> ${val_getter()}</div>`
+            });
+        }
+
+        function enableEdit() {
+            editBlock.style.display = "block";
+            editBtn.style.display = "none";
+            editBlock.innerHTML = ``;
+
+            userMap.forEach((val_getter, key, _) => {
+                editBlock.innerHTML += `<input id="edit${translationMap.get(key)}" value="${val_getter()}">`
+            });
+
+            editBlock.innerHTML += `
+            <div class="edit-actions">
+                <button class="btn btn-success" onclick="saveChanges()">Сохранить</button>
+                <button class="btn btn-secondary" onclick="cancelEdit()">Отмена</button>
+            </div>
+            `;
+        }
+
+        function cancelEdit() {
+            editBlock.style.display = "none";
+            editBtn.style.display = "inline-block";
+        }
+
+        function saveChanges() {
+            const newName = document.getElementById('editName').value;
+            const newEmail = document.getElementById('editEmail').value;
+            const newPhone = document.getElementById('editPhone').value;
+            const newCity = document.getElementById('editCity').value;
+
+            user.name = newName;
+            user.email = newEmail;
+            user.phone = newPhone;
+            user.city = newCity;
+
+            localStorage.setItem('user', JSON.stringify(user));
+
+            editBlock.style.display = "none";
+            editBtn.style.display = "inline-block";
+
+            renderUserInfo();
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>
