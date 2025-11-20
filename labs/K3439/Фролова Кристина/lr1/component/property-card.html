@@ -1,0 +1,21 @@
+<div class="col-md-4 property-card"
+     data-type="{type}"
+     data-price="{price}"
+     data-location="{location}">
+  <div class="card h-100">
+    <img src="{image}" class="card-img-top" alt="{title}">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title">{title}</h5>
+      <p class="card-text mb-1">{address}</p>
+      <p class="card-text fw-bold mb-2">{priceText}</p>
+      <p class="card-text small text-muted">{description}</p>
+
+      <div class="mt-auto d-flex justify-content-between">
+        <a href="property.html" class="btn btn-outline-primary btn-sm">Подробнее</a>
+        <button class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#contactModal">
+          Написать владельцу
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
