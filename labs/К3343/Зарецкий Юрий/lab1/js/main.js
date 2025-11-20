@@ -1,3 +1,228 @@
+const Storage = {
+    keys: {
+        currentUser: 'currentUser',
+        users: 'users',
+        apartments: 'apartments',
+        rentedApartments: 'rentedApartments'
+    },
+
+    set: function(key, data) {
+        try {
+            localStorage.setItem(key, JSON.stringify(data));
+        } catch (e) {
+            console.error('Ошибка сохранения в localStorage:', e);
+        }
+    },
+
+    get: function(key) {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : null;
+        } catch (e) {
+            console.error('Ошибка чтения из localStorage:', e);
+            return null;
+        }
+    },
+
+    remove: function(key) {
+        try {
+            localStorage.removeItem(key);
+        } catch (e) {
+            console.error('Ошибка удаления из localStorage:', e);
+        }
+    },
+
+    clear: function() {
+        try {
+            localStorage.clear();
+        } catch (e) {
+            console.error('Ошибка очистки localStorage:', e);
+        }
+    }
+};
+
+
+const UserService = {
+    loadUsers: async function() {
+        try {
+            const response = await fetch('data/users.json');
+            const users = await response.json();
+            // Сохраняем в localStorage
+            Storage.set(Storage.keys.users, users);
+            return users;
+        } catch (e) {
+            console.error('Ошибка загрузки пользователей:', e);
+            // Пытаемся загрузить из localStorage
+            return Storage.get(Storage.keys.users) || [];
+        }
+    },
+
+    /**
+     * Получает всех пользователей
+     * @returns {Array}
+     */
+    getUsers: function() {
+        return Storage.get(Storage.keys.users) || [];
+    },
+
+    /**
+     * Получает текущего авторизованного пользователя
+     * @returns {Object|null}
+     */
+    getCurrentUser: function() {
+        return Storage.get(Storage.keys.currentUser);
+    },
+
+    /**
+     * Устанавливает текущего пользователя
+     * @param {Object} user - Пользователь
+     */
+    setCurrentUser: function(user) {
+        Storage.set(Storage.keys.currentUser, user);
+    },
+
+    /**
+     * Выход из системы
+     */
+    logout: function() {
+        Storage.remove(Storage.keys.currentUser);
+    },
+
+    /**
+     * Проверяет, авторизован ли пользователь
+     * @returns {boolean}
+     */
+    isAuthenticated: function() {
+        return this.getCurrentUser() !== null;
+    },
+
+    /**
+     * Авторизация пользователя
+     * @param {string} email - Email или имя пользователя
+     * @param {string} password - Пароль
+     * @returns {Object|null} - Пользователь или null
+     */
+    login: function(email, password) {
+        const users = this.getUsers();
+        const user = users.find(u => 
+            (u.email === email || u.fullName === email) && u.password === password
+        );
+        
+        if (user) {
+            // Не сохраняем пароль в сессии
+            const { password: _, ...userWithoutPassword } = user;
+            this.setCurrentUser(userWithoutPassword);
+            return userWithoutPassword;
+        }
+        
+        return null;
+    },
+
+    /**
+     * Регистрация нового пользователя
+     * @param {Object} userData - Данные пользователя
+     * @returns {Object} - Новый пользователь
+     */
+    register: function(userData) {
+        const users = this.getUsers();
+        const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+        
+        const newUser = {
+            id: newId,
+            fullName: userData.fullName,
+            email: userData.email,
+            phone: userData.phone,
+            password: userData.password
+        };
+        
+        users.push(newUser);
+        Storage.set(Storage.keys.users, users);
+        
+        // Автоматически авторизуем нового пользователя
+        const { password: _, ...userWithoutPassword } = newUser;
+        this.setCurrentUser(userWithoutPassword);
+        
+        return userWithoutPassword;
+    }
+};
+
+// Утилиты для работы с недвижимостью
+const ApartmentService = {
+    /**
+     * Загружает недвижимость из JSON файла
+     * @returns {Promise<Array>}
+     */
+    loadApartments: async function() {
+        try {
+            const response = await fetch('data/apartments.json');
+            const apartments = await response.json();
+            // Сохраняем в localStorage
+            Storage.set(Storage.keys.apartments, apartments);
+            return apartments;
+        } catch (e) {
+            console.error('Ошибка загрузки недвижимости:', e);
+            // Пытаемся загрузить из localStorage
+            return Storage.get(Storage.keys.apartments) || [];
+        }
+    },
+
+    /**
+     * Получает всю недвижимость
+     * @returns {Array}
+     */
+    getApartments: function() {
+        return Storage.get(Storage.keys.apartments) || [];
+    },
+
+    /**
+     * Получает недвижимость по ID
+     * @param {number} id - ID недвижимости
+     * @returns {Object|null}
+     */
+    getApartmentById: function(id) {
+        const apartments = this.getApartments();
+        return apartments.find(apt => apt.id === parseInt(id)) || null;
+    },
+
+    /**
+     * Получает недвижимость пользователя (которую он сдает)
+     * @param {number} userId - ID пользователя
+     * @returns {Array}
+     */
+    getUserApartments: function(userId) {
+        const apartments = this.getApartments();
+        return apartments.filter(apt => apt.ownerId === userId);
+    },
+
+    /**
+     * Получает арендованную недвижимость пользователя
+     * @param {number} userId - ID пользователя
+     * @returns {Array}
+     */
+    getRentedApartments: function(userId) {
+        const rented = Storage.get(Storage.keys.rentedApartments) || [];
+        return rented.filter(rent => rent.tenantId === userId);
+    },
+
+    /**
+     * Арендовать недвижимость
+     * @param {number} apartmentId - ID недвижимости
+     * @param {number} userId - ID пользователя
+     * @param {Object} rentData - Данные об аренде
+     */
+    rentApartment: function(apartmentId, userId, rentData) {
+        const rented = Storage.get(Storage.keys.rentedApartments) || [];
+        rented.push({
+            apartmentId: apartmentId,
+            tenantId: userId,
+            startDate: rentData.startDate,
+            endDate: rentData.endDate,
+            guests: rentData.guests
+        });
+        Storage.set(Storage.keys.rentedApartments, rented);
+    }
+};
+
 const ModalUtils = {
     /**
      * Показывает модальное окно
@@ -202,12 +427,14 @@ function initRegistrationForm() {
     const form = document.getElementById('registerForm');
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
-        const email = document.getElementById('email').value;
         const errorDiv = document.getElementById('passwordError');
         
         // Валидация пароля
@@ -237,13 +464,35 @@ function initRegistrationForm() {
             return;
         }
 
+        // Проверка, не существует ли уже пользователь с таким email
+        const users = UserService.getUsers();
+        if (users.some(u => u.email === email)) {
+            if (errorDiv) {
+                errorDiv.textContent = 'Пользователь с таким email уже существует';
+                errorDiv.classList.remove('d-none');
+            }
+            return;
+        }
+
         // Скрываем ошибку если все валидно
         if (errorDiv) {
             errorDiv.classList.add('d-none');
         }
 
-        // Здесь будет логика отправки данных на сервер
+        // Регистрация пользователя
+        const newUser = UserService.register({
+            fullName,
+            email,
+            phone,
+            password
+        });
+
         ModalUtils.showSuccess('Регистрация успешно завершена!');
+        
+        // Перенаправление на личный кабинет
+        setTimeout(() => {
+            window.location.href = 'profile.html';
+        }, 1000);
     });
 }
 
@@ -264,13 +513,77 @@ function initLoginForm() {
             return;
         }
 
-        // Здесь будет логика отправки данных на сервер
-        ModalUtils.showSuccess('Вход выполнен успешно!');
+        // Авторизация
+        const user = UserService.login(email, password);
+        
+        if (user) {
+            ModalUtils.showSuccess('Вход выполнен успешно!');
+            // Перенаправление на личный кабинет
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 1000);
+        } else {
+            ModalUtils.showError('Неверный email или пароль');
+        }
     });
 }
 
+
+function updateNavigation() {
+    const navContainer = document.getElementById('navbarNav');
+    if (!navContainer) return;
+
+    const currentUser = UserService.getCurrentUser();
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop() || 'index.html';
+
+    let navHTML = '<ul class="navbar-nav ms-auto">';
+    
+    // Всегда показываем поиск
+    navHTML += `<li class="nav-item">
+        <a class="nav-link ${currentPage === 'search.html' ? 'active' : ''}" href="search.html">Поиск</a>
+    </li>`;
+
+    if (currentUser) {
+        // Если пользователь авторизован, показываем личный кабинет
+        navHTML += `<li class="nav-item">
+            <a class="nav-link ${currentPage === 'profile.html' ? 'active' : ''}" href="profile.html">Личный кабинет</a>
+        </li>`;
+    } else {
+        // Если не авторизован, показываем кнопки входа и регистрации только на страницах входа/регистрации
+        if (currentPage === 'login.html' || currentPage === 'register.html') {
+            if (currentPage === 'login.html') {
+                navHTML += `<li class="nav-item">
+                    <a class="nav-link active" href="login.html">Вход</a>
+                </li>`;
+                navHTML += `<li class="nav-item">
+                    <a class="nav-link" href="register.html">Регистрация</a>
+                </li>`;
+            } else {
+                navHTML += `<li class="nav-item">
+                    <a class="nav-link" href="login.html">Вход</a>
+                </li>`;
+                navHTML += `<li class="nav-item">
+                    <a class="nav-link active" href="register.html">Регистрация</a>
+                </li>`;
+            }
+        }
+    }
+    
+    navHTML += '</ul>';
+    navContainer.innerHTML = navHTML;
+}
+
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // Загружаем данные из JSON файлов
+    await UserService.loadUsers();
+    await ApartmentService.loadApartments();
+    
+    // Обновляем навигацию
+    updateNavigation();
+    
+    // Инициализируем формы
     initRegistrationForm();
     initLoginForm();
 });
@@ -278,6 +591,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Экспорт для использования в других скриптах
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
+        Storage,
+        UserService,
+        ApartmentService,
         ModalUtils,
         FormValidation,
         SearchFilters,

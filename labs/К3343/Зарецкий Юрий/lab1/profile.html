@@ -15,20 +15,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.html">Регистрация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="search.html">Поиск</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="profile.html">Личный кабинет</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </nav>
@@ -40,10 +26,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Информация о пользователе</h5>
-                        <p class="mb-1"><strong>Имя:</strong> Иван Иванов</p>
-                        <p class="mb-1"><strong>Email:</strong> ivan@example.com</p>
-                        <p class="mb-0"><strong>Телефон:</strong> +7 (999) 123-45-67</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title">Информация о пользователе</h5>
+                                <p class="mb-1"><strong>Имя:</strong> <span id="userName">Загрузка...</span></p>
+                                <p class="mb-1"><strong>Email:</strong> <span id="userEmail">Загрузка...</span></p>
+                                <p class="mb-0"><strong>Телефон:</strong> <span id="userPhone">Загрузка...</span></p>
+                            </div>
+                            <button class="btn btn-danger" onclick="logout()">Выйти</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,50 +60,49 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
     <script>
-        // Mock данные для демонстрации
-        const rentingProperties = [
-            {
-                id: 1,
-                title: "2-комнатная квартира в центре",
-                location: "Москва, ул. Тверская, д. 10",
-                price: 45000,
-                image: "https://via.placeholder.com/300x200?text=Квартира+1",
-                status: "Активна"
-            },
-            {
-                id: 2,
-                title: "Студия в новостройке",
-                location: "Санкт-Петербург, пр. Невский, д. 25",
-                price: 30000,
-                image: "https://via.placeholder.com/300x200?text=Студия",
-                status: "Активна"
+        // Обновляем навигацию после загрузки main.js
+        if (typeof updateNavigation === 'function') {
+            updateNavigation();
+        }
+        
+        // Проверка авторизации
+        async function checkAuth() {
+            await UserService.loadUsers();
+            const currentUser = UserService.getCurrentUser();
+            
+            if (!currentUser) {
+                alert('Для доступа к личному кабинету необходимо войти в систему');
+                window.location.href = 'login.html';
+                return false;
             }
-        ];
+            
+            return true;
+        }
 
-        const rentedProperties = [
-            {
-                id: 3,
-                title: "1-комнатная квартира",
-                location: "Казань, ул. Баумана, д. 5",
-                price: 25000,
-                image: "https://via.placeholder.com/300x200?text=Квартира+2",
-                status: "Арендована до 31.12.2024"
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                UserService.logout();
+                window.location.href = 'index.html';
             }
-        ];
+        }
 
         function renderPropertyCard(property, containerId) {
             const container = document.getElementById(containerId);
             const col = document.createElement('div');
             col.className = 'col-md-6 col-lg-4 mb-4';
+            const image = property.images && property.images.length > 0 
+                ? property.images[0] 
+                : "https://via.placeholder.com/300x200?text=Нет+фото";
             col.innerHTML = `
                 <div class="card h-100">
-                    <img src="${property.image}" class="card-img-top" alt="${property.title}" style="height: 200px; object-fit: cover;">
+                    <img src="${image}" class="card-img-top" alt="${property.title}" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">${property.title}</h5>
                         <p class="card-text text-muted">${property.location}</p>
                         <p class="card-text"><strong>${property.price.toLocaleString()} ₽/мес</strong></p>
-                        <p class="card-text"><span class="badge bg-success">${property.status}</span></p>
+                        <p class="card-text"><span class="badge bg-success">Активна</span></p>
                         <a href="property.html?id=${property.id}" class="btn btn-primary btn-sm">Подробнее</a>
                     </div>
                 </div>
@@ -120,9 +110,70 @@
             container.appendChild(col);
         }
 
-        // Отображение недвижимости
-        rentingProperties.forEach(prop => renderPropertyCard(prop, 'rentingProperties'));
-        rentedProperties.forEach(prop => renderPropertyCard(prop, 'rentedProperties'));
+        // Загрузка данных профиля
+        async function loadProfile() {
+            if (!await checkAuth()) {
+                return;
+            }
+
+            const currentUser = UserService.getCurrentUser();
+            
+            // Заполнение информации о пользователе
+            document.getElementById('userName').textContent = currentUser.fullName;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            document.getElementById('userPhone').textContent = currentUser.phone;
+
+            // Загрузка недвижимости
+            await ApartmentService.loadApartments();
+            
+            // Недвижимость, которую пользователь сдает
+            const rentingProperties = ApartmentService.getUserApartments(currentUser.id);
+            const rentingContainer = document.getElementById('rentingProperties');
+            rentingContainer.innerHTML = '';
+            
+            if (rentingProperties.length === 0) {
+                rentingContainer.innerHTML = '<div class="col-12"><div class="alert alert-info">У вас нет недвижимости для сдачи</div></div>';
+            } else {
+                rentingProperties.forEach(prop => renderPropertyCard(prop, 'rentingProperties'));
+            }
+
+            // Арендованная недвижимость
+            const rentedData = ApartmentService.getRentedApartments(currentUser.id);
+            const rentedContainer = document.getElementById('rentedProperties');
+            rentedContainer.innerHTML = '';
+            
+            if (rentedData.length === 0) {
+                rentedContainer.innerHTML = '<div class="col-12"><div class="alert alert-info">Вы еще не арендовали недвижимость</div></div>';
+            } else {
+                rentedData.forEach(rent => {
+                    const apartment = ApartmentService.getApartmentById(rent.apartmentId);
+                    if (apartment) {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-6 col-lg-4 mb-4';
+                        const image = apartment.images && apartment.images.length > 0 
+                            ? apartment.images[0] 
+                            : "https://via.placeholder.com/300x200?text=Нет+фото";
+                        col.innerHTML = `
+                            <div class="card h-100">
+                                <img src="${image}" class="card-img-top" alt="${apartment.title}" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">${apartment.title}</h5>
+                                    <p class="card-text text-muted">${apartment.location}</p>
+                                    <p class="card-text"><strong>${apartment.price.toLocaleString()} ₽/мес</strong></p>
+                                    <p class="card-text"><span class="badge bg-info">Арендована</span></p>
+                                    <p class="card-text small text-muted">С ${rent.startDate} по ${rent.endDate}</p>
+                                    <a href="property.html?id=${apartment.id}" class="btn btn-primary btn-sm">Подробнее</a>
+                                </div>
+                            </div>
+                        `;
+                        rentedContainer.appendChild(col);
+                    }
+                });
+            }
+        }
+
+        // Инициализация при загрузке страницы
+        loadProfile();
     </script>
 </body>
 </html>
