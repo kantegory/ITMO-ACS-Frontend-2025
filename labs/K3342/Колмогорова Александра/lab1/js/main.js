@@ -47,7 +47,7 @@ function loadRecipeCards(recipes, filters = {}) {
                             <h5 class="card-title">${r.title}</h5>
                             <p class="card-text m-0">${r.type}</p>
                             <p class="card-text">Сложность: ${r.difficulty}</p>
-                            <a href="recipe.html?id=${r.id}" class="btn btn-success">Посмотреть полностью</a>
+                            <a href="recipe.html?id=${r.id}" class="btn btn-success">Читать полностью</a>
                         </div>
                     </div>
                 </div>`;
