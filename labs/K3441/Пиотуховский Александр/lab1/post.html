@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пост - SharCook</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <i class="bi bi-egg-fried fs-3 me-2"></i>
+            <span class="fw-bold">SharCook</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto me-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search.html">Поиск</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Профиль</a>
+                </li>
+            </ul>
+            <div class="d-flex gap-2">
+                <a href="login.html" class="btn btn-outline-secondary">Войти</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="post-detail-section">
+    <div class="container">
+        <div class="post-detail-header mb-4">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="profile.html">Профиль</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Пост</li>
+                </ol>
+            </nav>
+
+            <div class="d-flex align-items-center mb-4">
+                <img id="author-avatar" src="" alt="Author" class="rounded-circle me-3" width="60" height="60">
+                <div>
+                    <h5 id="author-name" class="mb-1"></h5>
+                    <small id="post-date" class="text-muted"></small>
+                </div>
+            </div>
+
+            <h1 id="post-title" class="fw-bold mb-3"></h1>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-heart me-2"></i>
+                    <span id="like-count">0</span>
+                </button>
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-bookmark me-2"></i>
+                    Сохранить
+                </button>
+                <button class="btn btn-outline-secondary">
+                    <i class="bi bi-share me-2"></i>
+                    Поделиться
+                </button>
+            </div>
+        </div>
+
+        <div class="post-content mb-4">
+            <div id="post-content-text"></div>
+        </div>
+
+        <div id="post-images-section" class="post-images mb-4" style="display: none;">
+            <h3 class="fw-bold mb-4">
+                <i class="bi bi-images me-2"></i>
+                Фотографии
+            </h3>
+            <div id="post-images"></div>
+        </div>
+
+        <div id="post-recipes-section" class="post-recipes mb-4" style="display: none;">
+            <h3 class="fw-bold mb-4">
+                <i class="bi bi-book me-2"></i>
+                Рецепты
+            </h3>
+            <div id="post-recipes"></div>
+        </div>
+
+        <div class="comments-section">
+            <h3 class="fw-bold mb-4">
+                <i class="bi bi-chat-dots me-2"></i>
+                Комментарии (<span id="comment-count">0</span>)
+            </h3>
+
+            <div class="mb-4">
+                <textarea class="form-control mb-3" rows="3" placeholder="Напишите комментарий..."></textarea>
+                <button class="btn btn-primary">
+                    <i class="bi bi-send me-2"></i>
+                    Отправить
+                </button>
+            </div>
+
+            <div id="comments-list"></div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/mocks.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+    async function loadPost() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = parseInt(urlParams.get('id')) || 1;
+
+            const posts = await MockData.loadJSON('mocks/posts.json');
+            const users = await MockData.loadJSON('mocks/users.json');
+            const recipes = await MockData.loadJSON('mocks/recipes.json');
+            const comments = await MockData.loadJSON('mocks/comments.json');
+
+            if (!posts || !users) {
+                console.error('Failed to load data');
+                return;
+            }
+
+            const post = posts.find(p => p.id === postId);
+            if (!post) {
+                console.error('Post not found');
+                return;
+            }
+
+            const author = users.find(u => u.id === post.authorId);
+
+            document.getElementById('post-title').textContent = post.title;
+            document.getElementById('author-avatar').src = author?.photoUrl || 'https://placehold.co/60x60/999/fff?text=?';
+            document.getElementById('author-name').textContent = `${author?.firstName || 'Пользователь'} ${author?.lastName || ''}`;
+            document.getElementById('post-date').textContent = MockData.formatDate(post.createdAt);
+            document.getElementById('like-count').textContent = Math.floor(Math.random() * 200 + 50);
+
+            const contentDiv = document.getElementById('post-content-text');
+            contentDiv.innerHTML = MockData.parseMarkdown(post.content);
+
+            if (post.images && post.images.length > 0) {
+                document.getElementById('post-images-section').style.display = 'block';
+                const imagesContainer = document.getElementById('post-images');
+                imagesContainer.innerHTML = post.images
+                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .map(img => `
+                            <div class="post-image">
+                                <img src="${img.imageUrl}" alt="Post image ${img.displayOrder}">
+                            </div>
+                        `).join('');
+            }
+
+            if (post.recipes && post.recipes.length > 0 && recipes) {
+                document.getElementById('post-recipes-section').style.display = 'block';
+                const recipesContainer = document.getElementById('post-recipes');
+
+                const postRecipes = post.recipes
+                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .map(pr => recipes.find(r => r.id === pr.recipeId))
+                    .filter(r => r);
+
+                recipesContainer.innerHTML = postRecipes.map(recipe => {
+                    const recipeAuthor = users.find(u => u.id === recipe.authorId);
+                    return MockData.renderRecipeCardMini(recipe, recipeAuthor);
+                }).join('');
+            }
+
+            if (comments) {
+                const postComments = comments.filter(c => c.commentableType === 'post' && c.commentableId === postId);
+                document.getElementById('comment-count').textContent = postComments.length;
+
+                if (postComments.length > 0) {
+                    const commentsContainer = document.getElementById('comments-list');
+                    commentsContainer.innerHTML = MockData.renderCommentsTree(postComments, users);
+                }
+            }
+
+        } catch (error) {
+            console.error('Error loading post:', error);
+        }
+    }
+
+    loadPost();
+</script>
+</body>
+</html>
