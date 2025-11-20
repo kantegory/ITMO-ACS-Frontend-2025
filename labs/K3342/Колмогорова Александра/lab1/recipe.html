@@ -37,64 +37,6 @@
     </main>
     
     <script src="js/recipes-data.js"></script>
-    <script>
-        function loadRecipe() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const recipeId = urlParams.get('id');
-            const recipe = recipes[recipeId];
-            
-            if (!recipe) {
-                document.getElementById('recipe-container').innerHTML = '<p>Рецепт не найден</p>';
-                return;
-            }
-
-            document.title = recipe.title;
-            document.getElementById('recipe-container').innerHTML = `
-                <div class="text-center mb-4">
-                    <h1>${recipe.title}</h1>
-                    <div class="mt-2">
-                        <span class="badge bg-secondary me-2">Сложность: ${recipe.difficulty}</span>
-                        <span class="badge bg-primary me-2">${recipe.type}</span>
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3>Ингредиенты</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            ${recipe.ingredients.map(ing => `<li class="list-group-item">${ing}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3>Пошаговая инструкция приготовления</h3>
-                    </div>
-                    <div class="card-body">
-                        ${recipe.steps.map((step, index) => `
-                            <div class="mb-3">
-                                <h5>Шаг ${index + 1}</h5>
-                                <p>${step}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Фото готового блюда</h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <img src="${recipe.image}" class="img-fluid" alt="${recipe.title}">
-                    </div>
-                </div>
-            `;
-        }
-
-        loadRecipe();
-    </script>
+    <script src="js/recipe.js"></script>
 </body>
 </html>
