@@ -89,13 +89,12 @@ function displayAlbumInfo(album) {
     // обложка
     const albumCover = document.getElementById('albumCover');
     if (albumCover) {
-        albumCover.innerHTML = `
-            <div style="font-size: 120px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
-                ${album.cover}
-            </div>
-        `;
-    }
+            albumCover.innerHTML = album.coverUrl
+                ? `<img src="${album.coverUrl}" alt="" class="album-image">`
+                : `<div class="no-cover">Нет обложки</div>`;
 
+    }
+    
     // мета-информация (артист, год, жанр)
     const metaInfo = `${album.artist} • ${album.year} • ${album.genre}`;
     document.getElementById('albumMetaInfo').textContent = metaInfo;

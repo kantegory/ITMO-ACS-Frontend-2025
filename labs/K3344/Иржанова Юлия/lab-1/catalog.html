@@ -71,6 +71,7 @@
                 MOCK_ALBUMS = data;
                 console.log('Альбомы загружены:', MOCK_ALBUMS);
                 renderGenreFilters();
+                attachFilterEvents();
                 applyFilters();
             })
             .catch(error => console.error('Ошибка при загрузке альбомов:', error));

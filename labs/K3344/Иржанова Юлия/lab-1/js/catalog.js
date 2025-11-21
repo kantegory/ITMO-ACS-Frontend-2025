@@ -18,10 +18,8 @@ function initCatalog() {
  */
 function renderAlbums(albums) {
     const albumsList = document.getElementById('albumsList');
-    
     if (!albumsList) return;
 
-    // если нет альбомов - показать сообщение
     if (albums.length === 0) {
         albumsList.innerHTML = `
             <div class="col-12">
@@ -33,12 +31,15 @@ function renderAlbums(albums) {
         return;
     }
 
-    // отрендерить каждый альбом
     albumsList.innerHTML = albums.map(album => `
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
             <div class="card album-card" onclick="openAlbum(${album.id})">
                 <div class="album-cover">
-                    ${album.cover}
+                    ${
+                        album.coverUrl
+                        ? `<img src="${album.coverUrl}" alt="${album.albumTitle}" class="img-fluid rounded mb-1" style="height:70px;">`
+                        : `<span style="font-size:50px;">${album.cover}</span>`
+                    }
                     <div class="album-rating">${album.rating.toFixed(1)}</div>
                 </div>
                 <div class="album-info">
@@ -178,7 +179,7 @@ function applyFilters() {
 
         return true;
     });
-
+    
     // отрендерить отфильтрованные альбомы
     renderAlbums(filtered);
 }
