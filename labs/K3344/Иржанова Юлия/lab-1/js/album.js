@@ -116,6 +116,8 @@ function displayAlbumInfo(album) {
  * @param {Object} album
  */
 function displayTracks(album) {
+    console.log(album.tracks);
+    console.log('Треки для рендера:', album.tracks);
     const tracksList = document.getElementById('tracksList');
     
     if (!tracksList || !album.tracks || album.tracks.length === 0) {
@@ -311,5 +313,3 @@ function updateFavoriteButtonState(button, isFavorite) {
     }
 }
 
-// инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', initAlbumPage);

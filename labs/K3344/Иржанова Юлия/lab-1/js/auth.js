@@ -4,7 +4,7 @@
 
 /**
  * Получить текущего авторизованного пользователя
- * @returns {Object|null} Данные пользователя или null если не авторизован
+ * @returns {Object|null}
  */
 function getCurrentUser() {
     const user = localStorage.getItem('currentUser');
@@ -61,7 +61,7 @@ function validateEmail(email) {
 /**
  * Валидировать пароль
  * @param {string} password
- * @returns {Object} { valid: boolean, message: string }
+ * @returns {Object}
  */
 function validatePassword(password) {
     if (password.length < 6) {
@@ -163,7 +163,7 @@ if (document.getElementById('loginForm')) {
             email: user.email
         }));
 
-        console.log('✅ Вы вошли как:', user.name);
+        console.log('Вы вошли как:', user.name);
         alert('Добро пожаловать, ' + user.name + '!');
         window.location.href = 'catalog.html';
     });
@@ -268,7 +268,7 @@ if (document.getElementById('registerForm')) {
             email: newUser.email
         }));
 
-        console.log('Аккаунт создан и вы вошли как:', newUser.name);
+        console.log('✅ Аккаунт создан и вы вошли как:', newUser.name);
         alert('Добро пожаловать, ' + newUser.name + '! Аккаунт успешно создан.');
         window.location.href = 'catalog.html';
     });
@@ -285,7 +285,7 @@ document.querySelectorAll('#logoutBtn').forEach(btn => {
         
         const currentUser = getCurrentUser();
         if (currentUser) {
-            console.log('Вы вышли как:', currentUser.name);
+            console.log('👋 Вы вышли как:', currentUser.name);
             alert('До свидания, ' + currentUser.name + '!');
         }
         
@@ -298,15 +298,13 @@ document.querySelectorAll('#logoutBtn').forEach(btn => {
 
 /**
  * Проверить защиту страницы
- * Если пользователь не авторизован, редирект на login
  */
 function protectPage() {
-    // список защищённых страниц (исключаем login и register)
     const protectedPages = ['catalog.html', 'profile.html', 'album-detail.html'];
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
     if (protectedPages.includes(currentPage) && !isAuthenticated()) {
-        console.warn('Доступ запрещён. Зайдите в аккаунт.');
+        console.warn('⚠️ Доступ запрещён. Редирект на login.');
         window.location.href = 'login.html';
     }
 }
@@ -342,4 +340,51 @@ function initializeProfile() {
 /**
  * Обработка формы редактирования профиля
  */
-if (document.getElementById('editProfile
+if (document.getElementById('editProfileForm')) {
+    document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const newName = document.getElementById('editName').value.trim();
+        const newEmail = document.getElementById('editEmail').value.trim();
+
+        if (!newName || newName.length < 2) {
+            alert('Имя должно содержать минимум 2 символа');
+            return;
+        }
+
+        if (!validateEmail(newEmail)) {
+            alert('Некорректный формат email');
+            return;
+        }
+
+        const currentUser = getCurrentUser();
+        
+        // обновить текущего пользователя
+        currentUser.name = newName;
+        currentUser.email = newEmail;
+
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        // обновить данные в списке всех пользователей
+        const users = getAllUsers();
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        if (userIndex !== -1) {
+            users[userIndex].name = newName;
+            users[userIndex].email = newEmail;
+            saveUsers(users);
+        }
+
+        console.log('Профиль обновлен');
+        alert('Профиль успешно обновлен!');
+        
+        // закрыть модальное окно
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+        if (modal) modal.hide();
+
+        // обновить отображение профиля
+        initializeProfile();
+    });
+}
+
+// инициализировать профиль при загрузке
+document.addEventListener('DOMContentLoaded', initializeProfile);

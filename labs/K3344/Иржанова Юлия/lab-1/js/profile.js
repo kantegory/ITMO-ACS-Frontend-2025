@@ -97,38 +97,31 @@ function loadUserReviews(user) {
  */
 function loadUserFavorites(user) {
     const favoritesList = document.getElementById('favoritesList');
-    
     if (!favoritesList) return;
 
-    // получить ID избранных альбомов
-    const favorites = JSON.parse(localStorage.getItem(`favorites_${user.id}`) || '[]');
+    // Получаем ids избранных альбомов
+    const favoritesIds = JSON.parse(localStorage.getItem(`favorites_${user.id}`) || '[]');
+    console.log('favorite IDs:', favoritesIds);
+    console.log('MOCK_ALBUMS:', MOCK_ALBUMS);
 
-    // если нет избранных альбомов
-    if (favorites.length === 0) {
-        favoritesList.innerHTML = '<p class="text-muted">Нет избранных альбомов</p>';
+    // Находим объекты альбомов по id
+    const favoriteAlbums = MOCK_ALBUMS.filter(album => favoritesIds.includes(album.id));
+    console.log('favoriteAlbums:', favoriteAlbums);
+
+    // Отрисовка
+    if (favoriteAlbums.length === 0) {
+        favoritesList.innerHTML = 'Нет избранных альбомов';
         return;
     }
-
-    // получить данные альбомов
-    const favoriteAlbums = MOCK_ALBUMS.filter(album => favorites.includes(album.id));
-
-    // отрендерить альбомы
     favoritesList.innerHTML = favoriteAlbums.map(album => `
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card album-card" onclick="openAlbum(${album.id})">
-                <div class="album-cover">
-                    ${album.cover}
-                    <div class="album-rating">${album.rating.toFixed(1)}</div>
-                </div>
-                <div class="album-info">
-                    <div class="album-title">${album.albumTitle}</div>
-                    <div class="album-artist">${album.artist}</div>
-                    <div class="album-year">${album.year}</div>
-                </div>
-            </div>
+        <div class="album-card">
+            <h5>${album.albumTitle}</h5>
+            <p>${album.artist}</p>
+            <a href="album-detail.html?id=${album.id}" class="btn btn-primary btn-sm">Открыть альбом</a>
         </div>
     `).join('');
 }
+
 
 // редактирование профиля
 
@@ -195,9 +188,3 @@ function attachEditProfileHandler() {
         displayUserInfo(currentUser);
     });
 }
-
-// инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    initProfilePage();
-    attachEditProfileHandler();
-});

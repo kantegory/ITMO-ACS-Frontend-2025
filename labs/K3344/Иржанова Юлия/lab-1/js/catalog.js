@@ -209,5 +209,3 @@ function resetFilters() {
     renderAlbums(MOCK_ALBUMS);
 }
 
-// инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', initCatalog);
