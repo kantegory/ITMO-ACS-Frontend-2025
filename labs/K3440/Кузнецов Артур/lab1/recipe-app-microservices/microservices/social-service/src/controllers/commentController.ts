@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../config/database';
 import { Comment } from '../models/Comment';
-import { AuthRequest } from 'common-service';
-import { recipeExists, userExists } from 'common-service';
+import { AuthRequest, recipeExists, userExists } from 'common-service';
 
 const commentRepository = AppDataSource.getRepository(Comment);
 

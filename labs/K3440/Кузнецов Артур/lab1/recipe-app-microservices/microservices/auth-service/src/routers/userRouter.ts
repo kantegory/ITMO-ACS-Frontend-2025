@@ -1,7 +1,6 @@
 import { createUser, deleteUser, getUser, getUserMe, getUsers, updateUser } from '../controllers/userController';
 import { Router } from 'express';
-import { authMiddleware } from 'common-service';
-import { adminOnlyMiddleware } from 'common-service';
+import { adminOnlyMiddleware, authMiddleware } from 'common-service';
 
 const router = Router();
 

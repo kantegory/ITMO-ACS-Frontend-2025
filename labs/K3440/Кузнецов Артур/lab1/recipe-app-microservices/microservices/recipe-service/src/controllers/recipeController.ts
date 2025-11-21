@@ -3,9 +3,8 @@ import { AppDataSource } from '../config/database';
 import { Recipe } from '../models/Recipe';
 import { DishType } from '../models/DishType';
 import { RecipeDifficulty } from '../models/RecipeDifficulty';
-import { AuthRequest } from 'common-service';
+import { AuthRequest, userExists } from 'common-service';
 import { Ingredient } from '../models/Ingredient';
-import { userExists } from 'common-service';
 
 const recipeRepository = AppDataSource.getRepository(Recipe);
 const dishTypeRepository = AppDataSource.getRepository(DishType);

@@ -6,8 +6,7 @@ import {
     getRecipeDifficulty,
     updateRecipeDifficulty,
 } from '../controllers/recipeDifficultyController';
-import { authMiddleware } from 'common-service';
-import { adminOnlyMiddleware } from 'common-service';
+import { adminOnlyMiddleware, authMiddleware } from 'common-service';
 
 const router = Router();
 

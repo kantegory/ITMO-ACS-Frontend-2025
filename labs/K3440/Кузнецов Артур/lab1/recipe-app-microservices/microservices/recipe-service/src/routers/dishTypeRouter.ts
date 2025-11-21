@@ -6,8 +6,7 @@ import {
     getDishTypes,
     updateDishType,
 } from '../controllers/dishTypeController';
-import { authMiddleware } from 'common-service';
-import { adminOnlyMiddleware } from 'common-service';
+import { adminOnlyMiddleware, authMiddleware } from 'common-service';
 
 const router = Router();
 

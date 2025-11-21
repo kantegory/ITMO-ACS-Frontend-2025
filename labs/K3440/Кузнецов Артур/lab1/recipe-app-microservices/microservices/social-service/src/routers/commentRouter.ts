@@ -7,8 +7,7 @@ import {
     getOwnComments,
     updateComment,
 } from '../controllers/commentController';
-import { authMiddleware } from 'common-service';
-import { adminOnlyMiddleware } from 'common-service';
+import { adminOnlyMiddleware, authMiddleware } from 'common-service';
 
 const router = Router();
 

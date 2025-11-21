@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../config/database';
 import { Subscription } from '../models/Subscription';
-import { AuthRequest } from 'common-service';
-import { userExists } from 'common-service';
+import { AuthRequest, userExists } from 'common-service';
 
 const subscriptionRepository = AppDataSource.getRepository(Subscription);
 

@@ -1,8 +1,7 @@
 import { Response } from 'express';
 import { AppDataSource } from '../config/database';
 import { SavedRecipe } from '../models/SavedRecipe';
-import { AuthRequest } from 'common-service';
-import { recipeExists, userExists } from 'common-service';
+import { AuthRequest, recipeExists, userExists } from 'common-service';
 
 const savedRecipeRepository = AppDataSource.getRepository(SavedRecipe);
 

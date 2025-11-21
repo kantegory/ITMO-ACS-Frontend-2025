@@ -17,11 +17,11 @@ async function loadComponent(selector, url) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    await loadComponent("#header-placeholder", "header.html");
-    await loadComponent("#footer-placeholder", "footer.html");
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadComponent('#header-placeholder', 'header.html');
+    await loadComponent('#footer-placeholder', 'footer.html');
 
-    if (typeof updateNavigationControls === "function") {
+    if (typeof updateNavigationControls === 'function') {
         updateNavigationControls();
     }
 });

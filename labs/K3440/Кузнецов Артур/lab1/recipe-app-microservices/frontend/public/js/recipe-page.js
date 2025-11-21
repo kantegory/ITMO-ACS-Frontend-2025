@@ -7,17 +7,17 @@ const recipePageState = {
     author: null,
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
     initRecipePage().catch((error) => {
         console.error(error);
-        showInlineMessage("recipeAlert", error.message || "Не удалось загрузить рецепт");
+        showInlineMessage('recipeAlert', error.message || 'Не удалось загрузить рецепт');
     });
 });
 
 async function initRecipePage() {
-    const recipeId = Number(getQueryParam("id"));
+    const recipeId = Number(getQueryParam('id'));
     if (!Number.isInteger(recipeId)) {
-        showInlineMessage("recipeAlert", "Укажите рецепт через параметр ?id=");
+        showInlineMessage('recipeAlert', 'Укажите рецепт через параметр ?id=');
         return;
     }
 
@@ -37,35 +37,35 @@ async function initRecipePage() {
 async function loadRecipeDetails() {
     const response = await sendJsonRequest(`${API_BASE.RECIPE}/recipe/${recipePageState.recipeId}`);
     if (!response.ok) {
-        throw new Error(response.data?.message || "Рецепт не найден");
+        throw new Error(response.data?.message || 'Рецепт не найден');
     }
 
     const recipe = response.data;
     recipePageState.recipe = recipe;
 
-    document.getElementById("recipeTitle").innerText = recipe.title;
-    document.getElementById("recipeDescription").innerText = recipe.description || "Описание отсутствует.";
-    document.getElementById("recipeMeta").innerText = [
-        `Тип: ${recipe.dishType?.name || "-"}`,
-        `Сложность: ${recipe.recipeDifficulty?.name || "-"}`,
+    document.getElementById('recipeTitle').innerText = recipe.title;
+    document.getElementById('recipeDescription').innerText = recipe.description || 'Описание отсутствует.';
+    document.getElementById('recipeMeta').innerText = [
+        `Тип: ${recipe.dishType?.name || '-'}`,
+        `Сложность: ${recipe.recipeDifficulty?.name || '-'}`,
         `Порций: ${recipe.servings}`,
         `Время подготовки: ${formatMinutesToText(recipe.preparation_time)}`,
         `Время готовки: ${formatMinutesToText(recipe.cooking_time)}`,
-    ].join(" • ");
+    ].join(' • ');
 
-    const imageElement = document.getElementById("recipeImage");
+    const imageElement = document.getElementById('recipeImage');
     if (recipe.image) {
         imageElement.src = recipe.image;
         imageElement.alt = recipe.title;
     } else {
-        imageElement.classList.add("d-none");
+        imageElement.classList.add('d-none');
     }
 
     if (recipePageState.authorizedUser?.id === recipe.userId) {
-        const editButton = document.getElementById("editRecipeButton");
+        const editButton = document.getElementById('editRecipeButton');
         if (editButton) {
-            editButton.classList.remove("d-none");
-            editButton.addEventListener("click", () => {
+            editButton.classList.remove('d-none');
+            editButton.addEventListener('click', () => {
                 window.location.href = `edit-recipe.html?id=${recipe.id}`;
             });
         }
@@ -77,42 +77,42 @@ async function loadRecipeDetails() {
 }
 
 async function renderRecipeAuthor(userId) {
-    const authorElement = document.getElementById("recipeAuthor");
+    const authorElement = document.getElementById('recipeAuthor');
     if (!authorElement) return;
     if (!Number.isFinite(userId) || userId <= 0) {
-        authorElement.innerText = "Автор: неизвестно";
+        authorElement.innerText = 'Автор: неизвестно';
         return;
     }
 
     const response = await sendJsonRequest(`${API_BASE.AUTH}/user/${userId}`);
     if (!response.ok) {
-        authorElement.innerText = "Автор: неизвестно";
+        authorElement.innerText = 'Автор: неизвестно';
         return;
     }
 
     const author = response.data;
     recipePageState.author = author;
     const fullName = `${escapeHtml(author.first_name)} ${escapeHtml(author.last_name)}`.trim();
-    authorElement.innerHTML = `Автор: <a href="user.html?id=${author.id}">${fullName || "Профиль пользователя"}</a>`;
+    authorElement.innerHTML = `Автор: <a href="user.html?id=${author.id}">${fullName || 'Профиль пользователя'}</a>`;
 }
 
 function renderIngredients(ingredients) {
-    const list = document.getElementById("ingredientsList");
-    const counter = document.getElementById("ingredientsCount");
+    const list = document.getElementById('ingredientsList');
+    const counter = document.getElementById('ingredientsCount');
     if (counter) counter.innerText = ingredients.length;
     if (!list) return;
 
     if (!ingredients.length) {
-        list.innerHTML = "<li class='list-group-item text-muted'>Ингредиенты не указаны.</li>";
+        list.innerHTML = '<li class=\'list-group-item text-muted\'>Ингредиенты не указаны.</li>';
         return;
     }
 
-    list.innerHTML = "";
+    list.innerHTML = '';
     ingredients.forEach((entry) => {
-        const item = document.createElement("li");
-        item.className = "list-group-item d-flex justify-content-between align-items-center";
+        const item = document.createElement('li');
+        item.className = 'list-group-item d-flex justify-content-between align-items-center';
         item.innerHTML = `
-            <span>${escapeHtml(entry.ingredient?.name || "Ингредиент")}</span>
+            <span>${escapeHtml(entry.ingredient?.name || 'Ингредиент')}</span>
             <span class="text-muted">${entry.quantity} ${entry.unit}</span>
         `;
         list.appendChild(item);
@@ -120,18 +120,18 @@ function renderIngredients(ingredients) {
 }
 
 function renderSteps(steps) {
-    const list = document.getElementById("stepsList");
+    const list = document.getElementById('stepsList');
     if (!list) return;
 
     if (!steps.length) {
-        list.innerHTML = "<div class='entity-list-empty'>Шаги приготовления появятся позже.</div>";
+        list.innerHTML = '<div class=\'entity-list-empty\'>Шаги приготовления появятся позже.</div>';
         return;
     }
 
-    list.innerHTML = "";
+    list.innerHTML = '';
     steps.forEach((step) => {
-        const row = document.createElement("div");
-        row.className = "step-row";
+        const row = document.createElement('div');
+        row.className = 'step-row';
         row.innerHTML = `
             <div class="d-flex align-items-center mb-2">
                 <span class="step-number-badge">${step.step_number}</span>
@@ -144,30 +144,30 @@ function renderSteps(steps) {
 }
 
 async function loadComments() {
-    const container = document.getElementById("commentsContainer");
+    const container = document.getElementById('commentsContainer');
     if (!container) return;
 
-    container.innerHTML = createLoadingPlaceholder("Загружаем комментарии...");
+    container.innerHTML = createLoadingPlaceholder('Загружаем комментарии...');
 
     const response = await sendJsonRequest(`${API_BASE.SOCIAL}/comment/${recipePageState.recipeId}`);
     if (!response.ok) {
-        renderEmptyState(container, "Не удалось загрузить комментарии.");
-        showInlineMessage("recipeAlert", response.data?.message || "Ошибка загрузки комментариев.");
+        renderEmptyState(container, 'Не удалось загрузить комментарии.');
+        showInlineMessage('recipeAlert', response.data?.message || 'Ошибка загрузки комментариев.');
         return;
     }
 
     const comments = response.data ?? [];
-    const commentsCounter = document.getElementById("commentsCount");
+    const commentsCounter = document.getElementById('commentsCount');
     if (commentsCounter) commentsCounter.innerText = comments.length;
     if (!comments.length) {
-        renderEmptyState(container, "Комментариев пока нет.");
+        renderEmptyState(container, 'Комментариев пока нет.');
         return;
     }
 
-    container.innerHTML = "";
+    container.innerHTML = '';
     comments.forEach((comment) => {
-        const card = document.createElement("div");
-        card.className = "card comment-card mb-3";
+        const card = document.createElement('div');
+        card.className = 'card comment-card mb-3';
         card.innerHTML = `
             <div class="card-body">
                 <div class="comment-meta mb-2">
@@ -182,8 +182,8 @@ async function loadComments() {
 }
 
 function setupCommentForm() {
-    const form = document.getElementById("commentForm");
-    const wrapper = document.getElementById("commentFormWrapper");
+    const form = document.getElementById('commentForm');
+    const wrapper = document.getElementById('commentFormWrapper');
     if (!form || !wrapper) return;
 
     if (!recipePageState.authorizedUser) {
@@ -195,41 +195,41 @@ function setupCommentForm() {
         return;
     }
 
-    form.addEventListener("submit", handleCommentSubmit);
+    form.addEventListener('submit', handleCommentSubmit);
 }
 
 async function handleCommentSubmit(event) {
     event.preventDefault();
     if (!requireAuthOrRedirect()) return;
-    const textarea = document.getElementById("commentText");
-    const submitButton = document.getElementById("commentSubmitButton");
+    const textarea = document.getElementById('commentText');
+    const submitButton = document.getElementById('commentSubmitButton');
     if (!textarea.value.trim()) {
-        showInlineMessage("recipeAlert", "Введите текст комментария.");
+        showInlineMessage('recipeAlert', 'Введите текст комментария.');
         return;
     }
 
     submitButton.disabled = true;
     const response = await sendJsonRequest(
         `${API_BASE.SOCIAL}/comment/${recipePageState.recipeId}`,
-        "POST",
+        'POST',
         { content: textarea.value.trim() },
     );
 
     submitButton.disabled = false;
     if (!response.ok) {
-        showInlineMessage("recipeAlert", response.data?.message || "Не удалось отправить комментарий.");
+        showInlineMessage('recipeAlert', response.data?.message || 'Не удалось отправить комментарий.');
         return;
     }
 
-    textarea.value = "";
-    hideInlineMessage("recipeAlert");
+    textarea.value = '';
+    hideInlineMessage('recipeAlert');
     await loadComments();
 }
 
 async function loadLikes() {
     const response = await sendJsonRequest(`${API_BASE.SOCIAL}/like/recipe/${recipePageState.recipeId}`);
     if (!response.ok) {
-        showInlineMessage("recipeAlert", response.data?.message || "Не удалось получить лайки.");
+        showInlineMessage('recipeAlert', response.data?.message || 'Не удалось получить лайки.');
         return;
     }
 
@@ -242,41 +242,41 @@ async function loadLikes() {
 }
 
 function updateLikesUi() {
-    const counter = document.getElementById("likesCount");
-    const likeButton = document.getElementById("likeButton");
+    const counter = document.getElementById('likesCount');
+    const likeButton = document.getElementById('likeButton');
     if (counter) counter.innerText = `${recipePageState.likes.length}`;
 
     if (!likeButton) return;
     if (!recipePageState.authorizedUser) {
-        likeButton.innerText = "Войти, чтобы поставить лайк";
+        likeButton.innerText = 'Войти, чтобы поставить лайк';
         likeButton.disabled = false;
         likeButton.onclick = () => redirectToLogin();
         return;
     }
 
     if (recipePageState.userLike) {
-        likeButton.classList.remove("btn-outline-primary");
-        likeButton.classList.add("btn-primary");
-        likeButton.innerText = "Убрать лайк";
+        likeButton.classList.remove('btn-outline-primary');
+        likeButton.classList.add('btn-primary');
+        likeButton.innerText = 'Убрать лайк';
         likeButton.onclick = handleUnlike;
     } else {
-        likeButton.classList.add("btn-outline-primary");
-        likeButton.classList.remove("btn-primary");
-        likeButton.innerText = "Нравится";
+        likeButton.classList.add('btn-outline-primary');
+        likeButton.classList.remove('btn-primary');
+        likeButton.innerText = 'Нравится';
         likeButton.onclick = handleLike;
     }
 }
 
 async function handleLike() {
     if (!requireAuthOrRedirect()) return;
-    const likeButton = document.getElementById("likeButton");
+    const likeButton = document.getElementById('likeButton');
     likeButton.disabled = true;
-    const response = await sendJsonRequest(`${API_BASE.SOCIAL}/like`, "POST", {
+    const response = await sendJsonRequest(`${API_BASE.SOCIAL}/like`, 'POST', {
         recipeId: recipePageState.recipeId,
     });
     likeButton.disabled = false;
     if (!response.ok) {
-        showInlineMessage("recipeAlert", response.data?.message || "Не удалось поставить лайк.");
+        showInlineMessage('recipeAlert', response.data?.message || 'Не удалось поставить лайк.');
         return;
     }
     await loadLikes();
@@ -284,35 +284,35 @@ async function handleLike() {
 
 async function handleUnlike() {
     if (!requireAuthOrRedirect()) return;
-    const likeButton = document.getElementById("likeButton");
+    const likeButton = document.getElementById('likeButton');
     likeButton.disabled = true;
-    const response = await sendJsonRequest(`${API_BASE.SOCIAL}/like/${recipePageState.userLike.id}`, "DELETE");
+    const response = await sendJsonRequest(`${API_BASE.SOCIAL}/like/${recipePageState.userLike.id}`, 'DELETE');
     likeButton.disabled = false;
     if (!response.ok) {
-        showInlineMessage("recipeAlert", response.data?.message || "Не удалось убрать лайк.");
+        showInlineMessage('recipeAlert', response.data?.message || 'Не удалось убрать лайк.');
         return;
     }
     await loadLikes();
 }
 
 function setupShareModal() {
-    const shareLinkInput = document.getElementById("shareLinkInput");
+    const shareLinkInput = document.getElementById('shareLinkInput');
     if (!shareLinkInput) return;
     shareLinkInput.value = window.location.href;
 }
 
 function copyShareLink() {
-    const shareLinkInput = document.getElementById("shareLinkInput");
+    const shareLinkInput = document.getElementById('shareLinkInput');
     if (!shareLinkInput) return;
     shareLinkInput.select();
     shareLinkInput.setSelectionRange(0, shareLinkInput.value.length);
     navigator.clipboard.writeText(shareLinkInput.value)
         .then(() => {
-            showInlineMessage("recipeAlert", "Ссылка скопирована в буфер обмена.", "success");
-            setTimeout(() => hideInlineMessage("recipeAlert"), 2500);
+            showInlineMessage('recipeAlert', 'Ссылка скопирована в буфер обмена.', 'success');
+            setTimeout(() => hideInlineMessage('recipeAlert'), 2500);
         })
         .catch(() => {
-            showInlineMessage("recipeAlert", "Не удалось скопировать ссылку.");
+            showInlineMessage('recipeAlert', 'Не удалось скопировать ссылку.');
         });
 }
 
