@@ -17,7 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="card-body">
             <h5 class="card-title">${r.name}</h5>
             <p class="card-text text-muted">${r.cuisine} · ${r.location} · ${'₽'.repeat(r.price)}</p>
-            <button class="btn btn-primary btn-book" data-id="${r.id}" data-name="${r.name}">Забронировать</button>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary btn-more" data-id="${r.id}">Подробнее</button>
+              <button class="btn btn-primary btn-book" data-id="${r.id}" data-name="${r.name}">Забронировать</button>
+              </div>
           </div>
         </div>`;
       list.appendChild(col);
@@ -38,6 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('bookingDate').value = '';
         document.getElementById('guestsCount').value = 2;
         bookingModal.show();
+      });
+    });
+
+    document.querySelectorAll('.btn-more').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const id = e.currentTarget.dataset.id;
+        window.location.href = `restaurant.html?id=${id}`;
       });
     });
 
