@@ -129,6 +129,11 @@ function showTrainingDetails(title) {
 
 // Инициализация и обработчики событий
 window.onload = () => {
+    // Скрываем все секции
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('d-none');
+    });
+
     showPage('home-page');
     
     // Проверка авторизации
@@ -138,7 +143,7 @@ window.onload = () => {
     }
 
     // Переключение страниц
-    document.querySelectorAll('.navbar-nav .nav-link, .navbar-brand, .btn[data-page]').forEach(link => {
+    document.querySelectorAll('[data-page]').forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
             const pageId = link.dataset.page;
