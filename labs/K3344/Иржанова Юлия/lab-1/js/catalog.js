@@ -37,7 +37,7 @@ function renderAlbums(albums) {
                 <div class="album-cover">
                     ${
                         album.coverUrl
-                        ? `<img src="${album.coverUrl}" alt="${album.albumTitle}" class="img-fluid rounded mb-1" style="height:70px;">`
+                        ? `<img src="${album.coverUrl}" alt="${album.albumTitle}" class="img-fluid rounded mb-1">`
                         : `<span style="font-size:50px;">${album.cover}</span>`
                     }
                     <div class="album-rating">${album.rating.toFixed(1)}</div>

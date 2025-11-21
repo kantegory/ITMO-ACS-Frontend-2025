@@ -59,80 +59,53 @@ body {
 }
 
 /* карточки альбомов */
-
-.album-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    height: 100%;
-    background: var(--spotify-card);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid transparent;
+.card.album-card {
+    transition: box-shadow 0.22s, transform 0.19s;
+}
+.card.album-card:hover {
+    box-shadow: 0 22px 48px #23e87827, 0 8px 32px #19191955;
+    transform: translateY(-8px) scale(1.04);
+    z-index: 2;
 }
 
-.album-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(29, 185, 84, 0.25);
-    background: #333;
-    border-color: var(--primary-color);
-}
-
-.album-cover {
-    width: 100%;
-    height: 250px;
-    background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
-    border-radius: 12px 12px 0 0;
+.card.album-card {
+    padding: 0;
+    background: #24292f;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px #19191933;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    color: white;
-    position: relative;
+    flex-direction: column;
     overflow: hidden;
 }
 
-.album-cover::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0);
-    transition: background 0.3s ease;
+.album-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    display: block;
 }
-
-.album-card:hover .album-cover::before {
-    background: rgba(0, 0, 0, 0.1);
+.album-info {
+    padding: 18px 22px 14px 22px;
+    background: #24292f;
+    border-radius: 0 0 18px 18px;
+    min-height: 115px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
 }
-
 .album-rating {
     position: absolute;
+    right: 18px;
     top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: var(--primary-color);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 13px;
-    z-index: 1;
-    backdrop-filter: blur(4px);
-}
-
-.album-info {
-    padding: 15px;
-    background: var(--spotify-card);
-}
-
-.album-title {
-    color: var(--text-primary);
-    font-weight: 700;
-    margin-bottom: 5px;
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    background: rgba(30,217,84,0.14);
+    color: #1DB954;
+    font-weight: 800;
+    font-size: 17px;
+    border-radius: 8px;
+    padding: 7px 13px 6px 13px;
 }
 
 .album-artist {
@@ -152,32 +125,35 @@ body {
 /* карточки и контейнеры */
 
 .card {
-    background-color: var(--spotify-card);
-    border: 1px solid var(--spotify-border);
-    color: var(--text-primary);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    background: #24292f;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px #19191933;
+    border: none;
+    border-left: 4px solid #1DB954;
 }
-
-.card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-.card-title {
-    color: var(--text-primary);
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
 .card-body {
-    padding: 20px;
+    padding: 28px 20px 22px 20px;
+}
+.card-title {
+    color: #1DB954;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 14px;
+    letter-spacing: .2px;
 }
 
-.card-header,
-.card-footer {
-    background-color: rgba(255, 255, 255, 0.03);
-    border-color: var(--spotify-border);
+.col-lg-3 {
+    min-width: 260px;
+    max-width: 330px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    background: #1DB954;
+}
+input[type="checkbox"] {
+    accent-color: #1DB954;
+    width: 18px;
+    height: 18px;
 }
 
 /* формы */
@@ -191,6 +167,11 @@ body {
     padding: 10px 14px;
     font-size: 14px;
     transition: all 0.3s ease;
+}
+
+.form-label,
+.text-muted {
+    color: #b3b3b3 !important;
 }
 
 .form-control::placeholder {
@@ -234,6 +215,22 @@ body {
     font-size: 12px;
     margin-top: 4px;
 }
+
+.form-check {
+    padding-left: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-left: 0 !important;
+    margin-right: 14px;
+    width: 20px;
+    height: 20px;
+    position: static;
+}
+
 
 /* кнопки */
 
@@ -747,6 +744,13 @@ body {
 }
 
 /* адаптивность */
+
+@media (min-width: 1000px) {
+    .col-lg-3 {
+        position: sticky;
+        top: 40px;
+    }
+}
 
 @media (max-width: 992px) {
     .album-hero {
