@@ -42,30 +42,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     bookingForm.addEventListener('submit', e => {
-  e.preventDefault();
+      e.preventDefault();
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  if (!currentUser) {
-    alert('Сначала войдите в аккаунт');
-    return;
-  }
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (!currentUser) {
+        alert('Сначала войдите в аккаунт');
+        return;
+      }
 
-  const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
 
-  bookings.push({
-    email: currentUser.email, // привязка к пользователю
-    id: document.getElementById('restaurantId').value,
-    name: bookingTitle.textContent.replace('Бронирование: ',''),
-    date: document.getElementById('bookingDate').value,
-    guests: document.getElementById('guestsCount').value
-  });
+      bookings.push({
+        email: currentUser.email,
+        id: document.getElementById('restaurantId').value,
+        name: bookingTitle.textContent.replace('Бронирование: ',''),
+        date: document.getElementById('bookingDate').value,
+        guests: document.getElementById('guestsCount').value
+      });
 
-  localStorage.setItem('bookings', JSON.stringify(bookings));
-  alert('Бронирование сохранено локально');
-  bookingModal.hide();
-});
-
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+      alert('Бронирование сохранено');
+      bookingModal.hide();
+    });
   }
 
   render(restaurantsData);
+
+  // фильтры
+  document.getElementById('applyFilters').addEventListener('click', () => {
+  const cuisine = document.getElementById('filterCuisine').value.trim();
+  const location = document.getElementById('filterLocation').value.trim().toLowerCase();
+  const price = document.getElementById('filterPrice').value;
+
+  let filtered = restaurantsData;
+
+  if (cuisine !== "") {
+    filtered = filtered.filter(r => r.cuisine === cuisine);
+  }
+
+  if (location !== "") {
+    filtered = filtered.filter(r => r.location.toLowerCase().includes(location));
+  }
+
+  if (price !== "") {
+    filtered = filtered.filter(r => r.price <= Number(price));
+  }
+
+  render(filtered);
+});
+
+
 });
