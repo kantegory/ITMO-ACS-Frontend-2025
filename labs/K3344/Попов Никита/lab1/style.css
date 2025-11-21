@@ -10,7 +10,13 @@ header h1 {
     max-width: 400px;
 }
 
-.card img {
+.card img, .carousel-inner img {
     height: 150px;
     object-fit: cover;
+}
+
+#restaurantCarousel .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    width: 100%;
 }
