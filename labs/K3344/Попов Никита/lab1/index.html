@@ -20,6 +20,47 @@
 <main class="container mt-5">
     <h2>Добро пожаловать!</h2>
     <p>Забронируйте столик в любимом ресторане легко и быстро.</p>
+
+    <section class="my-5">
+        <h3>Поиск ресторанов</h3>
+        <form id="searchForm" class="row g-3">
+            <div class="col-md-4">
+                <label for="cuisine" class="form-label">Кухня</label>
+                <select class="form-select" id="cuisine">
+                    <option value="">Все</option>
+                    <option>Итальянская</option>
+                    <option>Японская</option>
+                    <option>Русская</option>
+                    <option>Фастфуд</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="location" class="form-label">Расположение</label>
+                <select class="form-select" id="location">
+                    <option value="">Все</option>
+                    <option>Центр</option>
+                    <option>Север</option>
+                    <option>Юг</option>
+                    <option>Восток</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="price" class="form-label">Цена</label>
+                <select class="form-select" id="price">
+                    <option value="">Любая</option>
+                    <option>₽</option>
+                    <option>₽₽</option>
+                    <option>₽₽₽</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="button" class="btn btn-primary" id="searchBtn">Найти</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="row" id="restaurantList">
+    </section>
 </main>
 
 <div class="modal" tabindex="-1" id="loginModal">

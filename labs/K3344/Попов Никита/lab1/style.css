@@ -9,3 +9,8 @@ header h1 {
 .modal .modal-dialog {
     max-width: 400px;
 }
+
+.card img {
+    height: 150px;
+    object-fit: cover;
+}
