@@ -42,18 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     bookingForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const bookings = JSON.parse(localStorage.getItem('bookings')||'[]');
-      bookings.push({
-        id: document.getElementById('restaurantId').value,
-        name: bookingTitle.textContent.replace('Бронирование: ',''),
-        date: document.getElementById('bookingDate').value,
-        guests: document.getElementById('guestsCount').value
-      });
-      localStorage.setItem('bookings', JSON.stringify(bookings));
-      alert('Бронирование сохранено локально');
-      bookingModal.hide();
-    });
+  e.preventDefault();
+
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if (!currentUser) {
+    alert('Сначала войдите в аккаунт');
+    return;
+  }
+
+  const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+
+  bookings.push({
+    email: currentUser.email, // привязка к пользователю
+    id: document.getElementById('restaurantId').value,
+    name: bookingTitle.textContent.replace('Бронирование: ',''),
+    date: document.getElementById('bookingDate').value,
+    guests: document.getElementById('guestsCount').value
+  });
+
+  localStorage.setItem('bookings', JSON.stringify(bookings));
+  alert('Бронирование сохранено локально');
+  bookingModal.hide();
+});
+
   }
 
   render(restaurantsData);
