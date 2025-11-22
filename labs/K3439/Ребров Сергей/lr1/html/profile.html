@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <title>Личный кабинет</title>
+	
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="search.html">JobFinder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="search.html">Поиск</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Аккаунт</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 col-lg-10 p-4">
+            <h2 class="mb-4">Мое резюме</h2>
+            <div class="resume-section">
+                <h5>Личные данные</h5>
+                <p><strong>Имя:</strong> Алексей Алексеев</p>
+                <p><strong>Email:</strong> alex@example.com</p>
+                <p><strong>Телефон:</strong> +7 777 123 45 67</p>
+            </div>
+            <div class="resume-section">
+                <h5>Образование</h5>
+                <p>Бакалавр информационных технологий, Национальный университет, 2015–2019</p>
+            </div>
+            <div class="resume-section">
+                <h5>Опыт работы</h5>
+                <p><strong>Front-end разработчик</strong> — IT-компания, 2019–2023</p>
+                <p>Создание и поддержка веб-приложений, работа с HTML, CSS, JavaScript, React.</p>
+            </div>
+            <div class="resume-section">
+                <h5>Навыки</h5>
+                <ul>
+                    <li>HTML, CSS, JavaScript</li>
+                    <li>Bootstrap, React</li>
+                    <li>Git, GitHub</li>
+                </ul>
+            </div>
+            <div>
+                <button class="btn btn-primary">Редактировать резюме</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
