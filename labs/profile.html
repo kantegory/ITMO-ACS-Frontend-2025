@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кабинет — Рецепты</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Рецепты</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+            <li class="nav-item"><a class="nav-link" href="search.html">Поиск</a></li>
+            <li class="nav-item"><a class="nav-link active" href="profile.html">Кабинет</a></li>
+          </ul>
+
+          <form class="d-flex me-3" role="search" action="search.html" method="get">
+            <input class="form-control me-2" type="search" placeholder="Поиск рецептов" aria-label="Search" name="q">
+            <button class="btn btn-outline-primary" type="submit">Найти</button>
+          </form>
+
+          <div class="d-flex align-items-center">
+            <a class="btn btn-outline-secondary me-2" href="login.html">Войти</a>
+            <a class="btn btn-primary" href="register.html">Регистрация</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN: кабинет пользователя -->
+  <main class="container my-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="assets/img/avatar-placeholder.jpg" alt="Аватар" class="rounded-circle mb-3" width="96" height="96">
+            <h5 class="card-title mb-0" id="profileName">Имя Пользователя</h5>
+            <p class="text-muted small" id="profileEmail">email@example.com</p>
+            <a href="#" class="btn btn-outline-primary btn-sm mt-2" id="logoutBtn">Выйти</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6 class="mb-2">Быстрые действия</h6>
+            <a class="btn btn-sm btn-primary w-100 mb-2" href="#">Добавить рецепт</a>
+            <a class="btn btn-sm btn-outline-secondary w-100" href="#">Мои публикации</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <h4 class="mb-3">Сохраненные рецепты</h4>
+        <div id="savedRecipes" class="row g-3">
+          <div class="col-12">
+            <p class="text-muted">У вас пока нет сохраненных рецептов.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-light py-4 mt-auto">
+    <div class="container text-center">
+      <p class="mb-1">© 2025 Recipes — учебный проект</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
