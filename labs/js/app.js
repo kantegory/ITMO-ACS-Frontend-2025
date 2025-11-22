@@ -1,65 +1,49 @@
-// ---- Helpers ----
+// ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
 function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = s == null ? '' : String(s);
-  return d.innerHTML;
+  const div = document.createElement('div');
+  div.textContent = s ?? '';
+  return div.innerHTML;
 }
-function qS(selector) { return document.querySelector(selector); }
-function qSA(selector) { return Array.from(document.querySelectorAll(selector)); }
-function getParam(name) { return new URLSearchParams(window.location.search).get(name); }
+function qS(sel) { return document.querySelector(sel); }
+function qSA(sel) { return document.querySelectorAll(sel); }
+function getParam(name) { return new URLSearchParams(location.search).get(name); }
 
-// ---- LocalStorage для лайков ----
-const LS_LIKES = 'recipes_likes_v1';
-function loadLikes() {
+// ----- ЛАЙКИ -----
+const LS_LIKES = 'recipes_likes';
+function getLikes() {
   try { return JSON.parse(localStorage.getItem(LS_LIKES)) || {}; }
   catch { return {}; }
 }
-function saveLikes(obj) {
-  try { localStorage.setItem(LS_LIKES, JSON.stringify(obj)); }
-  catch(e) { console.warn('LS save failed', e); }
-}
-function incLike(id) {
-  const m = loadLikes();
-  const k = String(id);
-  m[k] = (m[k] || 0) + 1;
-  saveLikes(m);
-  return m[k];
-}
-function getLikeCount(id) {
-  const m = loadLikes();
-  return m[String(id)] ?? 0;
+function saveLikes(data) { localStorage.setItem(LS_LIKES, JSON.stringify(data)); }
+function likeRecipe(id) {
+  const likes = getLikes();
+  likes[id] = (likes[id] || 0) + 1;
+  saveLikes(likes);
+  return likes[id];
 }
 
-// ---- Image fallback (помощь при проблемах) ----
-window.handleImageError = function(imgEl, fallback = 'assets/img/example.jpg') {
-  if (!imgEl) return;
-  imgEl.onerror = null;
-  imgEl.src = fallback;
-  imgEl.classList.add('img-fallback');
-};
-
-// ---- Card template ----
+// ----- РЕНДЕР КАРТОЧЕК (главная и поиск) -----
 function renderCard(recipe) {
-  const likes = getLikeCount(recipe.id) || recipe.likes || 0;
+  const likes = getLikes()[recipe.id] || 0;
+  const mainImg = recipe.image || (recipe.images && recipe.images[0]) || 'assets/img/example.jpg';
+
   return `
     <div class="col-12 col-sm-6 col-md-4">
       <div class="card h-100 shadow-sm">
-        <img src="${esc(recipe.image)}"
-             class="card-img-top"
-             alt="${esc(recipe.title)}"
-             onerror="handleImageError(this)">
+        <img src="${mainImg}" class="card-img-top" alt="${esc(recipe.title)}"
+             onerror="this.src='assets/img/example.jpg'">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">${esc(recipe.title)}</h5>
           <p class="card-text text-truncate">${esc(recipe.short || '')}</p>
           <div class="mt-auto d-flex justify-content-between align-items-center">
             <div>
-              <small class="text-muted">${esc(String(recipe.time || '—'))} мин</small>
+              <small class="text-muted">${recipe.time || '-'} мин</small>
               <span class="badge bg-secondary ms-2">${esc(recipe.difficulty || '')}</span>
             </div>
-            <div class="d-flex align-items-center">
-              <a href="recipe.html?id=${encodeURIComponent(String(recipe.id))}" class="btn btn-sm btn-primary me-2">Просмотр</a>
-              <button class="btn btn-outline-danger btn-sm like-btn" data-id="${esc(String(recipe.id))}">❤</button>
-              <small class="text-muted ms-2 likes-count" data-id="${esc(String(recipe.id))}">${esc(String(likes))}</small>
+            <div>
+              <a href="recipe.html?id=${recipe.id}" class="btn btn-sm btn-primary me-2">Просмотр</a>
+              <button class="btn btn-outline-danger btn-sm like-btn" data-id="${recipe.id}">❤</button>
+              <small class="ms-1">${likes}</small>
             </div>
           </div>
         </div>
@@ -68,71 +52,152 @@ function renderCard(recipe) {
   `;
 }
 
-// ---- Render grid ----
-function renderGrid(filterQ = '') {
+function renderGrid() {
   const container = document.getElementById('recipesGrid');
   if (!container) return;
-  if (typeof RECIPES === 'undefined' || !Array.isArray(RECIPES)) {
-    container.innerHTML = '<div class="col-12"><div class="alert alert-danger">Recipes not found (js/data.js)</div></div>';
-    return;
+
+  const q = (getParam('q') || '').toLowerCase();
+  let list = RECIPES;
+
+  if (q) {
+    list = RECIPES.filter(r =>
+      r.title.toLowerCase().includes(q) ||
+      (r.short && r.short.toLowerCase().includes(q))
+    );
   }
 
-  const q = (filterQ || '').trim().toLowerCase();
-  const list = q ? RECIPES.filter(r => (r.title||'').toLowerCase().includes(q) || (r.short||'').toLowerCase().includes(q)) : RECIPES;
+  container.innerHTML = list.map(renderCard).join('');
 
-  container.innerHTML = list.map(renderCard).join('\n');
-
-  // bind like buttons
+  // привязываем лайки на карточках
   qSA('.like-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const id = btn.getAttribute('data-id');
-      const newCount = incLike(id);
-      qSA(`.likes-count[data-id="${CSS.escape(String(id))}"]`).forEach(el => el.textContent = String(newCount));
-    });
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      const count = likeRecipe(id);
+      btn.nextElementSibling.textContent = count;
+    };
   });
 }
 
-// ---- Render details (recipe.html) ----
-function renderRecipeDetails() {
-  const titleEl = document.getElementById('recipeTitle');
-  if (!titleEl) return; // нет на странице рецептов
+// ----- СТРАНИЦА РЕЦЕПТА -----
+function renderRecipePage() {
+  const titleEl = qS('#recipeTitle');
+  if (!titleEl) return; // не на странице рецепта
+
   const id = getParam('id');
-  if (!id) { titleEl.textContent = 'Рецепт не выбран'; return; }
-  const recipe = RECIPES.find(r => String(r.id) === String(id));
+  if (!id) { titleEl.textContent = 'Рецепт не найден'; return; }
+
+  const recipe = RECIPES.find(r => r.id == id);
   if (!recipe) { titleEl.textContent = 'Рецепт не найден'; return; }
 
-  // наполнение
-  titleEl.textContent = recipe.title || '';
-  const subtitle = qS('#recipeSubtitle'); if (subtitle) subtitle.textContent = recipe.short || '';
-  const img = qS('#recipeImage'); if (img) { img.onerror = function(){ handleImageError(this); }; img.src = recipe.image || 'assets/img/example.jpg'; img.alt = recipe.title || ''; }
-  const ingredientsList = qS('#ingredientsList'); if (ingredientsList) {
-    if (Array.isArray(recipe.ingredients) && recipe.ingredients.length) ingredientsList.innerHTML = recipe.ingredients.map(i => `<li>${esc(i)}</li>`).join('');
-    else ingredientsList.innerHTML = '<li>—</li>';
-  }
-  const stepsList = qS('#stepsList'); if (stepsList) {
-    if (Array.isArray(recipe.steps) && recipe.steps.length) stepsList.innerHTML = recipe.steps.map(s => `<li>${esc(s)}</li>`).join('');
-    else stepsList.innerHTML = '<li>—</li>';
-  }
+  // Основные данные
+  titleEl.textContent = recipe.title;
+  qS('#recipeSubtitle').textContent = recipe.short || '';
+  qS('#timeInfo').textContent = (recipe.time || '-') + ' мин';
+  qS('#difficultyInfo').textContent = recipe.difficulty || '-';
+  qS('#authorInfo').textContent = recipe.author || 'Неизвестен';
+  qS('#publishedInfo').textContent = recipe.published || '';
 
-  // кнопка лайков при просмотре рецепта
+  // Главное фото и галерея
+  const mainImg = qS('#mainRecipeImage');
+  const thumbs = qS('#thumbs');
+  const images = recipe.images || [recipe.image || 'assets/img/example.jpg'];
+
+  mainImg.src = images[0];
+  mainImg.alt = recipe.title;
+
+  thumbs.innerHTML = images.map((src, i) => 
+    `<img src="${src}" class="rounded" onclick="document.getElementById('mainRecipeImage').src=this.src" 
+          style="width:80px; height:80px; object-fit:cover; cursor:pointer; border: ${i===0 ? '3px solid #0d6efd' : '2px solid #ddd'}">`
+  ).join(' ');
+
+  // Ингредиенты с чекбоксами
+  const ingList = qS('#ingredientsList');
+  const savedChecks = JSON.parse(localStorage.getItem(`ingredients_${id}`) || '{}');
+
+  ingList.innerHTML = recipe.ingredients.map((ing, i) => {
+    const checked = savedChecks[i] ? 'checked' : '';
+    return `
+      <li class="ingredient-item mb-2">
+        <input type="checkbox" id="ing${i}" ${checked}
+               onchange="saveIngredient(${id}, ${i}, this.checked)">
+        <label for="ing${i}" style="cursor:pointer">${esc(ing)}</label>
+      </li>
+    `;
+  }).join('');
+
+  // Шаги
+  qS('#stepsList').innerHTML = recipe.steps.map(s => `<li class="mb-3">${esc(s)}</li>`).join('');
+
+  // Лайки на странице рецепта
   const likeBtn = qS('#likeBtn');
-  if (likeBtn) {
-    likeBtn.addEventListener('click', () => {
-      const newCount = incLike(id);
-      // update card-like counters (if any)
-      qSA(`.likes-count[data-id="${CSS.escape(String(id))}"]`).forEach(el => el.textContent = String(newCount));
-    });
+  const currentLikes = getLikes()[id] || 0;
+  likeBtn.innerHTML = `❤ Нравится (${currentLikes})`;
+  likeBtn.onclick = () => {
+    const newCount = likeRecipe(id);
+    likeBtn.innerHTML = `❤ Нравится (${newCount})`;
+  };
+
+  // Кнопка Сохранить
+  qS('#saveBtn').onclick = (e) => {
+    e.preventDefault();
+    alert('Рецепт сохранён в избранное!');
+  };
+
+  // Комментарии
+  const commentsKey = `comments_${id}`;
+  const commentsBlock = qS('#commentsBlock');
+  const savedComments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
+
+  function showComments() {
+    if (savedComments.length === 0) {
+      commentsBlock.innerHTML = '<p class="text-muted">Пока нет комментариев. Будьте первым!</p>';
+      return;
+    }
+    commentsBlock.innerHTML = savedComments.map(c => `
+      <div class="border-bottom pb-2 mb-3">
+        <strong>${esc(c.name)}</strong> 
+        <small class="text-muted">— ${c.date}</small>
+        <p class="mb-0 mt-1">${esc(c.text)}</p>
+      </div>
+    `).join('');
   }
+  showComments();
+
+  qS('#commentForm').onsubmit = (e) => {
+    e.preventDefault();
+    const name = qS('#commentUser').value.trim();
+    const text = qS('#commentText').value.trim();
+    if (!name || !text) return;
+
+    savedComments.push({
+      name,
+      text,
+      date: new Date().toLocaleDateString('ru')
+    });
+    localStorage.setItem(commentsKey, JSON.stringify(savedComments));
+    qS('#commentUser').value = '';
+    qS('#commentText').value = '';
+    showComments();
+  };
+
+  qS('#clearCommentsBtn').onclick = () => {
+    if (confirm('Очистить все комментарии к этому рецепту?')) {
+      localStorage.removeItem(commentsKey);
+      savedComments.length = 0;
+      showComments();
+    }
+  };
 }
 
-// ---- Init on DOMContentLoaded ----
-document.addEventListener('DOMContentLoaded', function() {
-  // рендер grid если есть котейнер
-  if (document.getElementById('recipesGrid')) {
-    // if search page with q param, pass it
-    const q = new URLSearchParams(window.location.search).get('q') || '';
-    renderGrid(q);
-  }
-  // рендер
-  renderRecipeDetails();
+function saveIngredient(recipeId, index, checked) {
+  const key = `ingredients_${recipeId}`;
+  const data = JSON.parse(localStorage.getItem(key) || '{}');
+  data[index] = checked;
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+// ----- ЗАПУСК -----
+document.addEventListener('DOMContentLoaded', () => {
+  renderGrid();
+  renderRecipePage();
 });

@@ -7,6 +7,14 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Небольшие локальные стили для галереи и чекбоксов */
+    .thumbs img { cursor: pointer; max-height: 80px; object-fit: cover; margin-right: .5rem; }
+    .thumbs img.active { outline: 3px solid #0d6efd; }
+    .ingredient-item { display: flex; align-items: center; gap: .5rem; }
+    .ingredient-item input[type="checkbox"] { transform: scale(1.05); margin-right: .5rem; }
+    .video-wrap { aspect-ratio: 16 / 9; } /* оставлено, но не используется */
+  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -41,38 +49,73 @@
 
   <!-- MAIN: детали рецепта -->
   <main class="container my-5">
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row g-4">
+      <div class="col-lg-8">
         <h1 id="recipeTitle">Загрузка...</h1>
         <p class="text-muted" id="recipeSubtitle"></p>
 
-        <!-- Плейсхолдер — заменится app.js -->
-        <img src="assets/img/example.jpg" class="img-fluid rounded mb-4" alt="Изображение рецепта" id="recipeImage">
-
-        <h4>Ингредиенты</h4>
-        <ul id="ingredientsList">
-          <li>—</li>
-        </ul>
-
-        <h4>Шаги приготовления</h4>
-        <ol id="stepsList">
-          <li>—</li>
-        </ol>
-
-        <h4>Комментарии</h4>
-        <div id="commentsBlock">
-          <p class="text-muted">Загрузка...</p>
+        <!-- Галлерея -->
+        <div class="card mb-3">
+          <!-- главное изображение: id mainRecipeImage (используем вместо старого recipeImage) -->
+          <img id="mainRecipeImage" class="card-img-top" alt="Рецепт" onerror="this.onerror=null; this.src='assets/img/example.jpg'">
+          <div class="card-body">
+            <div id="thumbs" class="d-flex thumbs"></div>
+          </div>
         </div>
+
+        <!-- Ингредиенты -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4>Ингредиенты</h4>
+            <ul id="ingredientsList" class="list-unstyled mb-0">
+              <li>—</li>
+            </ul>
+            <div class="text-muted small mt-2">Прогресс сохраняется локально в браузере</div>
+          </div>
+        </div>
+
+        <!-- Шаги -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4>Шаги приготовления</h4>
+            <ol id="stepsList"></ol>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="card mb-5">
+          <div class="card-body">
+            <h4>Комментарии</h4>
+
+            <div id="commentsBlock" class="mb-3">
+              <p class="text-muted">Загрузка...</p>
+            </div>
+
+            <form id="commentForm">
+              <div class="mb-2">
+                <input id="commentUser" class="form-control" placeholder="Ваше имя" required>
+              </div>
+              <div class="mb-2">
+                <textarea id="commentText" class="form-control" rows="3" placeholder="Написать комментарий..." required></textarea>
+              </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary" type="submit">Отправить</button>
+                <button class="btn btn-outline-secondary" id="clearCommentsBtn" type="button">Очистить локально</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
       </div>
 
-      <aside class="col-md-4">
+      <aside class="col-lg-4">
         <div class="card mb-3">
           <div class="card-body">
             <p><strong>Время:</strong> <span id="timeInfo">—</span></p>
             <p><strong>Сложность:</strong> <span id="difficultyInfo">—</span></p>
             <div class="d-grid gap-2">
               <button class="btn btn-outline-danger" id="likeBtn">❤ Нравится</button>
-              <a href="#" class="btn btn-outline-secondary">Сохранить</a>
+              <a href="#" class="btn btn-outline-secondary" id="saveBtn">Сохранить</a>
             </div>
           </div>
         </div>
@@ -98,7 +141,10 @@
   <!-- Data -->
   <script src="js/data.js"></script>
 
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- App logic -->
   <script src="js/app.js"></script>
 </body>
 </html>
