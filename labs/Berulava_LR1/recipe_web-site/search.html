@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск рецептов - Кулинарный Портал</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container py-5">
+            <div class="col-lg-3 mb-4">
+                <div class="glass-container filter-section">
+                    <h4 class="text-gradient mb-3">
+                        <i class="fas fa-filter"></i> Фильтры
+                    </h4>
+
+                    <div class="filter-group">
+                        <h6 class="filter-title">Сложность</h6>
+                        <div class="d-flex flex-wrap">
+                            <button class="filter-btn active" data-filter="difficulty" data-value="all">
+                                Все
+                            </button>
+                            <button class="filter-btn" data-filter="difficulty" data-value="easy">
+                                <i class="fas fa-smile"></i> Легко
+                            </button>
+                            <button class="filter-btn" data-filter="difficulty" data-value="medium">
+                                <i class="fas fa-meh"></i> Средне
+                            </button>
+                            <button class="filter-btn" data-filter="difficulty" data-value="hard">
+                                <i class="fas fa-frown"></i> Сложно
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h6 class="filter-title">Кухня</h6>
+                        <div class="d-flex flex-wrap">
+                            <button class="filter-btn active" data-filter="cuisine" data-value="all">
+                                Все
+                            </button>
+                            <button class="filter-btn" data-filter="cuisine" data-value="italian">
+                                🇮🇹 Итальянская
+                            </button>
+                            <button class="filter-btn" data-filter="cuisine" data-value="asian">
+                                🥢 Азиатская
+                            </button>
+                            <button class="filter-btn" data-filter="cuisine" data-value="american">
+                                🇺🇸 Американская
+                            </button>
+                            <button class="filter-btn" data-filter="cuisine" data-value="russian">
+                                🇷🇺 Русская
+                            </button>
+                            <button class="filter-btn" data-filter="cuisine" data-value="french">
+                                🇫🇷 Французская
+                            </button>
+                        </div>
+                    </div>
+
+            <div class="col-lg-9">
+                <div class="row g-4" id="recipeGrid">
+                    <div class="col-md-6 col-lg-4 recipe-item" data-type="lunch" data-difficulty="medium" data-time="30" data-cuisine="american">
+                        <div class="glass-card recipe-card">
+                            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop" alt="Бургер" class="recipe-card-img">
+                            <div class="recipe-card-body">
+                                <span class="badge badge-glass mb-2">
+                                    <i class="fas fa-hamburger"></i> Обед
+                                </span>
+                                <h5 class="recipe-card-title">Домашний бургер</h5>
+                                <p class="recipe-card-text">Сочный бургер с говяжьей котлетой</p>
+                                <div class="recipe-meta">
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-clock"></i> 30 мин
+                                    </div>
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-signal"></i> Средне
+                                    </div>
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-heart"></i> 456
+                                    </div>
+                                </div>
+                                <a href="recipe.html" class="btn btn-glass-primary w-100 mt-3">
+                                    <i class="fas fa-eye"></i> Посмотреть рецепт
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 recipe-item" data-type="dessert" data-difficulty="easy" data-time="45" data-cuisine="french">
+                        <div class="glass-card recipe-card">
+                            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop" alt="Десерт" class="recipe-card-img">
+                            <div class="recipe-card-body">
+                                <span class="badge badge-glass mb-2">
+                                    <i class="fas fa-ice-cream"></i> Десерт
+                                </span>
+                                <h5 class="recipe-card-title">Шоколадный мусс</h5>
+                                <p class="recipe-card-text">Нежный французский десерт</p>
+                                <div class="recipe-meta">
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-clock"></i> 45 мин
+                                    </div>
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-signal"></i> Легко
+                                    </div>
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-heart"></i> 789
+                                    </div>
+                                </div>
+                                <a href="recipe.html" class="btn btn-glass-primary w-100 mt-3">
+                                    <i class="fas fa-eye"></i> Посмотреть рецепт
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 recipe-item" data-type="dinner" data-difficulty="hard" data-time="90" data-cuisine="russian">
+                        <div class="glass-card recipe-card">
+                            <img src="https://images.unsplash.com/photo-1589010075672-570cb07c8808?w=400&h=300&fit=crop" alt="Борщ" class="recipe-card-img">
+                            <div class="recipe-card-body">
+                                <span class="badge badge-glass mb-2">
+                                    <i class="fas fa-drumstick-bite"></i> Ужин
+                                </span>
+                                <h5 class="recipe-card-title">Классический борщ</h5>
+                                <p class="recipe-card-text">Традиционный русский суп</p>
+                                <div class="recipe-meta">
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-clock"></i> 90 мин
+                                    </div>
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-signal"></i> Сложно
+                                    </div>
+                                    <div class="recipe-meta-item">
+                                        <i class="fas fa-heart"></i> 654
+                                    </div>
+                                </div>
+                                <a href="recipe.html" class="btn btn-glass-primary w-100 mt-3">
+                                    <i class="fas fa-eye"></i> Посмотреть рецепт
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+

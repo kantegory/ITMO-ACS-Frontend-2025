@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Кулинарный Портал</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="tab-glass">
+            <button class="tab-btn active" data-tab="recipes">
+                <i class="fas fa-book"></i> Мои рецепты
+            </button>
+            <button class="tab-btn" data-tab="saved">
+                <i class="fas fa-bookmark"></i> Сохраненные
+            </button>
+            <button class="tab-btn" data-tab="liked">
+                <i class="fas fa-heart"></i> Понравившиеся
+            </button>
+        </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card recipe-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" alt="Салат" class="recipe-card-img">
+                        <div class="recipe-card-body">
+                            <h5 class="recipe-card-title">Средиземноморский салат</h5>
+                            <p class="recipe-card-text">Легкий и освежающий салат с оливками, фетой и свежими овощами</p>
+                            <div class="recipe-meta">
+                                <div class="recipe-meta-item">
+                                    <i class="fas fa-clock"></i> 15 мин
+                                </div>
+                                <div class="recipe-meta-item">
+                                    <i class="fas fa-heart"></i> 234
+                                </div>
+                                <div class="recipe-meta-item">
+                                    <i class="fas fa-comment"></i> 12
+                                </div>
+                            </div>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="recipe.html" class="btn btn-glass-primary flex-fill">
+                                    <i class="fas fa-eye"></i> Просмотр
+                                </a>
+                                <button class="btn btn-glass">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-glass">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card recipe-card">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop" alt="Паста" class="recipe-card-img">
+                        <div class="recipe-card-body">
+                            <h5 class="recipe-card-title">Паста Карбонара</h5>
+                            <p class="recipe-card-text">Классическая итальянская паста с беконом и сливочным соусом</p>
+                            <div class="recipe-meta">
+                                <div class="recipe-meta-item">
+                                    <i class="fas fa-clock"></i> 25 мин
+                                </div>
+                                <div class="recipe-meta-item">
+                                    <i class="fas fa-heart"></i> 567
+                                </div>
+                                <div class="recipe-meta-item">
+                                    <i class="fas fa-comment"></i> 34
+                                </div>
+                            </div>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="recipe.html" class="btn btn-glass-primary flex-fill">
+                                    <i class="fas fa-eye"></i> Просмотр
+                                </a>
+                                <button class="btn btn-glass">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-glass">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="liked-content" class="tab-content" style="display: none;">
+            <div class="text-center py-5">
+                <i class="fas fa-heart fa-4x mb-3" style="opacity: 0.5;"></i>
+                <h3>Понравившиеся рецепты</h3>
+                <p style="color: rgba(255, 255, 255, 0.7);">Здесь будут рецепты, которые вам понравились</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newRecipeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-content-glass">
+                <div class="modal-header">
+                    <h5 class="modal-title">Новый рецепт</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Название рецепта</label>
+                            <input type="text" class="form-control form-glass" placeholder="Введите название">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Описание</label>
+                            <textarea class="form-control form-glass" rows="3" placeholder="Краткое описание рецепта"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Время приготовления</label>
+                                <input type="text" class="form-control form-glass" placeholder="30 минут">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Сложность</label>
+                                <select class="form-control form-glass">
+                                    <option>Легко</option>
+                                    <option>Средне</option>
+                                    <option>Сложно</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Фото рецепта</label>
+                            <input type="file" class="form-control form-glass" accept="image/*">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-glass-primary">Опубликовать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                
+
+                this.classList.add('active');
+                
+
+                const tabName = this.dataset.tab;
+                document.getElementById(tabName + '-content').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
