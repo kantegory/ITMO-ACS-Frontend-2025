@@ -63,9 +63,8 @@
         const emailInput = document.getElementById('email');
         const email = emailInput.value;
 
-        // Сохраняем логин
         if (email) {
-            loginUser(email); // функция из auth.js
+            loginUser(email);
         }
 
         const loginModal = new bootstrap.Modal(document.getElementById('loginSuccessModal'));
