@@ -63,7 +63,7 @@
         <section class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="mb-0">Результаты поиска</h4>
-                <small id="resultsCount">3 найдено</small>
+                <small id="resultsCount">4 найдено</small>
             </div>
 
             <div id="listings" class="row g-3">
@@ -73,8 +73,11 @@
                         <div class="card-body">
                             <h5 class="card-title">2-х комн. квартира, Центр</h5>
                             <p class="card-text">Цена: 45 000 ₽ / мес · Район: Центр</p>
-                            <a href="" class="btn btn-outline-primary">Подробнее</a>
-                        </div>
+                            <button class="btn btn-outline-primary btn-details"
+                                    data-title="2-х комн. квартира, Центр"
+                                    data-info="Квартира с евроремонтом, 2 комнаты, мебель.">
+                                Подробнее
+                            </button>                        </div>
                     </div>
                 </div>
 
@@ -84,8 +87,11 @@
                         <div class="card-body">
                             <h5 class="card-title">Студия у метро</h5>
                             <p class="card-text">Цена: 30 000 ₽ / мес · Район: Север</p>
-                            <a href="" class="btn btn-outline-primary">Подробнее</a>
-                        </div>
+                            <button class="btn btn-outline-primary btn-details"
+                                    data-title="Студия у метро"
+                                    data-info="Студия 25м², полностью меблирована, рядом метро.">
+                                Подробнее
+                            </button>                        </div>
                     </div>
                 </div>
 
@@ -95,7 +101,21 @@
                         <div class="card-body">
                             <h5 class="card-title">Частный дом, пригород</h5>
                             <p class="card-text">Цена: 70 000 ₽ / мес · Район: Пригород</p>
-                            <a href="" class="btn btn-outline-primary">Подробнее</a>
+                            <button class="btn btn-outline-primary btn-details"
+                                    data-title="Частный дом, пригород"
+                                    data-info="Дом с садом, 3 спальни, гараж, для семьи.">
+                                Подробнее
+                            </button>                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-type="apartment" data-price="55000" data-location="Южный">
+                    <div class="card h-100">
+                        <img src="" class="card-img-top" alt="квартира">
+                        <div class="card-body">
+                            <h5 class="card-title">3-х комн. квартира, Южный</h5>
+                            <p class="card-text">Цена: 55 000 ₽ / мес · Район: Южный</p>
+                            <button class="btn btn-outline-primary btn-details" data-title="3-х комн. квартира, Южный" data-info="Квартира 80м², 3 комнаты, балкон, близко к парку.">Подробнее</button>
                         </div>
                     </div>
                 </div>
@@ -104,11 +124,26 @@
     </div>
 </main>
 
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Название</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body" id="detailsModalBody">
+                Информация
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer class="bg-light py-3 mt-4">
     <div class="container text-center small">© RentalSite</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/listings.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/main.js"></script>
 </body>
