@@ -36,3 +36,5 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsCount.textContent = `${listings.length} найдено`;
     });
 });
+
+
