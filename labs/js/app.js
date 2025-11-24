@@ -196,6 +196,50 @@ function saveIngredient(recipeId, index, checked) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
+// ----- ПОИСК С ФИЛЬТРАМИ -----
+function applyFilters() {
+  const text = (qS('#searchInput')?.value || '').toLowerCase();
+  const cats = Array.from(qSA('.category-filter:checked')).map(c => c.value);
+  const diff = qS('#difficultyFilter')?.value || '';
+  const time = qS('#timeFilter')?.value ? Number(qS('#timeFilter').value) : null;
+
+  const filtered = RECIPES.filter(r => {
+    if (text && !r.title.toLowerCase().includes(text) && !(r.short && r.short.toLowerCase().includes(text))) return false;
+    if (cats.length && !r.tags?.some(t => cats.includes(t))) return false;
+    if (diff && r.difficulty !== diff) return false;
+    if (time !== null && r.time > time) return false;
+    return true;
+  });
+
+  const grid = qS('#recipesGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="col-12 text-center text-muted">Ничего не найдено</div>';
+  } else {
+    grid.innerHTML = filtered.map(renderCard).join('');
+    qSA('.like-btn').forEach(btn => {
+      btn.onclick = () => {
+        const count = likeRecipe(btn.dataset.id);
+        btn.nextElementSibling.textContent = count;
+      };
+    });
+  }
+}
+
+if (document.getElementById('searchInput')) {
+  ['#searchInput', '.category-filter', '#difficultyFilter', '#timeFilter'].forEach(sel => {
+    qSA(sel).forEach(el => el.addEventListener('input', applyFilters));
+    qSA(sel).forEach(el => el.addEventListener('change', applyFilters));
+  });
+  qS('#resetFilters')?.addEventListener('click', () => {
+    qS('#searchInput').value = '';
+    qSA('.category-filter').forEach(c => c.checked = false);
+    qS('#difficultyFilter').value = '';
+    qS('#timeFilter').value = '';
+    applyFilters();
+  });
+  applyFilters();
+}
+
 // ----- ЗАПУСК -----
 document.addEventListener('DOMContentLoaded', () => {
   renderGrid();

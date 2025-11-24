@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Поиск — Рецепты</title>
+  <title>Поиск — Recipes</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
@@ -13,7 +13,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Рецепты</a>
+        <a class="navbar-brand" href="index.html">Recipes</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
             <a class="btn btn-primary" href="register.html">Регистрация</a>
           </div>
         </div>
-      </div>
+      </div>  
     </nav>
   </header>
 
@@ -43,9 +43,80 @@
   <main class="container my-5">
     <h1 class="h4 mb-4">Поиск рецептов</h1>
 
-    <!-- Тут будут карточки -->
-    <div class="row g-3" id="recipesGrid">
-      <!-- JS вставит сюда карточки -->
+ <!-- ДОБАВЛЕНО ДЛЯ ФИЛЬТРОВ: боковая панель + результаты -->
+    <div class="row">
+      <!-- Левая колонка — фильтры -->
+      <div class="col-lg-3 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Фильтры</h5>
+
+            <!-- Поиск по тексту -->
+            <div class="mb-4">
+              <label class="form-label">Поиск</label>
+              <input type="text" id="searchInput" class="form-control" placeholder="Название, описание...">
+            </div>
+
+            <!-- Тип блюда (чекбоксы) -->
+            <div class="mb-4">
+              <label class="form-label">Тип блюда</label>
+              <div class="form-check">
+                <input class="form-check-input category-filter" type="checkbox" value="Завтрак" id="cat-breakfast">
+                <label class="form-check-label" for="cat-breakfast">Завтрак</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input category-filter" type="checkbox" value="Суп" id="cat-soup">
+                <label class="form-check-label" for="cat-soup">Суп</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input category-filter" type="checkbox" value="Салат" id="cat-salad">
+                <label class="form-check-label" for="cat-salad">Салат</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input category-filter" type="checkbox" value="Ужин" id="cat-dinner">
+                <label class="form-check-label" for="cat-dinner">Ужин</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input category-filter" type="checkbox" value="Десерт" id="cat-dessert">
+                <label class="form-check-label" for="cat-dessert">Десерт</label>
+              </div>
+            </div>
+
+            <!-- Сложность -->
+            <div class="mb-4">
+              <label class="form-label">Сложность</label>
+              <select id="difficultyFilter" class="form-select">
+                <option value="">Любая</option>
+                <option value="Легко">Легко</option>
+                <option value="Средне">Средне</option>
+                <option value="Сложно">Сложно</option>
+              </select>
+            </div>
+
+            <!-- Время приготовления -->
+            <div class="mb-4">
+              <label class="form-label">Время приготовления</label>
+              <select id="timeFilter" class="form-select">
+                <option value="">Любое</option>
+                <option value="15">До 15 мин</option>
+                <option value="30">До 30 мин</option>
+                <option value="60">До 60 мин</option>
+                <option value="1000">Больше часа</option>
+              </select>
+            </div>
+
+            <!-- Сброс фильтров -->
+            <button id="resetFilters" class="btn btn-outline-secondary w-100">Сбросить фильтры</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Правая колонка — результаты -->
+      <div class="col-lg-9">
+        <div class="row g-3" id="recipesGrid">
+          <!-- JS вставит сюда карточки -->
+        </div>
+      </div>
     </div>
   </main>
 
