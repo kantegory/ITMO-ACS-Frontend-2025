@@ -86,11 +86,17 @@ function addIngredientRow(initialData = null) {
     const container = document.getElementById('ingredientsRows');
     const row = document.createElement('div');
     row.className = 'ingredient-row';
+    row.setAttribute('role', 'listitem');
+    const rowIndex = container.children.length + 1;
+    const ingredientId = `ingredient-select-${rowIndex}`;
+    const quantityId = `ingredient-quantity-${rowIndex}`;
+    const unitId = `ingredient-unit-${rowIndex}`;
     row.innerHTML = `
         <div class="row g-3 align-items-end">
             <div class="col-md-5">
-                <label class="form-label">Ингредиент</label>
-                <select class="form-select ingredient-select" required>
+                <label for="${ingredientId}" class="form-label">Ингредиент<span aria-hidden="true">*</span></label>
+                <select id="${ingredientId}" class="form-select ingredient-select" required 
+                        aria-required="true" aria-invalid="false" aria-label="Выберите ингредиент">
                     <option value="">Выберите</option>
                     ${recipeFormState.dictionaries.ingredients.map((ingredient) => `
                         <option value="${ingredient.id}">${ingredient.name}</option>
@@ -98,15 +104,18 @@ function addIngredientRow(initialData = null) {
                 </select>
             </div>
             <div class="col-md-3">
-                <label class="form-label">Количество</label>
-                <input type="number" class="form-control ingredient-quantity" min="0.1" step="0.1" required>
+                <label for="${quantityId}" class="form-label">Количество<span aria-hidden="true">*</span></label>
+                <input id="${quantityId}" type="number" class="form-control ingredient-quantity" min="0.1" step="0.1" required
+                       aria-required="true" aria-invalid="false" aria-label="Количество ингредиента">
             </div>
             <div class="col-md-3">
-                <label class="form-label">Единица измерения</label>
-                <input type="text" class="form-control ingredient-unit" required>
+                <label for="${unitId}" class="form-label">Единица измерения<span aria-hidden="true">*</span></label>
+                <input id="${unitId}" type="text" class="form-control ingredient-unit" required
+                       aria-required="true" aria-invalid="false" aria-label="Единица измерения ингредиента">
             </div>
             <div class="col-md-1 text-end">
-                <button type="button" class="btn btn-outline-danger" aria-label="Удалить">
+                <button type="button" class="btn btn-outline-danger" 
+                        aria-label="Удалить ингредиент из списка">
                     &times;
                 </button>
             </div>
@@ -125,14 +134,20 @@ function addStepRow(initialData = null) {
     const container = document.getElementById('stepsRows');
     const row = document.createElement('div');
     row.className = 'step-row';
+    row.setAttribute('role', 'listitem');
+    const rowIndex = container.children.length + 1;
+    const stepInstructionId = `step-instruction-${rowIndex}`;
     row.innerHTML = `
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <strong>Шаг</strong>
-            <button type="button" class="btn btn-sm btn-outline-danger">&times;</button>
+            <strong aria-label="Шаг ${rowIndex}">Шаг ${rowIndex}</strong>
+            <button type="button" class="btn btn-sm btn-outline-danger" 
+                    aria-label="Удалить шаг ${rowIndex} из списка">&times;</button>
         </div>
         <div class="mb-3">
-            <label class="form-label">Описание шага</label>
-            <textarea class="form-control step-instruction" rows="3" required></textarea>
+            <label for="${stepInstructionId}" class="form-label">Описание шага<span aria-hidden="true">*</span></label>
+            <textarea id="${stepInstructionId}" class="form-control step-instruction" rows="3" required
+                      aria-required="true" aria-invalid="false" 
+                      aria-label="Описание шага ${rowIndex} приготовления"></textarea>
         </div>
     `;
     row.querySelector('button').addEventListener('click', () => row.remove());

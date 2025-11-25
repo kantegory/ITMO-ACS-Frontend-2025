@@ -97,11 +97,14 @@ function activateTab(tabName) {
     tabButtons.forEach((button) => {
         const isActive = button.getAttribute('data-profile-tab') === tabName;
         button.classList.toggle('active', isActive);
+        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
     tabPanels.forEach((panel) => {
-        panel.classList.toggle('show', panel.id === `panel-${tabName}`);
-        panel.classList.toggle('active', panel.id === `panel-${tabName}`);
+        const isActive = panel.id === `panel-${tabName}`;
+        panel.classList.toggle('show', isActive);
+        panel.classList.toggle('active', isActive);
+        panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
     });
 
     if (!userPageState.tabLoaded[tabName]) {
@@ -154,19 +157,22 @@ function renderRecipeCards(container, recipes) {
     }
 
     container.innerHTML = '';
-    recipes.forEach((recipe) => {
+    recipes.forEach((recipe, index) => {
         const card = document.createElement('div');
         card.className = 'col';
+        card.setAttribute('role', 'listitem');
+        const recipeUrl = `recipe.html?id=${recipe.id}`;
         card.innerHTML = `
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm" role="article" aria-labelledby="user-recipe-title-${index}">
                 <div class="card-body d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="badge bg-secondary">${recipe.dishType?.name || 'Не указан'}</span>
-                        <small class="text-muted">${formatMinutesToText(recipe.preparation_time + recipe.cooking_time)}</small>
+                        <span class="badge bg-secondary" aria-label="Тип блюда: ${escapeHtml(recipe.dishType?.name || 'Не указан')}">${recipe.dishType?.name || 'Не указан'}</span>
+                        <small class="text-muted" aria-label="Время приготовления: ${formatMinutesToText(recipe.preparation_time + recipe.cooking_time)}">${formatMinutesToText(recipe.preparation_time + recipe.cooking_time)}</small>
                     </div>
-                    <h5 class="card-title">${escapeHtml(recipe.title)}</h5>
-                    <p class="text-muted flex-grow-1">${escapeHtml(recipe.description ?? 'Без описания')}</p>
-                    <a class="btn btn-outline-primary mt-3" href="recipe.html?id=${recipe.id}">Открыть</a>
+                    <h5 id="user-recipe-title-${index}" class="card-title">${escapeHtml(recipe.title)}</h5>
+                    <p class="text-muted flex-grow-1" aria-label="Описание рецепта">${escapeHtml(recipe.description ?? 'Без описания')}</p>
+                    <a class="btn btn-outline-primary mt-3" href="${recipeUrl}" 
+                       aria-label="Открыть рецепт: ${escapeHtml(recipe.title)}">Открыть</a>
                 </div>
             </div>
         `;
@@ -216,21 +222,31 @@ async function renderUserList(list, container, userIdField, labelPrefix) {
     });
 
     container.innerHTML = '';
-    list.forEach((entry) => {
+    list.forEach((entry, index) => {
         const userName = userMap.get(entry[userIdField]) || `${labelPrefix} #${entry[userIdField]}`;
+        const escapedUserName = escapeHtml(userName);
+        const userId = entry[userIdField];
+        const entryDate = new Date(entry.created_at).toLocaleDateString('ru-RU');
+        const userUrl = `user.html?id=${userId}`;
         const card = document.createElement('div');
         card.className = 'card mb-2';
+        card.setAttribute('role', 'listitem');
         card.innerHTML = `
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-1">${escapeHtml(userName)}</h6>
-                    <p class="text-muted mb-0">ID: ${entry[userIdField]} • ${new Date(entry.created_at).toLocaleDateString()}</p>
+                    <h6 class="mb-1" aria-label="Имя пользователя">${escapedUserName}</h6>
+                    <p class="text-muted mb-0" aria-label="Идентификатор и дата">
+                        <span aria-label="Идентификатор пользователя">ID: ${userId}</span> • 
+                        <time datetime="${entry.created_at}" aria-label="Дата: ${entryDate}">${entryDate}</time>
+                    </p>
                 </div>
-                <a class="btn btn-sm btn-outline-primary" href="user.html?id=${entry[userIdField]}">
+                <a class="btn btn-sm btn-outline-primary" href="${userUrl}" 
+                   aria-label="Перейти к профилю пользователя ${escapedUserName}">
                     Перейти
                 </a>
             </div>
         `;
+        card.setAttribute('aria-label', `${labelPrefix} ${index + 1}: ${escapedUserName}`);
         container.appendChild(card);
     });
 }
@@ -252,20 +268,34 @@ async function loadLikesTab() {
     }
 
     container.innerHTML = '';
+    let index = 0;
     for (const like of likes) {
         const recipeTitle = await resolveRecipeTitle(like.recipeId);
+        const escapedTitle = escapeHtml(recipeTitle);
+        const recipeId = like.recipeId;
+        const likeDate = new Date(like.created_at).toLocaleDateString('ru-RU');
+        const recipeUrl = `recipe.html?id=${recipeId}`;
         const card = document.createElement('div');
         card.className = 'card mb-2';
+        card.setAttribute('role', 'listitem');
         card.innerHTML = `
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-1">${escapeHtml(recipeTitle)}</h6>
-                    <p class="text-muted mb-0">Рецепт #${like.recipeId} • ${new Date(like.created_at).toLocaleDateString()}</p>
+                    <h6 class="mb-1" aria-label="Название рецепта">${escapedTitle}</h6>
+                    <p class="text-muted mb-0" aria-label="Идентификатор рецепта и дата лайка">
+                        <span aria-label="Идентификатор рецепта">Рецепт #${recipeId}</span> • 
+                        <time datetime="${like.created_at}" aria-label="Дата лайка: ${likeDate}">${likeDate}</time>
+                    </p>
                 </div>
-                <a class="btn btn-sm btn-outline-primary" href="recipe.html?id=${like.recipeId}">Открыть</a>
+                <a class="btn btn-sm btn-outline-primary" href="${recipeUrl}" 
+                   aria-label="Открыть рецепт ${escapedTitle}">
+                    Открыть
+                </a>
             </div>
         `;
+        card.setAttribute('aria-label', `Лайк ${index + 1}: ${escapedTitle}`);
         container.appendChild(card);
+        index++;
     }
 }
 
@@ -375,12 +405,16 @@ async function syncSubscriptionButton() {
         button.classList.remove('btn-outline-primary');
         button.classList.add('btn-outline-danger');
         button.innerText = 'Отписаться';
+        button.setAttribute('aria-label', 'Отписаться от пользователя');
+        button.setAttribute('aria-pressed', 'true');
         button.onclick = () => handleUnsubscribe(existingSubscription.id);
     } else {
         button.dataset.subscriptionId = '';
         button.classList.add('btn-outline-primary');
         button.classList.remove('btn-outline-danger');
         button.innerText = 'Подписаться';
+        button.setAttribute('aria-label', 'Подписаться на пользователя');
+        button.setAttribute('aria-pressed', 'false');
         button.onclick = handleSubscribe;
     }
     if (followers && userPageState.tabLoaded.followers) {

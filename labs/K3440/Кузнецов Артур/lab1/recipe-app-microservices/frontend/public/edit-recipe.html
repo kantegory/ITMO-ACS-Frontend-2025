@@ -8,18 +8,20 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body data-form-mode="edit">
+    <a id="skip-to-main" href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
 <div id="header-placeholder" role="banner"></div>
 
-<main class="container py-4" role="main">
-    <div id="recipeFormAlert" class="alert inline-alert" role="alert" aria-live="polite"></div>
+<main id="main-content" class="container py-4" role="main">
+    <div id="recipeFormAlert" class="alert inline-alert" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
-    <section class="page-header">
+    <section class="page-header" aria-labelledby="pageTitle">
         <h1 id="pageTitle">Редактировать рецепт</h1>
         <p class="text-muted mb-0">Заполните форму.</p>
     </section>
 
-    <form id="recipeForm" aria-labelledby="pageTitle">
+    <form id="recipeForm" role="form" aria-labelledby="pageTitle" aria-describedby="recipeFormHelp">
+        <p id="recipeFormHelp" class="visually-hidden">Форма редактирования рецепта. Заполните все обязательные поля, отмеченные звездочкой, и нажмите кнопку "Сохранить изменения" в конце формы.</p>
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <h2 class="h5 mb-3">Основная информация</h2>
@@ -29,31 +31,34 @@
                         <input id="titleInput" class="form-control" type="text" required aria-required="true">
                     </div>
                     <div class="col-md-3">
-                        <label for="dishTypeSelect" class="form-label">Тип блюда*</label>
-                        <select id="dishTypeSelect" class="form-select" required aria-required="true"></select>
+                        <label for="dishTypeSelect" class="form-label">Тип блюда<span aria-hidden="true">*</span></label>
+                        <select id="dishTypeSelect" class="form-select" required aria-required="true" 
+                                aria-label="Тип блюда" aria-invalid="false"></select>
                     </div>
                     <div class="col-md-3">
-                        <label for="difficultySelect" class="form-label">Сложность*</label>
-                        <select id="difficultySelect" class="form-select" required aria-required="true"></select>
+                        <label for="difficultySelect" class="form-label">Сложность<span aria-hidden="true">*</span></label>
+                        <select id="difficultySelect" class="form-select" required aria-required="true"
+                                aria-label="Сложность приготовления" aria-invalid="false"></select>
                     </div>
                     <div class="col-md-6">
                         <label for="descriptionInput" class="form-label">Описание</label>
-                        <textarea id="descriptionInput" class="form-control" rows="3"></textarea>
+                        <textarea id="descriptionInput" class="form-control" rows="3"
+                                  aria-label="Описание рецепта" aria-invalid="false"></textarea>
                     </div>
                     <div class="col-md-2">
-                        <label for="prepTimeInput" class="form-label">Подготовка (мин)*</label>
+                        <label for="prepTimeInput" class="form-label">Подготовка (мин)<span aria-hidden="true">*</span></label>
                         <input id="prepTimeInput" class="form-control" type="number" min="1" required
-                               aria-required="true">
+                               aria-required="true" aria-label="Время подготовки в минутах" aria-invalid="false">
                     </div>
                     <div class="col-md-2">
-                        <label for="cookTimeInput" class="form-label">Готовка (мин)*</label>
+                        <label for="cookTimeInput" class="form-label">Готовка (мин)<span aria-hidden="true">*</span></label>
                         <input id="cookTimeInput" class="form-control" type="number" min="1" required
-                               aria-required="true">
+                               aria-required="true" aria-label="Время готовки в минутах" aria-invalid="false">
                     </div>
                     <div class="col-md-2">
-                        <label for="servingsInput" class="form-label">Порции*</label>
+                        <label for="servingsInput" class="form-label">Порции<span aria-hidden="true">*</span></label>
                         <input id="servingsInput" class="form-control" type="number" min="1" required
-                               aria-required="true">
+                               aria-required="true" aria-label="Количество порций" aria-invalid="false">
                     </div>
                 </div>
             </div>
@@ -104,7 +109,8 @@
         </div>
 
         <div class="text-end">
-            <button id="recipeSubmitButton" class="btn btn-primary btn-lg" type="submit">Сохранить изменения</button>
+            <button id="recipeSubmitButton" class="btn btn-primary btn-lg" type="submit" 
+                    aria-label="Сохранить изменения в рецепте">Сохранить изменения</button>
         </div>
     </form>
 </main>

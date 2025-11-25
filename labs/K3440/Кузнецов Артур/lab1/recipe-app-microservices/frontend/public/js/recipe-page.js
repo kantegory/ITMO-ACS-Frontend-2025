@@ -56,9 +56,12 @@ async function loadRecipeDetails() {
     const imageElement = document.getElementById('recipeImage');
     if (recipe.image) {
         imageElement.src = recipe.image;
-        imageElement.alt = recipe.title;
+        imageElement.alt = `Изображение рецепта: ${recipe.title}`;
+        imageElement.classList.remove('d-none');
+        imageElement.removeAttribute('role');
     } else {
         imageElement.classList.add('d-none');
+        imageElement.setAttribute('role', 'presentation');
     }
 
     if (recipePageState.authorizedUser?.id === recipe.userId) {
@@ -108,13 +111,18 @@ function renderIngredients(ingredients) {
     }
 
     list.innerHTML = '';
-    ingredients.forEach((entry) => {
+    ingredients.forEach((entry, index) => {
         const item = document.createElement('li');
         item.className = 'list-group-item d-flex justify-content-between align-items-center';
+        item.setAttribute('role', 'listitem');
+        const ingredientName = escapeHtml(entry.ingredient?.name || 'Ингредиент');
+        const quantity = entry.quantity;
+        const unit = entry.unit;
         item.innerHTML = `
-            <span>${escapeHtml(entry.ingredient?.name || 'Ингредиент')}</span>
-            <span class="text-muted">${entry.quantity} ${entry.unit}</span>
+            <span>${ingredientName}</span>
+            <span class="text-muted" aria-label="Количество: ${quantity} ${unit}">${quantity} ${unit}</span>
         `;
+        item.setAttribute('aria-label', `Ингредиент ${index + 1}: ${ingredientName}, количество: ${quantity} ${unit}`);
         list.appendChild(item);
     });
 }
@@ -132,13 +140,17 @@ function renderSteps(steps) {
     steps.forEach((step) => {
         const row = document.createElement('div');
         row.className = 'step-row';
+        row.setAttribute('role', 'listitem');
+        const stepNumber = step.step_number;
+        const instruction = escapeHtml(step.instruction);
         row.innerHTML = `
             <div class="d-flex align-items-center mb-2">
-                <span class="step-number-badge">${step.step_number}</span>
-                <h6 class="mb-0">Шаг ${step.step_number}</h6>
+                <span class="step-number-badge" aria-hidden="true">${stepNumber}</span>
+                <h6 class="mb-0" id="step-title-${stepNumber}">Шаг ${stepNumber}</h6>
             </div>
-            <p class="mb-0">${escapeHtml(step.instruction)}</p>
+            <p class="mb-0" aria-labelledby="step-title-${stepNumber}">${instruction}</p>
         `;
+        row.setAttribute('aria-label', `Шаг ${stepNumber}: ${instruction}`);
         list.appendChild(row);
     });
 }
@@ -165,18 +177,22 @@ async function loadComments() {
     }
 
     container.innerHTML = '';
-    comments.forEach((comment) => {
+    comments.forEach((comment, index) => {
         const card = document.createElement('div');
         card.className = 'card comment-card mb-3';
+        card.setAttribute('role', 'listitem');
+        const commentDate = new Date(comment.created_at).toLocaleString('ru-RU');
+        const commentContent = escapeHtml(comment.content);
         card.innerHTML = `
             <div class="card-body">
-                <div class="comment-meta mb-2">
+                <div class="comment-meta mb-2" aria-label="Автор комментария и дата">
                     <span>Пользователь #${comment.userId}</span>
-                    <span class="ms-2">${new Date(comment.created_at).toLocaleString()}</span>
+                    <time class="ms-2" datetime="${comment.created_at}" aria-label="Дата публикации комментария: ${commentDate}">${commentDate}</time>
                 </div>
-                <p class="mb-0">${escapeHtml(comment.content)}</p>
+                <p class="mb-0" aria-label="Текст комментария от пользователя #${comment.userId}">${commentContent}</p>
             </div>
         `;
+        card.setAttribute('aria-label', `Комментарий ${index + 1} от пользователя #${comment.userId}`);
         container.appendChild(card);
     });
 }
@@ -258,11 +274,15 @@ function updateLikesUi() {
         likeButton.classList.remove('btn-outline-primary');
         likeButton.classList.add('btn-primary');
         likeButton.innerText = 'Убрать лайк';
+        likeButton.setAttribute('aria-label', 'Убрать лайк с рецепта');
+        likeButton.setAttribute('aria-pressed', 'true');
         likeButton.onclick = handleUnlike;
     } else {
         likeButton.classList.add('btn-outline-primary');
         likeButton.classList.remove('btn-primary');
         likeButton.innerText = 'Нравится';
+        likeButton.setAttribute('aria-label', 'Поставить лайк рецепту');
+        likeButton.setAttribute('aria-pressed', 'false');
         likeButton.onclick = handleLike;
     }
 }
