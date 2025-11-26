@@ -153,20 +153,20 @@
               <div class="avatar">ДЕ</div>
               <div class="min-w-0">
                 <p class="text-muted mb-1">Моё резюме</p>
-                <h4 class="resume__title">Дарья, Backend разработчик</h4>
-                <p class="resume__meta">FastAPI, OOP, REST API</p>
+                <h4 class="resume__title" id="resumeTitle">Дарья, Backend разработчик</h4>
+                <p class="resume__meta" id="resumeMeta">FastAPI, OOP, REST API</p>
               </div>
             </div>
-            <div class="resume__skills mt-3">
+            <div class="resume__skills mt-3" id="resumeSkills">
               <span class="pill pill--accent">UI с Bootstrap</span>
               <span class="pill">CSS изоляция</span>
               <span class="pill">Adaptive</span>
               <span class="pill pill--muted">REST API</span>
             </div>
-            <p class="resume__text">
+            <p class="resume__text" id="resumeAbout">
               1+ год коммерческой разработки.
             </p>
-            <button class="btn btn-outline-primary w-100" type="button">Обновить резюме</button>
+            <button class="btn btn-outline-primary w-100" type="button" id="resumeRefreshBtn">Обновить резюме</button>
           </div>
         </div>
       </div>
@@ -186,20 +186,20 @@
             <form class="row g-3">
               <div class="col-md-6">
                 <label class="form-label">Должность</label>
-                <input type="text" class="form-control" id="profilePosition" value="Frontend разработчик">
+                <input type="text" class="form-control" id="profilePosition" value="">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Город</label>
-                <input type="text" class="form-control" id="profileCity" value="Москва / удалённо">
+                <input type="text" class="form-control" id="profileCity" value="">
               </div>
               <div class="col-12">
                 <label class="form-label">Обо мне</label>
                 <textarea class="form-control" rows="3"
-                          placeholder="Коротко о себе: стек, опыт, достижения" id="profileAbout">Люблю быстрые и чистые интерфейсы, умею внедрять дизайн-системы, дружу с бэком.</textarea>
+                          placeholder="Коротко о себе: стек, опыт, достижения" id="profileAbout"></textarea>
               </div>
               <div class="col-12">
                 <label class="form-label">Ключевые навыки</label>
-                <input type="text" class="form-control" id="profileSkills" value="JS, React, CSS, Bootstrap, Node.js">
+                <input type="text" class="form-control" id="profileSkills" value="">
               </div>
               <div class="col-12 d-flex gap-2">
                 <button class="btn btn-primary minw-140" type="button" id="profileSaveBtn">Сохранить</button>
@@ -406,7 +406,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
 <script src="assets/main.js"></script>
 </body>
 </html>
