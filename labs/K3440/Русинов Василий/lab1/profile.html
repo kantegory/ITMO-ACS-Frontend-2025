@@ -17,7 +17,7 @@
 
         <div>
             <a href="search.html" class="btn btn-outline-primary me-2">Поиск</a>
-            <a href="login.html" class="btn btn-danger">Выйти</a>
+            <a href="login.html" class="btn btn-danger" id="logoutBtn">Выйти</a>
         </div>
     </div>
 </nav>
@@ -28,8 +28,8 @@
 
     <div class="card p-3 mt-3">
         <h4>Ваши данные</h4>
-        <p>Имя: Иван</p>
-        <p>Email: user@mail.com</p>
+        <p>Имя: <span id="profileName"></span></p>
+        <p>Email: <span id="profileEmail"></span></p>
     </div>
 
     <h4 class="mt-4">Арендованные объекты</h4>
@@ -46,5 +46,6 @@
     </div>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
