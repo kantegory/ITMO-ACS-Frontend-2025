@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FastRent — Поиск жилья</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="search">
+  <header>
+    <nav class="navbar navbar-expand-lg py-3 container" aria-label="Основная навигация">
+      <a class="navbar-brand brand" href="index.html">FastRent</a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <div id="nav-user"></div>
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary theme-toggle" type="button" aria-pressed="false" aria-label="Переключить тему" title="Переключить тему">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container py-4" role="main">
+    <section class="row align-items-center mb-4" aria-labelledby="searchHeading">
+      <div class="col-md-8">
+        <h1 id="searchHeading" class="mb-1">Найдите жильё для аренды</h1>
+        <p class="text-muted mb-0">Просматривайте, фильтруйте и бронируйте актуальные объявления в один клик.</p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="messages.html" class="btn btn-outline-secondary me-2">Сообщения</a>
+        <a href="dashboard.html" class="btn btn-primary">Мои объявления</a>
+      </div>
+    </section>
+
+    <section class="card card-custom mb-4" aria-label="Фильтры поиска объявлений">
+      <div class="card-body">
+        <form class="row g-2 align-items-center" role="search" aria-describedby="filtersHint">
+          <div class="col-12 visually-hidden" id="filtersHint">Используйте поля ниже, чтобы сузить выдачу.</div>
+          <div class="col-md-6">
+            <label id="searchInputLabel" for="searchInput" class="form-label visually-hidden">Поиск по названию, месту или описанию</label>
+            <input id="searchInput" class="form-control" placeholder="Поиск по названию, месту или описанию" aria-labelledby="searchInputLabel">
+          </div>
+          <div class="col-md-2">
+            <label id="filterTypeLabel" for="filterType" class="form-label visually-hidden">Тип жилья</label>
+            <select id="filterType" class="form-select" aria-labelledby="filterTypeLabel">
+              <option value="">Все типы</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label id="filterLocationLabel" for="filterLocation" class="form-label visually-hidden">Локация</label>
+            <select id="filterLocation" class="form-select" aria-labelledby="filterLocationLabel">
+              <option value="">Все локации</option>
+            </select>
+          </div>
+          <div class="col-md-2 text-md-end">
+            <label id="filterPriceLabel" for="filterPrice" class="form-label small text-muted">Максимальная цена: <span id="priceLabel" aria-live="polite">₽3000</span></label>
+            <input id="filterPrice" type="range" class="form-range" min="0" max="400000" value="3000" aria-labelledby="filterPriceLabel priceLabel">
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section aria-labelledby="resultsTitle">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 id="resultsTitle" class="h5 mb-0">Результаты поиска</h2>
+        <output class="text-muted small" id="resultCount" role="status" aria-live="polite" aria-label="Количество найденных объявлений"></output>
+      </div>
+      <div id="propertiesContainer" class="row" role="list"></div>
+    </section>
+  </main>
+
+  <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="bookForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookModalLabel">Бронирование</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <input id="bookPropertyId" name="propertyId" type="hidden" value="">
+          <div class="mb-3">
+              <label class="form-label" for="bookMoveIn">Дата заселения</label>
+            <input id="bookMoveIn" type="date" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="bookMessage">Сообщение владельцу (необязательно)</label>
+            <textarea id="bookMessage" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Отмена</button>
+          <button class="btn btn-primary" type="submit">Отправить запрос</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer text-center" role="contentinfo">
+    <div class="container">
+      <small>© 2025 FastRent</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

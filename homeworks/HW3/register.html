@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Регистрация — FastRent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="navbar container py-3" aria-label="Навигация страницы регистрации">
+      <a class="navbar-brand brand" href="index.html">FastRent</a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <div id="nav-user"></div>
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary theme-toggle" type="button" aria-pressed="false" aria-label="Переключить тему" title="Переключить тему">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container auth-wrapper d-flex align-items-center justify-content-center" role="main">
+    <div class="card card-custom p-4 auth-card auth-card-wide">
+      <h1 class="h4 mb-3">Создать аккаунт</h1>
+      <form id="registerForm" novalidate>
+        <div class="mb-2">
+          <label class="form-label" for="registerName">Полное имя</label>
+          <input id="registerName" name="name" type="text" class="form-control" required autocomplete="name">
+        </div>
+        <div class="mb-2">
+          <label class="form-label" for="registerEmail">Эл. почта</label>
+          <input id="registerEmail" name="email" type="email" class="form-control" required autocomplete="email">
+        </div>
+        <div class="mb-2">
+          <label class="form-label" for="registerPassword">Пароль</label>
+          <input id="registerPassword" name="password" type="password" class="form-control" required autocomplete="new-password">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="registerConfirm">Подтвердите пароль</label>
+          <input id="registerConfirm" name="confirm" type="password" class="form-control" required autocomplete="new-password">
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <a href="login.html">Уже есть аккаунт?</a>
+          <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer class="footer text-center" role="contentinfo">
+    <div class="container"><small>© 2025 FastRent</small></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
