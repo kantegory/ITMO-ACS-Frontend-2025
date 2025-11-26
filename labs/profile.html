@@ -31,8 +31,7 @@
           </form>
 
           <div class="d-flex align-items-center">
-            <a class="btn btn-outline-secondary me-2" href="login.html">Войти</a>
-            <a class="btn btn-primary" href="register.html">Регистрация</a>
+            <div id="userHeaderInfo"></div>
           </div>
         </div>
       </div>
@@ -40,37 +39,119 @@
   </header>
 
   <!-- MAIN: кабинет пользователя -->
-  <main class="container my-5">
+<main class="container my-5">
     <div class="row">
       <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <img src="assets/img/avatar-placeholder.jpg" alt="Аватар" class="rounded-circle mb-3" width="96" height="96">
-            <h5 class="card-title mb-0" id="profileName">Имя Пользователя</h5>
-            <p class="text-muted small" id="profileEmail">email@example.com</p>
-            <a href="#" class="btn btn-outline-primary btn-sm mt-2" id="logoutBtn">Выйти</a>
+        <div class="card text-center">
+          <div class="card-body">
+            <img src="assets/img/avatar-placeholder.jpg" id="profileAvatar" class="rounded-circle mb-3" width="120" height="120" alt="Аватар">
+            <h5 id="profileName">Гость</h5>
+            <p class="text-muted small" id="profileEmail">Войдите, чтобы сохранить рецепты и добавлять свои</p>
+
+            <!-- Гость — кнопка входа -->
+            <div id="guestView">
+              <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#authModal">
+                Зарегистрироваться или войти
+              </button>
+            </div>
+
+            <!-- Авторизованный пользователь -->
+            <div id="userView" class="d-none">
+              <button id="editProfileBtn" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#authModal">
+                Редактировать профиль
+              </button>
+              <button id="logoutBtn" class="btn btn-outline-danger btn-sm mt-2 w-100">Выйти</button>
+            </div>
           </div>
         </div>
 
-        <div class="card">
+        <div class="card mt-3">
           <div class="card-body">
-            <h6 class="mb-2">Быстрые действия</h6>
-            <a class="btn btn-sm btn-primary w-100 mb-2" href="#">Добавить рецепт</a>
-            <a class="btn btn-sm btn-outline-secondary w-100" href="#">Мои публикации</a>
+            <h6>Действия</h6>
+            <button class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addRecipeModal">
+              Добавить рецепт
+            </button>
+            <a href="#" class="btn btn-outline-secondary btn-sm w-100">Мои рецепты</a>
           </div>
         </div>
       </div>
 
       <div class="col-md-8">
-        <h4 class="mb-3">Сохраненные рецепты</h4>
+        <h4>Сохранённые рецепты</h4>
         <div id="savedRecipes" class="row g-3">
-          <div class="col-12">
-            <p class="text-muted">У вас пока нет сохраненных рецептов.</p>
-          </div>
+          <div class="col-12 text-muted">Войдите, чтобы видеть сохранённые рецепты</div>
         </div>
       </div>
     </div>
   </main>
+
+
+  <!-- Модальное окно: Авторизация + Редактирование профиля -->
+  <div class="modal fade" id="authModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="authModalTitle">Вход / Регистрация</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="authForm">
+            <div class="mb-3">
+              <label class="form-label">Имя</label>
+              <input type="text" id="authName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" id="authEmail" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Пароль</label>
+              <input type="password" id="authPassword" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Аватар</label>
+              <input type="file" id="authAvatar" class="form-control" accept="image/*">
+              <div class="mt-2 text-center">
+                <img id="authAvatarPreview" src="assets/img/avatar-placeholder.jpg" width="80" class="rounded-circle">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" id="authSubmitBtn">
+              Войти или зарегистрироваться
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Добавить рецепт -->
+  <div class="modal fade" id="addRecipeModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавить рецепт</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addRecipeForm">
+            <div class="mb-3"><input type="text" id="newTitle" class="form-control" placeholder="Название" required></div>
+            <div class="mb-3"><textarea id="newShort" class="form-control" rows="2" placeholder="Краткое описание" required></textarea></div>
+            <div class="mb-3"><input type="number" id="newTime" class="form-control" placeholder="Время (мин)" required></div>
+            <div class="mb-3">
+              <select id="newDifficulty" class="form-select">
+                <option>Легко</option>
+                <option>Средне</option>
+                <option>Сложно</option>
+              </select>
+            </div>
+            <div class="mb-3"><textarea id="newIngredients" class="form-control" rows="5" placeholder="Ингредиенты (по одному на строку)" required></textarea></div>
+            <div class="mb-3"><textarea id="newSteps" class="form-control" rows="7" placeholder="Шаги приготовления" required></textarea></div>
+            <button type="submit" class="btn btn-success w-100">Опубликовать</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="bg-light py-4 mt-auto">
