@@ -22,47 +22,54 @@
 </nav>
 
 <div class="container py-4">
-    <h1>RestOrator</h1>
-</div>
+    <h1 class="mb-4">Поиск ресторанов</h1>
 
-<h1 class="mb-4">Поиск ресторанов</h1>
+    <!-- Фильтры -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input id="searchInput" type="text" class="form-control" placeholder="Название/кухня">
+        </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Название/кухня">
-    </div>
-    <div class="col-md-4">
-        <select class="form-select">
-            <option>Район</option>
-            <option>Центральный</option>
-            <option>Петроградский</option>
-            <option>Адмиралтейский</option>
-            <option>Василеостровский</option>
-        </select>
-    </div>
-    <div class="col-md-4">
-        <select class="form-select">
-            <option>Цена</option>
-            <option>₽ Дёшево</option>
-            <option>₽₽ Средне</option>
-            <option>₽₽₽ Дорого</option>
-        </select>
-    </div>
-</div>
+        <div class="col-md-4">
+            <select id="districtSelect" class="form-select">
+                <option>Район</option>
+                <option>Центральный</option>
+                <option>Петроградский</option>
+                <option>Адмиралтейский</option>
+                <option>Василеостровский</option>
+            </select>
+        </div>
 
-<div class="row" id="restaurants-list">
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <img src="img/demo.jpg" class="card-img-top" alt="Ресторан">
-            <div class="card-body">
-                <h5 class="card-title">Balerina Capuccino</h5>
-                <p class="card-text">Итальянская кухня • ₽₽</p>
-                <a href="restaurant.html" class="btn btn-primary">Подробнее</a>
-            </div>
+        <div class="col-md-4">
+            <select id="priceSelect" class="form-select">
+                <option>Цена</option>
+                <option>₽ Дёшево</option>
+                <option>₽₽ Средне</option>
+                <option>₽₽₽ Дорого</option>
+            </select>
         </div>
     </div>
-</div>
 
+    <!-- Список ресторанов -->
+    <div class="row" id="restaurants-list">
+        <div class="col-md-4 mb-4 restaurant-item"
+             data-name="balerina capuccino"
+             data-type="итальянская"
+             data-location="Центральный"
+             data-price="₽₽ Средне">
+
+            <div class="card">
+                <img src="img/demo.jpg" class="card-img-top" alt="Ресторан">
+                <div class="card-body">
+                    <h5 class="card-title">Balerina Capuccino</h5>
+                    <p class="card-text">Итальянская кухня • ₽₽ Средне • Центральный район</p>
+                    <a href="restaurant.html" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>
