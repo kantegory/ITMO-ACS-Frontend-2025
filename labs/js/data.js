@@ -9,7 +9,7 @@ const RECIPES = [
     difficulty: "Легко",
     tags: ["Итальянская", "Паста", "Быстро"],
     image: "assets/img/pasta.jpg", 
-    /*images: ["assets/img/pasta.jpg", "assets/img/pasta2.jpg", "assets/img/pasta3.jpg"],*/
+    images: ["assets/img/pasta.jpg", "assets/img/pasta2.jpg", "assets/img/pasta3.jpg"],
     ingredients: ["Спагетти 200г", "Бекон 100г", "Яйцо 2 шт", "Пармезан 50г", "Соль, перец по вкусу"],
     steps: [
       "Отварите спагетти до состояния аль денте.",
@@ -27,7 +27,7 @@ const RECIPES = [
     difficulty: "Легко",
     tags: ["Салат", "Легко", "Быстро"],
     image: "assets/img/salad.jpg",
-    /*images: ["assets/img/salad.jpg", "assets/img/salad2.jpg"],*/
+    images: ["assets/img/salad.jpg", "assets/img/salad2.jpg"],
     ingredients: ["Куриное филе 150г", "Салат Ромэн", "Сухарики", "Пармезан 30г", "Соус Цезарь 3 ст.л."],
     steps: [
       "Обжарьте куриное филе и нарежьте кубиками.",
@@ -44,7 +44,7 @@ const RECIPES = [
     difficulty: "Средне",
     tags: ["Завтрак", "Сладко", "Выпечка"],
     image: "assets/img/pancakes.jpg", 
-    /*images: ["assets/img/pancakes.jpg"],*/
+    images: ["assets/img/pancakes.jpg"],
     ingredients: ["Мука 150г", "Молоко 200мл", "Яйцо 1 шт", "Банан 1 шт", "Сахар 2 ст.л.", "Разрыхлитель 1 ч.л."],
     steps: [
       "Смешайте муку с разрыхлителем и сахаром.",
@@ -64,7 +64,7 @@ const RECIPES = [
     author: "Екатерина",
     published: "8 ноября 2024",
     image: "assets/img/soup1.jpg",
-    /*images: ["assets/img/soup1.jpg", "assets/img/soup2.jpg"],*/
+    images: ["assets/img/soup1.jpg", "assets/img/soup2.jpg"],
     ingredients: [
       "Картофель — 3 шт",
       "Морковь — 1 шт",
@@ -96,7 +96,7 @@ const RECIPES = [
     author: "Алексей Про",
     published: "22 октября 2025",
     image: "assets/img/steak1.jpg",
-    /*images: ["assets/img/steak1.jpg", "assets/img/steak2.jpg", "assets/img/steak3.jpg"],*/
+    images: ["assets/img/steak1.jpg", "assets/img/steak2.jpg", "assets/img/steak3.jpg"],
     ingredients: [
       "Говяжий стейк (рибай или стриплойн) — 300–400 г",
       "Соль крупная — по вкусу",
@@ -125,7 +125,7 @@ const RECIPES = [
     author: "Юлия Суши",
     published: "17 сентября 2025",
     image: "assets/img/sushi.jpg",
-    /*images: ["assets/img/sushi.jpg"], */
+    images: ["assets/img/sushi.jpg"], 
     ingredients: [
       "Рис для суши — 200 г готового",
       "Нори — 3 листа",
