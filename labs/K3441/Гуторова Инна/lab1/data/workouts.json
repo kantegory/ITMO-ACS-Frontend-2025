@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "title": "Кардио для новичков",
+    "level": "beginner",
+    "type": "cardio",
+    "duration": 10,
+    "description": "Лёгкая кардио-тренировка, поможет разогреться и улучшить выносливость.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+    "video": "https://www.youtube.com/embed/ml6cT4AZdqI",
+    "instructions": [
+      "Разминка — 2 минуты",
+      "Бег на месте — 3 минуты",
+      "Прыжки — 5 минут"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Силовая тренировка дома",
+    "level": "intermediate",
+    "type": "strength",
+    "duration": 20,
+    "description": "Эффективная силовая тренировка на всё тело без использования оборудования.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+    "video": "https://rutube.ru/play/embed/a0677d0953e9f8c37382d11cf57b04f2",
+    "instructions": [
+      "Приседания — 3 подхода",
+      "Отжимания — 3 подхода",
+      "Планка — 1 минута"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Йога для расслабления",
+    "level": "beginner",
+    "type": "stretch",
+    "duration": 15,
+    "description": "Спокойная практика для растяжки и восстановления после тяжёлого дня.",
+    "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3",
+    "video": "https://www.youtube.com/embed/v7AYKMP6rOE",
+    "instructions": [
+      "Дыхательная техника — 2 минуты",
+      "Позы для спины — 6 минут",
+      "Завершающее расслабление — 7 минут"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Интенсивное кардио HIIT",
+    "level": "advanced",
+    "type": "HIIT",
+    "duration": 25,
+    "description": "Высокоинтенсивная интервальная тренировка для жиросжигания.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+    "video": "https://www.youtube.com/embed/cbKkB3POqaY?si=lO0Wi4NEcroDQVOL",
+    "instructions": [
+      "Разминка — 3 минуты",
+      "Интервалы 40/20 — 15 минут",
+      "Заминка — 7 минут"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Силовая тренировка для ног",
+    "level": "intermediate",
+    "type": "strength",
+    "duration": 18,
+    "description": "Комплекс упражнений для ног и ягодиц без оборудования.",
+    "image": "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0",
+    "video": "https://www.youtube.com/embed/aclHkVaku9U",
+    "instructions": [
+      "Выпады — 3×15",
+      "Приседания — 3×20",
+      "Ягодичный мост — 3×15"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Растяжка на каждый день",
+    "level": "beginner",
+    "type": "stretch",
+    "duration": 12,
+    "description": "Базовый комплекс растяжки для всего тела.",
+    "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3",
+    "video": "https://www.youtube.com/embed/Eml2xnoLpYE",
+    "instructions": [
+      "Повороты шеи — 2 минуты",
+      "Растяжка спины — 5 минут",
+      "Растяжка ног — 5 минут"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Тренировка корпуса (Core)",
+    "level": "intermediate",
+    "type": "strength",
+    "duration": 17,
+    "description": "Комплекс упражнений на пресс и мышцы корпуса.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+    "video": "https://www.youtube.com/embed/1919eTCoESo",
+    "instructions": [
+      "Планка — 1 минута",
+      "Скручивания — 3×20",
+      "Подъёмы ног — 3×15"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Кардио без прыжков",
+    "level": "beginner",
+    "type": "cardio",
+    "duration": 14,
+    "description": "Щадящая кардио-тренировка без ударной нагрузки.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+    "video": "https://www.youtube.com/embed/cZnsLVArIt8",
+    "instructions": [
+      "Ходьба на месте — 4 минуты",
+      "Лёгкие наклоны — 3 минуты",
+      "Шаги в сторону — 7 минут"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Фулл-боди тренировка",
+    "level": "advanced",
+    "type": "strength",
+    "duration": 30,
+    "description": "Сложная силовая тренировка для проработки всего тела.",
+    "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+    "video": "https://www.youtube.com/embed/UBMk30rjy0o",
+    "instructions": [
+      "Приседания с прыжком — 3×12",
+      "Отжимания — 4×15",
+      "Планка — 1 минута × 3"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Утренняя зарядка",
+    "level": "beginner",
+    "type": "HIIT",
+    "duration": 8,
+    "description": "Лёгкая утренняя разминка, чтобы зарядиться энергией на день.",
+    "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3",
+    "video": "https://www.youtube.com/embed/aPYCiuiB4PA",
+    "instructions": [
+      "Лёгкая разминка — 2 минуты",
+      "Круги руками — 2 минуты",
+      "Наклоны и скручивания — 4 минуты"
+    ]
+  }
+]
