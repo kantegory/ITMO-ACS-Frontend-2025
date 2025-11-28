@@ -205,9 +205,32 @@ function updateUserDisplay() {
     }
 }
 
-function loadData() {
-    conversations = [...sampleConversations];
-    transactions = [...sampleTransactions];
+async function loadData() {
+    const userData = localStorage.getItem('user');
+    if (!userData) return;
+
+    const user = JSON.parse(userData);
+
+    try {
+        const conversationsResult = await ApiService.getConversations(user.id);
+        const bookingsResult = await ApiService.getUserBookings(user.id);
+
+        if (conversationsResult.success) {
+            conversations = conversationsResult.data;
+        } else {
+            conversations = [...sampleConversations];
+        }
+
+        if (bookingsResult.success) {
+            transactions = bookingsResult.data;
+        } else {
+            transactions = [...sampleTransactions];
+        }
+    } catch (error) {
+        console.error('Error loading data:', error);
+        conversations = [...sampleConversations];
+        transactions = [...sampleTransactions];
+    }
 
     loadConversations();
     loadTransactionSummary();
@@ -317,7 +340,7 @@ function loadMessages() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-function sendMessage(e) {
+async function sendMessage(e) {
     e.preventDefault();
 
     const messageInput = document.getElementById('messageInput');
@@ -325,25 +348,36 @@ function sendMessage(e) {
 
     if (!messageText || !currentChat) return;
 
-    const newMessage = {
-        id: currentChat.messages.length + 1,
+    const userData = localStorage.getItem('user');
+    if (!userData) return;
+
+    const user = JSON.parse(userData);
+
+    const messageData = {
+        senderId: user.id,
         sender: 'user',
-        text: messageText,
-        timestamp: new Date().toISOString()
+        text: messageText
     };
 
-    currentChat.messages.push(newMessage);
-    currentChat.lastMessage = messageText;
-    currentChat.timestamp = new Date().toISOString();
+    try {
+        const result = await ApiService.sendMessage(currentChat.id, messageData);
 
-    messageInput.value = '';
+        if (result.success) {
+            currentChat = result.data;
+            messageInput.value = '';
+            loadMessages();
+            loadConversations();
 
-    loadMessages();
-    loadConversations();
-
-    setTimeout(() => {
-        simulateResponse();
-    }, 2000);
+            setTimeout(() => {
+                simulateResponse();
+            }, 2000);
+        } else {
+            showAlert('Failed to send message', 'danger');
+        }
+    } catch (error) {
+        console.error('Error sending message:', error);
+        showAlert('Failed to send message', 'danger');
+    }
 }
 
 function simulateResponse() {
@@ -386,10 +420,8 @@ function startConversationWithHost(hostName) {
     startNewConversation();
 }
 
-function sendNewConversation() {
+async function sendNewConversation() {
     const form = document.getElementById('newConversationForm');
-    const formData = new FormData(form);
-
     const recipientType = document.getElementById('recipientType').value;
     const hostSelect = document.getElementById('hostSelect').value;
     const subject = document.getElementById('messageSubject').value;
@@ -405,17 +437,22 @@ function sendNewConversation() {
         return;
     }
 
-    const newConversation = {
-        id: conversations.length + 1,
+    const userData = localStorage.getItem('user');
+    if (!userData) return;
+
+    const user = JSON.parse(userData);
+
+    const conversationData = {
+        userId: user.id,
+        hostId: recipientType === 'host' ? 3 : 1,
         name: recipientType === 'host' ? hostSelect.charAt(0).toUpperCase() + hostSelect.slice(1) : 'Customer Support',
         avatar: `https://ui-avatars.com/api/?name=${recipientType === 'host' ? hostSelect : 'Support'}&background=${recipientType === 'host' ? '007bff' : '28a745'}&color=fff&size=40`,
         lastMessage: message,
-        timestamp: new Date().toISOString(),
-        unread: 0,
         property: recipientType === 'host' ? 'Property Inquiry' : 'Support Request',
         messages: [
             {
                 id: 1,
+                senderId: user.id,
                 sender: 'user',
                 text: message,
                 timestamp: new Date().toISOString()
@@ -423,16 +460,23 @@ function sendNewConversation() {
         ]
     };
 
-    conversations.unshift(newConversation);
+    try {
+        const result = await ApiService.createConversation(conversationData);
 
-    bootstrap.Modal.getInstance(document.getElementById('newConversationModal')).hide();
-
-    form.reset();
-
-    loadConversations();
-    selectConversation(newConversation.id);
-
-    showAlert('Conversation started successfully!', 'success');
+        if (result.success) {
+            conversations.unshift(result.data);
+            bootstrap.Modal.getInstance(document.getElementById('newConversationModal')).hide();
+            form.reset();
+            loadConversations();
+            selectConversation(result.data.id);
+            showAlert('Conversation started successfully!', 'success');
+        } else {
+            showAlert('Failed to start conversation', 'danger');
+        }
+    } catch (error) {
+        console.error('Error creating conversation:', error);
+        showAlert('Failed to start conversation', 'danger');
+    }
 }
 
 function loadTransactionSummary() {

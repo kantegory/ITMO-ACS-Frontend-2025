@@ -143,10 +143,103 @@ const sampleProperties = [
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeSearch();
-    loadProperties();
     initializePriceSlider();
     initializeFilters();
     checkAuthentication();
+
+    // Check if we should use geolocation-based search
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasGeolocationHint = urlParams.get('useLocation') === 'true';
+    const hasLocationParam = urlParams.get('location');
+
+    console.log('Search page loaded. URL params:', {
+        hasGeolocationHint,
+        hasLocationParam,
+        geolocationSupported: !!navigator.geolocation
+    });
+
+    if (hasGeolocationHint || (!hasLocationParam && navigator.geolocation)) {
+        // Try to use geolocation-based search with external APIs
+        setTimeout(async () => {
+            try {
+                console.log('Geolocation search triggered. hasGeolocationHint:', hasGeolocationHint);
+
+                const shouldUseGeo = hasGeolocationHint ? true : confirm('Search for hotels near your current location?');
+
+                if (shouldUseGeo) {
+                    console.log('User confirmed geolocation usage');
+
+                    // Get user location
+                    console.log('Getting user location...');
+                    const position = await ApiService.getUserLocation();
+                    console.log('Position received:', position);
+
+                    const locationInfo = await ApiService.reverseGeocode(position.latitude, position.longitude);
+                    console.log('Location info:', locationInfo);
+
+                    // Search hotels via external API
+                    console.log('Searching hotels via external API...');
+                    const result = await ApiService.searchHotelsNearLocation(
+                        position.latitude,
+                        position.longitude
+                    );
+                    console.log('API result:', result);
+                    console.log('API result details:', {
+                        success: result.success,
+                        dataLength: result.data?.length,
+                        source: result.source,
+                        firstHotel: result.data?.[0]
+                    });
+
+                    if (result.success && result.data.length > 0) {
+                        console.log('Rendering external properties...');
+
+                        // Hide loading state first
+                        hideLoading();
+
+                        // Show external hotels instead of local data
+                        renderExternalProperties(result.data, {
+                            latitude: position.latitude,
+                            longitude: position.longitude,
+                            city: locationInfo.city,
+                            country: locationInfo.country
+                        });
+
+                        // Show success message
+                        document.querySelector('.results-title')?.insertAdjacentHTML('afterend',
+                            `<div class="alert alert-success">✅ Found ${result.data.length} hotels near ${locationInfo.city} via external API! Source: ${result.data[0]?.source || 'external'}</div>`);
+                    } else {
+                        console.log('No external hotels found or API failed');
+                        console.log('Falling back to local data with location context');
+
+                        // Hide loading and show local properties with location context
+                        hideLoading();
+
+                        // Load local properties but update the title to show location
+                        await loadProperties();
+
+                        // Update title to show it's showing local data near the location
+                        const resultsTitle = document.querySelector('.results-title');
+                        if (resultsTitle && locationInfo) {
+                            resultsTitle.textContent = `Properties near ${locationInfo.city}, ${locationInfo.country}`;
+                        }
+
+                        // Show info message
+                        document.querySelector('.results-title')?.insertAdjacentHTML('afterend',
+                            `<div class="alert alert-info">⚠️ No hotels found via external API near ${locationInfo.city}. Showing available properties from our database.</div>`);
+                    }
+                } else {
+                    loadProperties();
+                }
+            } catch (error) {
+                console.error('Geolocation search failed:', error);
+                hideLoading();
+                loadProperties();
+            }
+        }, 1000);
+    } else {
+        loadProperties();
+    }
 });
 
 function initializeSearch() {
@@ -236,12 +329,25 @@ function checkAuthentication() {
     }
 }
 
-function loadProperties() {
-    setTimeout(() => {
+async function loadProperties() {
+    try {
+        const result = await ApiService.getProperties();
+
+        if (result.success) {
+            properties = result.data;
+        } else {
+            properties = [...sampleProperties];
+            console.warn('API failed, using sample data:', result.message);
+        }
+
+        applyFilters();
+        hideLoading();
+    } catch (error) {
+        console.error('Error loading properties:', error);
         properties = [...sampleProperties];
         applyFilters();
         hideLoading();
-    }, 2000);
+    }
 }
 
 function hideLoading() {
@@ -332,12 +438,12 @@ function initializeFilters() {
 
     const sortItems = document.querySelectorAll('[data-sort]');
     sortItems.forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', async function(e) {
             e.preventDefault();
             currentSort = this.dataset.sort;
             document.getElementById('sortBtn').innerHTML =
                 `<i class="fas fa-sort me-2"></i>Sort by: ${this.textContent}`;
-            sortAndRenderProperties();
+            await sortAndRenderProperties();
         });
     });
 }
@@ -352,46 +458,82 @@ function changeGuests(type, delta) {
     }
 }
 
-function applyFilters() {
-    filteredProperties = properties.filter(property => {
-      
-        if (filters.location && !property.location.toLowerCase().includes(filters.location.toLowerCase())) {
-            return false;
+async function applyFilters() {
+    const apiFilters = {
+        location: filters.location,
+        type: filters.propertyTypes.length === 1 ? filters.propertyTypes[0] : null,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice
+    };
+
+    try {
+        const result = await ApiService.getProperties(apiFilters);
+
+        if (result.success) {
+            filteredProperties = result.data.filter(property => {
+                if (filters.propertyTypes.length > 1 && !filters.propertyTypes.includes(property.type)) {
+                    return false;
+                }
+
+                if (property.maxGuests < filters.adults + filters.children) {
+                    return false;
+                }
+
+                if (filters.amenities.length > 0) {
+                    const hasAllAmenities = filters.amenities.every(amenity =>
+                        property.amenities.includes(amenity)
+                    );
+                    if (!hasAllAmenities) return false;
+                }
+
+                if (property.rating < filters.minRating) {
+                    return false;
+                }
+
+                return true;
+            });
+        } else {
+            filteredProperties = properties.filter(property => {
+                if (filters.location && !property.location.toLowerCase().includes(filters.location.toLowerCase())) {
+                    return false;
+                }
+
+                if (filters.propertyTypes.length > 0 && !filters.propertyTypes.includes(property.type)) {
+                    return false;
+                }
+
+                if (property.price < filters.minPrice || property.price > filters.maxPrice) {
+                    return false;
+                }
+
+                if (property.maxGuests < filters.adults + filters.children) {
+                    return false;
+                }
+
+                if (filters.amenities.length > 0) {
+                    const hasAllAmenities = filters.amenities.every(amenity =>
+                        property.amenities.includes(amenity)
+                    );
+                    if (!hasAllAmenities) return false;
+                }
+
+                if (property.rating < filters.minRating) {
+                    return false;
+                }
+
+                return true;
+            });
         }
+    } catch (error) {
+        console.error('Error applying filters:', error);
+        filteredProperties = properties;
+    }
 
-       
-        if (filters.propertyTypes.length > 0 && !filters.propertyTypes.includes(property.type)) {
-            return false;
-        }
-
-
-        if (property.price < filters.minPrice || property.price > filters.maxPrice) {
-            return false;
-        }
-
-        if (property.maxGuests < filters.adults + filters.children) {
-            return false;
-        }
-
-        if (filters.amenities.length > 0) {
-            const hasAllAmenities = filters.amenities.every(amenity =>
-                property.amenities.includes(amenity)
-            );
-            if (!hasAllAmenities) return false;
-        }
-
-        if (property.rating < filters.minRating) {
-            return false;
-        }
-
-        return true;
-    });
-
-    sortAndRenderProperties();
+    await sortAndRenderProperties();
     updateResultsCount();
 }
 
-function sortAndRenderProperties() {
+async function sortAndRenderProperties() {
     filteredProperties.sort((a, b) => {
         switch (currentSort) {
             case 'price':
@@ -401,37 +543,67 @@ function sortAndRenderProperties() {
             case 'rating':
                 return b.rating - a.rating;
             case 'distance':
-                return 0; 
+                return 0;
             default:
                 return 0;
         }
     });
 
-    renderProperties();
+    await renderProperties();
     renderPagination();
 }
 
-function renderProperties() {
+async function renderProperties() {
+    console.log('renderProperties called. filteredProperties.length:', filteredProperties.length);
+
     const propertyGrid = document.getElementById('propertyGrid');
     const noResults = document.getElementById('noResults');
 
+    console.log('Elements found:', {
+        propertyGrid: !!propertyGrid,
+        noResults: !!noResults
+    });
+
     if (filteredProperties.length === 0) {
+        console.log('No properties to render - showing noResults');
         propertyGrid.innerHTML = '';
         noResults.classList.remove('d-none');
         return;
     }
 
+    console.log('Properties found, hiding noResults and rendering...');
     noResults.classList.add('d-none');
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const pageProperties = filteredProperties.slice(startIndex, endIndex);
 
-    const propertiesHTML = pageProperties.map(property => `
-        <div class="property-card card shadow-sm" onclick="showPropertyDetails(${property.id})">
+    console.log('Page properties to render:', pageProperties.length);
+
+    // Resolve image URLs for hotels
+    const propertiesWithImages = await Promise.all(pageProperties.map(async (property) => {
+        let imageUrl = property.image;
+
+        // If it's a hotel with API image reference, resolve the actual URL
+        if (property.type === 'hotel' && property.image.includes('/images/')) {
+            try {
+                imageUrl = await ApiService.resolveImageUrl(property.image);
+            } catch (error) {
+                console.warn('Failed to resolve image for', property.title, error);
+                // Fallback to imageUrl if available
+                imageUrl = property.imageUrl || property.image;
+            }
+        }
+
+        return { ...property, resolvedImageUrl: imageUrl };
+    }));
+
+    const propertiesHTML = propertiesWithImages.map(property => `
+        <div class="property-card card shadow-sm" onclick="showPropertyDetails('${property.id}')">
             <div class="position-relative">
-                <img src="${property.image}" alt="${property.title}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2" onclick="event.stopPropagation(); toggleFavorite(${property.id})">
+                <img src="${property.resolvedImageUrl}" alt="${property.title}" class="card-img-top" style="height: 200px; object-fit: cover;"
+                     onerror="this.src='${property.imageUrl || property.image}'">
+                <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2" onclick="event.stopPropagation(); toggleFavorite('${property.id}')">
                     <i class="far fa-heart" id="heart-${property.id}"></i>
                 </button>
             </div>
@@ -470,6 +642,74 @@ function renderProperties() {
     `).join('');
 
     propertyGrid.innerHTML = propertiesHTML;
+}
+
+async function renderExternalProperties(externalHotels, userLocation) {
+    console.log('renderExternalProperties called with:', {
+        hotelsCount: externalHotels.length,
+        firstHotel: externalHotels[0],
+        userLocation
+    });
+
+    // Replace the current properties with external hotel data
+    properties = externalHotels.map(hotel => ({
+        id: hotel.id,
+        title: hotel.name,
+        location: hotel.location,
+        type: hotel.type,
+        price: hotel.price,
+        rating: hotel.rating,
+        reviews: Math.floor(Math.random() * 100) + 10, // Mock review count
+        image: hotel.image,
+        amenities: hotel.amenities || ['wifi', 'parking'],
+        maxGuests: 4, // Default value for external hotels
+        bedrooms: 1,
+        bathrooms: 1,
+        description: hotel.description,
+        isExternal: true
+    }));
+
+    filteredProperties = [...properties];
+    currentPage = 1;
+
+    console.log('Properties mapped:', properties.length);
+    console.log('Filtered properties:', filteredProperties.length);
+    console.log('First mapped property:', properties[0]);
+
+    // Update search result title
+    const resultsTitle = document.querySelector('.results-title');
+    if (resultsTitle && userLocation) {
+        resultsTitle.textContent = `Hotels near ${userLocation.city}, ${userLocation.country}`;
+    }
+
+    // Update filter options to reflect external data
+    updateFilterOptionsForExternal();
+
+    console.log('About to call renderProperties...');
+    await renderProperties();
+    console.log('renderProperties completed');
+
+    updateResultsCount();
+    renderPagination();
+}
+
+function updateFilterOptionsForExternal() {
+    // Update property type filter to include hotels
+    const propertyTypeFilters = document.querySelectorAll('input[name="propertyType"]');
+    propertyTypeFilters.forEach(checkbox => {
+        if (checkbox.value === 'hotel') {
+            checkbox.checked = true;
+        } else {
+            checkbox.checked = false;
+        }
+    });
+
+    // Update price range to accommodate hotel prices
+    const priceSlider = document.getElementById('priceRange');
+    if (priceSlider) {
+        priceSlider.max = 300; // Increase max price for hotels
+        filters.maxPrice = 300;
+    }
 }
 
 function getAmenityIcon(amenity) {
@@ -525,9 +765,9 @@ function renderPagination() {
     pagination.innerHTML = paginationHTML;
 }
 
-function changePage(page) {
+async function changePage(page) {
     currentPage = page;
-    renderProperties();
+    await renderProperties();
     renderPagination();
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -596,8 +836,11 @@ function toggleView() {
 }
 
 function showPropertyDetails(propertyId) {
-    const property = properties.find(p => p.id === propertyId);
-    if (!property) return;
+    const property = properties.find(p => p.id == propertyId);
+    if (!property) {
+        console.warn('Property not found with ID:', propertyId);
+        return;
+    }
 
     const modal = new bootstrap.Modal(document.getElementById('propertyModal'));
     document.getElementById('modalPropertyTitle').textContent = property.title;
@@ -731,3 +974,4 @@ window.showPropertyDetails = showPropertyDetails;
 window.toggleFavorite = toggleFavorite;
 window.bookProperty = bookProperty;
 window.changePage = changePage;
+window.renderExternalProperties = renderExternalProperties;

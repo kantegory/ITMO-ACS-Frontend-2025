@@ -329,3 +329,12 @@ footer a:hover {
     color: white !important;
     text-decoration: none;
 }
+
+/* Make info cards non-clickable but keep hover effects */
+.bg-transparent.card {
+    cursor: default !important;
+}
+
+.bg-transparent.card:hover {
+    transform: none !important;
+}

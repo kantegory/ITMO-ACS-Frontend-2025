@@ -49,7 +49,12 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="form-label text-muted small">Location</label>
-                                        <input type="text" class="form-control border-0" placeholder="Where are you going? (optional)" id="mainLocation" name="location">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control border-0" placeholder="Where are you going? (optional)" id="mainLocation" name="location">
+                                            <button class="btn btn-outline-primary btn-sm" type="button" id="useLocationBtn" title="Use My Location">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -137,7 +142,7 @@
 
             <div class="row g-4" id="dealsContainer">
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm rounded-4" data-property-id="9">
+                    <div class="card border-0 shadow-sm rounded-4" data-property-id="8">
                         <div class="position-relative">
                             <img src="images/haludovo-palace.jpg" class="card-img-top rounded-top-4" alt="Hotel">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
@@ -163,7 +168,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm rounded-4" data-property-id="10">
+                    <div class="card border-0 shadow-sm rounded-4" data-property-id="109">
                         <div class="position-relative">
                             <img src="images/cherno-more-hotel.jpg" class="card-img-top rounded-top-4" alt="Hotel">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
@@ -189,7 +194,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm rounded-4" data-property-id="11">
+                    <div class="card border-0 shadow-sm rounded-4" data-property-id="6">
                         <div class="position-relative">
                             <img src="images/flat-in-ferant-garden.jpg" class="card-img-top rounded-top-4" alt="Apartment">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
@@ -215,7 +220,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <div class="card border-0 shadow-sm rounded-4" data-property-id="12">
+                    <div class="card border-0 shadow-sm rounded-4" data-property-id="3">
                         <div class="position-relative">
                             <img src="images/soviet-apartment.jpg" class="card-img-top rounded-top-4" alt="Apartment">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
@@ -384,6 +389,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

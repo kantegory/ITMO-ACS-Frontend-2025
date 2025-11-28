@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
     initializeCarousel();
     setupDateInputs();
+    initializeGeolocation();
 });
 
 function initializeEventListeners() {
@@ -107,9 +108,23 @@ function handleSearch(e) {
 
     console.log('FormData extracted:', { location, checkIn, checkOut });
     console.log('Global guest variables:', { rooms, adults, children });
-    console.log('All form entries:', Array.from(formData.entries()));
+    console.log('User location available:', !!window.userLocation);
 
-    searchProperties(location, checkIn, checkOut);
+    // If user has geolocation, always use it (even if location field is filled from geolocation)
+    if (window.userLocation) {
+        const params = new URLSearchParams({
+            useLocation: 'true',
+            checkIn: checkIn,
+            checkOut: checkOut,
+            rooms: rooms.toString(),
+            adults: adults.toString(),
+            children: children.toString()
+        });
+        window.location.href = `search.html?${params.toString()}`;
+    } else {
+        // Regular text search
+        searchProperties(location, checkIn, checkOut);
+    }
 }
 
 function increaseGuests(type) {
@@ -346,13 +361,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const propertyCards = document.querySelectorAll('.card');
     propertyCards.forEach((card, index) => {
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', function(e) {
-            if (!e.target.closest('button') && !e.target.closest('.fa-heart')) {
-                const propertyId = card.getAttribute('data-property-id') || (index + 1);
-                handlePropertyClick(propertyId);
-            }
-        });
+        // Skip only info cards (Travel more, spend less section)
+        if (!card.classList.contains('bg-transparent')) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('button') && !e.target.closest('.fa-heart')) {
+                    const propertyId = card.getAttribute('data-property-id') || (index + 1);
+                    handlePropertyClick(propertyId);
+                }
+            });
+        }
     });
 });
 
@@ -381,6 +399,152 @@ function setupDateInputs() {
     }
 }
 
+function initializeGeolocation() {
+    console.log('initializeGeolocation called');
+    const locationButton = document.getElementById('useLocationBtn');
+    console.log('Location button found:', !!locationButton);
+    if (locationButton) {
+        locationButton.addEventListener('click', useCurrentLocation);
+        console.log('Event listener attached to location button');
+    } else {
+        console.warn('Use location button not found');
+    }
+
+    // Check if we should auto-detect location on page load
+    if (window.location.pathname.includes('search') && !getUrlParam('location')) {
+        setTimeout(() => {
+            const autoDetect = confirm('Would you like to search for hotels near your current location?');
+            if (autoDetect) {
+                useCurrentLocation();
+            }
+        }, 1000);
+    }
+}
+
+async function useCurrentLocation() {
+    const locationInput = document.getElementById('mainLocation');
+    const locationButton = document.getElementById('useLocationBtn');
+
+    console.log('useCurrentLocation called');
+    console.log('ApiService available:', typeof ApiService);
+
+    if (locationButton) {
+        locationButton.disabled = true;
+        locationButton.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Getting location...';
+    }
+
+    try {
+        const position = await ApiService.getUserLocation();
+        console.log('Position received:', position);
+        const locationInfo = await ApiService.reverseGeocode(position.latitude, position.longitude);
+        console.log('Location info:', locationInfo);
+
+        if (locationInput) {
+            locationInput.value = `${locationInfo.city}, ${locationInfo.country}`;
+        }
+
+        // Store coordinates for search
+        window.userLocation = {
+            latitude: position.latitude,
+            longitude: position.longitude,
+            city: locationInfo.city,
+            country: locationInfo.country
+        };
+
+        showAlert(`Location detected: ${locationInfo.city}, ${locationInfo.country}`, 'success');
+
+        // If we're on search page, trigger immediate search
+        if (window.location.pathname.includes('search')) {
+            searchWithGeolocation();
+        } else {
+            // On main page, just fill the location field - don't redirect
+            showAlert('Location detected! You can now search for hotels.', 'success');
+        }
+
+    } catch (error) {
+        console.error('Geolocation error:', error);
+        showAlert(error.message || 'Could not access your location', 'danger');
+
+        // Fallback to manual input
+        if (locationInput) {
+            locationInput.focus();
+            locationInput.placeholder = 'Enter city name manually';
+        }
+    } finally {
+        if (locationButton) {
+            locationButton.disabled = false;
+            locationButton.innerHTML = '<i class="fas fa-map-marker-alt me-1"></i>Use My Location';
+        }
+    }
+}
+
+async function searchWithGeolocation() {
+    if (!window.userLocation) {
+        // Fallback to regular search
+        const urlParams = new URLSearchParams(window.location.search);
+        const location = urlParams.get('location');
+        if (location) {
+            // Regular text-based search
+            searchProperties(location);
+        }
+        return;
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const checkin = urlParams.get('checkIn') || '';
+    const checkout = urlParams.get('checkOut') || '';
+
+    showLoadingScreen(true);
+
+    try {
+        const result = await ApiService.searchHotelsNearLocation(
+            window.userLocation.latitude,
+            window.userLocation.longitude,
+            checkin,
+            checkout
+        );
+
+        if (result.success) {
+            let message = '';
+            if (result.source === 'cache') {
+                message = 'Showing cached results for your location 📂';
+            } else if (result.source === 'external') {
+                const apiSource = result.data[0]?.source || 'external';
+                if (apiSource === 'nominatim') {
+                    message = 'Hotels loaded from OpenStreetMap 🗺️';
+                } else if (apiSource === 'foursquare') {
+                    message = 'Hotels loaded from Foursquare API 📍';
+                } else {
+                    message = 'Hotels loaded from external API 🌐';
+                }
+            } else if (result.source === 'local_fallback') {
+                message = result.message + ' 💾';
+            }
+
+            showAlert(message, result.source === 'local_fallback' ? 'warning' : 'success');
+
+            // If we're on search page, render the results
+            if (window.renderExternalProperties) {
+                window.renderExternalProperties(result.data, window.userLocation);
+            }
+        } else {
+            showAlert('Search failed. Please try again.', 'danger');
+        }
+    } catch (error) {
+        console.error('Search error:', error);
+        showAlert('Search failed. Please try again.', 'danger');
+    } finally {
+        showLoadingScreen(false);
+    }
+}
+
+function getUrlParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
 window.searchProperties = searchProperties;
 window.increaseGuests = increaseGuests;
 window.decreaseGuests = decreaseGuests;
+window.useCurrentLocation = useCurrentLocation;
+window.searchWithGeolocation = searchWithGeolocation;

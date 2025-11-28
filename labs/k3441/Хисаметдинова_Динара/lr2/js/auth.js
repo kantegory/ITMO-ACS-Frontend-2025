@@ -44,7 +44,7 @@ function initializeValidation() {
     }
 }
 
-function handleLogin(e) {
+async function handleLogin(e) {
     e.preventDefault();
 
     const email = document.getElementById('email').value;
@@ -63,31 +63,34 @@ function handleLogin(e) {
 
     toggleLoginLoading(true);
 
-    setTimeout(() => {
-        toggleLoginLoading(false);
+    try {
+        const result = await ApiService.login(email, password);
 
-        if (email && password) {
+        if (result.success) {
             const userData = {
-                email: email,
-                isLoggedIn: true,
+                ...result.user,
                 loginTime: new Date().toISOString(),
                 rememberMe: rememberMe
             };
 
             localStorage.setItem('user', JSON.stringify(userData));
-
             showAlert('Login successful! Redirecting...', 'success');
 
             setTimeout(() => {
                 window.location.href = 'profile.html';
             }, 1500);
         } else {
-            showAlert('Invalid email or password', 'danger');
+            showAlert(result.message || 'Invalid email or password', 'danger');
         }
-    }, 2000);
+    } catch (error) {
+        console.error('Login error:', error);
+        showAlert('Login failed. Please try again.', 'danger');
+    } finally {
+        toggleLoginLoading(false);
+    }
 }
 
-function handleRegister(e) {
+async function handleRegister(e) {
     e.preventDefault();
 
     const formData = {
@@ -108,25 +111,30 @@ function handleRegister(e) {
 
     toggleRegisterLoading(true);
 
-    setTimeout(() => {
+    try {
+        const result = await ApiService.register(formData);
+
+        if (result.success) {
+            const userData = {
+                ...result.user,
+                rememberMe: false
+            };
+
+            localStorage.setItem('user', JSON.stringify(userData));
+            showAlert('Account created successfully! Welcome to RentAparts!', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 2000);
+        } else {
+            showAlert(result.message || 'Registration failed', 'danger');
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        showAlert('Registration failed. Please try again.', 'danger');
+    } finally {
         toggleRegisterLoading(false);
-
-        const userData = {
-            ...formData,
-            isLoggedIn: true,
-            registrationTime: new Date().toISOString()
-        };
-        delete userData.password;
-        delete userData.confirmPassword;
-
-        localStorage.setItem('user', JSON.stringify(userData));
-
-        showAlert('Account created successfully! Welcome to RentAparts!', 'success');
-
-        setTimeout(() => {
-            window.location.href = 'profile.html';
-        }, 2000);
-    }, 2500);
+    }
 }
 
 function handleForgotPassword(e) {
