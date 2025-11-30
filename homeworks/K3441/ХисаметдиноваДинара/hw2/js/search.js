@@ -147,99 +147,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
     checkAuthentication();
 
-    // Check if we should use geolocation-based search
-    const urlParams = new URLSearchParams(window.location.search);
-    const hasGeolocationHint = urlParams.get('useLocation') === 'true';
-    const hasLocationParam = urlParams.get('location');
-
-    console.log('Search page loaded. URL params:', {
-        hasGeolocationHint,
-        hasLocationParam,
-        geolocationSupported: !!navigator.geolocation
-    });
-
-    if (hasGeolocationHint || (!hasLocationParam && navigator.geolocation)) {
-        // Try to use geolocation-based search with external APIs
-        setTimeout(async () => {
-            try {
-                console.log('Geolocation search triggered. hasGeolocationHint:', hasGeolocationHint);
-
-                const shouldUseGeo = hasGeolocationHint ? true : confirm('Search for hotels near your current location?');
-
-                if (shouldUseGeo) {
-                    console.log('User confirmed geolocation usage');
-
-                    // Get user location
-                    console.log('Getting user location...');
-                    const position = await ApiService.getUserLocation();
-                    console.log('Position received:', position);
-
-                    const locationInfo = await ApiService.reverseGeocode(position.latitude, position.longitude);
-                    console.log('Location info:', locationInfo);
-
-                    // Search hotels via external API
-                    console.log('Searching hotels via external API...');
-                    const result = await ApiService.searchHotelsNearLocation(
-                        position.latitude,
-                        position.longitude
-                    );
-                    console.log('API result:', result);
-                    console.log('API result details:', {
-                        success: result.success,
-                        dataLength: result.data?.length,
-                        source: result.source,
-                        firstHotel: result.data?.[0]
-                    });
-
-                    if (result.success && result.data.length > 0) {
-                        console.log('Rendering external properties...');
-
-                        // Hide loading state first
-                        hideLoading();
-
-                        // Show external hotels instead of local data
-                        renderExternalProperties(result.data, {
-                            latitude: position.latitude,
-                            longitude: position.longitude,
-                            city: locationInfo.city,
-                            country: locationInfo.country
-                        });
-
-                        // Show success message
-                        document.querySelector('.results-title')?.insertAdjacentHTML('afterend',
-                            `<div class="alert alert-success">✅ Found ${result.data.length} hotels near ${locationInfo.city} via external API! Source: ${result.data[0]?.source || 'external'}</div>`);
-                    } else {
-                        console.log('No external hotels found or API failed');
-                        console.log('Falling back to local data with location context');
-
-                        // Hide loading and show local properties with location context
-                        hideLoading();
-
-                        // Load local properties but update the title to show location
-                        await loadProperties();
-
-                        // Update title to show it's showing local data near the location
-                        const resultsTitle = document.querySelector('.results-title');
-                        if (resultsTitle && locationInfo) {
-                            resultsTitle.textContent = `Properties near ${locationInfo.city}, ${locationInfo.country}`;
-                        }
-
-                        // Show info message
-                        document.querySelector('.results-title')?.insertAdjacentHTML('afterend',
-                            `<div class="alert alert-info">⚠️ No hotels found via external API near ${locationInfo.city}. Showing available properties from our database.</div>`);
-                    }
-                } else {
-                    loadProperties();
-                }
-            } catch (error) {
-                console.error('Geolocation search failed:', error);
-                hideLoading();
-                loadProperties();
-            }
-        }, 1000);
-    } else {
-        loadProperties();
-    }
+    // Load properties directly without external API calls to prevent connection refused errors
+    loadProperties();
 });
 
 function initializeSearch() {
@@ -580,23 +489,17 @@ async function renderProperties() {
 
     console.log('Page properties to render:', pageProperties.length);
 
-    // Resolve image URLs for hotels
-    const propertiesWithImages = await Promise.all(pageProperties.map(async (property) => {
+    // Use image URLs directly without external API calls to prevent connection refused errors
+    const propertiesWithImages = pageProperties.map((property) => {
         let imageUrl = property.image;
 
-        // If it's a hotel with API image reference, resolve the actual URL
-        if (property.type === 'hotel' && property.image.includes('/images/')) {
-            try {
-                imageUrl = await ApiService.resolveImageUrl(property.image);
-            } catch (error) {
-                console.warn('Failed to resolve image for', property.title, error);
-                // Fallback to imageUrl if available
-                imageUrl = property.imageUrl || property.image;
-            }
+        // Use fallback URL if image path is not valid
+        if (!imageUrl || (!imageUrl.startsWith('http') && !imageUrl.startsWith('images/'))) {
+            imageUrl = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80';
         }
 
         return { ...property, resolvedImageUrl: imageUrl };
-    }));
+    });
 
     const propertiesHTML = propertiesWithImages.map(property => `
         <div class="property-card card shadow-sm" onclick="showPropertyDetails('${property.id}')">

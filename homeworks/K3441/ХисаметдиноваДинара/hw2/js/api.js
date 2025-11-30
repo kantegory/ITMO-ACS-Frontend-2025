@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3003';
+const API_BASE_URL = 'http://localhost:8000';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -104,61 +104,304 @@ const ApiService = {
 
     async getProperties(filters = {}) {
         try {
-            console.log('getProperties called, using Mock API...');
+            console.log('getProperties called, using local sample data...');
 
-            const mockResponse = await this.getMockApiHotels();
-
-            if (mockResponse && mockResponse.length > 0) {
-                console.log('Mock API returned properties:', mockResponse.length);
-
-                // Apply filters to mock data if needed
-                let filteredData = mockResponse;
-
-                if (filters.location) {
-                    filteredData = filteredData.filter(property =>
-                        property.location.toLowerCase().includes(filters.location.toLowerCase())
-                    );
+            // Use the local sample properties data instead of API calls - 18 properties total
+            const sampleProperties = [
+                {
+                    id: 1,
+                    title: 'Cozy Belgrade Apartment',
+                    location: 'Belgrade, Serbia',
+                    type: 'apartment',
+                    price: 30,
+                    rating: 4.2,
+                    reviews: 47,
+                    image: 'images/cozy-belgrade-apartment.webp',
+                    amenities: ['wifi', 'kitchen', 'parking'],
+                    maxGuests: 4,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Charming apartment in the heart of Belgrade with authentic Socialist architecture.'
+                },
+                {
+                    id: 2,
+                    title: 'Modern Krakow Loft',
+                    location: 'Krakow, Poland',
+                    type: 'apartment',
+                    price: 225,
+                    rating: 4.8,
+                    reviews: 112,
+                    image: 'images/modern-krakow-loft.webp',
+                    amenities: ['wifi', 'aircon', 'kitchen', 'washer'],
+                    maxGuests: 2,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Contemporary loft in historic Krakow with modern amenities.'
+                },
+                {
+                    id: 3,
+                    title: 'Bucharest Studio',
+                    location: 'Bucharest, Romania',
+                    type: 'studio',
+                    price: 24,
+                    rating: 3.9,
+                    reviews: 33,
+                    image: 'images/bucharest-studio.webp',
+                    amenities: ['wifi', 'kitchen'],
+                    maxGuests: 2,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Affordable studio apartment perfect for short stays in Bucharest.'
+                },
+                {
+                    id: 4,
+                    title: 'Riga Luxury Suite',
+                    location: 'Riga, Latvia',
+                    type: 'apartment',
+                    price: 190,
+                    rating: 4.6,
+                    reviews: 89,
+                    image: 'images/riga-luxury-suite.webp',
+                    amenities: ['wifi', 'aircon', 'kitchen', 'washer', 'parking'],
+                    maxGuests: 6,
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    description: 'Luxurious apartment with Baltic Sea views in historic Riga.'
+                },
+                {
+                    id: 5,
+                    title: 'Prague Historic House',
+                    location: 'Prague, Czech Republic',
+                    type: 'house',
+                    price: 120,
+                    rating: 4.4,
+                    reviews: 67,
+                    image: 'images/prague-historic-house.webp',
+                    amenities: ['wifi', 'kitchen', 'parking', 'washer'],
+                    maxGuests: 8,
+                    bedrooms: 3,
+                    bathrooms: 2,
+                    description: 'Beautiful historic house in Prague with traditional architecture.'
+                },
+                {
+                    id: 6,
+                    title: 'Ljubljana Garden Apartment',
+                    location: 'Ljubljana, Slovenia',
+                    type: 'apartment',
+                    price: 80,
+                    rating: 4.3,
+                    reviews: 54,
+                    image: 'images/ljubljana-garden-apartment.webp',
+                    amenities: ['wifi', 'kitchen', 'parking'],
+                    maxGuests: 4,
+                    bedrooms: 2,
+                    bathrooms: 1,
+                    description: 'Peaceful apartment with garden access in Ljubljana center.'
+                },
+                {
+                    id: 7,
+                    title: 'Warsaw Modern Flat',
+                    location: 'Warsaw, Poland',
+                    type: 'apartment',
+                    price: 95,
+                    rating: 4.1,
+                    reviews: 76,
+                    image: 'images/warsaw-modern-flat.webp',
+                    amenities: ['wifi', 'aircon', 'kitchen'],
+                    maxGuests: 3,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Modern apartment in Warsaw business district.'
+                },
+                {
+                    id: 8,
+                    title: 'Budapest Hotel Room',
+                    location: 'Budapest, Hungary',
+                    type: 'hotel',
+                    price: 160,
+                    rating: 4.5,
+                    reviews: 203,
+                    image: 'images/budapest-hotel.webp',
+                    amenities: ['wifi', 'aircon'],
+                    maxGuests: 2,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Elegant hotel room with Danube River views.'
+                },
+                {
+                    id: 9,
+                    title: 'Vilnius Old Town Loft',
+                    location: 'Vilnius, Lithuania',
+                    type: 'apartment',
+                    price: 75,
+                    rating: 4.2,
+                    reviews: 38,
+                    image: 'images/cozy-belgrade-apartment-2.webp',
+                    amenities: ['wifi', 'kitchen'],
+                    maxGuests: 3,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Stylish loft in Vilnius historic old town.'
+                },
+                {
+                    id: 10,
+                    title: 'Tallinn Medieval House',
+                    location: 'Tallinn, Estonia',
+                    type: 'house',
+                    price: 140,
+                    rating: 4.7,
+                    reviews: 92,
+                    image: 'images/flat-in-ferant-garden.webp',
+                    amenities: ['wifi', 'kitchen', 'parking', 'washer'],
+                    maxGuests: 6,
+                    bedrooms: 3,
+                    bathrooms: 2,
+                    description: 'Authentic medieval house in Tallinn old city.'
+                },
+                {
+                    id: 11,
+                    title: 'Sofia Central Studio',
+                    location: 'Sofia, Bulgaria',
+                    type: 'studio',
+                    price: 35,
+                    rating: 3.8,
+                    reviews: 28,
+                    image: 'images/soviet-apartment.webp',
+                    amenities: ['wifi', 'aircon'],
+                    maxGuests: 2,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Compact studio in Sofia city center.'
+                },
+                {
+                    id: 12,
+                    title: 'Skopje Modern Apartment',
+                    location: 'Skopje, Macedonia',
+                    type: 'apartment',
+                    price: 50,
+                    rating: 4.0,
+                    reviews: 41,
+                    image: 'images/haludovo-palace.webp',
+                    amenities: ['wifi', 'kitchen', 'parking'],
+                    maxGuests: 4,
+                    bedrooms: 2,
+                    bathrooms: 1,
+                    description: 'Modern apartment near Skopje city square.'
+                },
+                {
+                    id: 13,
+                    title: 'Zagreb Designer Flat',
+                    location: 'Zagreb, Croatia',
+                    type: 'apartment',
+                    price: 110,
+                    rating: 4.5,
+                    reviews: 67,
+                    image: 'images/cherno-more-hotel.webp',
+                    amenities: ['wifi', 'kitchen', 'washer', 'aircon'],
+                    maxGuests: 3,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Designer apartment in trendy Zagreb district.'
+                },
+                {
+                    id: 14,
+                    title: 'Tirana Traditional House',
+                    location: 'Tirana, Albania',
+                    type: 'house',
+                    price: 65,
+                    rating: 4.1,
+                    reviews: 35,
+                    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                    amenities: ['wifi', 'kitchen', 'parking'],
+                    maxGuests: 5,
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    description: 'Traditional Albanian house in Tirana center.'
+                },
+                {
+                    id: 15,
+                    title: 'Bratislava Riverside Flat',
+                    location: 'Bratislava, Slovakia',
+                    type: 'apartment',
+                    price: 85,
+                    rating: 4.3,
+                    reviews: 58,
+                    image: 'https://images.unsplash.com/photo-1587985064135-0366536eab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                    amenities: ['wifi', 'kitchen', 'aircon'],
+                    maxGuests: 4,
+                    bedrooms: 2,
+                    bathrooms: 1,
+                    description: 'Apartment with Danube river views in Bratislava.'
+                },
+                {
+                    id: 16,
+                    title: 'Chisinau Cozy Studio',
+                    location: 'Chisinau, Moldova',
+                    type: 'studio',
+                    price: 28,
+                    rating: 3.7,
+                    reviews: 22,
+                    image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                    amenities: ['wifi', 'kitchen'],
+                    maxGuests: 2,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Cozy studio in central Chisinau.'
+                },
+                {
+                    id: 17,
+                    title: 'Kiev Historic Apartment',
+                    location: 'Kiev, Ukraine',
+                    type: 'apartment',
+                    price: 45,
+                    rating: 4.0,
+                    reviews: 52,
+                    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                    amenities: ['wifi', 'kitchen', 'parking'],
+                    maxGuests: 4,
+                    bedrooms: 2,
+                    bathrooms: 1,
+                    description: 'Historic apartment in Kiev old town.'
+                },
+                {
+                    id: 18,
+                    title: 'Minsk Soviet Era Flat',
+                    location: 'Minsk, Belarus',
+                    type: 'apartment',
+                    price: 38,
+                    rating: 3.9,
+                    reviews: 31,
+                    image: 'https://images.unsplash.com/photo-1587985064135-0366536eab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                    amenities: ['wifi', 'kitchen'],
+                    maxGuests: 3,
+                    bedrooms: 1,
+                    bathrooms: 1,
+                    description: 'Authentic Soviet era apartment in central Minsk.'
                 }
+            ];
 
-                if (filters.type) {
-                    filteredData = filteredData.filter(property => property.type === filters.type);
-                }
-
-                if (filters.minPrice) {
-                    filteredData = filteredData.filter(property => property.price >= filters.minPrice);
-                }
-
-                if (filters.maxPrice) {
-                    filteredData = filteredData.filter(property => property.price <= filters.maxPrice);
-                }
-
-                return { success: true, data: filteredData };
-            }
-
-            // Fallback to direct JSON server only if Mock API fails
-            console.log('Mock API failed, falling back to direct JSON Server...');
-            let url = '/properties';
-            const params = new URLSearchParams();
+            // Apply filters to local data
+            let filteredData = sampleProperties;
 
             if (filters.location) {
-                params.append('location_like', filters.location);
+                filteredData = filteredData.filter(property =>
+                    property.location.toLowerCase().includes(filters.location.toLowerCase())
+                );
             }
+
             if (filters.type) {
-                params.append('type', filters.type);
+                filteredData = filteredData.filter(property => property.type === filters.type);
             }
+
             if (filters.minPrice) {
-                params.append('price_gte', filters.minPrice);
+                filteredData = filteredData.filter(property => property.price >= filters.minPrice);
             }
+
             if (filters.maxPrice) {
-                params.append('price_lte', filters.maxPrice);
+                filteredData = filteredData.filter(property => property.price <= filters.maxPrice);
             }
 
-            if (params.toString()) {
-                url += '?' + params.toString();
-            }
-
-            const response = await api.get(url);
-            return { success: true, data: response.data };
+            return { success: true, data: filteredData };
         } catch (error) {
             console.error('Error fetching properties:', error);
             return { success: false, message: 'Failed to fetch properties' };
@@ -287,20 +530,15 @@ const ApiService = {
 
     async resolveImageUrl(imageRef) {
         try {
-            if (imageRef.startsWith('http')) {
-                if (imageRef.includes('/images/')) {
-                    const imageId = imageRef.split('/images/')[1];
-                    const imageResult = await this.getImage(imageId);
-                    if (imageResult.success) {
-                        return imageResult.data.url;
-                    }
-                }
+            // Simply return the imageRef as-is, no API calls needed
+            // This prevents unnecessary requests to /images/ endpoints
+            if (imageRef && (imageRef.startsWith('http') || imageRef.startsWith('images/'))) {
                 return imageRef;
             }
-            return imageRef;
+            return imageRef || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80';
         } catch (error) {
             console.error('Error resolving image URL:', error);
-            return imageRef; 
+            return imageRef || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80';
         }
     },
 

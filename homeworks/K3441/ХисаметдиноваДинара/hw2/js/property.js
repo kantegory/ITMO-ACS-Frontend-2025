@@ -19,7 +19,7 @@ const propertyData = {
         rating: 4.2,
         reviews: 47,
         images: [
-            'images/cozy-belgrade-apartment.jpg'
+            'images/cozy-belgrade-apartment.webp'
         ],
         amenities: ['wifi', 'kitchen', 'parking', 'heating', 'tv'],
         maxGuests: 4,
@@ -59,9 +59,9 @@ const propertyData = {
         rating: 4.8,
         reviews: 112,
         images: [
-            'images/modern-krakow-loft.jpg',
-            'images/property2.jpg',
-            'images/property3.jpg'
+            'images/modern-krakow-loft.webp',
+            'images/property2.webp',
+            'images/property3.webp'
         ],
         amenities: ['wifi', 'aircon', 'kitchen', 'washer'],
         maxGuests: 2,
@@ -86,8 +86,8 @@ const propertyData = {
         rating: 3.9,
         reviews: 33,
         images: [
-            'images/bucharest-studio.jpg',
-            'images/property1.jpg'
+            'images/bucharest-studio.webp',
+            'images/property1.webp'
         ],
         amenities: ['wifi', 'kitchen'],
         maxGuests: 2,
@@ -112,8 +112,8 @@ const propertyData = {
         rating: 4.6,
         reviews: 89,
         images: [
-            'images/riga-luxury-suite.jpg',
-            'images/property4.jpg'
+            'images/riga-luxury-suite.webp',
+            'images/property4.webp'
         ],
         amenities: ['wifi', 'aircon', 'kitchen', 'washer', 'parking'],
         maxGuests: 6,
@@ -138,8 +138,8 @@ const propertyData = {
         rating: 4.4,
         reviews: 67,
         images: [
-            'images/prague-historic-house.jpg',
-            'images/property5.jpg'
+            'images/prague-historic-house.webp',
+            'images/property5.webp'
         ],
         amenities: ['wifi', 'kitchen', 'parking', 'washer'],
         maxGuests: 8,
@@ -164,8 +164,8 @@ const propertyData = {
         rating: 4.3,
         reviews: 29,
         images: [
-            'images/ljubljana-garden-apartment.jpg',
-            'images/property6.jpg'
+            'images/ljubljana-garden-apartment.webp',
+            'images/property6.webp'
         ],
         amenities: ['wifi', 'kitchen', 'washer', 'heating'],
         maxGuests: 4,
@@ -190,8 +190,8 @@ const propertyData = {
         rating: 4.1,
         reviews: 54,
         images: [
-            'images/warsaw-modern-flat.jpg',
-            'images/property3.jpg'
+            'images/warsaw-modern-flat.webp',
+            'images/property3.webp'
         ],
         amenities: ['wifi', 'aircon', 'kitchen', 'washer'],
         maxGuests: 3,
@@ -216,8 +216,8 @@ const propertyData = {
         rating: 4.7,
         reviews: 156,
         images: [
-            'images/budapest-hotel.jpg',
-            'images/property4.jpg'
+            'images/budapest-hotel.webp',
+            'images/property4.webp'
         ],
         amenities: ['wifi', 'aircon', 'tv', 'parking'],
         maxGuests: 2,
@@ -242,7 +242,7 @@ const propertyData = {
         rating: 4.0,
         reviews: 147,
         images: [
-            'images/haludovo-palace.jpg'
+            'images/haludovo-palace.webp'
         ],
         amenities: ['wifi', 'tv', 'parking', 'aircon'],
         maxGuests: 2,
@@ -267,7 +267,7 @@ const propertyData = {
         rating: 3.8,
         reviews: 52,
         images: [
-            'images/cherno-more-hotel.jpg'
+            'images/cherno-more-hotel.webp'
         ],
         amenities: ['wifi', 'tv', 'parking'],
         maxGuests: 2,
@@ -292,7 +292,7 @@ const propertyData = {
         rating: 4.5,
         reviews: 89,
         images: [
-            'images/flat-in-ferant-garden.jpg'
+            'images/flat-in-ferant-garden.webp'
         ],
         amenities: ['wifi', 'kitchen', 'washer'],
         maxGuests: 3,
@@ -317,7 +317,7 @@ const propertyData = {
         rating: 4.4,
         reviews: 73,
         images: [
-            'images/soviet-apartment.jpg'
+            'images/soviet-apartment.webp'
         ],
         amenities: ['wifi', 'kitchen', 'heating'],
         maxGuests: 4,
@@ -486,9 +486,9 @@ function loadReviews() {
         let avatarSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(review.author)}&background=007bff&color=fff&size=40`;
 
         if (review.author === 'Sarah M.') {
-            avatarSrc = 'images/avatar-sarah.jpg';
+            avatarSrc = 'images/avatar-sarah.webp';
         } else if (review.author === 'John D.') {
-            avatarSrc = 'images/avatar-john.jpg';
+            avatarSrc = 'images/avatar-john.webp';
         }
 
         return `

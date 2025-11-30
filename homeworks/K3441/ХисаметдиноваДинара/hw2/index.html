@@ -4,15 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentAparts - Explore Eastern Europe</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Preload critical resources with WebP support -->
+    <link rel="preload" href="images/hero.webp" as="image" type="image/webp" fetchpriority="high">
+
+    <!-- Critical CSS inline -->
+    <style>
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;line-height:1.6;margin:0}
+        .hero-section{background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),url('images/hero.webp') center/cover;min-height:100vh;display:flex;align-items:center;position:relative}
+        .navbar{position:absolute!important;top:0;left:0;right:0;z-index:1000;background:transparent!important;padding:1rem 0}
+        .navbar-brand{color:#fff!important;font-weight:bold;font-size:1.5rem;text-decoration:none}
+        .navbar-nav{list-style:none;display:flex;margin:0;padding:0}.nav-link{color:#fff!important;text-decoration:none;padding:.5rem 1rem}
+        .hero-overlay{padding-top:100px}.container{max-width:1140px;margin:0 auto;padding:0 15px}
+        .text-center{text-align:center}.text-white{color:#fff!important}.display-4{font-size:3.5rem;font-weight:300;margin-bottom:1rem}
+        .btn{padding:.75rem 1.5rem;border:1px solid transparent;border-radius:.375rem;text-decoration:none;display:inline-block;font-weight:600;cursor:pointer}
+        .btn-primary{background-color:#007bff;border-color:#007bff;color:#fff}
+        .search-container{background:#fff;border-radius:8px;padding:2rem;margin-top:2rem;box-shadow:0 10px 30px rgba(0,0,0,.1);max-width:1000px}
+        .card{background:#fff;border-radius:.5rem;box-shadow:0 .125rem .25rem rgba(0,0,0,.075);margin-bottom:1.5rem;aspect-ratio:1/1.2;overflow:hidden}
+        .card img{width:100%;height:200px;object-fit:cover}
+        .d-flex{display:flex}.align-items-center{align-items:center}.justify-content-between{justify-content:space-between}
+        .row{display:flex;flex-wrap:wrap;margin:0 -15px}.col-lg-3{flex:0 0 25%;max-width:25%;padding:0 15px;box-sizing:border-box}
+        .col-md-6{flex:0 0 50%;max-width:50%;padding:0 15px;box-sizing:border-box}
+        @media (max-width:768px){.col-md-6{flex:0 0 100%;max-width:100%}.col-lg-3{flex:0 0 100%;max-width:100%}}
+    </style>
+
+    <!-- Non-critical CSS loaded asynchronously -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="styles/main.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="styles/main.css" rel="stylesheet"></noscript>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-absolute w-100" style="z-index: 1000;">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">RentAparts</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -36,7 +64,8 @@
         </div>
     </nav>
 
-    <section class="hero-section">
+    <main role="main">
+        <section class="hero-section">
         <div class="hero-overlay">
             <div class="container">
                 <div class="row justify-content-center text-center text-white">
@@ -51,28 +80,28 @@
                                         <label class="form-label text-muted small">Location</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control border-0" placeholder="Where are you going? (optional)" id="mainLocation" name="location">
-                                            <button class="btn btn-outline-primary btn-sm" type="button" id="useLocationBtn" title="Use My Location">
-                                                <i class="fas fa-map-marker-alt"></i>
+                                            <button class="btn btn-outline-primary btn-sm" type="button" id="useLocationBtn" aria-label="Use my current location">
+                                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label text-muted small">Check In</label>
+                                        <label for="mainCheckIn" class="form-label text-muted small">Check In</label>
                                         <input type="date" class="form-control border-0" id="mainCheckIn" name="checkIn" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label text-muted small">Check Out</label>
+                                        <label for="mainCheckOut" class="form-label text-muted small">Check Out</label>
                                         <input type="date" class="form-control border-0" id="mainCheckOut" name="checkOut" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label text-muted small">Rooms and Guests</label>
-                                        <button type="button" class="form-control border-0 text-start" data-bs-toggle="modal" data-bs-target="#guestsModal">
+                                        <label for="guestsButton" class="form-label text-muted small">Rooms and Guests</label>
+                                        <button type="button" id="guestsButton" class="form-control border-0 text-start" data-bs-toggle="modal" data-bs-target="#guestsModal" aria-describedby="guestsButton">
                                             1 room, 1 adult, 0 children
                                         </button>
                                     </div>
@@ -103,21 +132,21 @@
                 <div class="col-md-4">
                     <div class="feature-card text-center">
                         <i class="fas fa-eye fa-3x text-primary mb-3"></i>
-                        <h4 class="text-primary">Know Exactly What You're Paying</h4>
+                        <h3 class="text-primary">Know Exactly What You're Paying</h3>
                         <p class="text-muted">Clear prices, great currency with zero hidden fees</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card text-center">
                         <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
-                        <h4 class="text-primary">Locally Verified, Globally Trusted</h4>
+                        <h3 class="text-primary">Locally Verified, Globally Trusted</h4>
                         <p class="text-muted">Every property checked by our local teams - no surprises on arrival</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card text-center">
                         <i class="fas fa-handshake fa-3x text-primary mb-3"></i>
-                        <h4 class="text-primary">Finally, Hassle-Free Booking</h4>
+                        <h3 class="text-primary">Finally, Hassle-Free Booking</h4>
                         <p class="text-muted">No more language barriers, cash-only services and conflicts with babushkas. Just click and book a stay.</p>
                     </div>
                 </div>
@@ -126,16 +155,16 @@
     </section>
 
 
-    <section class="py-5">
+    <section class="py-5" id="deals">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="h1 mb-0">Deals for the Weekend</h2>
                 <div>
-                    <button class="btn btn-outline-secondary rounded-circle" id="prevDeals">
-                        <i class="fas fa-chevron-left"></i>
+                    <button class="btn btn-outline-secondary rounded-circle" id="prevDeals" aria-label="View previous deals">
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-outline-secondary rounded-circle ms-2" id="nextDeals">
-                        <i class="fas fa-chevron-right"></i>
+                    <button class="btn btn-outline-secondary rounded-circle ms-2" id="nextDeals" aria-label="View next deals">
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -144,10 +173,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card border-0 shadow-sm rounded-4" data-property-id="8">
                         <div class="position-relative">
-                            <img src="images/haludovo-palace.jpg" class="card-img-top rounded-top-4" alt="Hotel">
+                            <img src="images/haludovo-palace.webp" class="card-img-top rounded-top-4" alt="Haludovo Palace Hotel exterior view on Krk Island" loading="lazy" decoding="async" width="388" height="278">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
-                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2">
-                                <i class="far fa-heart"></i>
+                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2" aria-label="Add to favorites">
+                                <i class="far fa-heart" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="card-body">
@@ -156,7 +185,7 @@
                                 <small class="text-muted ms-2">Very Good</small>
                                 <small class="text-muted ms-auto">147 reviews</small>
                             </div>
-                            <h5 class="card-title">Haludovo Palace Hotel</h5>
+                            <h3 class="card-title">Haludovo Palace Hotel</h5>
                             <p class="card-text text-muted small">Krk Island, Primorje-Gorski Kotar County</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-muted text-decoration-line-through">$350</span>
@@ -170,10 +199,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card border-0 shadow-sm rounded-4" data-property-id="109">
                         <div class="position-relative">
-                            <img src="images/cherno-more-hotel.jpg" class="card-img-top rounded-top-4" alt="Hotel">
+                            <img src="images/cherno-more-hotel.webp" class="card-img-top rounded-top-4" alt="Hotel Cherno More beachfront property in Varna, Bulgaria" loading="lazy" decoding="async" width="388" height="278">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
-                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2">
-                                <i class="far fa-heart"></i>
+                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2" aria-label="Add to favorites">
+                                <i class="far fa-heart" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="card-body">
@@ -182,7 +211,7 @@
                                 <small class="text-muted ms-2">Good</small>
                                 <small class="text-muted ms-auto">52 reviews</small>
                             </div>
-                            <h5 class="card-title">Hotel Cherno More</h5>
+                            <h3 class="card-title">Hotel Cherno More</h5>
                             <p class="card-text text-muted small">Varna, Bulgaria</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-muted text-decoration-line-through">$320</span>
@@ -196,10 +225,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card border-0 shadow-sm rounded-4" data-property-id="6">
                         <div class="position-relative">
-                            <img src="images/flat-in-ferant-garden.jpg" class="card-img-top rounded-top-4" alt="Apartment">
+                            <img src="images/flat-in-ferant-garden.webp" class="card-img-top rounded-top-4" alt="Modern apartment flat in Ferant Garden area, Ljubljana, Slovenia" loading="lazy" decoding="async" width="388" height="278">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
-                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2">
-                                <i class="far fa-heart"></i>
+                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2" aria-label="Add to favorites">
+                                <i class="far fa-heart" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="card-body">
@@ -208,7 +237,7 @@
                                 <small class="text-muted ms-2">Very Good</small>
                                 <small class="text-muted ms-auto">89 reviews</small>
                             </div>
-                            <h5 class="card-title">Flat in Ferant Garden</h5>
+                            <h3 class="card-title">Flat in Ferant Garden</h5>
                             <p class="card-text text-muted small">Ljubljana, Slovenia</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-muted text-decoration-line-through">$200</span>
@@ -222,10 +251,10 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="card border-0 shadow-sm rounded-4" data-property-id="3">
                         <div class="position-relative">
-                            <img src="images/soviet-apartment.jpg" class="card-img-top rounded-top-4" alt="Apartment">
+                            <img src="images/soviet-apartment.webp" class="card-img-top rounded-top-4" alt="Authentic Soviet-era apartment in Bratislava, Slovakia with vintage interior" loading="lazy" decoding="async" width="388" height="278">
                             <span class="badge bg-success position-absolute top-0 start-0 m-2">Gateway Deal</span>
-                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2">
-                                <i class="far fa-heart"></i>
+                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2" aria-label="Add to favorites">
+                                <i class="far fa-heart" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="card-body">
@@ -234,7 +263,7 @@
                                 <small class="text-muted ms-2">Very Good</small>
                                 <small class="text-muted ms-auto">73 reviews</small>
                             </div>
-                            <h5 class="card-title">Soviet Apartment</h5>
+                            <h3 class="card-title">Soviet Apartment</h5>
                             <p class="card-text text-muted small">Bratislava, Slovakia</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-muted text-decoration-line-through">$280</span>
@@ -256,7 +285,7 @@
                     <div class="card border-0 bg-transparent">
                         <div class="card-body text-center">
                             <i class="fas fa-coins fa-3x text-primary mb-3"></i>
-                            <h5>No Foreign Transaction Fees</h5>
+                            <h3>No Foreign Transaction Fees</h5>
                             <p class="text-muted">Pay in local currency or yours - we handle conversion at bank rates, not tourist rates</p>
                         </div>
                     </div>
@@ -265,7 +294,7 @@
                     <div class="card border-0 bg-transparent">
                         <div class="card-body text-center">
                             <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
-                            <h5>Travel off season</h5>
+                            <h3>Travel off season</h5>
                             <p class="text-muted">Avoid peak times this spring enjoy lower and fewer crowds</p>
                         </div>
                     </div>
@@ -274,7 +303,7 @@
                     <div class="card border-0 bg-transparent">
                         <div class="card-body text-center">
                             <i class="fas fa-percent fa-3x text-primary mb-3"></i>
-                            <h5>Exclusive deals</h5>
+                            <h3>Exclusive deals</h5>
                             <p class="text-muted">Enjoy discounts at participating properties worldwide</p>
                         </div>
                     </div>
@@ -282,25 +311,25 @@
                 <div class="col-md-3">
                     <div class="card border-0 bg-transparent">
                         <div class="card-body text-center">
-                            <i class="fas fa-weekend fa-3x text-primary mb-3"></i>
-                            <h5>Weekend Special</h5>
+                            <i class="fas fa-calendar-check fa-3x text-primary mb-3"></i>
+                            <h3>Weekend Special</h5>
                             <p class="text-muted">Be happy with 12% off weekend stays</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="bg-dark text-white py-5">
+    <footer class="bg-dark text-white py-5" role="contentinfo">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4">
-                    <h5 class="mb-3">RentAparts</h5>
+                    <h3 class="mb-3">RentAparts</h3>
                     <p class="text-muted">Discover unique accommodations across Eastern Europe. From Soviet-era apartments to modern lofts, find your perfect stay.</p>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="mb-3">Company</h6>
+                    <h4 class="mb-3">Company</h4>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-muted text-decoration-none">About</a></li>
                         <li><a href="#" class="text-muted text-decoration-none">Careers</a></li>
@@ -309,7 +338,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="mb-3">Support</h6>
+                    <h4 class="mb-3">Support</h6>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-muted text-decoration-none">Help Center</a></li>
                         <li><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
@@ -317,7 +346,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="mb-3">Community</h6>
+                    <h4 class="mb-3">Community</h6>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-muted text-decoration-none">Guidelines</a></li>
                         <li><a href="#" class="text-muted text-decoration-none">Reviews</a></li>
@@ -325,11 +354,11 @@
                     </ul>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="mb-3">Follow Us</h6>
+                    <h4 class="mb-3">Follow Us</h6>
                     <div class="d-flex gap-2">
-                        <a href="#" class="text-muted"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-muted" aria-label="Follow us on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#" class="text-muted" aria-label="Follow us on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" class="text-muted" aria-label="Follow us on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
@@ -388,9 +417,9 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>

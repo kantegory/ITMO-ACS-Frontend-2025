@@ -11,22 +11,29 @@
         .auth-container {
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px;
         }
         .auth-card {
-            max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border: none;
-            border-radius: 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .card-body {
+            padding: 3rem !important;
         }
     </style>
 </head>
 <body>
-    <div class="auth-container d-flex align-items-center justify-content-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="auth-card card">
-                        <div class="card-body p-5">
+    <div class="auth-container">
+        <div class="auth-card card">
+                        <div class="card-body">
                             <div class="text-center mb-4">
                                 <a href="index.html" class="text-decoration-none">
                                     <h2 class="h3 text-dark fw-bold">RentAparts</h2>
@@ -100,13 +107,10 @@
                         </div>
                     </div>
 
-                    <div class="text-center mt-3">
-                        <a href="index.html" class="text-white text-decoration-none">
-                            <i class="fas fa-arrow-left me-2"></i>Back to Home
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center mt-3">
+            <a href="index.html" class="text-white text-decoration-none">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </a>
         </div>
     </div>
 

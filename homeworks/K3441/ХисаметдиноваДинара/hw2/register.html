@@ -11,12 +11,22 @@
         .auth-container {
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px;
         }
         .auth-card {
             max-width: 450px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border: none;
-            border-radius: 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .card-body {
+            padding: 3rem !important;
         }
         .password-strength {
             height: 4px;

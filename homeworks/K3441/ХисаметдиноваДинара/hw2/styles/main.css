@@ -16,7 +16,7 @@ body {
 
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                url('../images/hero.jpg') center/cover;
+                url('../images/hero.webp') center/cover;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -86,9 +86,17 @@ body {
 }
 
 .card img {
-    height: 250px;
+    height: 200px;
     object-fit: cover;
     transition: transform 0.3s ease;
+}
+
+/* Card body should fill remaining space */
+.card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card:hover img {
@@ -98,6 +106,21 @@ body {
 .card {
     transition: all 0.3s ease;
     border: none;
+}
+
+/* Weekend deals cards - make individual cards narrower */
+#deals .card {
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+    #deals .card {
+        max-width: none;
+    }
 }
 
 .card:hover {
@@ -291,38 +314,35 @@ body {
     background-color: var(--primary-color) !important;
 }
 
-.shadow-custom {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+/* Avatar styles for host/user images */
+.avatar, .host-avatar, .user-avatar {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.border-radius-custom {
-    border-radius: 12px;
-}
-
-.rounded-circle {
+/* Smaller avatars for reviews or secondary use */
+.avatar-sm {
     width: 40px !important;
     height: 40px !important;
-    object-fit: cover !important;
     border-radius: 50% !important;
-}
-
-.review-item .rounded-circle {
-    width: 40px !important;
-    height: 40px !important;
     object-fit: cover !important;
-    flex-shrink: 0;
-}
-
-.host-avatar {
-    width: 50px !important;
-    height: 50px !important;
-    object-fit: cover !important;
-    border-radius: 50% !important;
-    flex-shrink: 0;
 }
 
 footer {
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #ffffff !important;
+}
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+    color: #ffffff !important;
+}
+
+footer p, footer a, footer .text-muted {
+    color: #fef0e5 !important;
 }
 
 footer a:hover {
@@ -337,4 +357,72 @@ footer a:hover {
 
 .bg-transparent.card:hover {
     transform: none !important;
+}
+
+/* Fix color contrast issues found by Lighthouse */
+.btn-primary {
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+}
+
+.badge.bg-success {
+    background-color: #1e7e34 !important;
+    color: #ffffff !important;
+}
+
+.text-warning {
+    color: #b35f00 !important;
+}
+
+/* Improve star ratings contrast */
+.text-warning i {
+    color: #b35f00 !important;
+}
+
+/* Fix target size issues - buttons need minimum 44px touch targets */
+.btn.rounded-circle {
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+.navbar-toggler {
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+/* Fix touch target sizes for social media links */
+footer .d-flex a {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px !important;
+}
+
+/* Improve footer text readability */
+footer {
+    color: white !important;
+}
+
+footer h4, footer h5, footer h6 {
+    color: white !important;
+}
+
+footer p, footer a {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+footer a:hover {
+    color: white !important;
+}
+
+/* Font optimization */
+@font-face {
+    font-display: swap;
+}
+
+/* System font fallbacks */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }

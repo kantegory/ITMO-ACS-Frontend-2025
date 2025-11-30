@@ -88,7 +88,7 @@ function searchProperties(locationParam, checkInParam, checkOutParam) {
         }
 
         const paramsString = params.toString();
-        const finalUrl = `search${paramsString ? '?' + paramsString : ''}`;
+        const finalUrl = `search.html${paramsString ? '?' + paramsString : ''}`;
         console.log('Params string:', paramsString);
         console.log('Final URL:', finalUrl);
         console.log('Parameters being sent:', Object.fromEntries(params));
