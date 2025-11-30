@@ -36,21 +36,57 @@ const ApiService = {
 
     async login(email, password) {
         try {
-            const response = await api.get('/users');
-            const user = response.data.find(u => u.email === email && u.password === password);
+            // Use local storage for mock authentication - no API calls needed
+            console.log('Login attempt for:', email);
+
+            // Get existing users from localStorage or use default users
+            const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Default users for testing
+            const defaultUsers = [
+                {
+                    id: 1,
+                    email: 'test@example.com',
+                    password: 'password123',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    isLoggedIn: false
+                },
+                {
+                    id: 2,
+                    email: 'user@rentaparts.com',
+                    password: 'rentaparts2024',
+                    firstName: 'Jane',
+                    lastName: 'Smith',
+                    isLoggedIn: false
+                }
+            ];
+
+            // Combine existing and default users
+            const allUsers = [...defaultUsers, ...existingUsers.filter(u => !defaultUsers.find(d => d.email === u.email))];
+
+            // Find matching user
+            const user = allUsers.find(u => u.email === email && u.password === password);
 
             if (user) {
+                // Update user login status
+                user.isLoggedIn = true;
+
+                // Save updated users back to localStorage
+                localStorage.setItem('users', JSON.stringify(allUsers));
+
                 const token = btoa(JSON.stringify({ id: user.id, email: user.email, timestamp: Date.now() }));
                 localStorage.setItem('authToken', token);
+                localStorage.setItem('user', JSON.stringify({ ...user, password: undefined }));
 
-                await api.patch(`/users/${user.id}`, { isLoggedIn: true });
-
+                console.log('Login successful for:', user.email);
                 return {
                     success: true,
                     user: { ...user, password: undefined },
                     token
                 };
             } else {
+                console.log('Login failed: Invalid credentials');
                 return { success: false, message: 'Invalid credentials' };
             }
         } catch (error) {
@@ -61,8 +97,14 @@ const ApiService = {
 
     async register(userData) {
         try {
-            const existingUser = await api.get(`/users?email=${userData.email}`);
-            if (existingUser.data.length > 0) {
+            console.log('Registration attempt for:', userData.email);
+
+            // Get existing users from localStorage
+            const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Check if user already exists
+            const existingUser = existingUsers.find(u => u.email === userData.email);
+            if (existingUser) {
                 return { success: false, message: 'User already exists' };
             }
 
@@ -73,13 +115,18 @@ const ApiService = {
                 registrationTime: new Date().toISOString()
             };
 
-            const response = await api.post('/users', newUser);
+            // Add new user to the list
+            existingUsers.push(newUser);
+            localStorage.setItem('users', JSON.stringify(existingUsers));
+
             const token = btoa(JSON.stringify({ id: newUser.id, email: newUser.email, timestamp: Date.now() }));
             localStorage.setItem('authToken', token);
+            localStorage.setItem('user', JSON.stringify({ ...newUser, password: undefined }));
 
+            console.log('Registration successful for:', newUser.email);
             return {
                 success: true,
-                user: { ...response.data, password: undefined },
+                user: { ...newUser, password: undefined },
                 token
             };
         } catch (error) {
@@ -90,11 +137,22 @@ const ApiService = {
 
     async logout(userId) {
         try {
+            console.log('Logout for user ID:', userId);
+
             if (userId) {
-                await api.patch(`/users/${userId}`, { isLoggedIn: false });
+                // Update user login status in localStorage
+                const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+                const userIndex = existingUsers.findIndex(u => u.id === userId);
+                if (userIndex !== -1) {
+                    existingUsers[userIndex].isLoggedIn = false;
+                    localStorage.setItem('users', JSON.stringify(existingUsers));
+                }
             }
+
             localStorage.removeItem('authToken');
             localStorage.removeItem('user');
+
+            console.log('Logout successful');
             return { success: true };
         } catch (error) {
             console.error('Logout error:', error);
