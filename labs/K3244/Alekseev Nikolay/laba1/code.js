@@ -1,5 +1,9 @@
 import { recipes } from "./src/data.js"
 
+if (!localStorage.getItem("currentUser")) {
+  window.location.href = "login.html"
+}
+
 const searchInput = document.querySelector("input[type='text']")
 const typeSelect = document.getElementById("typeSelect")
 const difficultySelect = document.getElementById("difficultySelect")

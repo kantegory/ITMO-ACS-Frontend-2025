@@ -19,6 +19,11 @@ function renderRecipeCard(recipe) {
   return card
 }
 
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("currentUser")
+  window.location.href = "login.html"
+})
+
 const myRecipesContainer = document.getElementById("myRecipes")
 const savedContainer = document.getElementById("savedRecipes")
 

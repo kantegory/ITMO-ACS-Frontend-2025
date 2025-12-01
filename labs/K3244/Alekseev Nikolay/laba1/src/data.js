@@ -79,8 +79,8 @@ const authors = [
 ]
 
 // временный “вошедший” пользователь
-let currentUser = loadUserFromStorage() || users[0]
-saveUserToStorage(currentUser)
+let currentUser = loadUserFromStorage() || null
+if (currentUser) saveUserToStorage(currentUser)
 
 function loadRecipesFromStorage(recipes) {
   const data = localStorage.getItem("recipes")
@@ -159,4 +159,4 @@ function saveAuthorToStorage(author) {
 loadAuthorsFromStorage(authors)
 
 
-export { recipes, currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage }
+export { users, recipes, currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage }
