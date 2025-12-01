@@ -1,40 +1,4 @@
-import Recipe from "./src/Recipe.js"
-
-const recipes = [
-  new Recipe({
-    name: "Блины с мёдом",
-    text: "Смешайте муку, яйца, молоко и щепотку соли. Обжарьте блины с обеих сторон и подавайте с мёдом.",
-    ingredients: ["Мука", "Яйца", "Молоко", "Мёд", "Соль"],
-    difficulty: 1,
-    type: 1,
-    photo: "https://images.unsplash.com/photo-1551024709-8f23befc6f87",
-    likes: 128,
-    subscribed: true,
-    author: "Надежда"
-  }),
-  new Recipe({
-    name: "Паста с курицей и сливками",
-    text: "Обжарьте курицу, добавьте сливки и чеснок. Смешайте с макаронами и посыпьте сыром.",
-    ingredients: ["Курица", "Чеснок", "Сливки", "Паста", "Сыр"],
-    difficulty: 2,
-    type: 2,
-    photo: "https://images.unsplash.com/photo-1551024709-8f23befc6f87",
-    likes: 214,
-    subscribed: false,
-    author: "Александр"
-  }),
-  new Recipe({
-    name: "Шоколадный торт",
-    text: "Смешайте муку, сахар, яйца и какао. Выпекайте при 180°C в течение 40 минут. Украсьте глазурью.",
-    ingredients: ["Мука", "Яйца", "Сахар", "Шоколад", "Масло"],
-    difficulty: 3,
-    type: 4,
-    photo: "https://images.unsplash.com/photo-1551024709-8f23befc6f87",
-    likes: 312,
-    subscribed: false,
-    author: "Николай"
-  })
-]
+import { recipes } from "./src/data.js"
 
 const searchInput = document.querySelector("input[type='text']")
 const typeSelect = document.getElementById("typeSelect")
@@ -53,23 +17,38 @@ function renderRecipes(list) {
     resultsContainer.innerHTML = `<p class="text-muted text-center">Ничего не найдено 😔</p>`
     return
   }
+
   const row = document.createElement("div")
   row.classList.add("row", "g-3")
+
   list.forEach(r => {
     const card = document.createElement("div")
     card.classList.add("col-md-4")
     card.innerHTML = `
-      <div class="card shadow-sm h-100">
-        <img src="${r.photo}" class="card-img-top" alt="${r.name}">
-        <div class="card-body">
-          <h5 class="card-title">${r.name}</h5>
-          <p><strong>Ингредиенты:</strong> ${r.ingredients.join(", ")}</p>
-          <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][r.difficulty - 1]}</p>
-          <p><strong>Тип:</strong> ${["Завтрак", "Обед", "Ужин", "Десерт", "Напиток"][r.type - 1]}</p>
-          <p>❤️ ${r.likes} ${r.subscribed ? "Подписан" : ""}</p>
-          <p>${r.author}</p>
+      <a href="recipe.html?id=${r.id}" class="text-decoration-none text-dark">
+        <div class="card shadow-sm h-100" style="cursor:pointer;">
+          <img src="${r.photo}" class="card-img-top object-fit-cover" alt="${r.name}" style="height: 200px; width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">${r.name}</h5>
+            <p class="card-text small text-muted">${r.text}</p>
+            <p><strong>Ингредиенты:</strong> ${r.ingredients.join(", ")}</p>
+            <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][r.difficulty - 1]}</p>
+            <p><strong>Тип:</strong> ${["Завтрак", "Обед", "Ужин", "Десерт", "Напиток"][r.type - 1]}</p>
+            <div class="d-flex justify-content-between pe-3">
+              <p><strong>Автор:</strong> ${r.author}</p>
+              <p> ${r.subscribed ? "Подписан" : ""} </p>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <p class="d-inline mb-0"> ${r.likes} </p>
+              <svg fill="#cc2424" width="30px" height="30px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#cc2424"><g id="SVGRepo_bgCarrier"
+              stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+              <path d="M220.3457,136.50781l-81.03125,81.03125a16.013,16.013,0,0,1-22.625,0L33.58008,134.42969a59.974,59.974,0,0,1,2.34375-87.07031c23.28125-21.01563,
+              61.25-19.05469,84.57812,4.29687l7.5,7.49219,9.57813-9.57813a60.69786,60.69786,0,0,1,43.98437-17.55469A59.54956,59.54956,0,0,1,224.627,51.90625C245.61133,
+              75.20312,243.68945,113.15625,220.3457,136.50781Z"></path> </g></svg>
+            </div>
+          </div>
         </div>
-      </div>
+      </a>
     `
     row.appendChild(card)
   })

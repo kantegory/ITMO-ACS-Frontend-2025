@@ -1,5 +1,6 @@
 export default class Recipe {
   constructor({
+    id,
     name,
     text,
     ingredients,
@@ -12,6 +13,7 @@ export default class Recipe {
     subscribed = false,
     author
   }) {
+    this.id = id,
     this.name = name
     this.text = text
     this.ingredients = ingredients
