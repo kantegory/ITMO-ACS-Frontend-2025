@@ -1,6 +1,7 @@
 export default class Recipe {
   constructor({
     id,
+    authorId,
     name,
     text,
     ingredients,
@@ -14,6 +15,7 @@ export default class Recipe {
     author
   }) {
     this.id = id,
+    this.authorId = authorId
     this.name = name
     this.text = text
     this.ingredients = ingredients
