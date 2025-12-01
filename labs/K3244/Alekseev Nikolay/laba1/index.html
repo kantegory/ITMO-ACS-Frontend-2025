@@ -17,7 +17,7 @@
       <div class="d-flex">
         <div class="d-flex flex-column align-items-center w-25">
           <p class="">Тип блюда</p>
-          <select class="form-select">
+          <select id="typeSelect" class="form-select">
             <option selected>Любой</option>
             <option value="1">Завтрак</option>
             <option value="2">Обед</option>
@@ -28,7 +28,7 @@
         </div>
         <div class="d-flex flex-column align-items-center w-25">
           <p class="w-50">Сложность</p>
-          <select class="form-select w-50">
+          <select id="difficultySelect" class="form-select">
             <option selected>Любая</option>
             <option value="1">Легко</option>
             <option value="2">Средне</option>
@@ -37,18 +37,7 @@
         </div>
         <div class="d-flex flex-column align-items-center w-50">
           <p class="w-50">Ингредиенты</p>
-          <select multiple class="form-select w-50">
-            <option selected>Любые</option>
-            <option value="1">Апельсин</option>
-            <option value="2">Дрожжи</option>
-            <option value="3">Мука</option>
-            <option value="4">Огурец</option>
-            <option value="5">Помидор</option>
-            <option value="6">Говядина</option>
-            <option value="7">Курица</option>
-            <option value="8">Свинина</option>
-            <option value="9">Чеснок</option>
-          </select>
+          <div id="ingredientsContainer" class="d-flex flex-wrap gap-2 justify-content-center p-2"></div>
         </div>
       </div>
     </div>
