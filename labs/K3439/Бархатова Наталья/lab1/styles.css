@@ -1,0 +1,203 @@
+:root {
+    --emerald: #046D55;
+    --mint: #A7D7C5;
+    --charcoal: #2B2B2B;
+    --ivory: #F8F6F0;
+    --gold: #D4AF37;
+    --success-green: #2E7D32;
+    --error-red: #C62828;
+}
+
+body {
+    background-color: var(--ivory);
+    color: var(--charcoal);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: var(--emerald);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+}
+
+.navbar {
+    background-color: var(--emerald) !important;
+}
+.navbar-brand {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+footer {
+    color: var(--charcoal);
+    padding: 1rem 0;
+}
+
+.login-card,
+.filter-section,
+.profile-container {
+    margin-top: 80px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.restaurant-card,
+.review,
+.info-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+.login-card form .form-label {
+    font-weight: 500;
+}
+.login-card h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+    color: #fff;
+    font-weight: 600;
+}
+.btn-primary:hover {
+    background-color: var(--mint);
+    border-color: var(--mint);
+    color: var(--charcoal);
+}
+.btn-gold {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--charcoal);
+    font-weight: 600;
+}
+.btn-gold:hover {
+    background-color: #eacb59;
+    border-color: #eacb59;
+}
+.btn-danger-custom {
+    background: var(--error-red);
+    border-color: var(--error-red);
+}
+.btn-danger-custom:hover {
+    background: #e03b3b;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--mint);
+}
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--emerald);
+}
+.profile-status {
+    color: var(--gold);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.info-card {
+    border: 2px solid var(--emerald);
+}
+.info-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--emerald);
+}
+
+.filter-section {
+    max-width: 900px;
+    margin: 25px auto;
+}
+.restaurant-card {
+    border: 1px solid var(--mint);
+    border-radius: 10px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 10px;
+}
+.restaurant-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.restaurant-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--emerald);
+}
+
+.header-img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+.section-title {
+    color: var(--emerald);
+    font-weight: 700;
+    margin-top: 20px;
+}
+.menu-item,
+.review,
+.gallery-img {
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--mint);
+    margin-bottom: 10px;
+}
+.gallery-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container,
+.login-card,
+.filter-section {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
