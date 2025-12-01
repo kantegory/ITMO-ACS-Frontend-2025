@@ -78,7 +78,6 @@ const authors = [
   })
 ]
 
-// временный “вошедший” пользователь
 let currentUser = loadUserFromStorage() || null
 if (currentUser) saveUserToStorage(currentUser)
 

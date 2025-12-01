@@ -28,6 +28,5 @@ const myRecipesContainer = document.getElementById("myRecipes")
 const savedContainer = document.getElementById("savedRecipes")
 
 currentUser.getMyRecipes(recipes).forEach(r => myRecipesContainer.appendChild(renderRecipeCard(r)))
-console.log(currentUser.getMyRecipes(recipes));
 
 currentUser.getSavedRecipes(recipes).forEach(r => savedContainer.appendChild(renderRecipeCard(r)))

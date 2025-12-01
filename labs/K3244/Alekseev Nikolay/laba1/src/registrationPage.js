@@ -2,7 +2,6 @@ import { users, saveUserToStorage } from "./data.js"
 import User from "./User.js"
 
 const savedUser = localStorage.getItem("currentUser")
-console.log(localStorage.getItem("currentUser"));
 
 if (savedUser) window.location.href = "index.html"
 

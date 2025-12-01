@@ -1,7 +1,6 @@
 import { users, saveUserToStorage } from "./data.js"
 
 const savedUser = localStorage.getItem("currentUser")
-console.log(localStorage.getItem("currentUser"));
 if (savedUser) window.location.href = "index.html"
 
 document.getElementById("loginBtn").addEventListener("click", () => {

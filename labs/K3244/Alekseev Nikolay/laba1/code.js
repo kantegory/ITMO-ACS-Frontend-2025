@@ -84,6 +84,7 @@ Array.from(ingredientsSet).sort().forEach(ingredient => {
   const input = document.createElement("input")
   input.type = "checkbox"
   input.classList.add("form-check-input", "me-1")
+  input.style.cursor = "pointer"
   input.value = ingredient
 
   const span = document.createElement("span")
@@ -92,10 +93,9 @@ Array.from(ingredientsSet).sort().forEach(ingredient => {
   label.appendChild(input)
   label.appendChild(span)
 
-  label.addEventListener("click", e => {
-    e.preventDefault()
-    input.checked = !input.checked
-    applyFilters()
+  input.addEventListener("change", applyFilters)
+  label.addEventListener("click", () => {
+    setTimeout(applyFilters, 0)
   })
 
   ingredientsContainer.appendChild(label)
