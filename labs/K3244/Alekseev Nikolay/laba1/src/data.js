@@ -1,5 +1,15 @@
 import Recipe from "./Recipe.js"
 import User from "./User.js"
+import Author from "./Author.js"
+
+function loadUserFromStorage() {
+  const data = localStorage.getItem("currentUser")
+  return data ? Object.assign(new User({}), JSON.parse(data)) : null
+}
+
+function saveUserToStorage(user) {
+  localStorage.setItem("currentUser", JSON.stringify(user))
+}
 
 const recipes = [
   new Recipe({
@@ -32,8 +42,8 @@ const recipes = [
   }),
   new Recipe({
     id: 3,
-    authorId: 1,
-    author: "Николай",
+    authorId: 3,
+    author: "Надежда",
     name: "Шоколадный торт",
     text: "Смешайте муку, сахар, яйца и какао. Выпекайте при 180°C в течение 40 минут. Украсьте глазурью.",
     ingredients: ["Мука", "Яйца", "Сахар", "Шоколад", "Масло"],
@@ -55,7 +65,98 @@ const users = [
   }),
 ]
 
-// временный “вошедший” пользователь
-const currentUser = users[0]
+const authors = [
+  new Author({
+    id: 3,
+    name: "Надежда",
+    subscribers: []
+  }),
+  new Author({
+    id: 2,
+    name: "Александр",
+    subscribers: []
+  })
+]
 
-export { recipes, users, currentUser }
+// временный “вошедший” пользователь
+let currentUser = loadUserFromStorage() || users[0]
+saveUserToStorage(currentUser)
+
+function loadRecipesFromStorage(recipes) {
+  const data = localStorage.getItem("recipes")
+  if (data) {
+    const saved = JSON.parse(data)
+    for (let i = 0; i < recipes.length; i++) {
+      const stored = saved.find(r => r.id === recipes[i].id)
+      if (stored) Object.assign(recipes[i], stored)
+    }
+  }
+}
+
+function saveRecipeToStorage(recipe) {
+  const data = localStorage.getItem("recipes")
+  let stored = data ? JSON.parse(data) : []
+  const index = stored.findIndex(r => r.id === recipe.id)
+  if (index !== -1) {
+    stored[index] = recipe
+  } else {
+    stored.push(recipe)
+  }
+  localStorage.setItem("recipes", JSON.stringify(stored))
+}
+
+loadRecipesFromStorage(recipes)
+
+function loadCommentsFromStorage(recipes) {
+  const data = localStorage.getItem("comments")
+  if (data) {
+    const saved = JSON.parse(data)
+    for (let i = 0; i < recipes.length; i++) {
+      const stored = saved.find(r => r.id === recipes[i].id)
+      if (stored) recipes[i].comments = stored.comments || []
+    }
+  }
+}
+
+function saveCommentToStorage(recipe) {
+  const data = localStorage.getItem("comments")
+  let stored = data ? JSON.parse(data) : []
+  const index = stored.findIndex(r => r.id === recipe.id)
+  if (index !== -1) {
+    stored[index] = { id: recipe.id, comments: recipe.comments }
+  } else {
+    stored.push({ id: recipe.id, comments: recipe.comments })
+  }
+  localStorage.setItem("comments", JSON.stringify(stored))
+}
+
+loadCommentsFromStorage(recipes)
+
+
+function loadAuthorsFromStorage(authors) {
+  const data = localStorage.getItem("authors")
+  if (data) {
+    const saved = JSON.parse(data)
+    for (let i = 0; i < authors.length; i++) {
+      const stored = saved.find(a => a.id === authors[i].id)
+      if (stored) Object.assign(authors[i], stored)
+    }
+  }
+}
+
+function saveAuthorToStorage(author) {
+  const data = localStorage.getItem("authors")
+  let stored = data ? JSON.parse(data) : []
+  const index = stored.findIndex(a => a.id === author.id)
+  if (index !== -1) {
+    stored[index] = author
+  } else {
+    stored.push(author)
+  }
+  localStorage.setItem("authors", JSON.stringify(stored))
+}
+
+loadAuthorsFromStorage(authors)
+
+
+export { recipes, currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage }

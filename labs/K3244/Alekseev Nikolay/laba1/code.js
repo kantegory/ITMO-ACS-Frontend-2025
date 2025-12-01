@@ -34,10 +34,7 @@ function renderRecipes(list) {
             <p><strong>Ингредиенты:</strong> ${r.ingredients.join(", ")}</p>
             <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][r.difficulty - 1]}</p>
             <p><strong>Тип:</strong> ${["Завтрак", "Обед", "Ужин", "Десерт", "Напиток"][r.type - 1]}</p>
-            <div class="d-flex justify-content-between pe-3">
-              <p><strong>Автор:</strong> ${r.author}</p>
-              <p> ${r.subscribed ? "Подписан" : ""} </p>
-            </div>
+            <p><strong>Автор:</strong> ${r.author}</p>
             <div class="d-flex align-items-center gap-3">
               <p class="d-inline mb-0"> ${r.likes} </p>
               <svg fill="#cc2424" width="30px" height="30px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#cc2424"><g id="SVGRepo_bgCarrier"

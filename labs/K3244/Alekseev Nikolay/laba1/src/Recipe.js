@@ -11,7 +11,6 @@ export default class Recipe {
     video = null,
     comments = [],
     likes = 0,
-    subscribed = false,
     author
   }) {
     this.id = id,
@@ -25,7 +24,6 @@ export default class Recipe {
     this.video = video
     this.comments = comments
     this.likes = likes
-    this.subscribed = subscribed
     this.author = author
   }
 }
