@@ -201,21 +201,25 @@
 </div>
 
 <script>
-    // обработка отметки тренировки как выполненной
+    // Обработка отметки тренировки как выполненной
     document.addEventListener('DOMContentLoaded', function() {
         const markCompleteBtn = document.getElementById('markCompleteBtn');
         const completionStatus = document.getElementById('completionStatus');
         const completionDate = document.getElementById('completionDate');
         const completeWorkoutBtn = document.getElementById('completeWorkoutBtn');
         
-        // есть ли в localStorage отметка о выполнении
-        const workoutCompleted = localStorage.getItem('workout_cardio_completed');
+        // Уникальный ID для этой тренировки (используем ID или название)
+        const workoutId = 'cardio_training_001'; // Уникальный идентификатор для кардио-тренировки
+        const storageKey = `workout_${workoutId}_completed`;
+        
+        // Проверяем, есть ли в localStorage отметка о выполнении ЭТОЙ тренировки
+        const workoutCompleted = localStorage.getItem(storageKey);
         
         if (workoutCompleted) {
             updateCompletionUI(true, workoutCompleted);
         }
         
-        // обработка кнопки в основном блоке
+        // Обработчик для кнопки в основном блоке
         markCompleteBtn.addEventListener('click', function() {
             if (!workoutCompleted) {
                 const now = new Date();
@@ -230,34 +234,40 @@
                     minute: '2-digit'
                 });
                 
-                // Сохраняем в localStorage
-                localStorage.setItem('workout_cardio_completed', now.toISOString());
+                // Сохраняем в localStorage с уникальным ключом
+                localStorage.setItem(storageKey, now.toISOString());
                 
+                // Обновляем UI
                 updateCompletionUI(true, now.toISOString());
                 
                 // Показываем уведомление
                 showNotification('Workout marked as completed! Your progress has been updated.');
+                
+                // Также обновляем общий счетчик выполненных тренировок в профиле
+                updateTotalWorkoutsCompleted();
             }
         });
         
-        // обработка кнопки в заголовке
+        // Обработчик для кнопки в заголовке
         completeWorkoutBtn.addEventListener('click', function() {
             if (!workoutCompleted) {
-                markCompleteBtn.click(); //клик по основной кнопке
+                markCompleteBtn.click(); // Имитируем клик по основной кнопке
             }
         });
         
         function updateCompletionUI(completed, dateString = null) {
             if (completed) {
+                // Обновляем основную кнопку
                 markCompleteBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
                 markCompleteBtn.classList.add('completed');
                 markCompleteBtn.disabled = true;
                 
+                // Обновляем кнопку в заголовке
                 completeWorkoutBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
                 completeWorkoutBtn.classList.add('completed');
                 completeWorkoutBtn.disabled = true;
                 
-                //  статус
+                // Показываем статус
                 if (dateString) {
                     const date = new Date(dateString);
                     const formattedDate = date.toLocaleDateString('en-US', {
@@ -275,8 +285,22 @@
             }
         }
         
+        function updateTotalWorkoutsCompleted() {
+            // Получаем текущее количество выполненных тренировок
+            let completedWorkouts = JSON.parse(localStorage.getItem('completed_workouts')) || [];
+            
+            // Добавляем ID этой тренировки, если его еще нет
+            if (!completedWorkouts.includes(workoutId)) {
+                completedWorkouts.push(workoutId);
+                localStorage.setItem('completed_workouts', JSON.stringify(completedWorkouts));
+                
+                // Обновляем счетчик в профиле (если бы у нас была общая функция)
+                console.log(`Total workouts completed: ${completedWorkouts.length}`);
+            }
+        }
+        
         function showNotification(message) {
-            // временное уведомление
+            // Создаем временное уведомление
             const notification = document.createElement('div');
             notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
             notification.style.top = '20px';
@@ -291,7 +315,7 @@
             
             document.body.appendChild(notification);
             
-            // скрываем уведомление через 5 секунд
+            // Автоматически скрываем через 5 секунд
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.remove();
