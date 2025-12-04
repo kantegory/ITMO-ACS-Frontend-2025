@@ -17,11 +17,11 @@ function showPage(pageId) {
         pageToShow.classList.add('d-block');
 
         if (pageId === 'dashboard-page' && currentUserId) {
-            loadDashboardData(currentUserId);
+            loadDashboardData(currentUserId); // Загрузка ЛК из API
         } else if (pageId === 'search-page') {
-            loadWorkouts();
+            loadWorkouts(); // Загрузка тренировок из API
         } else if (pageId === 'home-page') {
-             loadBlogPosts(); // Загрузка блога на главной странице
+             loadBlogPosts(); // Загрузка блога из API
         }
     }
 
@@ -55,7 +55,7 @@ async function handleLogin(event) {
     
     console.log(`Попытка входа с: ${email}`);
 
-    // --- ИМИТАЦИЯ АВТОРИЗАЦИИ С API ---
+    // Имитация авторизации с Api
     try {
         // Запрос к JSON-серверу для поиска пользователя по email
         const response = await fetch(`${API_URL}/users?email=${email}`);
@@ -83,7 +83,6 @@ async function handleLogin(event) {
     }
 }
 
-// Добавление новой функции для показа ошибки
 function showError(title, message) {
     document.getElementById('successModalLabel').textContent = title;
     document.getElementById('successMessage').textContent = message;
@@ -103,7 +102,7 @@ function showError(title, message) {
 }
 
 // Регистрация
-async function handleRegistration(event) { // Добавляем async
+async function handleRegistration(event) {
     event.preventDefault();
     const password = document.getElementById('regPassword').value;
     const passwordConfirm = document.getElementById('regPasswordConfirm').value;
@@ -117,7 +116,7 @@ async function handleRegistration(event) { // Добавляем async
 
     console.log(`Попытка регистрации пользователя: ${name}`);
     
-    // --- ИМИТАЦИЯ РЕГИСТРАЦИИ С API ---
+    // Имитация регистрации с Api
     const newUser = {
         name,
         email,
@@ -170,15 +169,12 @@ async function loadDashboardData(userId) {
         const progress = user.progress;
         const plan = user.trainingPlan;
         
-        // 1. Обновление Прогресса
         document.getElementById('progressWeight').textContent = `${progress.weight} кг`;
         document.getElementById('progressWorkouts').textContent = `${progress.weeklyWorkouts}`;
         document.getElementById('progressGoal').textContent = `${progress.pushupGoal}`;
-        // (Нужно будет добавить/обновить span'ы в index.html)
 
-        // 2. Обновление Плана Тренировок
         const planAccordion = document.getElementById('trainingPlanAccordion');
-        planAccordion.innerHTML = ''; // Очистка старых данных
+        planAccordion.innerHTML = '';
 
         if (plan.length === 0) {
             planAccordion.innerHTML = '<p class="text-muted">План тренировок пока пуст.</p>';
@@ -204,7 +200,6 @@ async function loadDashboardData(userId) {
         
     } catch (error) {
         console.error('Ошибка загрузки личного кабинета:', error);
-        // Не показываем ошибку пользователю, если он не на этой странице.
     }
 }
 
@@ -243,13 +238,12 @@ async function loadWorkouts() {
         
         const workouts = await response.json();
         const resultsContainer = document.getElementById('trainingResults');
-        resultsContainer.innerHTML = ''; // Очистка существующих карточек
+        resultsContainer.innerHTML = '';
         
         workouts.forEach(workout => {
             resultsContainer.insertAdjacentHTML('beforeend', renderWorkoutCard(workout));
         });
         
-        // Переназначаем обработчики событий для новых кнопок "Подробнее"
         document.querySelectorAll('.details-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const workoutId = e.currentTarget.getAttribute('data-id');
@@ -257,8 +251,7 @@ async function loadWorkouts() {
             });
         });
 
-        // Теперь фильтрация будет работать с динамически созданными карточками
-        applyFilters(false); // Применяем фильтры (скрываем ненужные, но без показа модалки успеха)
+        applyFilters(false);
 
     } catch (error) {
         console.error('Ошибка загрузки тренировок:', error);
@@ -266,8 +259,7 @@ async function loadWorkouts() {
     }
 }
 
-// Обновление applyFilters для работы с динамическими карточками
-function applyFilters(showAlert = true) { // Добавляем аргумент showAlert
+function applyFilters(showAlert = true) {
     const level = document.getElementById('filterLevel').value;
     const type = document.getElementById('filterType').value;
     const duration = parseInt(document.getElementById('filterDuration').value);
@@ -299,7 +291,7 @@ function applyFilters(showAlert = true) { // Добавляем аргумент
     }
 }
 
-// Тренировки (Обновленная функция, принимает ID)
+// Тренировки
 async function showTrainingDetails(workoutId) {
     try {
         const response = await fetch(`${API_URL}/workouts/${workoutId}`);
@@ -309,10 +301,8 @@ async function showTrainingDetails(workoutId) {
         
         document.getElementById('modalTrainingTitle').textContent = workout.title;
         
-        // Обновление iframe
         document.querySelector('#trainingDetailModal .ratio-16x9 iframe').src = workout.videoUrl;
         
-        // Обновление инструкций
         const instructionsList = document.querySelector('#trainingDetailModal .list-group-flush');
         instructionsList.innerHTML = '';
         
@@ -320,7 +310,6 @@ async function showTrainingDetails(workoutId) {
             instructionsList.insertAdjacentHTML('beforeend', `<li class="list-group-item">${instruction}</li>`);
         });
 
-        // Обновление описания (Предполагаем, что второе <p> под видео - это описание)
         document.querySelector('#trainingDetailModal .modal-body > p:nth-of-type(1)').innerHTML = `${workout.description} Сегодня мы выполним:`;
         
         trainingDetailModal.show();
@@ -338,7 +327,7 @@ async function loadBlogPosts() {
         
         const posts = await response.json();
         const blogContainer = document.querySelector('#home-page .row-cols-md-3');
-        blogContainer.innerHTML = ''; // Очистка старых постов
+        blogContainer.innerHTML = '';
 
         posts.forEach(post => {
             const html = `
@@ -364,17 +353,22 @@ async function loadBlogPosts() {
 
 // Инициализация и обработчики событий
 window.onload = () => {
+    // Скрываем все секции
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('d-none');
+    });
+
     // Начальная загрузка главной страницы (запустит loadBlogPosts)
     showPage('home-page');
     
-    // Проверка авторизации (Остается)
+    // Проверка авторизации
     const storedName = localStorage.getItem('userName');
     if (storedName) {
          document.getElementById('userNameDisplay').textContent = storedName;
     }
 
     // Переключение страниц
-    document.querySelectorAll('.navbar-nav .nav-link, .navbar-brand, .btn[data-page]').forEach(link => {
+    document.querySelectorAll('[data-page]').forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
             const pageId = link.dataset.page;
@@ -395,18 +389,11 @@ window.onload = () => {
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
     document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
 
-    document.getElementById('applyFiltersBtn').addEventListener('click', () => applyFilters(true)); // Передаем true для показа модалки
+    document.getElementById('applyFiltersBtn').addEventListener('click', () => applyFilters(true));
 
     document.getElementById('filterDuration').addEventListener('input', function() {
         document.getElementById('durationValue').textContent = this.value;
     });
-
-    // document.querySelectorAll('.details-btn').forEach(btn => {
-    //     btn.addEventListener('click', (e) => {
-    //         const title = e.currentTarget.getAttribute('data-title');
-    //         showTrainingDetails(title);
-    //     });
-    // });
 
     document.getElementById('durationValue').textContent = document.getElementById('filterDuration').value;
 };

@@ -3,7 +3,6 @@ body {
     background-color: #f8f9fa;
 }
 .page-section {
-    display: none;
     min-height: 80vh;
     padding-top: 20px;
 }

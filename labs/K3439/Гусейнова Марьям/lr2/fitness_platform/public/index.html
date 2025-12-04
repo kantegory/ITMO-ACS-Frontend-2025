@@ -10,6 +10,7 @@
 </head>
 <body>
 
+    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container-fluid container-lg">
             <a class="navbar-brand text-success fw-bold" href="#" data-page="home-page">
@@ -36,7 +37,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary ms-2" href="#" data-page="registration-page">
+                        <a class="nav-link" href="#" data-page="registration-page">
                             Регистрация
                         </a>
                     </li>
@@ -47,6 +48,7 @@
 
     <div class="container-lg my-4">
 
+        <!-- Home -->
         <section id="home-page" class="page-section d-block">
             <div class="p-5 text-center bg-light rounded-3 shadow-lg">
                 <h1 class="text-success display-4 fw-bold mb-3">Твой путь к здоровой жизни!</h1>
@@ -55,9 +57,12 @@
                 <button class="btn btn-lg btn-outline-secondary mt-3" data-page="registration-page">Присоединиться</button>
             </div>
 
+            <!-- Блог о здоровье и питании -->
             <h2 class="mt-5 mb-4 text-center fw-bold">Блог о Здоровье и Питании</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 </div>
+
+        <!-- Login -->        
         </section> <section id="login-page" class="page-section">
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-5">
@@ -84,6 +89,7 @@
             </div>
         </section>
 
+        <!-- Registration -->
         <section id="registration-page" class="page-section">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-7">
@@ -123,9 +129,11 @@
             </div>
         </section>
 
+        <!-- Лк пользователя -->
         <section id="dashboard-page" class="page-section">
             <h2 class="mb-4 text-primary fw-bold">Личный Кабинет <span id="userNameDisplay">Пользователя</span></h2>
             <div class="row g-4">
+                <!-- Трекинг прогресса -->
                 <div class="col-lg-6">
                     <div class="card p-4 h-100">
                         <h4 class="fw-bold mb-3"><i class="bi bi-graph-up me-2 text-success"></i>Трекинг Прогресса</h4>
@@ -144,6 +152,7 @@
                     </div>
                 </div>
 
+                <!-- Планы тренировок -->
                 <div class="col-lg-6">
                     <div class="card p-4 h-100">
                         <h4 class="fw-bold mb-3"><i class="bi bi-calendar-check me-2 text-primary"></i>Твой План Тренировок</h4>
@@ -156,9 +165,11 @@
             </div>
         </section>
 
+        <!-- Страница поиска тренировок с фильтрацией -->
         <section id="search-page" class="page-section">
             <h2 class="mb-4 text-primary fw-bold">Найти Идеальную Тренировку</h2>
             <div class="row g-4">
+                <!-- Панель фильтров -->
                 <div class="col-lg-4">
                     <div class="filter-group">
                         <h4 class="mb-3 fw-bold">Фильтры</h4>
@@ -183,7 +194,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="filterDuration" class="form-label">Продолжительность (мин)</label>
+                                <label for="filterDuration" class="form-label">Продолжительность в минутах (макс.)</label>
                                 <input type="range" class="form-range" min="10" max="90" step="5" value="30" id="filterDuration">
                                 <div class="d-flex justify-content-between">
                                     <small>10 мин</small><small><span id="durationValue">30</span> мин</small><small>90 мин</small>
@@ -196,6 +207,7 @@
                     </div>
                 </div>
 
+                <!-- Список результатов тренировок -->
                 <div class="col-lg-8" id="trainingResults">
                     </div>
             </div>
@@ -203,6 +215,7 @@
 
     </div>
 
+    <!-- Детали тренировки -->
     <div class="modal fade" id="trainingDetailModal" tabindex="-1" aria-labelledby="trainingDetailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -225,6 +238,7 @@
         </div>
     </div>
 
+    <!-- Окно успешного действия -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
