@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ресторан</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+    <h1>Restaurant Booking</h1>
+    <div>
+        <button class="btn btn-outline-light me-2" id="loginBtn">Вход</button>
+        <button class="btn btn-outline-light" id="registerBtn">Регистрация</button>
+    </div>
+</header>
+
+<main class="container mt-5">
+    <h2 id="restaurantName">Ресторан</h2>
+    <a href="index.html" class="btn btn-secondary mb-4">← На главную</a>
+
+    <div id="restaurantCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carouselInner"></div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#restaurantCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#restaurantCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <section class="mb-4">
+        <h3>Меню</h3>
+        <ul class="list-group" id="menuList"></ul>
+    </section>
+
+    <section class="mb-4">
+        <h3>Отзывы</h3>
+        <div id="reviewsList"></div>
+    </section>
+
+    <button class="btn btn-success" id="bookBtn">Забронировать столик</button>
+</main>
+
+<div class="modal" tabindex="-1" id="bookingModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Бронирование столика</h5>
+        <button type="button" class="btn-close" id="closeBooking"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-2" placeholder="Ваше имя">
+        <input type="email" class="form-control mb-2" placeholder="Email">
+        <input type="date" class="form-control mb-2">
+        <input type="time" class="form-control mb-2">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Забронировать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Вход</h5>
+        <button type="button" class="btn-close" id="closeLogin"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-2" placeholder="Логин">
+        <input type="password" class="form-control mb-2" placeholder="Пароль">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Войти</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="registerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Регистрация</h5>
+        <button type="button" class="btn-close" id="closeRegister"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-2" placeholder="Логин">
+        <input type="email" class="form-control mb-2" placeholder="Email">
+        <input type="password" class="form-control mb-2" placeholder="Пароль">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Зарегистрироваться</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="script.js"></script>
+</body>
+</html>
