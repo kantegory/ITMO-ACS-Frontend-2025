@@ -25,6 +25,11 @@ async function apiRequest(endpoint, options = {}) {
 
     try {
         const response = await fetch(url, config);
+        
+        if (!response.ok && response.status === 0) {
+            throw new Error('Сервер не запущен. Запустите: npm run server');
+        }
+        
         const data = await response.json();
         
         if (!response.ok) {
@@ -34,6 +39,9 @@ async function apiRequest(endpoint, options = {}) {
         return data;
     } catch (error) {
         console.error('API Error:', error);
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            throw new Error('Не удалось подключиться к серверу. Убедитесь, что JSON Server запущен (npm run server)');
+        }
         throw error;
     }
 }
