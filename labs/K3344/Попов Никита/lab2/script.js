@@ -1,3 +1,5 @@
+import { authAPI, restaurantsAPI, bookingsAPI } from './api.js';
+
 document.addEventListener("DOMContentLoaded", () => {
 
     function showToast(message) {
@@ -27,33 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
         toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
     }
 
-    const restaurants = [
-        { 
-            id: "1", name: "Итальянский Ресторан", cuisine: "Итальянская", location: "Центр", price: "₽₽",
-            images: ["assets/images/italian.jpg", "assets/images/italian2.jpg"],
-            menu: ["Паста Карбонара — 450 ₽", "Маргарита — 350 ₽", "Тирамису — 250 ₽"],
-            reviews: [{ name: "Иван", text: "Отличная паста и уютная атмосфера!" }, { name: "Мария", text: "Очень понравились десерты." }]
-        },
-        { 
-            id: "2", name: "Суши Бар", cuisine: "Японская", location: "Север", price: "₽₽₽",
-            images: ["assets/images/sushi.jpg"], menu: ["Суши", "Роллы"], reviews: [{ name: "Алексей", text: "Свежие роллы, рекомендую!" }] 
-        },
-        { 
-            id: "3", name: "Русская кухня", cuisine: "Русская", location: "Юг", price: "₽",
-            images: ["assets/images/russian.jpg"], menu: ["Щи", "Борщ"], reviews: [{ name: "Светлана", text: "Домашняя кухня, очень вкусно." }] 
-        },
-        { 
-            id: "4", name: "Бургерная", cuisine: "Фастфуд", location: "Восток", price: "₽",
-            images: ["assets/images/burger.jpg"], menu: ["Чизбургер", "Картошка фри"], reviews: [{ name: "Пётр", text: "Бургеры сочные и большие." }] 
-        }
-    ];
-
     const loginModal = document.getElementById("loginModal") ? new bootstrap.Modal("#loginModal") : null;
     const registerModal = document.getElementById("registerModal") ? new bootstrap.Modal("#registerModal") : null;
     const bookingModal = document.getElementById("bookingModal") ? new bootstrap.Modal("#bookingModal") : null;
-
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
-    const loggedUser = sessionStorage.getItem("user");
 
     const loginBtn = document.getElementById("loginBtn");
     const loginBtnClose = document.getElementById("closeLogin");
@@ -61,7 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const registerBtnClose = document.getElementById("closeRegister");
     const headerDiv = document.querySelector("header div");
 
-    if (loggedUser) {
+
+    const currentUser = authAPI.getCurrentUser();
+    if (currentUser) {
         loginBtn?.classList.add("d-none");
         registerBtn?.classList.add("d-none");
 
@@ -74,42 +54,54 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutBtn.textContent = "Выход";
         logoutBtn.classList.add("btn", "btn-outline-light");
         logoutBtn.addEventListener("click", () => {
-            sessionStorage.removeItem("user");
+            authAPI.logout();
             location.reload();
         });
 
         headerDiv?.append(profileBtn, logoutBtn);
     }
 
-    document.querySelector("#registerModal .btn-primary")?.addEventListener("click", () => {
+
+    document.querySelector("#registerModal .btn-primary")?.addEventListener("click", async () => {
         const username = document.querySelector("#registerModal input[type='text']").value.trim();
         const email = document.querySelector("#registerModal input[type='email']").value.trim();
         const password = document.querySelector("#registerModal input[type='password']").value.trim();
 
         if (!username || !email || !password) return showToast("Заполните все поля!");
-        if (users.find(u => u.username === username)) return showToast("Такой пользователь уже существует!");
 
-        const newUser = { username, email, password, bookings: [] };
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
-        sessionStorage.setItem("user", username);
-
-        registerModal.hide();
-        showToast(`Регистрация успешна! Добро пожаловать, ${username}`);
-        setTimeout(() => location.reload(), 800);
+        try {
+            const response = await authAPI.register(username, email, password);
+            if (response.success) {
+                registerModal.hide();
+                showToast(`Регистрация успешна! Добро пожаловать, ${username}`);
+                setTimeout(() => location.reload(), 800);
+            } else {
+                showToast(response.message || "Ошибка регистрации");
+            }
+        } catch (error) {
+            showToast(error.message || "Ошибка регистрации");
+        }
     });
 
-    document.querySelector("#loginModal .btn-primary")?.addEventListener("click", () => {
+
+    document.querySelector("#loginModal .btn-primary")?.addEventListener("click", async () => {
         const username = document.querySelector("#loginModal input[type='text']").value.trim();
         const password = document.querySelector("#loginModal input[type='password']").value.trim();
 
-        const user = users.find(u => u.username === username && u.password === password);
-        if (!user) return showToast("Неверный логин или пароль");
+        if (!username || !password) return showToast("Заполните все поля!");
 
-        sessionStorage.setItem("user", username);
-        loginModal.hide();
-        showToast(`Добро пожаловать, ${username}`);
-        setTimeout(() => location.reload(), 800);
+        try {
+            const response = await authAPI.login(username, password);
+            if (response.success) {
+                loginModal.hide();
+                showToast(`Добро пожаловать, ${username}`);
+                setTimeout(() => location.reload(), 800);
+            } else {
+                showToast(response.message || "Неверный логин или пароль");
+            }
+        } catch (error) {
+            showToast(error.message || "Неверный логин или пароль");
+        }
     });
 
     loginBtn?.addEventListener("click", () => loginModal.show());
@@ -117,10 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
     registerBtn?.addEventListener("click", () => registerModal.show());
     registerBtnClose?.addEventListener("click", () => registerModal.hide());
 
+
     if (document.getElementById("restaurantList")) {
         const list = document.getElementById("restaurantList");
+        
         function render(rests) {
             list.innerHTML = "";
+            if (rests.length === 0) {
+                list.innerHTML = '<div class="col-12"><p class="text-center">Рестораны не найдены</p></div>';
+                return;
+            }
             rests.forEach(r => {
                 list.innerHTML += `
                     <div class="col-md-3 mb-4">
@@ -135,104 +133,182 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>`;
             });
         }
-        render(restaurants);
+
+        async function loadRestaurants(filters = {}) {
+            try {
+                let restaurants;
+                if (Object.keys(filters).length === 0 || 
+                    (!filters.cuisine && !filters.location && !filters.price)) {
+                    restaurants = await restaurantsAPI.getAll();
+                } else {
+                    restaurants = await restaurantsAPI.search(filters);
+                }
+                render(restaurants);
+            } catch (error) {
+                showToast("Ошибка загрузки ресторанов");
+                console.error(error);
+            }
+        }
+
+        loadRestaurants();
 
         document.getElementById("searchBtn")?.addEventListener("click", () => {
             const cuisine = document.getElementById("cuisine").value;
             const location = document.getElementById("location").value;
             const price = document.getElementById("price").value;
-            const filtered = restaurants.filter(r =>
-                (!cuisine || r.cuisine === cuisine) &&
-                (!location || r.location === location) &&
-                (!price || r.price === price)
-            );
-            render(filtered);
+            loadRestaurants({ cuisine, location, price });
         });
     }
 
     const restId = new URLSearchParams(location.search).get("id");
     if (restId) {
-        const rest = restaurants.find(r => r.id === restId);
-        if (rest) {
-            document.getElementById("restaurantName").textContent = rest.name;
+        async function loadRestaurantDetails() {
+            try {
+                const rest = await restaurantsAPI.getById(restId);
+                
+                document.getElementById("restaurantName").textContent = rest.name;
 
-            const carouselInner = document.getElementById("carouselInner");
-            rest.images.forEach((img, i) => {
-                carouselInner.innerHTML += `
-                    <div class="carousel-item ${i === 0 ? "active" : ""}">
-                        <img src="${img}" class="d-block w-100" style="height:400px;object-fit:cover;">
-                    </div>`;
-            });
-
-            const menuList = document.getElementById("menuList");
-            rest.menu.forEach(m => menuList.innerHTML += `<li class="list-group-item">${m}</li>`);
-
-            const reviews = document.getElementById("reviewsList");
-            rest.reviews.forEach(r => {
-                reviews.innerHTML += `
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5>${r.name}</h5>
-                            <p>${r.text}</p>
-                        </div>
-                    </div>`;
-            });
-
-            document.querySelector("#bookingModal .btn-primary")?.addEventListener("click", () => {
-                const currentUser = sessionStorage.getItem("user");
-                if (!currentUser) return showToast("Сначала войдите!");
-
-                const date = document.querySelector("#bookingModal input[type='date']").value;
-                const time = document.querySelector("#bookingModal input[type='time']").value;
-                if (!date || !time) return showToast("Выберите дату и время!");
-
-                let users = JSON.parse(localStorage.getItem("users") || "[]");
-                const user = users.find(u => u.username === currentUser);
-                if (!user) return showToast("Пользователь не найден!");
-
-                user.bookings = user.bookings || [];
-                user.bookings.push({
-                    restaurant: rest.name,
-                    date,
-                    time
+                const carouselInner = document.getElementById("carouselInner");
+                carouselInner.innerHTML = "";
+                rest.images.forEach((img, i) => {
+                    carouselInner.innerHTML += `
+                        <div class="carousel-item ${i === 0 ? "active" : ""}">
+                            <img src="${img}" class="d-block w-100" style="height:400px;object-fit:cover;">
+                        </div>`;
                 });
 
-                localStorage.setItem("users", JSON.stringify(users));
+                const menuList = document.getElementById("menuList");
+                menuList.innerHTML = "";
+                rest.menu.forEach(m => menuList.innerHTML += `<li class="list-group-item">${m}</li>`);
 
-                const modal = bootstrap.Modal.getInstance(document.getElementById("bookingModal"));
-                modal.hide();
-                showToast("Столик забронирован!");
-            });
+                const reviews = document.getElementById("reviewsList");
+                reviews.innerHTML = "";
+                rest.reviews.forEach(r => {
+                    reviews.innerHTML += `
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h5>${r.name}</h5>
+                                <p>${r.text}</p>
+                            </div>
+                        </div>`;
+                });
 
-            document.getElementById("bookBtn")?.addEventListener("click", () => bookingModal.show());
+            
+                document.querySelector("#bookingModal .btn-primary")?.addEventListener("click", async () => {
+                    const currentUser = authAPI.getCurrentUser();
+                    if (!currentUser) return showToast("Сначала войдите!");
+
+                    const nameInput = document.querySelector("#bookingModal input[type='text']");
+                    const emailInput = document.querySelector("#bookingModal input[type='email']");
+                    const dateInput = document.querySelector("#bookingModal input[type='date']");
+                    const timeInput = document.querySelector("#bookingModal input[type='time']");
+
+                    const name = nameInput.value.trim();
+                    const email = emailInput.value.trim();
+                    const date = dateInput.value;
+                    const time = timeInput.value;
+
+                    if (!name || !email || !date || !time) return showToast("Заполните все поля!");
+
+                    try {
+                        const booking = {
+                            userId: currentUser.id,
+                            restaurantId: rest.id,
+                            restaurantName: rest.name,
+                            name,
+                            email,
+                            date,
+                            time
+                        };
+
+                        await bookingsAPI.create(booking);
+                        
+                        const modal = bootstrap.Modal.getInstance(document.getElementById("bookingModal"));
+                        modal.hide();
+                        
+                        // Очистка формы
+                        nameInput.value = "";
+                        emailInput.value = "";
+                        dateInput.value = "";
+                        timeInput.value = "";
+                        
+                        showToast("Столик забронирован!");
+                    } catch (error) {
+                        showToast(error.message || "Ошибка бронирования");
+                    }
+                });
+
+                document.getElementById("bookBtn")?.addEventListener("click", () => {
+                    const currentUser = authAPI.getCurrentUser();
+                    if (!currentUser) {
+                        showToast("Сначала войдите!");
+                        return;
+                    }
+                    bookingModal.show();
+                });
+            } catch (error) {
+                showToast("Ошибка загрузки ресторана");
+                console.error(error);
+            }
         }
+
+        loadRestaurantDetails();
     }
 
     if (location.pathname.includes("profile.html")) {
-        const username = sessionStorage.getItem("user");
-        if (!username) { showToast("Сначала войдите!"); location.href = "index.html"; return; }
-
-        users = JSON.parse(localStorage.getItem("users") || "[]");
-        const user = users.find(u => u.username === username);
-        if (!user) { showToast("Пользователь не найден!"); location.href = "index.html"; return; }
-
-        document.getElementById("userInfo").innerHTML = `
-            <p><b>Логин:</b> ${user.username}</p>
-            <p><b>Email:</b> ${user.email}</p>
-        `;
-
-        const history = document.getElementById("bookingHistory");
-        history.innerHTML = "";
-        if (!user.bookings || user.bookings.length === 0) {
-            history.innerHTML = `<li class="list-group-item">Нет бронирований</li>`;
-        } else {
-            user.bookings.forEach(b => {
-                history.innerHTML += `<li class="list-group-item">${b.restaurant} — ${b.date} ${b.time}</li>`;
-            });
+        const currentUser = authAPI.getCurrentUser();
+        if (!currentUser) {
+            showToast("Сначала войдите!");
+            location.href = "index.html";
+            return;
         }
 
+        document.getElementById("userInfo").innerHTML = `
+            <p><b>Логин:</b> ${currentUser.username}</p>
+            <p><b>Email:</b> ${currentUser.email}</p>
+        `;
+
+        async function loadBookingHistory() {
+            try {
+                const bookings = await bookingsAPI.getByUserId(currentUser.id);
+                const history = document.getElementById("bookingHistory");
+                history.innerHTML = "";
+                
+                if (!bookings || bookings.length === 0) {
+                    history.innerHTML = `<li class="list-group-item">Нет бронирований</li>`;
+                } else {
+                    bookings.forEach(b => {
+                        history.innerHTML += `
+                            <li class="list-group-item">
+                                ${b.restaurantName} — ${b.date} ${b.time}
+                                <button class="btn btn-sm btn-danger float-end" data-booking-id="${b.id}">Удалить</button>
+                            </li>`;
+                    });
+                    
+                    // Обработчики удаления бронирований
+                    history.querySelectorAll('[data-booking-id]').forEach(btn => {
+                        btn.addEventListener('click', async () => {
+                            const bookingId = btn.getAttribute('data-booking-id');
+                            try {
+                                await bookingsAPI.delete(bookingId);
+                                showToast("Бронирование отменено");
+                                loadBookingHistory();
+                            } catch (error) {
+                                showToast("Ошибка отмены бронирования");
+                            }
+                        });
+                    });
+                }
+            } catch (error) {
+                showToast("Ошибка загрузки истории бронирований");
+                console.error(error);
+            }
+        }
+
+        loadBookingHistory();
+
         document.getElementById("logoutBtn")?.addEventListener("click", () => {
-            sessionStorage.removeItem("user");
+            authAPI.logout();
             location.href = "index.html";
         });
     }
