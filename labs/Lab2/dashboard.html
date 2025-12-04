@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="dashboard">
+  <nav class="navbar container py-3">
+    <a class="navbar-brand brand" href="index.html">FastRent</a>
+    <div id="nav-user" class="ms-auto"></div>
+  </nav>
+
+  <main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 id="dashWelcome">Добро пожаловать</h4>
+      <div>
+        <a href="messages.html" class="btn btn-outline-secondary me-2">Сообщения</a>
+        <a href="index.html" class="btn btn-primary">Поиск</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <h6>Ваши объявления</h6>
+        <div id="ownedList"></div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <h6>Арендованные</h6>
+        <div id="rentedList"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer text-center">
+    <div class="container"><small>© FastRent</small></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
