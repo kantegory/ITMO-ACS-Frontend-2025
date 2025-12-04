@@ -145,8 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 render(restaurants);
             } catch (error) {
-                showToast("Ошибка загрузки ресторанов");
+                showToast(error.message || "Ошибка загрузки ресторанов");
                 console.error(error);
+                list.innerHTML = '<div class="col-12"><p class="text-center text-danger">Ошибка загрузки ресторанов</p></div>';
             }
         }
 
@@ -247,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     bookingModal.show();
                 });
             } catch (error) {
-                showToast("Ошибка загрузки ресторана");
+                showToast(error.message || "Ошибка загрузки ресторана");
                 console.error(error);
             }
         }
@@ -300,8 +301,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 }
             } catch (error) {
-                showToast("Ошибка загрузки истории бронирований");
+                showToast(error.message || "Ошибка загрузки истории бронирований");
                 console.error(error);
+                const history = document.getElementById("bookingHistory");
+                history.innerHTML = '<li class="list-group-item text-danger">Ошибка загрузки истории бронирований</li>';
             }
         }
 

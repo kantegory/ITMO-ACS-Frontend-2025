@@ -6,11 +6,24 @@
       "cuisine": "Итальянская",
       "location": "Центр",
       "price": "₽₽",
-      "images": ["assets/images/italian.jpg", "assets/images/italian2.jpg"],
-      "menu": ["Паста Карбонара — 450 ₽", "Маргарита — 350 ₽", "Тирамису — 250 ₽"],
+      "images": [
+        "assets/images/italian.jpg",
+        "assets/images/italian2.jpg"
+      ],
+      "menu": [
+        "Паста Карбонара — 450 ₽",
+        "Маргарита — 350 ₽",
+        "Тирамису — 250 ₽"
+      ],
       "reviews": [
-        { "name": "Иван", "text": "Отличная паста и уютная атмосфера!" },
-        { "name": "Мария", "text": "Очень понравились десерты." }
+        {
+          "name": "Иван",
+          "text": "Отличная паста и уютная атмосфера!"
+        },
+        {
+          "name": "Мария",
+          "text": "Очень понравились десерты."
+        }
       ]
     },
     {
@@ -19,10 +32,18 @@
       "cuisine": "Японская",
       "location": "Север",
       "price": "₽₽₽",
-      "images": ["assets/images/sushi.jpg"],
-      "menu": ["Суши", "Роллы"],
+      "images": [
+        "assets/images/sushi.jpg"
+      ],
+      "menu": [
+        "Суши",
+        "Роллы"
+      ],
       "reviews": [
-        { "name": "Алексей", "text": "Свежие роллы, рекомендую!" }
+        {
+          "name": "Алексей",
+          "text": "Свежие роллы, рекомендую!"
+        }
       ]
     },
     {
@@ -31,10 +52,18 @@
       "cuisine": "Русская",
       "location": "Юг",
       "price": "₽",
-      "images": ["assets/images/russian.jpg"],
-      "menu": ["Щи", "Борщ"],
+      "images": [
+        "assets/images/russian.jpg"
+      ],
+      "menu": [
+        "Щи",
+        "Борщ"
+      ],
       "reviews": [
-        { "name": "Светлана", "text": "Домашняя кухня, очень вкусно." }
+        {
+          "name": "Светлана",
+          "text": "Домашняя кухня, очень вкусно."
+        }
       ]
     },
     {
@@ -43,10 +72,18 @@
       "cuisine": "Фастфуд",
       "location": "Восток",
       "price": "₽",
-      "images": ["assets/images/burger.jpg"],
-      "menu": ["Чизбургер", "Картошка фри"],
+      "images": [
+        "assets/images/burger.jpg"
+      ],
+      "menu": [
+        "Чизбургер",
+        "Картошка фри"
+      ],
       "reviews": [
-        { "name": "Пётр", "text": "Бургеры сочные и большие." }
+        {
+          "name": "Пётр",
+          "text": "Бургеры сочные и большие."
+        }
       ]
     }
   ],
@@ -56,8 +93,24 @@
       "username": "admin",
       "email": "admin@example.com",
       "password": "admin123"
+    },
+    {
+      "id": 2,
+      "username": "login",
+      "email": "login@mail.ru",
+      "password": "1234"
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "userId": 2,
+      "restaurantId": "1",
+      "restaurantName": "Итальянский Ресторан",
+      "name": "Никита",
+      "email": "login@mail.ru",
+      "date": "2025-12-25",
+      "time": "19:00",
+      "id": 1
+    }
+  ]
 }
-
