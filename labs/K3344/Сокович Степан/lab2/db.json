@@ -13,6 +13,13 @@
       "password": "test123",
       "username": "test@test.com",
       "phone": "+7 999 999-99-99"
+    },
+    {
+      "email": "sokovichstepan@gmail.com",
+      "password": "икщйзйхзйцщкуйзц",
+      "username": "sokovichstepan@gmail.com",
+      "phone": "",
+      "id": 3
     }
   ],
   "listings": [
@@ -71,6 +78,18 @@
       "status": "active"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "userId": 3,
+      "token": "token_1764886582834_93yxiernh",
+      "createdAt": "2025-12-04T22:16:22.834Z",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "token": "token_1764887127888_1kf7yzut7",
+      "createdAt": "2025-12-04T22:25:27.888Z",
+      "id": 2
+    }
+  ]
 }
-

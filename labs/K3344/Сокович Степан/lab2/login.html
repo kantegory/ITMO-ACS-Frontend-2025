@@ -67,7 +67,6 @@
         const email = emailInput.value;
         const password = passwordInput.value;
 
-        // Показываем ошибку, если есть
         const errorDiv = document.getElementById('errorMessage');
         if (errorDiv) {
             errorDiv.remove();
@@ -83,7 +82,6 @@
                 window.location = 'profile.html';
             }, 2000);
         } catch (error) {
-            // Показываем ошибку
             const errorDiv = document.createElement('div');
             errorDiv.id = 'errorMessage';
             errorDiv.className = 'alert alert-danger mt-3';

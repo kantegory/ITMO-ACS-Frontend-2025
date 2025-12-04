@@ -37,12 +37,29 @@ class ApiClient {
       });
 
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(error.error || `HTTP error! status: ${response.status}`);
+        let errorMessage = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch (e) {
+          const text = await response.text();
+          if (text) {
+            errorMessage = text;
+          }
+        }
+        throw new Error(errorMessage);
       }
 
-      return await response.json();
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return await response.json();
+      }
+      return await response.text();
     } catch (error) {
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        console.error('Network error: Unable to connect to server. Make sure JSON server is running on http://localhost:3000');
+        throw new Error('Не удалось подключиться к серверу. Убедитесь, что JSON-сервер запущен на http://localhost:3000');
+      }
       console.error('API request failed:', error);
       throw error;
     }
@@ -177,7 +194,6 @@ const listingsAPI = {
     return api.post('/listings', listing);
   },
 
-  // Обновить объявление (требует авторизации)
   async update(id, listing) {
     return api.put(`/listings/${id}`, listing);
   },

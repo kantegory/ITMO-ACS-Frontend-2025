@@ -30,7 +30,9 @@ async function loadListings() {
         initDetailModals();
     } catch (error) {
         console.error('Error loading listings:', error);
-        listingsContainer.innerHTML = '<div class="col-12"><div class="alert alert-danger">Ошибка загрузки объявлений</div></div>';
+        const errorMessage = error.message || 'Ошибка загрузки объявлений';
+        listingsContainer.innerHTML = `<div class="col-12"><div class="alert alert-danger">${errorMessage}</div></div>`;
+        if (resultsCount) resultsCount.textContent = 'Ошибка';
     }
 }
 
