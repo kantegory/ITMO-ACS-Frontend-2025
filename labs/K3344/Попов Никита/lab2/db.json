@@ -1,0 +1,63 @@
+{
+  "restaurants": [
+    {
+      "id": "1",
+      "name": "Итальянский Ресторан",
+      "cuisine": "Итальянская",
+      "location": "Центр",
+      "price": "₽₽",
+      "images": ["assets/images/italian.jpg", "assets/images/italian2.jpg"],
+      "menu": ["Паста Карбонара — 450 ₽", "Маргарита — 350 ₽", "Тирамису — 250 ₽"],
+      "reviews": [
+        { "name": "Иван", "text": "Отличная паста и уютная атмосфера!" },
+        { "name": "Мария", "text": "Очень понравились десерты." }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Суши Бар",
+      "cuisine": "Японская",
+      "location": "Север",
+      "price": "₽₽₽",
+      "images": ["assets/images/sushi.jpg"],
+      "menu": ["Суши", "Роллы"],
+      "reviews": [
+        { "name": "Алексей", "text": "Свежие роллы, рекомендую!" }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Русская кухня",
+      "cuisine": "Русская",
+      "location": "Юг",
+      "price": "₽",
+      "images": ["assets/images/russian.jpg"],
+      "menu": ["Щи", "Борщ"],
+      "reviews": [
+        { "name": "Светлана", "text": "Домашняя кухня, очень вкусно." }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Бургерная",
+      "cuisine": "Фастфуд",
+      "location": "Восток",
+      "price": "₽",
+      "images": ["assets/images/burger.jpg"],
+      "menu": ["Чизбургер", "Картошка фри"],
+      "reviews": [
+        { "name": "Пётр", "text": "Бургеры сочные и большие." }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@example.com",
+      "password": "admin123"
+    }
+  ],
+  "bookings": []
+}
+
