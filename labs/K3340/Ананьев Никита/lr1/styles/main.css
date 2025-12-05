@@ -142,7 +142,7 @@ main {
     background:#4caf7a; 
     color:#fff; 
     border:none; 
-    border-radius: 5px; 
+    border-radius: 0 0 5px 5px; 
     font-size: 16px; 
     cursor: pointer;
 }
@@ -176,6 +176,17 @@ main {
     flex-direction: column; 
     justify-content: space-between; 
 }
+
+.card-link {
+    text-decoration: none; 
+    color: #3c8c5a;
+    font-size: 16px; 
+    background: none; 
+    border: none; 
+    cursor: pointer;
+}
+
+.card-link:hover { color: #2f7247; }
 
 .price { 
     font-size: 20px; 
