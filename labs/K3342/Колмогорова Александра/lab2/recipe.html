@@ -35,8 +35,13 @@
 
         </div>
     </main>
-    
-    <script src="js/recipes-data.js"></script>
+
+    <script>
+        function logout() {
+            localStorage.clear()
+            window.location.href = 'index.html'
+        }
+    </script>
     <script src="js/recipe.js"></script>
 </body>
 </html>

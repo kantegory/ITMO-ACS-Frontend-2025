@@ -5,6 +5,27 @@
       "password": "$2a$10$1c0HtqYn4trQUE1t42pYMOfoUcXyujAj.npspB2lfhK5uFQ6ipE2W",
       "username": "ama",
       "id": 1
+    },
+    {
+      "email": "a@ad",
+      "password": "$2a$10$TEJGmEssJ4NxYcjC.KCrk.gwVVqEuXYLUNYfrusNbWws75JqZBpVq",
+      "username": "daNNN",
+      "id": 2,
+      "name": "Dan H",
+      "bio": "-",
+      "recipes": [
+        {
+          "id": 1764975218960,
+          "title": "acas",
+          "description": "svsv",
+          "type": "dessert",
+          "difficulty": "Среднесложное",
+          "ingredients": [
+            "dairy",
+            "grains"
+          ]
+        }
+      ]
     }
   ],
   "publicRecipes": [
