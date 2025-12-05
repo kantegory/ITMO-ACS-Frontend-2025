@@ -30,17 +30,18 @@
                         <form id="loginForm">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email или имя пользователя</label>
-                                <input type="text" class="form-control" id="email" name="email" required>
+                                <input type="text" class="form-control" id="email" name="email" required aria-required="true" autocomplete="username">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Пароль</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password" required aria-required="true" autocomplete="current-password">
                             </div>
                             <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <input type="checkbox" class="form-check-input" id="rememberMe" aria-describedby="rememberMeHelp">
                                 <label class="form-check-label" for="rememberMe">
                                     Запомнить меня
                                 </label>
+                                <div id="rememberMeHelp" class="visually-hidden">Сохранить данные для входа на этом устройстве</div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mb-3">Войти</button>
                             <div class="text-center">

@@ -102,15 +102,15 @@
                     <form id="contactForm">
                         <div class="mb-3">
                             <label for="contactName" class="form-label">Ваше имя</label>
-                            <input type="text" class="form-control" id="contactName" required>
+                            <input type="text" class="form-control" id="contactName" required aria-required="true" autocomplete="name">
                         </div>
                         <div class="mb-3">
                             <label for="contactPhone" class="form-label">Телефон</label>
-                            <input type="tel" class="form-control" id="contactPhone" required>
+                            <input type="tel" class="form-control" id="contactPhone" required aria-required="true" autocomplete="tel">
                         </div>
                         <div class="mb-3">
                             <label for="contactMessage" class="form-label">Сообщение</label>
-                            <textarea class="form-control" id="contactMessage" rows="3" required></textarea>
+                            <textarea class="form-control" id="contactMessage" rows="3" required aria-required="true"></textarea>
                         </div>
                     </form>
                 </div>
@@ -134,20 +134,20 @@
                     <form id="rentForm">
                         <div class="mb-3">
                             <label for="rentStartDate" class="form-label">Дата начала аренды</label>
-                            <input type="date" class="form-control" id="rentStartDate" required>
+                            <input type="date" class="form-control" id="rentStartDate" required aria-required="true" aria-describedby="totalAmountInfo">
                         </div>
                         <div class="mb-3">
                             <label for="rentEndDate" class="form-label">Дата окончания аренды</label>
-                            <input type="date" class="form-control" id="rentEndDate" required>
+                            <input type="date" class="form-control" id="rentEndDate" required aria-required="true" aria-describedby="totalAmountInfo">
                         </div>
                         <div class="mb-3">
                             <label for="rentGuests" class="form-label">Количество гостей</label>
-                            <input type="number" class="form-control" id="rentGuests" min="1" required>
+                            <input type="number" class="form-control" id="rentGuests" min="1" required aria-required="true">
                         </div>
-                        <div class="alert alert-info">
+                        <div class="alert alert-info" id="totalAmountInfo" role="status" aria-live="polite">
                             <strong>Сумма к оплате:</strong> <span id="totalAmount">0</span> ₽
                         </div>
-                        <div id="rentError" class="alert alert-danger d-none" role="alert"></div>
+                        <div id="rentError" class="alert alert-danger d-none" role="alert" aria-live="assertive"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
