@@ -1,4 +1,4 @@
-let url = 'http://localhost:3000';
+const url = 'http://localhost:3000';
 
 function showAlert(message, type = 'danger') {
     const alertElement = document.getElementById('alertMessage');
@@ -135,6 +135,8 @@ async function login(event) {
         }
 
         showAlert('Success! Redirecting...', 'success');
+
+        const data = await response.json();
         
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('user', JSON.stringify(data.user));

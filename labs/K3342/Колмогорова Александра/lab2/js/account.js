@@ -300,5 +300,3 @@ window.updateProfile = updateProfile;
 window.createRecipe = createRecipe;
 window.deleteRecipe = deleteRecipe;
 window.displaySavedRecipes = displaySavedRecipes;
-window.removeFromSaved = removeFromSaved;
-window.viewRecipe = viewRecipe;
