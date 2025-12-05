@@ -38,7 +38,7 @@ function renderProperties(properties) {
         col.className = 'col-md-6 col-lg-4 mb-4';
         col.innerHTML = `
             <div class="card h-100 property-card">
-                <img src="${property.image}" class="card-img-top" alt="${property.title}" style="height: 200px; object-fit: cover;">
+                <img src="${property.image}" class="card-img-top" alt="Фотография недвижимости: ${property.title}, расположена по адресу ${property.location}" style="height: 200px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">${property.title}</h5>
                     <p class="card-text text-muted">${property.location}</p>

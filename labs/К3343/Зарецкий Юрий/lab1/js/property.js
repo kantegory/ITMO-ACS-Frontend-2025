@@ -26,7 +26,7 @@ function renderProperty() {
     property.images.forEach((image, index) => {
         const item = document.createElement('div');
         item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
-        item.innerHTML = `<img src="${image}" class="d-block w-100" alt="Фото ${index + 1}" style="height: 500px; object-fit: cover;">`;
+        item.innerHTML = `<img src="${image}" class="d-block w-100" alt="Фотография ${index + 1} из ${property.images.length}: ${property.title}, ${property.location}" style="height: 500px; object-fit: cover;">`;
         carouselInner.appendChild(item);
     });
 

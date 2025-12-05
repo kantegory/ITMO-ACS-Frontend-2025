@@ -36,7 +36,7 @@ function renderPropertyCard(property, containerId) {
         : "https://via.placeholder.com/300x200?text=Нет+фото";
     col.innerHTML = `
         <div class="card h-100">
-            <img src="${image}" class="card-img-top" alt="${property.title}" style="height: 200px; object-fit: cover;">
+            <img src="${image}" class="card-img-top" alt="Фотография недвижимости: ${property.title}, расположена по адресу ${property.location}" style="height: 200px; object-fit: cover;">
             <div class="card-body">
                 <h5 class="card-title">${property.title}</h5>
                 <p class="card-text text-muted">${property.location}</p>
@@ -99,7 +99,7 @@ async function loadProfile() {
                     : "https://via.placeholder.com/300x200?text=Нет+фото";
                 col.innerHTML = `
                     <div class="card h-100">
-                        <img src="${image}" class="card-img-top" alt="${apartment.title}" style="height: 200px; object-fit: cover;">
+                        <img src="${image}" class="card-img-top" alt="Фотография арендованной недвижимости: ${apartment.title}, расположена по адресу ${apartment.location}, арендована с ${rent.startDate} по ${rent.endDate}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">${apartment.title}</h5>
                             <p class="card-text text-muted">${apartment.location}</p>
