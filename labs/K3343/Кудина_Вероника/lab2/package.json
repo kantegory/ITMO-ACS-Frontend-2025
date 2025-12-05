@@ -1,0 +1,11 @@
+{
+  "name": "lab2",
+  "version": "1.0.0",
+  "description": "ЛР2 - Взаимодействие с API",
+  "scripts": {
+    "server": "json-server --watch db.json --port 3000"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}
