@@ -284,18 +284,6 @@ function displaySavedRecipes() {
     })
 }
 
-function viewRecipe(recipeId) {
-    alert(`Просмотр рецепта #${recipeId}\nЗдесь будет открытие полного рецепта`);
-}
-
-function removeFromSaved(recipeId) {    
-    let savedRecipeIds = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-    savedRecipeIds = savedRecipeIds.filter(id => id !== recipeId);
-    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipeIds));
-    
-    displaySavedRecipes();
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     loadProfile();
     
