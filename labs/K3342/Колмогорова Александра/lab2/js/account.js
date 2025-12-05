@@ -235,53 +235,57 @@ function deleteRecipe(recipeId) {
 
 function displaySavedRecipes() {
     const container = document.querySelector('#saved .row');
-    container.innerHTML = '';
-    
-    const savedRecipeIds = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-        
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const token = localStorage.getItem('accessToken');
+      
+    const favorites = JSON.parse(localStorage.getItem('userFavorites')) || {};
+    const savedRecipeIds = favorites[user.id] || [];
     
+    if (savedRecipeIds.length == 0) {
+        container.innerHTML = '<p>Нет сохраненных рецептов</p>';
+        return;
+    }
     
-    fetch(`${url}/users/${user.id}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => response.json())
-    .then(currentUser => {
-        const userRecipes = currentUser.recipes || [];
-        
-        const savedRecipes = userRecipes.filter(recipe => savedRecipeIds.includes(recipe.id));
-        
-        container.innerHTML = '';
-        
-        if (savedRecipes.length == 0) {
-            container.innerHTML = `
-                <div class="col-12">
-                    <p class="text-muted">Нет сохранённых рецептов</p>
-                </div>
-            `;
-            return;
-        }
-        
-        savedRecipes.forEach(recipe => {
-            const recipeHTML = `
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <img src="${recipe.image}" class="card-img-top" alt="${recipe.title}" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">${recipe.title}</h5>
-                            <p class="card-text m-0">${recipe.type}</p>
-                            <p class="card-text">Сложность: ${recipe.difficulty}</p>
-                            <a href="recipe.html?id=${recipe.id}" class="btn btn-success">Посмотреть рецепт</a>
+    fetch(`${url}/publicRecipes`)
+        .then(response => response.json())
+        .then(allRecipes => {
+            const savedRecipes = allRecipes.filter(recipe => 
+                savedRecipeIds.includes(recipe.id)
+            );
+            
+            container.innerHTML = '';
+            
+            if (savedRecipes.length == 0) {
+                container.innerHTML = '<p>Нет сохраненных рецептов</p>';
+                return;
+            }
+            
+            savedRecipes.forEach(recipe => {
+                const recipeHTML = `
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            ${recipe.image ? `
+                                <img src="${recipe.image}" class="card-img-top" alt="${recipe.title}" style="height: 150px; object-fit: cover;">
+                            ` : ''}
+                            <div class="card-body">
+                                <h5 class="card-title">${recipe.title}</h5>
+                                <p class="card-text">
+                                    <span class="badge bg-secondary">${recipe.type}</span>
+                                    <span class="badge bg-info ms-1">${recipe.difficulty}</span>
+                                </p>
+                                <div class="d-flex gap-2">
+                                    <a href="recipe.html?id=${recipe.id}" class="btn btn-success btn-sm">Посмотреть</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-            container.innerHTML += recipeHTML;
+                `;
+                container.innerHTML += recipeHTML;
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            container.innerHTML = '<p>Ошибка загрузки</p>';
         });
-    })
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -300,3 +304,8 @@ window.updateProfile = updateProfile;
 window.createRecipe = createRecipe;
 window.deleteRecipe = deleteRecipe;
 window.displaySavedRecipes = displaySavedRecipes;
+
+function logout() {
+    localStorage.clear()
+    window.location.href = 'index.html'
+}
