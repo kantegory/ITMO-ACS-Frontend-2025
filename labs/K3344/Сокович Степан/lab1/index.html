@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Поиск недвижимости — RentalSite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+<header class="bg-light">
+    <nav class="navbar navbar-expand-lg w-100 px-3">
+        <a class="navbar-brand" href="index.html">RentalSite</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item" id="loginNav"><a class="nav-link" href="login.html">Вход</a></li>
+                <li class="nav-item" id="registerNav"><a class="btn btn-primary ms-2" href="register.html">Регистрация</a></li>
+
+                <li class="nav-item" id="profileNav" style="display:none;">
+                    <a class="nav-link" href="profile.html">Профиль</a>
+                </li>
+                <li class="nav-item" id="logoutNav" style="display:none;">
+                    <a class="nav-link text-danger" href="#" id="logoutBtn">Выход</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container my-4">
+    <div class="row g-4">
+        <aside class="col-lg-3">
+            <div class="card p-3">
+                <h5>Фильтры</h5>
+                <form id="filterForm">
+                    <div class="mb-2">
+                        <label class="form-label">Тип</label>
+                        <select id="typeFilter" class="form-select">
+                            <option value="any">Любой</option>
+                            <option value="apartment">Квартира</option>
+                            <option value="house">Дом</option>
+                            <option value="studio">Студия</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Макс. цена, ₽</label>
+                        <input id="priceFilter" type="number" class="form-control" placeholder="Например 50000">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Район</label>
+                        <input id="locationFilter" class="form-control" placeholder="Поиск по городу/району">
+                    </div>
+                    <button type="button" id="applyFilters" class="btn btn-primary w-100 mt-2">Применить</button>
+                    <button type="button" id="clearFilters" class="btn btn-outline-secondary w-100 mt-2">Сбросить</button>
+                </form>
+            </div>
+        </aside>
+
+        <section class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0">Результаты поиска</h4>
+                <small id="resultsCount">4 найдено</small>
+            </div>
+
+            <div id="listings" class="row g-3">
+                <div class="col-md-6" data-type="apartment" data-price="45000" data-location="Центр">
+                    <div class="card h-100">
+                        <img src="img/download.jpg" class="card-img-top" alt="квартира">
+                        <div class="card-body">
+                            <h5 class="card-title">2-х комн. квартира, Центр</h5>
+                            <p class="card-text">Цена: 45 000 ₽ / мес · Район: Центр</p>
+                            <button class="btn btn-outline-primary btn-details"
+                                    data-title="2-х комн. квартира, Центр"
+                                    data-info="Квартира с евроремонтом, 2 комнаты, мебель.">
+                                Подробнее
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-type="studio" data-price="30000" data-location="Север">
+                    <div class="card h-100">
+                        <img src="img/download2.jpg" class="card-img-top" alt="студия">
+                        <div class="card-body">
+                            <h5 class="card-title">Студия у метро</h5>
+                            <p class="card-text">Цена: 30 000 ₽ / мес · Район: Север</p>
+                            <button class="btn btn-outline-primary btn-details"
+                                    data-title="Студия у метро"
+                                    data-info="Студия 25м², полностью меблирована, рядом метро.">
+                                Подробнее
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-type="house" data-price="70000" data-location="Пригород">
+                    <div class="card h-100">
+                        <img src="img/download3.jpg" class="card-img-top" alt="дом">
+                        <div class="card-body">
+                            <h5 class="card-title">Частный дом, пригород</h5>
+                            <p class="card-text">Цена: 70 000 ₽ / мес · Район: Пригород</p>
+                            <button class="btn btn-outline-primary btn-details"
+                                    data-title="Частный дом, пригород"
+                                    data-info="Дом с садом, 3 спальни, гараж, для семьи.">
+                                Подробнее
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-type="apartment" data-price="55000" data-location="Южный">
+                    <div class="card h-100">
+                        <img src="img/download4.jpg" class="card-img-top" alt="квартира">
+                        <div class="card-body">
+                            <h5 class="card-title">3-х комн. квартира, Южный</h5>
+                            <p class="card-text">Цена: 55 000 ₽ / мес · Район: Южный</p>
+                            <button class="btn btn-outline-primary btn-details" data-title="3-х комн. квартира, Южный" data-info="Квартира 80м², 3 комнаты, балкон, близко к парку.">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Название</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body" id="detailsModalBody">
+                Информация
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-light py-3 mt-4">
+    <div class="container text-center small">© RentalSite</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/listings.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
