@@ -1,142 +1,3 @@
-const restaurants = [
-  {
-    id: 1,
-    name: "Caffe Italia",
-    cuisine: "Итальянская",
-    location: "Центр",
-    price: "₽₽₽",
-    rating: 4.8,
-    reviews: 156,
-    description:
-      "Аутентичная итальянская кухня в сердце города. Свежая паста, пицца из дровяной печи и изысканные вина.",
-    image: "images/caffe_italia.png",
-    menu: [
-      {
-        name: "Паста Карбонара",
-        price: "850₽",
-        description: "Классическая римская паста с беконом и пармезаном",
-      },
-      {
-        name: "Пицца Маргарита",
-        price: "750₽",
-        description: "Томатный соус, моцарелла и свежий базилик",
-      },
-      {
-        name: "Тирамису",
-        price: "450₽",
-        description: "Традиционный итальянский десерт",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Кои",
-    cuisine: "Японская",
-    location: "Север",
-    price: "₽₽",
-    rating: 4.6,
-    reviews: 203,
-    description:
-      "Традиционная японская кухня. Свежайшие суши, роллы и горячие блюда.",
-    image: "images/koi.png",
-    menu: [
-      {
-        name: "Филадельфия",
-        price: "650₽",
-        description: "Классический ролл с лососем и сливочным сыром",
-      },
-      {
-        name: "Рамен",
-        price: "550₽",
-        description: "Японский суп с лапшой и свининой",
-      },
-      {
-        name: "Темпура",
-        price: "750₽",
-        description: "Креветки и овощи в хрустящем кляре",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Le Gourmet",
-    cuisine: "Французская",
-    location: "Центр",
-    price: "₽₽₽",
-    rating: 4.9,
-    reviews: 89,
-    description:
-      "Изысканная французская кухня от шеф-повара с мишленовским опытом.",
-    image: "images/gourmet.png",
-    menu: [
-      {
-        name: "Фуа-гра",
-        price: "1850₽",
-        description: "Деликатес из гусиной печени",
-      },
-      {
-        name: "Буйабес",
-        price: "1250₽",
-        description: "Марсельский рыбный суп",
-      },
-      {
-        name: "Крем-брюле",
-        price: "550₽",
-        description: "Классический французский десерт",
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "Русская рыбалка",
-    cuisine: "Русская",
-    location: "Запад",
-    price: "₽",
-    rating: 4.5,
-    reviews: 178,
-    description: "Традиционная русская кухня в уютной домашней атмосфере.",
-    image: "images/russian_fishing.png",
-    menu: [
-      { name: "Борщ", price: "350₽", description: "Традиционный русский суп" },
-      {
-        name: "Пельмени",
-        price: "450₽",
-        description: "Домашние пельмени с мясом",
-      },
-      {
-        name: "Медовик",
-        price: "280₽",
-        description: "Классический медовый торт",
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Хачапури и Вино",
-    cuisine: "Грузинская",
-    location: "Юг",
-    price: "₽₽",
-    rating: 4.7,
-    reviews: 145,
-    description:
-      "Настоящая грузинская кухня. Хинкали, хачапури и грузинские вина.",
-    image: "images/khachapuri_wine.png",
-    menu: [
-      {
-        name: "Хинкали",
-        price: "80₽/шт",
-        description: "Грузинские пельмени с мясом и бульоном",
-      },
-      {
-        name: "Хачапури по-аджарски",
-        price: "550₽",
-        description: "Лодочка с сыром, маслом и яйцом",
-      },
-      { name: "Шашлык", price: "750₽", description: "Свинина на мангале" },
-    ],
-  },
-];
-
 let currentUser = null;
 let userBookings = [];
 
@@ -159,18 +20,29 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function displayFeaturedRestaurants() {
-  const container = document.getElementById("featured-restaurants");
-  const featured = restaurants.slice(0, 3);
-  container.innerHTML = featured
-    .map((restaurant) => createRestaurantCard(restaurant))
-    .join("");
+  getRestaurants().then(function(restaurants) {
+    const container = document.getElementById("featured-restaurants");
+    const featured = restaurants.slice(0, 3);
+    container.innerHTML = featured
+      .map((restaurant) => createRestaurantCard(restaurant))
+      .join("");
+  });
 }
 
-function displayRestaurants(filtered = restaurants) {
-  const container = document.getElementById("restaurants-list");
-  container.innerHTML = filtered
-    .map((restaurant) => createRestaurantCard(restaurant))
-    .join("");
+function displayRestaurants(filtered) {
+  if (filtered) {
+    const container = document.getElementById("restaurants-list");
+    container.innerHTML = filtered
+      .map((restaurant) => createRestaurantCard(restaurant))
+      .join("");
+  } else {
+    getRestaurants().then(function(restaurants) {
+      const container = document.getElementById("restaurants-list");
+      container.innerHTML = restaurants
+        .map((restaurant) => createRestaurantCard(restaurant))
+        .join("");
+    });
+  }
 }
 
 function createRestaurantCard(restaurant) {
@@ -220,16 +92,18 @@ function applyFilters() {
   const price = document.getElementById("filter-price").value;
   const query = document.getElementById("search-query").value.toLowerCase();
 
-  const filtered = restaurants.filter((restaurant) => {
-    return (
-      (!cuisine || restaurant.cuisine === cuisine) &&
-      (!location || restaurant.location === location) &&
-      (!price || restaurant.price === price) &&
-      (!query || restaurant.name.toLowerCase().includes(query))
-    );
-  });
+  getRestaurants().then(function(restaurants) {
+    const filtered = restaurants.filter((restaurant) => {
+      return (
+        (!cuisine || restaurant.cuisine === cuisine) &&
+        (!location || restaurant.location === location) &&
+        (!price || restaurant.price === price) &&
+        (!query || restaurant.name.toLowerCase().includes(query))
+      );
+    });
 
-  displayRestaurants(filtered);
+    displayRestaurants(filtered);
+  });
 }
 
 function showRestaurantDetails(restaurantId) {
@@ -237,31 +111,31 @@ function showRestaurantDetails(restaurantId) {
 }
 
 function displayRestaurantDetails(restaurantId) {
-  const restaurant = restaurants.find((r) => r.id === restaurantId);
-  if (!restaurant) return;
+  getRestaurantById(restaurantId).then(function(restaurant) {
+    if (!restaurant) return;
 
-  const reviews = [
-    {
-      author: "Анна К.",
-      rating: 5,
-      text: "Отличное место! Вкусная еда и приятная атмосфера.",
-      date: "15.11.2025",
-    },
-    {
-      author: "Михаил П.",
-      rating: 4,
-      text: "Хорошее обслуживание, рекомендую!",
-      date: "10.11.2025",
-    },
-    {
-      author: "Елена С.",
-      rating: 5,
-      text: "Лучший ресторан в городе! Обязательно вернемся.",
-      date: "05.11.2025",
-    },
-  ];
+    const reviews = [
+      {
+        author: "Анна К.",
+        rating: 5,
+        text: "Отличное место! Вкусная еда и приятная атмосфера.",
+        date: "15.11.2025",
+      },
+      {
+        author: "Михаил П.",
+        rating: 4,
+        text: "Хорошее обслуживание, рекомендую!",
+        date: "10.11.2025",
+      },
+      {
+        author: "Елена С.",
+        rating: 5,
+        text: "Лучший ресторан в городе! Обязательно вернемся.",
+        date: "05.11.2025",
+      },
+    ];
 
-  const detailsHTML = `
+    const detailsHTML = `
         <button class="btn btn-outline-secondary mb-3" onclick="window.location.href='restaurants.html'">
             <i class="bi bi-arrow-left"></i> Назад к поиску
         </button>
@@ -269,8 +143,8 @@ function displayRestaurantDetails(restaurantId) {
             <img src="${
               restaurant.image
             }" class="card-img-top" style="height: 400px; object-fit: cover;" alt="${
-    restaurant.name
-  }">
+      restaurant.name
+    }">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                     <div>
@@ -280,8 +154,8 @@ function displayRestaurantDetails(restaurantId) {
                                 ${"★".repeat(
                                   Math.floor(restaurant.rating)
                                 )}${"☆".repeat(
-    5 - Math.floor(restaurant.rating)
-  )}
+      5 - Math.floor(restaurant.rating)
+    )}
                             </span>
                             <span class="text-muted ms-2">${
                               restaurant.rating
@@ -349,7 +223,8 @@ function displayRestaurantDetails(restaurantId) {
         </div>
     `;
 
-  document.getElementById("restaurant-details").innerHTML = detailsHTML;
+    document.getElementById("restaurant-details").innerHTML = detailsHTML;
+  });
 }
 
 function openBookingModal(restaurantId) {
@@ -373,52 +248,61 @@ function submitBooking(event) {
   const restaurantId = parseInt(
     document.getElementById("booking-restaurant-id").value
   );
-  const restaurant = restaurants.find((r) => r.id === restaurantId);
-  const date = document.getElementById("booking-date").value;
-  const time = document.getElementById("booking-time").value;
-  const guests = document.getElementById("booking-guests").value;
-  const comment = document.getElementById("booking-comment").value;
+  
+  getRestaurantById(restaurantId).then(function(restaurant) {
+    const date = document.getElementById("booking-date").value;
+    const time = document.getElementById("booking-time").value;
+    const guests = document.getElementById("booking-guests").value;
+    const comment = document.getElementById("booking-comment").value;
 
-  const booking = {
-    id: Date.now(),
-    restaurantId: restaurantId,
-    restaurantName: restaurant.name,
-    date: date,
-    time: time,
-    guests: guests,
-    comment: comment,
-    status: "confirmed",
-    createdAt: new Date().toISOString(),
-  };
+    const booking = {
+      id: Date.now(),
+      restaurantId: restaurantId,
+      restaurantName: restaurant.name,
+      date: date,
+      time: time,
+      guests: guests,
+      comment: comment,
+      status: "confirmed",
+      createdAt: new Date().toISOString(),
+    };
 
-  userBookings.push(booking);
+    userBookings.push(booking);
 
-  localStorage.setItem("userBookings", JSON.stringify(userBookings));
+    localStorage.setItem("userBookings", JSON.stringify(userBookings));
 
-  const modal = bootstrap.Modal.getInstance(
-    document.getElementById("bookingModal")
-  );
-  modal.hide();
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("bookingModal")
+    );
+    modal.hide();
 
-  alert("Бронирование успешно создано!");
-  event.target.reset();
+    alert("Бронирование успешно создано!");
+    event.target.reset();
+  });
 }
 
 function handleLogin(event) {
   event.preventDefault();
   const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
 
-  currentUser = {
-    name: "Иван",
-    email: email,
-    phone: "+7 (999) 123-45-67",
-  };
+  loginUser(email, password)
+    .then(function(user) {
+      currentUser = {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      };
 
-  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-  updateNavigation();
-  alert("Вход выполнен успешно!");
-  window.location.href = "index.html";
+      updateNavigation();
+      alert("Вход выполнен успешно!");
+      window.location.href = "index.html";
+    })
+    .catch(function(error) {
+      alert("Ошибка входа: " + error.message);
+    });
 }
 
 function handleRegister(event) {
@@ -438,13 +322,21 @@ function handleRegister(event) {
   const email = document.getElementById("register-email").value;
   const phone = document.getElementById("register-phone").value;
 
-  currentUser = { name, email, phone };
+  const userData = { name, email, phone, password };
 
-  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  registerUser(userData)
+    .then(function(user) {
+      currentUser = { name: user.name, email: user.email, phone: user.phone };
 
-  updateNavigation();
-  alert("Регистрация успешно завершена!");
-  window.location.href = "index.html";
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+      updateNavigation();
+      alert("Регистрация успешно завершена!");
+      window.location.href = "index.html";
+    })
+    .catch(function(error) {
+      alert("Ошибка регистрации: " + error.message);
+    });
 }
 
 function logout() {
