@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../styles/auth.css">
+
+    <title>Зарегистрироваться</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Регистрация</h2>
+        <input type="text" id="name" placeholder="Ваше имя" />
+        <input type="email" id="email" placeholder="Email" />
+        <input type="tel" id="phone" placeholder="Телефон" />
+        <input type="password" id="password" placeholder="Пароль" />
+
+        <button onclick="register()">Создать аккаунт</button>
+        <div class="link">Уже есть аккаунт? <a href="login.html">Войти</a></div>
+    </div>
+
+    <script>
+        function register() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+
+            if (!name || !email || !password) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+
+            localStorage.setItem('user', JSON.stringify({ name, email, password }));
+                alert('Регистрация успешно завершена!');
+
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
