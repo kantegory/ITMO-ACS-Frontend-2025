@@ -1,78 +1,117 @@
-function loadRecipeCards(recipes, filters = {}) {
+const url = 'http://localhost:3000';
+
+let publicRecipes = [];
+
+function loadRecipeCards() {
     const container = document.getElementById('cards-container');
-    let html = ''; 
+    
+    fetch(`${url}/publicRecipes`)
+        .then(response => response.json())
+        .then(recipes => {
+            publicRecipes = recipes;
             
-    const filteredRecipes = Object.values(recipes).filter(r => {
+            showRecipeCards(recipes);
+        })
+        .catch(error => {
+            console.error(error);
+            container.innerHTML = '<p>Ошибка загрузки рецептов</p>';
+        });
+}
+
+function showRecipeCards(recipes, filters = {}) {
+    const container = document.getElementById('cards-container');
+    
+    let filtered = recipes.filter(r => {
         if (filters.type && r.type !== filters.type) return false;
         if (filters.difficulty && r.difficulty !== filters.difficulty) return false;
         if (filters.search) {
-            const searchTerm = filters.search.toLowerCase();
-            return r.title.toLowerCase().includes(searchTerm);
+            return r.title.toLowerCase().includes(filters.search.toLowerCase());
         }
         return true;
     });
-                      
-    // визуальное изменение tab'ов
-    document.getElementById('all-recipes').classList.remove('active');
-    document.getElementById('type-dropdown').classList.remove('active');
-    document.getElementById('difficulty-dropdown').classList.remove('active');
-    document.getElementById('type-dropdown').textContent = 'Тип блюда';
-    document.getElementById('difficulty-dropdown').textContent = 'Сложность';
+    
+    container.innerHTML = '';
+    
+    if (filtered.length == 0) {
+        container.innerHTML = '<p>Рецепты не найдены</p>';
+        return;
+    }
+    
+    filtered.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'col-12 col-xl-4 col-md-6 mb-4';
+        card.innerHTML = `
+            <div class="card h-100">
+                <img src="${r.image}" class="card-img-top" alt="${r.title}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">${r.title}</h5>
+                    <p class="card-text m-0">${r.type}</p>
+                    <p class="card-text">Сложность: ${r.difficulty}</p>
+                    <a href="recipe.html?id=${r.id}" class="btn btn-success">Посмотреть полностью</a>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
 
-    const diff_transcript = {
-        '★': 'Низкая',
-        '★★': 'Средняя',
-        '★★★': 'Высокая'
-    };
+function setActiveTab(tabId, text = null) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) {
+        activeTab.classList.add('active');
+    }
+    
+    if (text && activeTab) {
+        activeTab.textContent = text;
+    }
+}
 
-    if (filters.type) {
-        document.getElementById('type-dropdown').classList.add('active');
-        document.getElementById('type-dropdown').textContent = filters.type;
+function filterByType(type) {
+    if (publicRecipes.length > 0) {
+        setActiveTab('type-dropdown', type);
+        showRecipeCards(publicRecipes, { type: type });
     }
-    else if (filters.difficulty) {
-        document.getElementById('difficulty-dropdown').classList.add('active');
-        document.getElementById('difficulty-dropdown').textContent = diff_transcript[filters.difficulty] || filters.difficulty;
-    } 
-    else if (filters.search) {
+}
+
+function filterByDifficulty(difficulty) {
+    if (publicRecipes.length > 0) {
+        const diffNames = {
+            '★': 'Низкая',
+            '★★': 'Средняя', 
+            '★★★': 'Высокая'
+        };
+        setActiveTab('difficulty-dropdown', diffNames[difficulty] || difficulty);
+        showRecipeCards(publicRecipes, { difficulty: difficulty });
     }
-    else {
-        document.getElementById('all-recipes').classList.add('active');
+}
+
+function showAllRecipes() {
+    if (publicRecipes.length > 0) {
+        document.getElementById('type-dropdown').textContent = 'Тип блюда';
+        document.getElementById('difficulty-dropdown').textContent = 'Сложность';
+        
+        setActiveTab('all-recipes');
+        showRecipeCards(publicRecipes);
     }
-            
-    if (filteredRecipes.length === 0) {
-        html = `<div class="col-12 text-center">
-                    <p class="text-muted">Рецепты не найдены</p>
-                </div>`;
-    } else {
-        filteredRecipes.forEach(r => { 
-            html += `
-                <div class="col-12 col-xl-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <img src="${r.image}" class="card-img-top" alt="${r.title}" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">${r.title}</h5>
-                            <p class="card-text m-0">${r.type}</p>
-                            <p class="card-text">Сложность: ${r.difficulty}</p>
-                            <a href="recipe.html?id=${r.id}" class="btn btn-success">Посмотреть полностью</a>
-                        </div>
-                    </div>
-                </div>`;
-        });
-    }
-            
-    container.innerHTML = html; 
 }
 
 function searchRecipe(event) {
     event.preventDefault();
-    const searchTerm = document.getElementById('searchInput').value.trim();
+    
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput.value.trim();
+    
     if (searchTerm) {
-        loadRecipeCards(recipes, { search: searchTerm });
+        showRecipeCards(publicRecipes, { search: searchTerm });
     } else {
-        loadRecipeCards(recipes);
+        showRecipeCards(publicRecipes);
     }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadRecipeCards(recipes);
+    loadRecipeCards();
 });
