@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск рецептов - Кулинарный Портал</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-glass sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="profile.html">
+                <i class="fas fa-utensils"></i> КулинарПортал
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Мой профиль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search.html">Рецепты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">Выход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="glass-container">
+                    <h2 class="text-gradient mb-4">
+                        <i class="fas fa-search"></i> Поиск рецептов
+                    </h2>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" id="searchInput" class="form-control form-glass" placeholder="Введите название рецепта...">
+                        </div>
+                        <div class="col-md-4">
+                            <select id="categoryFilter" class="form-select form-glass">
+                                <option value="">Все категории</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button onclick="searchRecipes()" class="btn btn-glass-primary w-100">
+                                <i class="fas fa-search"></i> Найти
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="recipesContainer" class="row g-4"></div>
+        
+        <div id="loadingSpinner" class="text-center py-5" style="display: none;">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_URL = 'http://localhost:3000';
+        let allRecipes = [];
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        async function loadRecipes() {
+            const spinner = document.getElementById('loadingSpinner');
+            spinner.style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_URL}/recipes`);
+                allRecipes = await response.json();
+                displayRecipes(allRecipes);
+                loadCategories();
+            } catch (error) {
+                console.error('Error loading recipes:', error);
+                document.getElementById('recipesContainer').innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger">
+                            Ошибка загрузки рецептов. Убедитесь, что сервер запущен.
+                        </div>
+                    </div>
+                `;
+            } finally {
+                spinner.style.display = 'none';
+            }
+        }
+
+        async function loadCategories() {
+            try {
+                const response = await fetch(`${API_URL}/categories`);
+                const categories = await response.json();
+                const categoryFilter = document.getElementById('categoryFilter');
+                
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat.name;
+                    option.textContent = cat.name;
+                    categoryFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        function displayRecipes(recipes) {
+            const container = document.getElementById('recipesContainer');
+            
+            if (recipes.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="glass-container text-center">
+                            <i class="fas fa-search fa-3x mb-3" style="color: rgba(255,255,255,0.5);"></i>
+                            <p style="color: rgba(255,255,255,0.8);">Рецепты не найдены</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = recipes.map(recipe => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-container h-100">
+                        <img src="${recipe.image}" class="img-fluid rounded mb-3" alt="${recipe.title}" style="height: 200px; object-fit: cover; width: 100%;">
+                        <h5 class="text-gradient">${recipe.title}</h5>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">${recipe.description}</p>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary">${recipe.category}</span>
+                            <span style="color: rgba(255,255,255,0.8);">
+                                <i class="fas fa-star text-warning"></i> ${recipe.rating}
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between" style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+                            <span><i class="fas fa-clock"></i> ${recipe.time}</span>
+                            <span><i class="fas fa-signal"></i> ${recipe.difficulty}</span>
+                        </div>
+                        <a href="recipe.html?id=${recipe.id}" class="btn btn-glass-primary w-100 mt-3">
+                            <i class="fas fa-eye"></i> Посмотреть рецепт
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function searchRecipes() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+
+            let filtered = allRecipes;
+
+            if (searchTerm) {
+                filtered = filtered.filter(recipe => 
+                    recipe.title.toLowerCase().includes(searchTerm) ||
+                    recipe.description.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (category) {
+                filtered = filtered.filter(recipe => recipe.category === category);
+            }
+
+            displayRecipes(filtered);
+        }
+
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                searchRecipes();
+            }
+        });
+
+        window.onload = loadRecipes;
+    </script>
+</body>
+</html>

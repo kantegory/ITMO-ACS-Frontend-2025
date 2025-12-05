@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рецепт - Кулинарный Портал</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-glass sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="profile.html">
+                <i class="fas fa-utensils"></i> КулинарПортал
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Мой профиль</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Рецепты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">Выход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div id="loadingSpinner" class="text-center py-5">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+        </div>
+
+        <div id="recipeContent" style="display: none;">
+            <div class="glass-container mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="recipeImage" src="" class="img-fluid rounded" alt="" style="width: 100%; height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-gradient mb-3" id="recipeTitle"></h1>
+                        <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;" id="recipeDescription"></p>
+                        
+                        <div class="d-flex gap-3 mb-3">
+                            <span class="badge bg-primary" id="recipeCategory"></span>
+                            <span style="color: rgba(255,255,255,0.9);">
+                                <i class="fas fa-star text-warning"></i> <span id="recipeRating"></span>
+                            </span>
+                        </div>
+
+                        <div class="row text-center mb-4">
+                            <div class="col-4">
+                                <div class="glass-container p-3">
+                                    <i class="fas fa-clock fa-2x mb-2" style="color: #667eea;"></i>
+                                    <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Время</p>
+                                    <p class="mb-0 fw-bold" id="recipeTime"></p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="glass-container p-3">
+                                    <i class="fas fa-signal fa-2x mb-2" style="color: #764ba2;"></i>
+                                    <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Сложность</p>
+                                    <p class="mb-0 fw-bold" id="recipeDifficulty"></p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="glass-container p-3">
+                                    <i class="fas fa-user fa-2x mb-2" style="color: #f093fb;"></i>
+                                    <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Автор</p>
+                                    <p class="mb-0 fw-bold" id="recipeAuthor"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="glass-container mb-4">
+                        <h3 class="text-gradient mb-3">
+                            <i class="fas fa-list"></i> Ингредиенты
+                        </h3>
+                        <ul id="ingredientsList" style="color: rgba(255,255,255,0.9);"></ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="glass-container mb-4">
+                        <h3 class="text-gradient mb-3">
+                            <i class="fas fa-tasks"></i> Шаги приготовления
+                        </h3>
+                        <ol id="stepsList" style="color: rgba(255,255,255,0.9);"></ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="search.html" class="btn btn-glass-primary">
+                    <i class="fas fa-arrow-left"></i> Вернуться к рецептам
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_URL = 'http://localhost:3000';
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        async function loadRecipe() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipeId = urlParams.get('id');
+
+            if (!recipeId) {
+                window.location.href = 'search.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/recipes/${recipeId}`);
+                const recipe = await response.json();
+
+                document.getElementById('recipeImage').src = recipe.image;
+                document.getElementById('recipeImage').alt = recipe.title;
+                document.getElementById('recipeTitle').textContent = recipe.title;
+                document.getElementById('recipeDescription').textContent = recipe.description;
+                document.getElementById('recipeCategory').textContent = recipe.category;
+                document.getElementById('recipeRating').textContent = recipe.rating;
+                document.getElementById('recipeTime').textContent = recipe.time;
+                document.getElementById('recipeDifficulty').textContent = recipe.difficulty;
+                document.getElementById('recipeAuthor').textContent = recipe.author;
+
+                const ingredientsList = document.getElementById('ingredientsList');
+                ingredientsList.innerHTML = recipe.ingredients.map(ing => `<li class="mb-2">${ing}</li>`).join('');
+
+                const stepsList = document.getElementById('stepsList');
+                stepsList.innerHTML = recipe.steps.map(step => `<li class="mb-2">${step}</li>`).join('');
+
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('recipeContent').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading recipe:', error);
+                alert('Ошибка загрузки рецепта');
+                window.location.href = 'search.html';
+            }
+        }
+
+        window.onload = loadRecipe;
+    </script>
+</body>
+</html>
