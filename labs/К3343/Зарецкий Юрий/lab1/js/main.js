@@ -1,6 +1,7 @@
 const Storage = {
     keys: {
         currentUser: 'currentUser',
+        authToken: 'authToken',
         users: 'users',
         apartments: 'apartments',
         rentedApartments: 'rentedApartments'
@@ -43,11 +44,14 @@ const Storage = {
 
 
 const UserService = {
+    /**
+     * Получает всех пользователей (из API)
+     * @returns {Promise<Array>}
+     */
     loadUsers: async function() {
         try {
-            const response = await fetch('data/users.json');
-            const users = await response.json();
-            // Сохраняем в localStorage
+            const users = await UserAPI.getUsers();
+            // Сохраняем в localStorage для кэширования
             Storage.set(Storage.keys.users, users);
             return users;
         } catch (e) {
@@ -58,7 +62,7 @@ const UserService = {
     },
 
     /**
-     * Получает всех пользователей
+     * Получает всех пользователей из кэша
      * @returns {Array}
      */
     getUsers: function() {
@@ -86,6 +90,7 @@ const UserService = {
      */
     logout: function() {
         Storage.remove(Storage.keys.currentUser);
+        Storage.remove(Storage.keys.authToken);
     },
 
     /**
@@ -93,70 +98,53 @@ const UserService = {
      * @returns {boolean}
      */
     isAuthenticated: function() {
-        return this.getCurrentUser() !== null;
+        const token = Storage.get(Storage.keys.authToken);
+        const user = this.getCurrentUser();
+        return token !== null && user !== null;
     },
 
     /**
      * Авторизация пользователя
      * @param {string} email - Email или имя пользователя
      * @param {string} password - Пароль
-     * @returns {Object|null} - Пользователь или null
+     * @returns {Promise<Object>} - Пользователь
      */
-    login: function(email, password) {
-        const users = this.getUsers();
-        const user = users.find(u => 
-            (u.email === email || u.fullName === email) && u.password === password
-        );
-        
-        if (user) {
-            // Не сохраняем пароль в сессии
-            const { password: _, ...userWithoutPassword } = user;
-            this.setCurrentUser(userWithoutPassword);
-            return userWithoutPassword;
+    login: async function(email, password) {
+        try {
+            const { user } = await UserAPI.login(email, password);
+            return user;
+        } catch (error) {
+            console.error('Ошибка авторизации:', error);
+            throw error;
         }
-        
-        return null;
     },
 
     /**
      * Регистрация нового пользователя
      * @param {Object} userData - Данные пользователя
-     * @returns {Object} - Новый пользователь
+     * @returns {Promise<Object>} - Новый пользователь
      */
-    register: function(userData) {
-        const users = this.getUsers();
-        const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-        
-        const newUser = {
-            id: newId,
-            fullName: userData.fullName,
-            email: userData.email,
-            phone: userData.phone,
-            password: userData.password
-        };
-        
-        users.push(newUser);
-        Storage.set(Storage.keys.users, users);
-        
-        // Автоматически авторизуем нового пользователя
-        const { password: _, ...userWithoutPassword } = newUser;
-        this.setCurrentUser(userWithoutPassword);
-        
-        return userWithoutPassword;
+    register: async function(userData) {
+        try {
+            const { user } = await UserAPI.register(userData);
+            return user;
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+            throw error;
+        }
     }
 };
 
 // Утилиты для работы с недвижимостью
 const ApartmentService = {
     /**
-     * Загружает недвижимость из JSON файла
+     * Загружает недвижимость из API
      * @returns {Promise<Array>}
      */
     loadApartments: async function() {
         try {
-            const response = await fetch('data/apartments.json');
-            const apartments = await response.json();
-            // Сохраняем в localStorage
+            const apartments = await ApartmentAPI.getApartments();
+            // Сохраняем в localStorage для кэширования
             Storage.set(Storage.keys.apartments, apartments);
             return apartments;
         } catch (e) {
@@ -167,7 +155,7 @@ const ApartmentService = {
     },
 
     /**
-     * Получает всю недвижимость
+     * Получает всю недвижимость из кэша
      * @returns {Array}
      */
     getApartments: function() {
@@ -175,33 +163,51 @@ const ApartmentService = {
     },
 
     /**
-     * Получает недвижимость по ID
+     * Получает недвижимость по ID (из API)
      * @param {number} id - ID недвижимости
-     * @returns {Object|null}
+     * @returns {Promise<Object|null>}
      */
-    getApartmentById: function(id) {
-        const apartments = this.getApartments();
-        return apartments.find(apt => apt.id === parseInt(id)) || null;
+    getApartmentById: async function(id) {
+        try {
+            return await ApartmentAPI.getApartmentById(id);
+        } catch (e) {
+            console.error('Ошибка получения недвижимости:', e);
+            // Пытаемся получить из кэша
+            const apartments = this.getApartments();
+            return apartments.find(apt => apt.id === parseInt(id)) || null;
+        }
     },
 
     /**
-     * Получает недвижимость пользователя (которую он сдает)
+     * Получает недвижимость пользователя (которую он сдает) из API
      * @param {number} userId - ID пользователя
-     * @returns {Array}
+     * @returns {Promise<Array>}
      */
-    getUserApartments: function(userId) {
-        const apartments = this.getApartments();
-        return apartments.filter(apt => apt.ownerId === userId);
+    getUserApartments: async function(userId) {
+        try {
+            return await ApartmentAPI.getUserApartments(userId);
+        } catch (e) {
+            console.error('Ошибка получения недвижимости пользователя:', e);
+            // Пытаемся получить из кэша
+            const apartments = this.getApartments();
+            return apartments.filter(apt => apt.ownerId === userId);
+        }
     },
 
     /**
-     * Получает арендованную недвижимость пользователя
+     * Получает арендованную недвижимость пользователя из API
      * @param {number} userId - ID пользователя
-     * @returns {Array}
+     * @returns {Promise<Array>}
      */
-    getRentedApartments: function(userId) {
-        const rented = Storage.get(Storage.keys.rentedApartments) || [];
-        return rented.filter(rent => rent.tenantId === userId);
+    getRentedApartments: async function(userId) {
+        try {
+            return await ApartmentAPI.getRentedApartments(userId);
+        } catch (e) {
+            console.error('Ошибка получения арендованной недвижимости:', e);
+            // Пытаемся получить из кэша
+            const rented = Storage.get(Storage.keys.rentedApartments) || [];
+            return rented.filter(rent => rent.tenantId === userId);
+        }
     },
 
     /**
@@ -209,17 +215,20 @@ const ApartmentService = {
      * @param {number} apartmentId - ID недвижимости
      * @param {number} userId - ID пользователя
      * @param {Object} rentData - Данные об аренде
+     * @returns {Promise<Object>}
      */
-    rentApartment: function(apartmentId, userId, rentData) {
-        const rented = Storage.get(Storage.keys.rentedApartments) || [];
-        rented.push({
-            apartmentId: apartmentId,
-            tenantId: userId,
-            startDate: rentData.startDate,
-            endDate: rentData.endDate,
-            guests: rentData.guests
-        });
-        Storage.set(Storage.keys.rentedApartments, rented);
+    rentApartment: async function(apartmentId, userId, rentData) {
+        try {
+            const result = await ApartmentAPI.rentApartment(apartmentId, userId, rentData);
+            // Обновляем кэш
+            const rented = Storage.get(Storage.keys.rentedApartments) || [];
+            rented.push(result);
+            Storage.set(Storage.keys.rentedApartments, rented);
+            return result;
+        } catch (error) {
+            console.error('Ошибка аренды недвижимости:', error);
+            throw error;
+        }
     }
 };
 
@@ -255,7 +264,8 @@ const ModalUtils = {
      * @param {string} message - Сообщение
      */
     showSuccess: function(message) {
-        alert(message); // В будущем можно заменить на toast-уведомления
+        // Уведомления отключены, можно использовать console.log для отладки
+        console.log('Success:', message);
     },
 
     /**
@@ -263,7 +273,8 @@ const ModalUtils = {
      * @param {string} message - Сообщение об ошибке
      */
     showError: function(message) {
-        alert('Ошибка: ' + message);
+        // Уведомления отключены, можно использовать console.log для отладки
+        console.error('Error:', message);
     }
 };
 
@@ -464,15 +475,9 @@ function initRegistrationForm() {
             return;
         }
 
-        // Проверка, не существует ли уже пользователь с таким email
-        const users = UserService.getUsers();
-        if (users.some(u => u.email === email)) {
-            if (errorDiv) {
-                errorDiv.textContent = 'Пользователь с таким email уже существует';
-                errorDiv.classList.remove('d-none');
-            }
-            return;
-        }
+        // Проверка на существующего пользователя будет выполнена на сервере
+        // Здесь можно проверить только кэш, но это не критично
+        // Сервер все равно проверит при регистрации
 
         // Скрываем ошибку если все валидно
         if (errorDiv) {
@@ -480,19 +485,27 @@ function initRegistrationForm() {
         }
 
         // Регистрация пользователя
-        const newUser = UserService.register({
-            fullName,
-            email,
-            phone,
-            password
-        });
+        try {
+            const newUser = await UserService.register({
+                fullName,
+                email,
+                phone,
+                password
+            });
 
-        ModalUtils.showSuccess('Регистрация успешно завершена!');
-        
-        // Перенаправление на личный кабинет
-        setTimeout(() => {
-            window.location.href = 'profile.html';
-        }, 1000);
+            ModalUtils.showSuccess('Регистрация успешно завершена!');
+            
+            // Перенаправление на личный кабинет
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 1000);
+        } catch (error) {
+            const errorMessage = error.response?.data?.error || 'Ошибка при регистрации';
+            if (errorDiv) {
+                errorDiv.textContent = errorMessage;
+                errorDiv.classList.remove('d-none');
+            }
+        }
     });
 }
 
@@ -501,7 +514,7 @@ function initLoginForm() {
     const form = document.getElementById('loginForm');
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = document.getElementById('email').value;
@@ -514,16 +527,19 @@ function initLoginForm() {
         }
 
         // Авторизация
-        const user = UserService.login(email, password);
-        
-        if (user) {
-            ModalUtils.showSuccess('Вход выполнен успешно!');
-            // Перенаправление на личный кабинет
-            setTimeout(() => {
-                window.location.href = 'profile.html';
-            }, 1000);
-        } else {
-            ModalUtils.showError('Неверный email или пароль');
+        try {
+            const user = await UserService.login(email, password);
+            
+            if (user) {
+                ModalUtils.showSuccess('Вход выполнен успешно!');
+                // Перенаправление на личный кабинет
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 1000);
+            }
+        } catch (error) {
+            const errorMessage = error.response?.data?.error || 'Неверный email или пароль';
+            ModalUtils.showError(errorMessage);
         }
     });
 }
@@ -544,10 +560,12 @@ function updateNavigation() {
         <a class="nav-link ${currentPage === 'search.html' ? 'active' : ''}" href="search.html">Поиск</a>
     </li>`;
 
-    // Всегда показываем личный кабинет (проверка авторизации будет на странице profile.html)
-    navHTML += `<li class="nav-item">
-        <a class="nav-link ${currentPage === 'profile.html' ? 'active' : ''}" href="profile.html">Личный кабинет</a>
-    </li>`;
+    // Показываем личный кабинет везде, кроме страниц входа и регистрации (проверка авторизации будет на странице profile.html)
+    if (currentPage !== 'login.html' && currentPage !== 'register.html') {
+        navHTML += `<li class="nav-item">
+            <a class="nav-link ${currentPage === 'profile.html' ? 'active' : ''}" href="profile.html">Личный кабинет</a>
+        </li>`;
+    }
 
     // Если не авторизован, показываем кнопки входа и регистрации только на страницах входа/регистрации
     if (!currentUser && (currentPage === 'login.html' || currentPage === 'register.html')) {
@@ -574,8 +592,24 @@ function updateNavigation() {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', async function() {
-    // Загружаем данные из JSON файлов
-    await UserService.loadUsers();
+    // Определяем текущую страницу
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop() || 'index.html';
+    const publicPages = ['index.html', 'login.html', 'register.html', 'search.html', 'property.html'];
+    const isPublicPage = publicPages.includes(currentPage);
+    
+    // Загружаем пользователей только если пользователь авторизован или это не публичная страница
+    // На публичных страницах загружаем только из кэша, если есть
+    if (!isPublicPage || UserService.isAuthenticated()) {
+        try {
+            await UserService.loadUsers();
+        } catch (e) {
+            // Если не удалось загрузить (нет авторизации), используем кэш
+            console.log('Пользователи загружены из кэша');
+        }
+    }
+    
+    // Загружаем недвижимость (это публичный эндпоинт)
     await ApartmentService.loadApartments();
     
     // Обновляем навигацию

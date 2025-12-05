@@ -145,6 +145,7 @@
                         <div class="alert alert-info">
                             <strong>Сумма к оплате:</strong> <span id="totalAmount">0</span> ₽
                         </div>
+                        <div id="rentError" class="alert alert-danger d-none" role="alert"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -156,136 +157,10 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        // Обновляем навигацию после загрузки main.js
-        if (typeof updateNavigation === 'function') {
-            updateNavigation();
-        }
-        
-        let property = null;
-
-        // Загрузка данных и инициализация
-        async function loadProperty() {
-            await ApartmentService.loadApartments();
-            
-            // Получение ID из URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const propertyId = parseInt(urlParams.get('id')) || 1;
-            property = ApartmentService.getApartmentById(propertyId);
-            
-            if (!property) {
-                // Если не найдено, берем первую
-                const apartments = ApartmentService.getApartments();
-                property = apartments.length > 0 ? apartments[0] : null;
-            }
-            
-            if (property) {
-                renderProperty();
-            }
-        }
-
-        function renderProperty() {
-            // Заполнение галереи
-        const carouselInner = document.getElementById('carouselInner');
-        property.images.forEach((image, index) => {
-            const item = document.createElement('div');
-            item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
-            item.innerHTML = `<img src="${image}" class="d-block w-100" alt="Фото ${index + 1}" style="height: 500px; object-fit: cover;">`;
-            carouselInner.appendChild(item);
-        });
-
-        // Заполнение информации
-        document.getElementById('propertyTitle').textContent = property.title;
-        document.getElementById('propertyLocation').textContent = property.location;
-        document.getElementById('propertyPrice').textContent = `${property.price.toLocaleString()} ₽/мес`;
-        document.getElementById('propertyDescription').textContent = property.description;
-
-        // Характеристики
-        const featuresList = document.getElementById('propertyFeatures');
-        const typeNames = {
-            apartment: 'Квартира',
-            house: 'Дом',
-            office: 'Офис',
-            studio: 'Студия'
-        };
-        featuresList.innerHTML = `
-            <li><strong>Тип:</strong> ${typeNames[property.type] || property.type}</li>
-            <li><strong>Комнат:</strong> ${property.rooms}</li>
-            <li><strong>Площадь:</strong> ${property.area} м²</li>
-            <li><strong>Этаж:</strong> ${property.floor} из ${property.totalFloors}</li>
-        `;
-
-        // Условия аренды
-        const conditionsList = document.getElementById('rentalConditions');
-        property.conditions.forEach(condition => {
-            const li = document.createElement('li');
-            li.className = 'mb-2';
-            li.textContent = condition;
-            conditionsList.appendChild(li);
-        });
-        }
-
-        function submitContact() {
-            const name = document.getElementById('contactName').value;
-            const phone = document.getElementById('contactPhone').value;
-            const message = document.getElementById('contactMessage').value;
-            
-            if (name && phone && message) {
-                alert('Ваше сообщение отправлено! Владелец свяжется с вами в ближайшее время.');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
-                modal.hide();
-                document.getElementById('contactForm').reset();
-            }
-        }
-
-        function submitRent() {
-            const startDate = document.getElementById('rentStartDate').value;
-            const endDate = document.getElementById('rentEndDate').value;
-            const guests = document.getElementById('rentGuests').value;
-            
-            if (startDate && endDate && guests) {
-                const currentUser = UserService.getCurrentUser();
-                if (!currentUser) {
-                    alert('Для аренды необходимо войти в систему');
-                    window.location.href = 'login.html';
-                    return;
-                }
-                
-                ApartmentService.rentApartment(property.id, currentUser.id, {
-                    startDate,
-                    endDate,
-                    guests: parseInt(guests)
-                });
-                
-                alert('Заявка на аренду отправлена! Ожидайте подтверждения от владельца.');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('rentModal'));
-                modal.hide();
-                document.getElementById('rentForm').reset();
-            }
-        }
-
-        // Расчет суммы при изменении дат
-        document.getElementById('rentStartDate').addEventListener('change', calculateTotal);
-        document.getElementById('rentEndDate').addEventListener('change', calculateTotal);
-
-        function calculateTotal() {
-            const startDate = new Date(document.getElementById('rentStartDate').value);
-            const endDate = new Date(document.getElementById('rentEndDate').value);
-            
-            if (startDate && endDate && endDate > startDate) {
-                const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-                const months = Math.ceil(days / 30);
-                const total = property.price * months;
-                document.getElementById('totalAmount').textContent = total.toLocaleString();
-            } else {
-                document.getElementById('totalAmount').textContent = '0';
-            }
-        }
-
-        // Инициализация при загрузке страницы
-        loadProperty();
-    </script>
+    <script src="js/api.js"></script>
+    <script src="js/property.js"></script>
 </body>
 </html>
 
