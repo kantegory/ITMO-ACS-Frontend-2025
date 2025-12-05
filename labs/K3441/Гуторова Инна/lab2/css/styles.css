@@ -1,0 +1,100 @@
+body {
+    padding-top: 3.5rem;
+}
+
+.card-img-top {
+    height: 160px;
+    object-fit: cover;
+}
+
+.workout-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.workout-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.workout-header {
+    background: linear-gradient(90deg, #2193b0, #6dd5ed);
+    color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.exercise-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+}
+
+.exercise-card:hover {
+    transform: translateY(-3px);
+}
+
+#workoutVideo {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#videoPlaceholder {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.blog-post {
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+}
+
+.blog-post img {
+    object-fit: cover;
+    height: 220px;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.read-more {
+    cursor: pointer;
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+.profile-metrics .card {
+    min-height: 120px;
+}
+
+.hero {
+    background: linear-gradient(90deg, #6dd5ed, #2193b0);
+    color: white;
+    height: 100vh;
+    align-content: center;
+}
+
+.workout-list-item {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title {
+    margin-bottom: 0.5rem;
+}
