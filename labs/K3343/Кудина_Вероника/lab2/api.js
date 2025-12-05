@@ -60,3 +60,28 @@ function registerUser(data) {
     });
 }
 
+function createBooking(bookingData) {
+  return fetch(API_URL + '/bookings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(bookingData)
+  }).then(function(res) {
+    return res.json();
+  });
+}
+
+function getUserBookings(userId) {
+  return fetch(API_URL + '/bookings?userId=' + userId)
+    .then(function(res) {
+      return res.json();
+    });
+}
+
+function deleteBooking(bookingId) {
+  return fetch(API_URL + '/bookings/' + bookingId, {
+    method: 'DELETE'
+  }).then(function(res) {
+    return res.json();
+  });
+}
+

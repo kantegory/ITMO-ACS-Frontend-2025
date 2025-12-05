@@ -5,14 +5,18 @@ function initializeApp() {
   const savedUser = localStorage.getItem("currentUser");
   if (savedUser) {
     currentUser = JSON.parse(savedUser);
-  }
-
-  const savedBookings = localStorage.getItem("userBookings");
-  if (savedBookings) {
-    userBookings = JSON.parse(savedBookings);
+    loadUserBookings();
   }
 
   updateNavigation();
+}
+
+function loadUserBookings() {
+  if (!currentUser || !currentUser.id) return;
+  getUserBookings(currentUser.id).then(function(bookings) {
+    userBookings = bookings;
+    displayBookingsHistory();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -261,7 +265,7 @@ function submitBooking(event) {
     const comment = document.getElementById("booking-comment").value;
 
     const booking = {
-      id: Date.now(),
+      userId: currentUser.id,
       restaurantId: restaurantId,
       restaurantName: restaurant.name,
       date: date,
@@ -272,17 +276,18 @@ function submitBooking(event) {
       createdAt: new Date().toISOString(),
     };
 
-    userBookings.push(booking);
+    createBooking(booking).then(function(newBooking) {
+      userBookings.push(newBooking);
+      displayBookingsHistory();
 
-    localStorage.setItem("userBookings", JSON.stringify(userBookings));
+      const modal = bootstrap.Modal.getInstance(
+        document.getElementById("bookingModal")
+      );
+      modal.hide();
 
-    const modal = bootstrap.Modal.getInstance(
-      document.getElementById("bookingModal")
-    );
-    modal.hide();
-
-    alert("Бронирование успешно создано!");
-    event.target.reset();
+      alert("Бронирование успешно создано!");
+      event.target.reset();
+    });
   });
 }
 
@@ -294,6 +299,7 @@ function handleLogin(event) {
   loginUser(email, password)
     .then(function(data) {
       currentUser = {
+        id: data.user.id,
         name: data.user.name,
         email: data.user.email,
         phone: data.user.phone,
@@ -301,6 +307,7 @@ function handleLogin(event) {
 
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      loadUserBookings();
 
       updateNavigation();
       alert("Вход выполнен успешно!");
@@ -333,6 +340,7 @@ function handleRegister(event) {
   registerUser(userData)
     .then(function(data) {
       currentUser = { 
+        id: data.user.id,
         name: data.user.name, 
         email: data.user.email, 
         phone: data.user.phone 
@@ -340,6 +348,7 @@ function handleRegister(event) {
 
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      loadUserBookings();
 
       updateNavigation();
       window.location.href = "index.html";
@@ -355,7 +364,6 @@ function logout() {
   userBookings = [];
 
   localStorage.removeItem("currentUser");
-  localStorage.removeItem("userBookings");
 
   updateNavigation();
   alert("Вы вышли из системы");
@@ -454,13 +462,11 @@ function getGuestsWord(count) {
 
 function cancelBooking(bookingId) {
   if (confirm("Вы уверены, что хотите отменить бронирование?")) {
-    const booking = userBookings.find((b) => b.id === bookingId);
-    if (booking) {
-      booking.status = "cancelled";
-      localStorage.setItem("userBookings", JSON.stringify(userBookings));
+    deleteBooking(bookingId).then(function() {
+      userBookings = userBookings.filter((b) => b.id !== bookingId);
       displayBookingsHistory();
       alert("Бронирование отменено");
-    }
+    });
   }
 }
 

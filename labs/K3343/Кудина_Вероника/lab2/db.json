@@ -8,6 +8,64 @@
       "id": 1
     }
   ],
+  "bookings": [
+    {
+      "restaurantId": 3,
+      "restaurantName": "Le Gourmet",
+      "date": "2025-12-19",
+      "time": "18:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:18:03.644Z",
+      "id": 1
+    },
+    {
+      "restaurantId": 2,
+      "restaurantName": "Кои",
+      "date": "2026-01-03",
+      "time": "18:00",
+      "guests": "3",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:18:29.728Z",
+      "id": 2
+    },
+    {
+      "restaurantId": 2,
+      "restaurantName": "Кои",
+      "date": "2025-12-06",
+      "time": "13:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:20:13.458Z",
+      "id": 3
+    },
+    {
+      "restaurantId": 1,
+      "restaurantName": "Caffe Italia",
+      "date": "2025-12-19",
+      "time": "14:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:21:07.079Z",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "restaurantId": 5,
+      "restaurantName": "Хачапури и Вино",
+      "date": "2026-01-11",
+      "time": "12:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:23:15.751Z",
+      "id": 5
+    }
+  ],
   "restaurants": [
     {
       "id": 1,
