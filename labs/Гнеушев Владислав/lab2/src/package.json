@@ -1,0 +1,11 @@
+{
+  "name": "frontend-semester-7-lab2",
+  "version": "1.0.0",
+  "description": "Good Fitness",
+  "scripts": {
+    "mock:server": "json-server --watch db.json --port 3000 --delay 500"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
