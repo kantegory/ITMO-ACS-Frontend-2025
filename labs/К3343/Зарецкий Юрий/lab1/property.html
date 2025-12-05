@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation" aria-label="Основная навигация">
             <div class="container">
@@ -21,7 +22,7 @@
         </nav>
     </header>
 
-    <main class="container mt-4">
+    <main id="main-content" class="container mt-4">
         <nav aria-label="Хлебные крошки">
             <div class="mb-3">
                 <a href="search.html" class="btn btn-outline-secondary" aria-label="Вернуться к результатам поиска">← Назад к поиску</a>
@@ -48,9 +49,9 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title" id="propertyTitle">Загрузка...</h2>
+                        <h1 class="h2 card-title" id="propertyTitle">Загрузка...</h1>
                         <p class="text-muted mb-3" id="propertyLocation">Загрузка...</p>
-                        <h3 class="text-primary mb-4" id="propertyPrice">Загрузка...</h3>
+                        <p class="h3 text-primary mb-4" id="propertyPrice">Загрузка...</p>
                         <button class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#contactModal" aria-label="Открыть форму связи с владельцем недвижимости">
                             Связаться с владельцем
                         </button>
@@ -66,14 +67,14 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">Описание</h4>
+                        <h2 class="h4 card-title">Описание</h2>
                         <p class="card-text" id="propertyDescription">Загрузка...</p>
                     </div>
                 </div>
 
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h4 class="card-title">Характеристики</h4>
+                        <h2 class="h4 card-title">Характеристики</h2>
                         <ul class="list-unstyled" id="propertyFeatures">
                             <!-- Будет заполнено через JavaScript -->
                         </ul>
@@ -82,7 +83,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Условия аренды</h4>
+                        <h2 class="h4 card-title">Условия аренды</h2>
                         <ul id="rentalConditions">
                             <!-- Будет заполнено через JavaScript -->
                         </ul>
