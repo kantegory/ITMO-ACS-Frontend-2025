@@ -1,14 +1,4 @@
-let userDB = JSON.parse(localStorage.getItem('userDB')) || {};
-
-function getUserByEmail(email) {
-    return userDB[email] || null;
-}
-
-function addUser(userData) {
-    userDB[userData.email] = userData;
-    localStorage.setItem('userDB', JSON.stringify(userDB));
-    console.log('curr users db:', userDB);
-}
+let url = 'http://localhost:3000';
 
 function showAlert(message, type = 'danger') {
     const alertElement = document.getElementById('alertMessage');
@@ -21,10 +11,10 @@ function showAlert(message, type = 'danger') {
     }, 5000);
 }
 
-function register(event) {
+async function register(event) {
     event.preventDefault();
 
-    const name = document.getElementById('username').value;
+    const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password1').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -39,51 +29,153 @@ function register(event) {
         return;
     }
 
-    if (getUserByEmail(email)) {
-        showAlert('User with this email already exists!');
-        return;
-    }
+    try {
+        const response = await fetch(`${url}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                username: username 
+            })
+        });
 
-    const newUser = {
-        name: name,
-        email: email,
-        password: password
-    };
-                
-    addUser(newUser);
-                
-    showAlert('Registration successful! Redirecting to login...', 'success');
-                
-    setTimeout(() => {
-        window.location.href = 'login.html';
-    }, 1500);
+        const data = await response.json();
+
+        if (response.ok) {
+            showAlert('Registration successful! Redirecting...', 'success');
+            
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            setTimeout(() => {
+                window.location.href = 'extra-reg.html';
+            }, 1500);
+        } else {
+            showAlert(data.message || 'Registration failed! Email may already exist.');
+        }
+    } catch (error) {
+        console.error('registration error:', error);
+        showAlert('server error, please try again.');
+    }
+}
+
+async function addInfo(event) {
+    event.preventDefault();
+
+    const nameSurname = document.getElementById('name').value;
+    const bio = document.getElementById('bio').value;
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const accessToken = localStorage.getItem('accessToken');
+
+    try {
+        const response = await fetch(`${url}/users/${user.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                name: nameSurname,
+                bio: bio
+            })
+        });
+
+        if (!response.ok) {
+            showAlert('Failed to save profile information');
+            return;
+        }
+
+        const updatedUser = await response.json();
+        
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        
+        showAlert('Profile information saved!', 'success');
+        
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+
+    } catch (error) {
+        console.error('Error updating profile:', error);
+    }
 }
 
 async function login(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const user = getUserByEmail(email);
-    
-    if (!user) {
-        showAlert('No user with this email address was found. Sign up!');
-        return;
+    try {
+        const loginData = {
+            email: email,
+            password: password
+        };
+        
+        const response = await fetch(`${url}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData)
+        });
+
+        if (!response.ok) {
+            try {
+                const errorData = JSON.parse(responseText);
+                errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+                errorMessage = await response.text();
+            }
+            showAlert(errorMessage);
+            return;
+        }
+
+        showAlert('Success! Redirecting...', 'success');
+        
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        
+        setTimeout(() => {
+            window.location.href = 'main.html';
+        }, 1500);
+
+    } catch (error) {
+        console.error('Login error:', error);
+        showAlert('server error, please try again.');
     }
+}
+
+function logout() {
+    localStorage.clear()
+    window.location.href = 'index.html'
+}
+
+function checkAuth() {
+    const token = localStorage.getItem('accessToken');
+    const user = localStorage.getItem('user');
     
-    if (user.password !== password) {
-        showAlert('Wrong password!');
-        return;
-    }
-    
-    showAlert('Success! Redirecting...', 'success');
-    
-    setTimeout(() => {
+    //автоматический переброс по маршруту: register - extra-reg - login - main
+    if ((window.location.pathname.includes('login.html') || 
+         window.location.pathname.includes('register.html')) &&
+        token && user) {
         window.location.href = 'main.html';
-    }, 1500);
+    }
+    
+    //а тут наоборот выкидывает, если находясь залогиненым, токена не нашлось
+    if (window.location.pathname.includes('main.html') && !token) {
+        window.location.href = 'login.html';
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('cur db of users:', userDB);
+    checkAuth();
 });
+
+window.register = register;
+window.login = login;
+window.logout = logout;
+window.checkAuth = checkAuth;
