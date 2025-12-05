@@ -20,8 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function displayFeaturedRestaurants() {
+  const container = document.getElementById("featured-restaurants");
+  if (!container) return;
+  
   getRestaurants().then(function(restaurants) {
-    const container = document.getElementById("featured-restaurants");
     const featured = restaurants.slice(0, 3);
     container.innerHTML = featured
       .map((restaurant) => createRestaurantCard(restaurant))
@@ -29,21 +31,24 @@ function displayFeaturedRestaurants() {
   });
 }
 
+
 function displayRestaurants(filtered) {
+  const container = document.getElementById("restaurants-list");
+  if (!container) return;
+  
   if (filtered) {
-    const container = document.getElementById("restaurants-list");
     container.innerHTML = filtered
       .map((restaurant) => createRestaurantCard(restaurant))
       .join("");
   } else {
     getRestaurants().then(function(restaurants) {
-      const container = document.getElementById("restaurants-list");
       container.innerHTML = restaurants
         .map((restaurant) => createRestaurantCard(restaurant))
         .join("");
     });
   }
 }
+
 
 function createRestaurantCard(restaurant) {
   return `
@@ -287,13 +292,14 @@ function handleLogin(event) {
   const password = document.getElementById("login-password").value;
 
   loginUser(email, password)
-    .then(function(user) {
+    .then(function(data) {
       currentUser = {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
+        name: data.user.name,
+        email: data.user.email,
+        phone: data.user.phone,
       };
 
+      localStorage.setItem("authToken", data.token);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
       updateNavigation();
@@ -325,14 +331,19 @@ function handleRegister(event) {
   const userData = { name, email, phone, password };
 
   registerUser(userData)
-    .then(function(user) {
-      currentUser = { name: user.name, email: user.email, phone: user.phone };
+    .then(function(data) {
+      currentUser = { 
+        name: data.user.name, 
+        email: data.user.email, 
+        phone: data.user.phone 
+      };
 
+      localStorage.setItem("authToken", data.token);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
       updateNavigation();
-      alert("Регистрация успешно завершена!");
       window.location.href = "index.html";
+      alert("Регистрация успешно завершена!");
     })
     .catch(function(error) {
       alert("Ошибка регистрации: " + error.message);
