@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RentEstate — аренда недвижимости</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    window.API_BASE = window.API_BASE || "http://localhost:4000";
+  </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a id="brandLink" class="navbar-brand" href="index.html">RentEstate</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul id="navLinks" class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Найдите идеальную недвижимость для аренды</h1>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Фильтры поиска</h5>
+      <form id="searchForm" class="row g-3">
+        <div class="col-md-3">
+          <label for="location" class="form-label">Местоположение</label>
+          <input type="text" id="location" class="form-control" placeholder="Город, район...">
+        </div>
+
+        <div class="col-md-2">
+          <label for="propertyType" class="form-label">Тип недвижимости</label>
+          <select id="propertyType" class="form-select">
+            <option value="">Все</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label for="rentalType" class="form-label">Тип аренды</label>
+          <select id="rentalType" class="form-select">
+            <option value="">Все</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label for="minPrice" class="form-label">Мин. цена</label>
+          <input type="number" id="minPrice" class="form-control" placeholder="0">
+        </div>
+
+        <div class="col-md-2">
+          <label for="maxPrice" class="form-label">Макс. цена</label>
+          <input type="number" id="maxPrice" class="form-control" placeholder="100000">
+        </div>
+
+        <div class="col-md-1 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary w-100">Найти</button>
+        </div>
+      </form>
+
+      <div class="mt-3">
+        <button id="resetFilters" class="btn btn-outline-secondary">Сбросить фильтры</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="propertiesList" class="row"></div>
+
+  <div id="noResults" class="text-center d-none">
+    <div class="alert alert-info">По вашему запросу ничего не найдено.</div>
+  </div>
+</div>
+
+<footer class="bg-dark text-light mt-5 py-4">
+  <div class="container text-center">
+    <p>&copy; 2025 RentEstate. Сервис аренды недвижимости.</p>
+  </div>
+</footer>
+
+<div class="modal fade" id="propertyModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalPropertyTitle" class="modal-title"></h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <img id="modalPropertyImage" src="" class="img-fluid rounded mb-3" style="max-height:300px; width:100%; object-fit:cover;">
+          </div>
+          <div class="col-md-6">
+            <p><strong><i class="bi bi-geo-alt"></i> Адрес:</strong> <span id="modalPropertyLocation"></span></p>
+            <p><strong><i class="bi bi-house"></i> Тип:</strong> <span id="modalPropertyType"></span></p>
+            <p><strong><i class="bi bi-calendar"></i> Аренда:</strong> <span id="modalRentalType"></span></p>
+            <p><strong><i class="bi bi-currency-ruble"></i> Цена:</strong> <span id="modalPropertyPrice"></span></p>
+
+            <p id="modalPropertyArea" class="d-none"><strong>Площадь:</strong> <span></span></p>
+            <p id="modalPropertyRooms" class="d-none"><strong>Комнат:</strong> <span></span></p>
+
+            <p><strong>Описание:</strong></p>
+            <p id="modalPropertyDescription" class="border rounded p-2 bg-light"></p>
+
+            <div id="modalPropertyAmenities" class="d-none">
+              <p><strong>Удобства:</strong></p>
+              <div id="modalAmenitiesList" class="d-flex flex-wrap gap-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button class="btn btn-outline-primary" id="modalChatBtn"><i class="bi bi-chat"></i> Начать чат</button>
+        <button class="btn btn-primary" id="modalRentBtn">Арендовать</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="rentalModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Оформление аренды</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div id="rentalModalBody" class="modal-body"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
