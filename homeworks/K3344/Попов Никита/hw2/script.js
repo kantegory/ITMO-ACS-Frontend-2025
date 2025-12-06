@@ -123,11 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 list.innerHTML += `
                     <div class="col-md-3 mb-4">
                         <div class="card">
-                            <img src="${r.images[0]}" class="card-img-top" style="height:200px;object-fit:cover;">
+                            <img src="${r.images[0]}" class="card-img-top" style="height:200px;object-fit:cover;" alt="Фотография ресторана ${r.name}">
                             <div class="card-body">
                                 <h5 class="card-title">${r.name}</h5>
                                 <p>${r.cuisine}, ${r.location}, ${r.price}</p>
-                                <a class="btn btn-primary" href="restaurant.html?id=${r.id}">Подробнее</a>
+                                <a class="btn btn-primary" href="restaurant.html?id=${r.id}" aria-label="Подробнее о ресторане ${r.name}">Подробнее</a>
                             </div>
                         </div>
                     </div>`;
@@ -173,8 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 carouselInner.innerHTML = "";
                 rest.images.forEach((img, i) => {
                     carouselInner.innerHTML += `
-                        <div class="carousel-item ${i === 0 ? "active" : ""}">
-                            <img src="${img}" class="d-block w-100" style="height:400px;object-fit:cover;">
+                        <div class="carousel-item ${i === 0 ? "active" : ""}" role="listitem">
+                            <img src="${img}" class="d-block w-100" style="height:400px;object-fit:cover;" alt="Фотография ресторана ${rest.name}, изображение ${i + 1} из ${rest.images.length}">
                         </div>`;
                 });
 
