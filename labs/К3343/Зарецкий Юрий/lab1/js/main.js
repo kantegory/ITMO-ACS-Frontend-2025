@@ -553,7 +553,8 @@ function updateNavigation() {
     const currentPath = window.location.pathname;
     const currentPage = currentPath.split('/').pop() || 'index.html';
 
-    let navHTML = '<ul class="navbar-nav ms-auto">';
+    let navHTML = '<div class="d-flex align-items-center ms-auto gap-3 flex-wrap flex-lg-nowrap">';
+    navHTML += '<ul class="navbar-nav mb-2 mb-lg-0">';
     
     // Всегда показываем поиск
     navHTML += `<li class="nav-item">
@@ -587,7 +588,15 @@ function updateNavigation() {
     }
     
     navHTML += '</ul>';
+    navHTML += `<button type="button" class="btn btn-outline-light theme-toggle-btn" id="themeToggle" aria-pressed="false">
+        🌙 Тёмная тема
+    </button>`;
+    navHTML += '</div>';
     navContainer.innerHTML = navHTML;
+
+    if (typeof Theme !== 'undefined' && Theme.refreshToggle) {
+        Theme.refreshToggle();
+    }
 }
 
 // Инициализация при загрузке страницы
