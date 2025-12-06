@@ -8,17 +8,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link rel="stylesheet" href="../styles/base.css">
     <link rel="stylesheet" href="../styles/main.css">
 
     <title>Главная</title>
 </head>
 <body>
     <nav>
-        <div class="logo">GreenRent</div>
+        <div class="logo"><a href="main.html">GreenRent</a></div>
         <div class="city">
             <select id="citySelect">
-                <option>Москва</option>
                 <option>Санкт-Петербург</option>
+                <option>Москва</option>
                 <option>Екатеринбург</option>
             </select>
         </div>
@@ -59,17 +60,17 @@
                     <h6>Особенности</h6>
                     <select>
                         <option value="default">---</option>
-                        <option>С детьми</option>
-                        <option>С животными</option>
-                        <option>С балконом</option>
-                        <option>В новостройке</option>
+                        <option value="children">С детьми</option>
+                        <option value="animals">С животными</option>
+                        <option value="balcony">С балконом</option>
+                        <option value="new_building">В новостройке</option>
                     </select>
                 </div>
                 
                 <div class="filter" data-filter="is_daily_payment">
                     <h6>Оплата</h6>
-                    <label><input type="checkbox" value="true">Посуточно</label>
-                    <label><input type="checkbox" value="false">Ежемесячно</label>
+                    <label><input type="checkbox" value="true"> Посуточно</label>
+                    <label><input type="checkbox" value="false"> Ежемесячно</label>
                 </div>
 
                 <div class="filter" data-filter="location">
@@ -122,120 +123,7 @@
 
     <script src="../scripts/vars.js"></script>
     <script src="../scripts/utils.js"></script>
-    <script>
-        let filters = new Map();
-
-        function buildCardHTML(property) {
-            const newCard = document.createElement('div');
-            newCard.className = 'card';
-
-            const img = document.createElement('img');
-            img.src = (property.img_url !== undefined) ? property.img_url : DEFAULT_PICTURE_URL;
-
-            const info = document.createElement('div');
-            info.className = 'card-info';
-
-            const price = document.createElement('div');
-            price.className = 'price';
-            price.innerHTML = `${property.price} ₽ / `;
-            let frequency = 'месяц';
-
-            if (property.is_daily_payment)
-                frequency = 'день';
-
-            price.innerHTML += frequency;
-
-            const link = document.createElement('div');
-            link.innerHTML = `<a class="card-link" href="#">${property.address}</a>`;
-
-            const description = document.createElement('p');
-            description.innerHTML = `${property.area} м², ${property.rooms} комнат(-ы)`;
-            if (property.floor !== undefined) 
-                description.innerHTML += `, ${property.floor}-й этаж`;
-            description.innerHTML += `<br>${property.description}`;
-
-            info.append(price, link, description);
-            newCard.append(img, info);
-
-            return newCard;
-        }
-
-        function collectFilters() {
-            filters.clear();
-
-            document.querySelectorAll(".filter").forEach(filter => {
-                const key = filter.dataset.filter;
-
-                const select = filter.querySelector("select");
-                if (select) {
-                    const value = select.value;
-                    if (value !== "" && value !== DEFAULT_SELECT) 
-                        filters.set(key, value);
-                    return; 
-                }
-
-                const checkboxes = filter.querySelectorAll("input[type=checkbox]");
-                if (checkboxes.length > 0) {
-                    const checkedValues = [];
-                    checkboxes.forEach(ch => {
-                        if (ch.checked) checkedValues.push(ch.value);
-                    });
-
-                    if (checkedValues.length > 0) {
-                        filters.set(key, checkedValues);
-                    }
-                }
-            });
-        }
-
-        async function filterProperties() {
-            collectFilters();
-            const query = buildQuery(filters);
-
-            console.log("URL", PROPERIES_URL + query);
-            response = await fetch(PROPERIES_URL + query);
-            
-            if (!response.ok) {
-                console.error(`Failed to load properties list; response status = ${response.status}`);
-                return;
-            }
-
-            data = await response.json();
-            const cards = document.getElementById('cards');
-            cards.innerHTML = '';
-
-            if (data.length == 0) {
-                return;
-            }
-
-            data.forEach((prop) => {
-                cards.append(buildCardHTML(prop));
-            });
-
-            window.scrollTo(0, 0);
-        }
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            const nav = document.getElementById('navLinks');
-            const user = JSON.parse(localStorage.getItem('user'));
-
-            nav.innerHTML = '<a href="#">О компании</a>';
-
-            if (!user) {
-                nav.innerHTML += `
-                    <a href="login.html">Войти</a>
-                    <a href="register.html">Регистрация</a>
-                `;
-            } else {
-                nav.innerHTML += `
-                    <a href="#">Сдать в аренду</a>
-                    <a href="#">Чаты</a>
-                    <a href="profile.html">${user.email}</a>
-                `;
-            }
-
-            await filterProperties();
-        });
-    </script>
+    <script src="../scripts/user.js"></script>
+    <script src="../scripts/main.js"></script>
 </body>
 </html>

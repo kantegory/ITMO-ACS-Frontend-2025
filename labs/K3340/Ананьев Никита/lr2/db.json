@@ -14,86 +14,118 @@
       "phone": "+7 (911) 646-90-49",
       "password": "qwerty",
       "role": "tenant"
+    },
+    {
+      "id": "cc22",
+      "name": "Тест",
+      "email": "just@man.ru",
+      "phone": "+7 (988) 888-88-56",
+      "password": "777",
+      "role": "tenant"
     }
   ],
   "properties": [
     {
       "id": "1",
       "owner_id": 1,
+      "type": "flat",
       "title": "Квартира",
       "description": "Ааа",
-      "price": 80000.0,
+      "price": 80000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Невский пр., 88",
-      "img_url": "../media/images/nevskiy.jpg",
+      "feed_img": "../media/images/nevskiy.jpg",
+      "images": [
+        "../media/images/nevskiy.jpg"
+      ],
       "rooms": 2,
       "floor": 2,
-      "area": 60.0
+      "area": 60
     },
     {
       "id": "2",
       "owner_id": 2,
+      "type": "flat",
       "title": "Квартира",
       "description": "Test description",
-      "price": 67000.0,
+      "price": 67000,
       "is_daily_payment": false,
       "address": "Москва, ул. Лесная, 12",
-      "img_url": "../media/images/Lesnaya.jpg",
+      "feed_img": "../media/images/Lesnaya.jpg",
+      "images": [
+        "../media/images/Lesnaya.jpg"
+      ],
       "rooms": 2,
       "floor": 5,
-      "area": 52.0
+      "area": 52
     },
     {
       "id": "3",
       "owner_id": 5,
+      "type": "flat",
       "title": "Квартира",
       "description": "Test description 2",
-      "price": 27000.0,
+      "price": 27000,
       "is_daily_payment": false,
       "address": "Екатеринбург, ул. Мира, 25",
-      "img_url": "../media/images/ekb.jpg",
+      "feed_img": "../media/images/ekb.jpg",
+      "images": [
+        "../media/images/ekb.jpg"
+      ],
       "rooms": 1,
       "floor": 4,
-      "area": 34.0
+      "area": 34
     },
     {
       "id": "4",
       "owner_id": 1,
+      "type": "flat",
       "title": "Квартира",
       "description": "Test description 3",
-      "price": 71000.0,
+      "price": 71000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Большой проспект Петроградской стороны, 25/2",
-      "img_url": "../media/images/petrograd.webp",
+      "feed_img": "../media/images/petrograd.webp",
+      "images": [
+        "../media/images/petrograd.webp"
+      ],
       "rooms": 2,
       "floor": 4,
-      "area": 54.0
+      "area": 54
     },
     {
       "id": "5",
       "owner_id": 6,
       "title": "Квартира",
+      "type": "flat",
       "description": "Test description 4",
-      "price": 25000.0,
+      "price": 25000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Пулковское шоссе, 71к3",
-      "img_url": "../media/images/zelenyyjj-kvartal.jpg",
+      "feed_img": "../media/images/zelenyyjj-kvartal.jpg",
+      "images": [
+        "../media/images/zelenyyjj-kvartal.jpg"
+      ],
       "rooms": 1,
       "floor": 4,
-      "area": 29.0
+      "area": 29
     },
     {
       "id": "6",
       "owner_id": 3,
       "title": "Квартира",
+      "type": "flat",
       "description": "Test description 4",
-      "price": 110000.0,
+      "price": 110000,
       "is_daily_payment": false,
       "address": "Москва, Подсосенский переулок, 23с3",
-      "img_url": "../media/images/msk.webp",
+      "feed_img": "../media/images/msk.webp",
+      "images": [
+        "../media/images/msk.webp"
+      ],
       "rooms": 2,
       "floor": 2,
-      "area": 67.0
+      "area": 67
     }
   ]
 }

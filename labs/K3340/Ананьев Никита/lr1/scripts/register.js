@@ -1,4 +1,6 @@
 async function register() {
+    localStorage.removeItem('user');
+
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
@@ -9,7 +11,7 @@ async function register() {
         return;
     }
 
-    const exists = await identifyUser(email);
+    const exists = await identifyUserByEmail(email);
     if (exists) {
         alert('Пользователь с таким email уже зарегистрирован');
         return;
@@ -17,7 +19,7 @@ async function register() {
 
     try {
         const response = await fetch(
-            URL, {
+            USERS_URL, {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",

@@ -1,4 +1,6 @@
 async function login() {
+    localStorage.removeItem('user');
+
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
