@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Аренда недвижимости</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation" aria-label="Основная навигация">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">🏠 Аренда недвижимости</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                    <span class="navbar-toggler-icon" aria-hidden="true"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center mb-4">Регистрация</h2>
+                        <form id="registerForm">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">ФИО</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" required aria-required="true" autocomplete="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required aria-required="true" autocomplete="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required aria-required="true" autocomplete="tel">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Пароль</label>
+                                <input type="password" class="form-control" id="password" name="password" required aria-required="true" aria-describedby="passwordHelp" autocomplete="new-password">
+                                <div id="passwordHelp" class="form-text">Минимум 8 символов</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Подтвердите пароль</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required aria-required="true" aria-describedby="passwordError" autocomplete="new-password">
+                            </div>
+                            <div id="passwordError" class="alert alert-danger d-none" role="alert" aria-live="polite">
+                                Пароли не совпадают
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mb-3">Зарегистрироваться</button>
+                            <div class="text-center">
+                                <p class="mb-0">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+</body>
+</html>
+
