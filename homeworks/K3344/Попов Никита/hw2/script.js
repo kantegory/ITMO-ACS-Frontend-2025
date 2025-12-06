@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (error) {
                 showToast(error.message || "Ошибка загрузки ресторанов");
                 console.error(error);
-                list.innerHTML = '<div class="col-12"><p class="text-center text-danger">Ошибка загрузки ресторанов</p></div>';
+                list.innerHTML = '<div class="col-12" role="alert" aria-live="polite"><p class="text-center text-danger">Ошибка загрузки ресторанов</p></div>';
             }
         }
 
@@ -205,11 +205,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 const carouselInner = document.getElementById("carouselInner");
                 carouselInner.innerHTML = "";
                 rest.images.forEach((img, i) => {
+                    const isActive = i === 0;
                     carouselInner.innerHTML += `
-                        <div class="carousel-item ${i === 0 ? "active" : ""}" role="listitem">
+                        <div class="carousel-item ${isActive ? "active" : ""}" role="listitem" ${isActive ? 'aria-current="true"' : ''}>
                             <img src="${img}" class="d-block w-100" style="height:400px;object-fit:cover;" alt="Фотография ресторана ${rest.name}, изображение ${i + 1} из ${rest.images.length}">
                         </div>`;
                 });
+                
+                // Добавляем индикаторы для карусели для лучшей доступности
+                const carousel = document.getElementById("restaurantCarousel");
+                if (rest.images.length > 1 && carousel) {
+                    const indicators = document.createElement('div');
+                    indicators.className = 'carousel-indicators';
+                    indicators.setAttribute('role', 'tablist');
+                    rest.images.forEach((img, i) => {
+                        const indicator = document.createElement('button');
+                        indicator.type = 'button';
+                        indicator.setAttribute('data-bs-target', '#restaurantCarousel');
+                        indicator.setAttribute('data-bs-slide-to', i);
+                        indicator.setAttribute('aria-label', `Перейти к изображению ${i + 1}`);
+                        indicator.setAttribute('role', 'tab');
+                        if (i === 0) {
+                            indicator.className = 'active';
+                            indicator.setAttribute('aria-current', 'true');
+                        }
+                        indicators.appendChild(indicator);
+                    });
+                    carousel.insertBefore(indicators, carouselInner);
+                }
 
                 const menuList = document.getElementById("menuList");
                 menuList.innerHTML = "";
