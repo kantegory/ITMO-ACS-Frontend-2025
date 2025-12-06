@@ -1,144 +1,35 @@
-:root {
-    color-scheme: light;
-    --color-background: #f8f9fa;
-    --color-surface: #ffffff;
-    --color-surface-muted: #f1f3f5;
-    --color-text: #212529;
-    --color-text-muted: #6c757d;
-    --color-border: #dee2e6;
-    --color-primary: #0d6efd;
-    --color-primary-strong: #0b5ed7;
-    --color-primary-darker: #0a58ca;
-    --color-primary-contrast: #ffffff;
-    --color-focus: rgba(13, 110, 253, 0.28);
-    --shadow-card: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-[data-theme="dark"] {
-    color-scheme: dark;
-    --color-background: #0f172a;
-    --color-surface: #111827;
-    --color-surface-muted: #1f2937;
-    --color-text: #e5e7eb;
-    --color-text-muted: #9ca3af;
-    --color-border: #1f2937;
-    --color-primary: #3b82f6;
-    --color-primary-strong: #2563eb;
-    --color-primary-darker: #1d4ed8;
-    --color-primary-contrast: #f8fafc;
-    --color-focus: rgba(59, 130, 246, 0.4);
-    --shadow-card: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.5);
-}
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-text);
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-a {
-    color: var(--color-primary);
-}
-
-a:hover {
-    color: var(--color-primary-strong);
-}
-
-.navbar {
-    background-color: var(--color-primary) !important;
+    background-color: #f8f9fa;
 }
 
 .navbar-brand {
     font-weight: 600;
     font-size: 1.25rem;
-    color: var(--color-primary-contrast) !important;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.navbar-dark .navbar-nav .nav-link:hover,
-.navbar-dark .navbar-nav .nav-link:focus,
-.navbar-dark .navbar-nav .nav-link.active {
-    color: var(--color-primary-contrast);
-}
-
-.theme-toggle-btn {
-    color: var(--color-primary-contrast);
-    border-color: rgba(255, 255, 255, 0.7);
-}
-
-.theme-toggle-btn:hover,
-.theme-toggle-btn:focus-visible {
-    color: var(--color-primary-contrast);
-    background-color: rgba(255, 255, 255, 0.12);
-    border-color: var(--color-primary-contrast);
 }
 
 .card {
-    border: 1px solid var(--color-border);
+    border: none;
     border-radius: 10px;
-    background-color: var(--color-surface);
-    color: var(--color-text);
 }
 
 .card.shadow {
-    box-shadow: var(--shadow-card) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-.text-muted {
-    color: var(--color-text-muted) !important;
-}
-
-.form-control,
-.form-select {
-    background-color: var(--color-surface);
-    color: var(--color-text);
-    border-color: var(--color-border);
-}
-
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 0.2rem var(--color-focus);
-    background-color: var(--color-surface);
-    color: var(--color-text);
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
 .btn-primary {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-primary-contrast);
+    background-color: #0d6efd;
+    border-color: #0d6efd;
 }
 
-.btn-primary:hover,
-.btn-primary:focus {
-    background-color: var(--color-primary-strong);
-    border-color: var(--color-primary-darker);
-}
-
-.btn-outline-secondary {
-    color: var(--color-text);
-    border-color: var(--color-border);
-}
-
-.btn-outline-secondary:hover,
-.btn-outline-secondary:focus {
-    color: var(--color-text);
-    background-color: var(--color-surface-muted);
-}
-
-.btn-outline-primary {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.btn-outline-primary:hover,
-.btn-outline-primary:focus {
-    color: var(--color-primary-contrast);
-    background-color: var(--color-primary);
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
 }
 
 .property-card {
@@ -164,12 +55,10 @@ a:hover {
 
 .modal-content {
     border-radius: 10px;
-    background-color: var(--color-surface);
-    color: var(--color-text);
 }
 
 .display-4 {
-    color: var(--color-text);
+    color: #212529;
     font-weight: 600;
 }
 
