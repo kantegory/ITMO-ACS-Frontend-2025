@@ -39,16 +39,30 @@ export async function getPropertyById(id) {
 
 export async function searchProperties(filters = {}) {
     try {
-        const payload = {};
-        if (filters.location) payload.location = String(filters.location);
-        if (filters.propertyType) payload.propertyType = String(filters.propertyType);
-        if (filters.rentalType) payload.rentalType = String(filters.rentalType);
-        if (filters.minPrice != null && filters.minPrice !== '' && !Number.isNaN(Number(filters.minPrice))) payload.minPrice = Number(filters.minPrice);
-        if (filters.maxPrice != null && filters.maxPrice !== '' && !Number.isNaN(Number(filters.maxPrice))) payload.maxPrice = Number(filters.maxPrice);
+        const queryParams = new URLSearchParams();
 
-        if (Object.keys(payload).length === 0) return await getAllProperties();
+        if (filters.location) queryParams.append('location', String(filters.location));
+        if (filters.propertyType) queryParams.append('propertyType', String(filters.propertyType));
+        if (filters.rentalType) queryParams.append('rentalType', String(filters.rentalType));
 
-        const res = await request('/properties/search', 'POST', payload);
+        if (filters.minPrice != null && filters.minPrice !== '' && !Number.isNaN(Number(filters.minPrice))) {
+            queryParams.append('minPrice', Number(filters.minPrice));
+        }
+
+        if (filters.maxPrice != null && filters.maxPrice !== '' && !Number.isNaN(Number(filters.maxPrice))) {
+            queryParams.append('maxPrice', Number(filters.maxPrice));
+        }
+
+        if (queryParams.toString() === '') {
+            return await getAllProperties();
+        }
+
+        const queryString = queryParams.toString();
+        const url = `/properties/search${queryString ? '?' + queryString : ''}`;
+
+        console.log('Searching with URL:', url);
+
+        const res = await request(url, 'GET');
         return (res || []).map(normalizeProperty);
     } catch (err) {
         console.error('searchProperties error', err);
@@ -70,4 +84,71 @@ function normalizeProperty(p) {
         rentalType: p.rentalType,
         propertyType: p.propertyType
     };
+}
+
+export async function createProperty(propertyData) {
+    try {
+        const dataToSend = {
+            title: propertyData.title,
+            description: propertyData.description || '',
+            rentalType: propertyData.rentalType,
+            price: propertyData.price,
+            location: propertyData.location,
+            propertyType: propertyData.propertyType
+        };
+
+        if (propertyData.area) dataToSend.area = propertyData.area;
+        if (propertyData.rooms) dataToSend.rooms = propertyData.rooms;
+        if (propertyData.amenities) dataToSend.amenities = propertyData.amenities;
+
+        console.log('Creating property with data:', dataToSend);
+
+        const response = await request('/properties', 'POST', dataToSend);
+        return response;
+    } catch (error) {
+        console.error('Failed to create property:', error);
+        throw new Error(error.message || 'Не удалось создать объект недвижимости');
+    }
+}
+
+export async function updateProperty(id, propertyData) {
+    try {
+        if (!id) {
+            throw new Error('Property ID is required');
+        }
+
+        const response = await request(`/properties/${id}`, 'PUT', propertyData);
+        return response;
+    } catch (error) {
+        console.error('Failed to update property:', error);
+        throw new Error(error.message || 'Не удалось обновить объект недвижимости');
+    }
+}
+
+export async function deleteProperty(id) {
+    try {
+        if (!id) {
+            throw new Error('Property ID is required');
+        }
+
+        const response = await request(`/properties/${id}`, 'DELETE');
+        return response;
+    } catch (error) {
+        console.error('Failed to delete property:', error);
+        throw new Error(error.message || 'Не удалось удалить объект недвижимости');
+    }
+}
+
+export async function getUserProperties(userId) {
+    try {
+        if (!userId) {
+            throw new Error('User ID is required');
+        }
+
+        const allProperties = await getAllProperties();
+        return allProperties.filter(property => property.ownerId === userId);
+    } catch (error) {
+        console.error('Failed to get user properties:', error);
+        throw new Error(error.message || 'Не удалось получить объекты пользователя');
+    }
 }

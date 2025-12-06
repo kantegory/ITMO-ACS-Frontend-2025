@@ -1,4 +1,5 @@
-import { register, getCurrentUser } from "./api.js";
+import { register } from "./api.js";
+import { setCurrentUser } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const registerForm = document.getElementById("registerForm");
@@ -10,6 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
     registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        message.className = "alert d-none";
+        message.textContent = "";
+
+        if (!registerForm.checkValidity()) {
+            e.stopPropagation();
+            registerForm.classList.add('was-validated');
+            return;
+        }
+
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
@@ -17,16 +27,30 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const user = await register(email, password, username);
 
-            message.classList.add("alert", "alert-success");
-            message.textContent = `Добро пожаловать, ${user.username}!`;
+            setCurrentUser(user);
+
+            message.className = "alert alert-success";
+            message.textContent = `Добро пожаловать, ${user.username}! Аккаунт успешно создан.`;
 
             setTimeout(() => {
                 window.location.href = "profile.html";
-            }, 500);
+            }, 1000);
+
         } catch (err) {
-            message.classList.remove("d-none", "alert-success");
-            message.classList.add("alert", "alert-danger");
-            message.textContent = err.message;
+            message.className = "alert alert-danger";
+            message.textContent = err.message || "Ошибка регистрации. Попробуйте еще раз.";
         }
+    });
+
+    usernameInput.addEventListener('input', () => {
+        registerForm.classList.remove('was-validated');
+    });
+
+    emailInput.addEventListener('input', () => {
+        registerForm.classList.remove('was-validated');
+    });
+
+    passwordInput.addEventListener('input', () => {
+        registerForm.classList.remove('was-validated');
     });
 });
