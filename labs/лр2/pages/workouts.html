@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workouts - Fitness Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .workout-card {
+            margin-bottom: 25px;
+            height: 100%;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .workout-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .card-img-top {
+            height: 250px; /* Фиксированная высота */
+            width: 100%;
+            object-fit: cover; /* Важно: заполняет контейнер */
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .card-text {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .workout-meta {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .workout-meta small {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .badge {
+            font-size: 0.8rem;
+            padding: 0.4em 0.8em;
+            font-weight: 500;
+        }
+        
+        .btn-view-details {
+            background-color: #4f86f7;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-view-details:hover {
+            background-color: #3a75e0;
+            color: white;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 4rem;
+        }
+        
+        /* Обеспечиваем одинаковую высоту карточек в строке */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .col-md-6 {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mb-4">
+        <a href="../index.html" class="btn btn-back light-blue-text">
+            <i class="fas fa-arrow-left me-2"></i>Back to Home
+        </a>
+    </div>
+    
+    <h2 class="form-title mb-4">
+        <i class="fas fa-dumbbell me-3"></i>Workouts
+    </h2>
+    
+    <!-- Фильтры -->
+    <div class="card glass-card mb-4">
+        <div class="card-body">
+            <h5 class="light-blue-text mb-3">
+                <i class="fas fa-filter me-2"></i>Filter Workouts
+            </h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="levelFilter" class="form-label">Difficulty Level</label>
+                    <select class="form-select" id="levelFilter">
+                        <option value="all">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="typeFilter" class="form-label">Workout Type</label>
+                    <select class="form-select" id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="cardio">Cardio</option>
+                        <option value="strength">Strength</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="stretching">Stretching</option>
+                        <option value="hiit">HIIT</option>
+                        <option value="power-lifting">Power Lifting</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="durationFilter" class="form-label">Duration</label>
+                    <select class="form-select" id="durationFilter">
+                        <option value="all">All Durations</option>
+                        <option value="short">Short (20 min)</option>
+                        <option value="medium">Medium (30 min)</option>
+                        <option value="long">Long (45 min)</option>
+                    </select>
+                </div>
+                <div class="col-12 mt-3">
+                    <button id="applyFilters" class="btn btn-form-primary me-2">
+                        <i class="fas fa-check me-2"></i>Apply Filters
+                    </button>
+                    <button id="resetFilters" class="btn btn-outline-secondary">
+                        <i class="fas fa-redo me-2"></i>Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Контейнер для тренировок -->
+    <div id="loadingMessage" class="loading">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Loading workouts...</p>
+    </div>
+    
+    <div class="row g-4" id="workoutContainer">
+        <!-- Тренировки будут загружены через JavaScript -->
+    </div>
+    
+    <div id="noWorkoutsMessage" class="text-center mt-5" style="display: none;">
+        <div class="card glass-card">
+            <div class="card-body py-5">
+                <i class="fas fa-dumbbell fa-4x light-blue-text mb-3"></i>
+                <h4 class="light-blue-text">No workouts found</h4>
+                <p class="text-muted mb-4">Try adjusting your filters or check back later.</p>
+                <button id="resetFiltersBtn" class="btn btn-form-primary">
+                    <i class="fas fa-redo me-2"></i>Reset Filters
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// API URL
+const API_URL = 'http://localhost:3000/api';
+
+// Все тренировки
+let allWorkouts = [];
+
+const IMAGE_MAP = {
+    'cardio': 'http://localhost:3000/images/cardio.jpeg',
+    'strength': 'http://localhost:3000/images/strength.jpeg',
+    'yoga': 'http://localhost:3000/images/yoga.jpeg',
+    'stretching': 'http://localhost:3000/images/stretching.jpeg',
+    'hiit': 'http://localhost:3000/images/hiit.jpeg', 
+    'hitt': 'http://localhost:3000/images/hiit.jpeg',
+    'power-lifting': 'http://localhost:3000/images/power-lifting.jpeg',
+    'powerlifting': 'http://localhost:3000/images/power-lifting.jpeg',
+    'default': 'http://localhost:3000/images/workout.jpg'
+};
+
+// Загрузка тренировок
+async function loadWorkouts() {
+    try {
+        console.log('Loading from API...');
+        const response = await fetch(`${API_URL}/workouts`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const workouts = await response.json();
+        console.log('Got workouts:', workouts);
+        
+        // Исправляем URL изображений
+        allWorkouts = workouts.map(workout => {
+            // Исправляем URL изображения
+            let imageUrl = fixImageUrl(workout);
+            
+            return {
+                ...workout,
+                image: imageUrl
+            };
+        });
+        
+        displayWorkouts(allWorkouts);
+        document.getElementById('loadingMessage').style.display = 'none';
+        
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('loadingMessage').innerHTML = `
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Could not load workouts. Server might not be running.
+                <div class="mt-3">
+                    <button onclick="location.reload()" class="btn btn-sm btn-warning">
+                        <i class="fas fa-redo me-2"></i>Try Again
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// Исправление URL изображения
+function fixImageUrl(workout) {
+    // Если URL уже правильный
+    if (workout.image && workout.image.includes('localhost:3000/images/')) {
+        return workout.image;
+    }
+    
+    // Если относительный путь
+    if (workout.image && workout.image.includes('../images/')) {
+        const imageName = workout.image.split('/').pop();
+        return `http://localhost:3000/images/${imageName}`;
+    }
+    
+    // Определяем тип тренировки
+    let type = (workout.type || '').toLowerCase().trim();
+    
+    // Исправляем HIIT
+    if (type === 'hiit' || type === 'hitt') {
+        type = 'hiit';
+    }
+    
+    // Исправляем power lifting
+    if (type.includes('power')) {
+        type = 'power-lifting';
+    }
+    
+    return IMAGE_MAP[type] || IMAGE_MAP.default;
+}
+
+// Отображение тренировок
+function displayWorkouts(workouts) {
+    const container = document.getElementById('workoutContainer');
+    const noWorkoutsMessage = document.getElementById('noWorkoutsMessage');
+    
+    if (!workouts || workouts.length === 0) {
+        container.innerHTML = '';
+        noWorkoutsMessage.style.display = 'block';
+        return;
+    }
+    
+    noWorkoutsMessage.style.display = 'none';
+    
+    let html = '';
+    workouts.forEach(workout => {
+        // Цвет бейджа уровня
+        let badgeClass = 'bg-secondary';
+        if (workout.level === 'beginner') badgeClass = 'bg-success';
+        if (workout.level === 'intermediate') badgeClass = 'bg-warning text-dark';
+        if (workout.level === 'advanced') badgeClass = 'bg-danger';
+        
+        // Длительность
+        const durationText = workout.duration === 'short' ? '20 min' : 
+                            workout.duration === 'medium' ? '30 min' : 
+                            workout.duration === 'long' ? '45 min' : '30 min';
+        
+        html += `
+            <div class="col-md-6">
+                <div class="card workout-card">
+                    <img src="${workout.image}" 
+                         class="card-img-top" 
+                         alt="${workout.name}"
+                         onerror="this.onerror=null; this.src='http://localhost:3000/images/workout.jpg';">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title">${workout.name}</h5>
+                            <span class="badge ${badgeClass}">${workout.level || 'Intermediate'}</span>
+                        </div>
+                        <p class="card-text">${workout.description || 'A great workout for your fitness goals.'}</p>
+                        
+                        <div class="workout-meta">
+                            <small><strong>Type:</strong> ${workout.type || 'Workout'}</small>
+                            <small><strong>Duration:</strong> ${durationText}</small>
+                            <small><strong>Calories:</strong> ${workout.calories || '300-400'}</small>
+                            <small><strong>Equipment:</strong> ${workout.equipment || 'None required'}</small>
+                        </div>
+                        
+                        <a href="workout-details.html?id=${workout.id}" 
+                           class="btn-view-details">
+                            <i class="fas fa-info-circle me-2"></i>View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// Фильтрация
+function filterWorkouts() {
+    const level = document.getElementById('levelFilter').value;
+    const type = document.getElementById('typeFilter').value;
+    const duration = document.getElementById('durationFilter').value;
+    
+    const filtered = allWorkouts.filter(workout => {
+        return (level === 'all' || workout.level === level) &&
+               (type === 'all' || workout.type === type) &&
+               (duration === 'all' || workout.duration === duration);
+    });
+    
+    displayWorkouts(filtered);
+}
+
+// Сброс фильтров
+function resetFilters() {
+    document.getElementById('levelFilter').value = 'all';
+    document.getElementById('typeFilter').value = 'all';
+    document.getElementById('durationFilter').value = 'all';
+    displayWorkouts(allWorkouts);
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    loadWorkouts();
+    
+    // Настройка кнопок фильтров
+    document.getElementById('applyFilters').addEventListener('click', filterWorkouts);
+    document.getElementById('resetFilters').addEventListener('click', resetFilters);
+    document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+});
+</script>
+
+<script src="../script.js"></script>
+</body>
+</html>
