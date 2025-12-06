@@ -63,9 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     document.querySelector("#registerModal .btn-primary")?.addEventListener("click", async () => {
-        const username = document.querySelector("#registerModal input[type='text']").value.trim();
-        const email = document.querySelector("#registerModal input[type='email']").value.trim();
-        const password = document.querySelector("#registerModal input[type='password']").value.trim();
+        const usernameInput = document.querySelector("#registerModal input[type='text']") || document.getElementById("registerUsername") || document.getElementById("registerUsernameRest");
+        const emailInput = document.querySelector("#registerModal input[type='email']") || document.getElementById("registerEmail") || document.getElementById("registerEmailRest");
+        const passwordInput = document.querySelector("#registerModal input[type='password']") || document.getElementById("registerPassword") || document.getElementById("registerPasswordRest");
+        const username = usernameInput?.value.trim() || "";
+        const email = emailInput?.value.trim() || "";
+        const password = passwordInput?.value.trim() || "";
 
         if (!username || !email || !password) return showToast("Заполните все поля!");
 
@@ -85,8 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     document.querySelector("#loginModal .btn-primary")?.addEventListener("click", async () => {
-        const username = document.querySelector("#loginModal input[type='text']").value.trim();
-        const password = document.querySelector("#loginModal input[type='password']").value.trim();
+        const usernameInput = document.querySelector("#loginModal input[type='text']") || document.getElementById("loginUsername") || document.getElementById("loginUsernameRest");
+        const passwordInput = document.querySelector("#loginModal input[type='password']") || document.getElementById("loginPassword") || document.getElementById("loginPasswordRest");
+        const username = usernameInput?.value.trim() || "";
+        const password = passwordInput?.value.trim() || "";
 
         if (!username || !password) return showToast("Заполните все поля!");
 
@@ -104,10 +109,34 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    loginBtn?.addEventListener("click", () => loginModal.show());
-    loginBtnClose?.addEventListener("click", () => loginModal.hide());
-    registerBtn?.addEventListener("click", () => registerModal.show());
-    registerBtnClose?.addEventListener("click", () => registerModal.hide());
+    loginBtn?.addEventListener("click", () => {
+        const modal = document.getElementById("loginModal");
+        if (modal) {
+            modal.setAttribute("aria-hidden", "false");
+            loginModal.show();
+        }
+    });
+    loginBtnClose?.addEventListener("click", () => {
+        const modal = document.getElementById("loginModal");
+        if (modal) {
+            modal.setAttribute("aria-hidden", "true");
+            loginModal.hide();
+        }
+    });
+    registerBtn?.addEventListener("click", () => {
+        const modal = document.getElementById("registerModal");
+        if (modal) {
+            modal.setAttribute("aria-hidden", "false");
+            registerModal.show();
+        }
+    });
+    registerBtnClose?.addEventListener("click", () => {
+        const modal = document.getElementById("registerModal");
+        if (modal) {
+            modal.setAttribute("aria-hidden", "true");
+            registerModal.hide();
+        }
+    });
 
 
     if (document.getElementById("restaurantList")) {
@@ -116,22 +145,26 @@ document.addEventListener("DOMContentLoaded", () => {
         function render(rests) {
             list.innerHTML = "";
             if (rests.length === 0) {
-                list.innerHTML = '<div class="col-12"><p class="text-center">Рестораны не найдены</p></div>';
+                list.innerHTML = '<div class="col-12" role="status" aria-live="polite"><p class="text-center">Рестораны не найдены</p></div>';
                 return;
             }
-            rests.forEach(r => {
-                list.innerHTML += `
-                    <div class="col-md-3 mb-4">
-                        <div class="card">
-                            <img src="${r.images[0]}" class="card-img-top" style="height:200px;object-fit:cover;" alt="Фотография ресторана ${r.name}">
-                            <div class="card-body">
-                                <h5 class="card-title">${r.name}</h5>
-                                <p>${r.cuisine}, ${r.location}, ${r.price}</p>
-                                <a class="btn btn-primary" href="restaurant.html?id=${r.id}" aria-label="Подробнее о ресторане ${r.name}">Подробнее</a>
-                            </div>
+            list.setAttribute('role', 'list');
+            rests.forEach((r, index) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'col-md-3 mb-4';
+                cardDiv.setAttribute('role', 'listitem');
+                cardDiv.innerHTML = `
+                    <article class="card">
+                        <img src="${r.images[0]}" class="card-img-top" style="height:200px;object-fit:cover;" alt="Фотография ресторана ${r.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${r.name}</h5>
+                            <p>${r.cuisine}, ${r.location}, ${r.price}</p>
+                            <a class="btn btn-primary" href="restaurant.html?id=${r.id}" aria-label="Подробнее о ресторане ${r.name}">Подробнее</a>
                         </div>
-                    </div>`;
+                    </article>`;
+                list.appendChild(cardDiv);
             });
+            list.setAttribute('aria-label', `Найдено ресторанов: ${rests.length}`);
         }
 
         async function loadRestaurants(filters = {}) {
@@ -180,29 +213,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const menuList = document.getElementById("menuList");
                 menuList.innerHTML = "";
-                rest.menu.forEach(m => menuList.innerHTML += `<li class="list-group-item">${m}</li>`);
+                menuList.setAttribute('role', 'list');
+                rest.menu.forEach(m => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item';
+                    li.setAttribute('role', 'listitem');
+                    li.textContent = m;
+                    menuList.appendChild(li);
+                });
 
                 const reviews = document.getElementById("reviewsList");
                 reviews.innerHTML = "";
-                rest.reviews.forEach(r => {
-                    reviews.innerHTML += `
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5>${r.name}</h5>
-                                <p>${r.text}</p>
-                            </div>
-                        </div>`;
+                reviews.setAttribute('role', 'list');
+                rest.reviews.forEach((r, index) => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.className = 'card mb-2';
+                    reviewDiv.setAttribute('role', 'listitem');
+                    reviewDiv.innerHTML = `
+                        <article class="card-body">
+                            <h5>${r.name}</h5>
+                            <p>${r.text}</p>
+                        </article>`;
+                    reviews.appendChild(reviewDiv);
                 });
+                reviews.setAttribute('aria-label', `Отзывов: ${rest.reviews.length}`);
 
             
                 document.querySelector("#bookingModal .btn-primary")?.addEventListener("click", async () => {
                     const currentUser = authAPI.getCurrentUser();
                     if (!currentUser) return showToast("Сначала войдите!");
 
-                    const nameInput = document.querySelector("#bookingModal input[type='text']");
-                    const emailInput = document.querySelector("#bookingModal input[type='email']");
-                    const dateInput = document.querySelector("#bookingModal input[type='date']");
-                    const timeInput = document.querySelector("#bookingModal input[type='time']");
+                    const nameInput = document.getElementById("bookingName") || document.querySelector("#bookingModal input[type='text']");
+                    const emailInput = document.getElementById("bookingEmail") || document.querySelector("#bookingModal input[type='email']");
+                    const dateInput = document.getElementById("bookingDate") || document.querySelector("#bookingModal input[type='date']");
+                    const timeInput = document.getElementById("bookingTime") || document.querySelector("#bookingModal input[type='time']");
 
                     const name = nameInput.value.trim();
                     const email = emailInput.value.trim();
@@ -225,6 +269,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         await bookingsAPI.create(booking);
                         
                         const modal = bootstrap.Modal.getInstance(document.getElementById("bookingModal"));
+                        const bookingModalEl = document.getElementById("bookingModal");
+                        if (bookingModalEl) {
+                            bookingModalEl.setAttribute("aria-hidden", "true");
+                        }
                         modal.hide();
                         
                         // Очистка формы
@@ -245,7 +293,20 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("Сначала войдите!");
                         return;
                     }
+                    const bookingModalEl = document.getElementById("bookingModal");
+                    if (bookingModalEl) {
+                        bookingModalEl.setAttribute("aria-hidden", "false");
+                    }
                     bookingModal.show();
+                });
+                
+                // Управление aria-hidden для модального окна бронирования при закрытии
+                const closeBookingBtn = document.getElementById("closeBooking");
+                closeBookingBtn?.addEventListener("click", () => {
+                    const bookingModalEl = document.getElementById("bookingModal");
+                    if (bookingModalEl) {
+                        bookingModalEl.setAttribute("aria-hidden", "true");
+                    }
                 });
             } catch (error) {
                 showToast(error.message || "Ошибка загрузки ресторана");
@@ -274,17 +335,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 const bookings = await bookingsAPI.getByUserId(currentUser.id);
                 const history = document.getElementById("bookingHistory");
                 history.innerHTML = "";
+                history.setAttribute('role', 'list');
                 
                 if (!bookings || bookings.length === 0) {
-                    history.innerHTML = `<li class="list-group-item">Нет бронирований</li>`;
+                    const emptyLi = document.createElement('li');
+                    emptyLi.className = 'list-group-item';
+                    emptyLi.setAttribute('role', 'listitem');
+                    emptyLi.setAttribute('aria-live', 'polite');
+                    emptyLi.textContent = 'Нет бронирований';
+                    history.appendChild(emptyLi);
                 } else {
-                    bookings.forEach(b => {
-                        history.innerHTML += `
-                            <li class="list-group-item">
-                                ${b.restaurantName} — ${b.date} ${b.time}
-                                <button class="btn btn-sm btn-danger float-end" data-booking-id="${b.id}">Удалить</button>
-                            </li>`;
+                    bookings.forEach((b, index) => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.setAttribute('role', 'listitem');
+                        li.innerHTML = `
+                            <span>${b.restaurantName} — ${b.date} ${b.time}</span>
+                            <button class="btn btn-sm btn-danger float-end" data-booking-id="${b.id}" aria-label="Удалить бронирование в ресторане ${b.restaurantName} на ${b.date} ${b.time}">Удалить</button>
+                        `;
+                        history.appendChild(li);
                     });
+                    history.setAttribute('aria-label', `Бронирований: ${bookings.length}`);
                     
                     // Обработчики удаления бронирований
                     history.querySelectorAll('[data-booking-id]').forEach(btn => {
