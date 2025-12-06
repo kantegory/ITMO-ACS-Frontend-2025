@@ -1,3 +1,11 @@
+const Icons = {
+    sprite: 'assets/icons.svg',
+    render(name, extraClass = '') {
+        const classes = `icon ${extraClass}`.trim();
+        return `<svg class="${classes}" aria-hidden="true"><use href="${this.sprite}#icon-${name}"></use></svg>`;
+    }
+};
+
 const Storage = {
     keys: {
         currentUser: 'currentUser',
@@ -558,7 +566,9 @@ function updateNavigation() {
     
     // Всегда показываем поиск
     navHTML += `<li class="nav-item">
-        <a class="nav-link ${currentPage === 'search.html' ? 'active' : ''}" href="search.html">Поиск</a>
+        <a class="nav-link ${currentPage === 'search.html' ? 'active' : ''}" href="search.html">
+            ${Icons.render('search', 'icon-sm me-2 icon-inline')}Поиск
+        </a>
     </li>`;
 
     // Показываем личный кабинет везде, кроме страниц входа и регистрации (проверка авторизации будет на странице profile.html)
@@ -572,24 +582,32 @@ function updateNavigation() {
     if (!currentUser && (currentPage === 'login.html' || currentPage === 'register.html')) {
         if (currentPage === 'login.html') {
             navHTML += `<li class="nav-item">
-                <a class="nav-link active" href="login.html">Вход</a>
+                <a class="nav-link active" href="login.html">
+                    ${Icons.render('user', 'icon-sm me-2 icon-inline')}Вход
+                </a>
             </li>`;
             navHTML += `<li class="nav-item">
-                <a class="nav-link" href="register.html">Регистрация</a>
+                <a class="nav-link" href="register.html">
+                    ${Icons.render('building', 'icon-sm me-2 icon-inline')}Регистрация
+                </a>
             </li>`;
         } else {
             navHTML += `<li class="nav-item">
-                <a class="nav-link" href="login.html">Вход</a>
+                <a class="nav-link" href="login.html">
+                    ${Icons.render('user', 'icon-sm me-2 icon-inline')}Вход
+                </a>
             </li>`;
             navHTML += `<li class="nav-item">
-                <a class="nav-link active" href="register.html">Регистрация</a>
+                <a class="nav-link active" href="register.html">
+                    ${Icons.render('building', 'icon-sm me-2 icon-inline')}Регистрация
+                </a>
             </li>`;
         }
     }
     
     navHTML += '</ul>';
-    navHTML += `<button type="button" class="btn btn-outline-light theme-toggle-btn" id="themeToggle" aria-pressed="false">
-        🌙 Тёмная тема
+    navHTML += `<button type="button" class="btn btn-outline-light theme-toggle-btn d-inline-flex align-items-center" id="themeToggle" aria-pressed="false">
+        ${Icons.render('moon', 'icon-md me-2 icon-inline')}Тёмная тема
     </button>`;
     navHTML += '</div>';
     navContainer.innerHTML = navHTML;

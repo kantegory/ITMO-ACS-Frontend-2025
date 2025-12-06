@@ -65,6 +65,38 @@ a:hover {
     color: var(--color-primary-contrast);
 }
 
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+
+.icon-sm {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-md {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-lg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon-inline {
+    margin-right: 0.35rem;
+}
+
+.btn .icon-inline {
+    margin-right: 0.4rem;
+}
+
 .theme-toggle-btn {
     color: var(--color-primary-contrast);
     border-color: rgba(255, 255, 255, 0.7);

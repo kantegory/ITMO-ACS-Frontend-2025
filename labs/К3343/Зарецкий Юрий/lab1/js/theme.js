@@ -2,6 +2,18 @@ const Theme = (() => {
     const storageKey = 'theme';
     const themes = { light: 'light', dark: 'dark' };
     let systemListenerAttached = false;
+    const spriteHref = 'assets/icons.svg';
+
+    const getToggleContent = (isDark) => {
+        const iconName = isDark ? 'sun' : 'moon';
+        const label = isDark ? 'Светлая тема' : 'Тёмная тема';
+        return `
+            <svg class="icon icon-md me-2 icon-inline" aria-hidden="true">
+                <use href="${spriteHref}#icon-${iconName}"></use>
+            </svg>
+            <span>${label}</span>
+        `;
+    };
 
     const getStoredTheme = () => {
         try {
@@ -29,7 +41,7 @@ const Theme = (() => {
 
         const isDark = theme === themes.dark;
         toggle.setAttribute('aria-pressed', isDark);
-        toggle.textContent = `${isDark ? '☀️' : '🌙'} ${isDark ? 'Светлая тема' : 'Тёмная тема'}`;
+        toggle.innerHTML = getToggleContent(isDark);
     };
 
     const applyTheme = (theme, persist = true) => {
