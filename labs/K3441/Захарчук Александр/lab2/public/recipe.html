@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кулинарное сообщество</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand text-danger fw-bold" href="index.html"
+          >🍳 Кулинарное сообщество</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="search.html">Поиск рецептов</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Личный кабинет</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Вход</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Регистрация</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-5">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card shadow-sm border-0 mb-4">
+            <h1
+              class="display-6 fw-bold text-danger mb-2 p-3 pb-0"
+              id="recipeTitle"
+            >
+              Спагетти Карбонара
+            </h1>
+            <div class="card-body">
+              <img
+                src=""
+                class="img-fluid rounded-start"
+                style="height: 400px; width: 100%; object-fit: cover"
+                id="mainPicture"
+              />
+            </div>
+          </div>
+
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <h4 class="text-danger mb-4">Ингредиенты</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul id="ingredientsList"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <h4 class="text-danger mb-4">Пошаговое приготовление</h4>
+              <div
+                class="card-text"
+                id="recipeSteps"
+                style="white-space: pre-wrap"
+              ></div>
+            </div>
+          </div>
+
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <h4 class="text-danger mb-0">Комментарии</h4>
+              </div>
+
+              <div class="mb-4">
+                <div class="d-flex gap-3">
+                  <div class="flex-grow-1">
+                    <textarea
+                      class="form-control"
+                      id="commentText"
+                      placeholder="Напишите ваш комментарий..."
+                      rows="3"
+                    ></textarea>
+                    <div
+                      class="d-flex justify-content-between align-items-center mt-2"
+                    >
+                      <small class="text-muted">Минимум 10 символов</small>
+                      <button class="btn btn-danger" id="submitCommentBtn">
+                        Отправить
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="commentsList"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body pb-1">
+              <h5 class="text-danger mb-3">Информация о рецепте</h5>
+              <div class="mb-3">
+                <div
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom"
+                >
+                  <span class="text-muted">Общее время</span>
+                  <span class="fw-semibold" id="totalTime">25 минут</span>
+                </div>
+                <div
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom"
+                >
+                  <span class="text-muted">Активное время</span>
+                  <span class="fw-semibold" id="activeTime">15 минут</span>
+                </div>
+                <div
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom"
+                >
+                  <span class="text-muted">Тип блюда</span>
+                  <span class="fw-semibold" id="dishType">Суп</span>
+                </div>
+                <div
+                  class="d-flex justify-content-between align-items-center py-2"
+                >
+                  <span class="text-muted">Сложность</span>
+                  <span class="fw-semibold" id="difficulty">Средняя</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+      const recipeTitle = document.querySelector("#recipeTitle");
+      const mainPicture = document.querySelector("#mainPicture");
+      const ingredientsList = document.querySelector("#ingredientsList");
+      const recipeStepsContainer = document.querySelector("#recipeSteps");
+      const totalTime = document.querySelector("#totalTime");
+      const activeTime = document.querySelector("#activeTime");
+      const dishType = document.querySelector("#dishType");
+      const difficulty = document.querySelector("#difficulty");
+      const commentText = document.querySelector("#commentText");
+      const commentsList = document.querySelector("#commentsList");
+      const submitCommentButton = document.querySelector("#submitCommentBtn");
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const recipeId = parseInt(urlParams.get("id") || "1");
+
+      fetch(`http://localhost/api/recipes/${recipeId}`, {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then((r) =>
+        r.json().then((json) => {
+          recipeTitle.innerHTML = json.title;
+          mainPicture.src = json.picture;
+
+          ingredientsList.innerHTML = "";
+          json.ingredients.forEach((ingredient) => {
+            ingredientsList.innerHTML += `<li><strong>${ingredient.ingredient.name}</strong> - ${ingredient.quantity} ${ingredient.unit}</li>`;
+          });
+
+          recipeStepsContainer.innerHTML = json.description;
+          totalTime.innerHTML = `${json.cooking_time} минут`;
+          activeTime.innerHTML = `${json.preparation_time} минут`;
+          dishType.innerHTML = json.dish_type;
+          difficulty.innerHTML = json.difficulty_level;
+        })
+      );
+      fetch(`http://localhost/api/comments/recipe/${recipeId}`, {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then((r) =>
+        r.json().then((json) => {
+          commentsList.innerHTML = "";
+          json.forEach(comment => {
+            commentsList.innerHTML += `
+            <div class="card w-100 mb-3" style="width: 18rem">
+              <div class="card-body">
+                <div class="d-flex mb-2">
+                  <h5 class="card-title">Пользователь #${comment.user_id}</h5>
+                </div>
+                <p class="card-text">${comment.text}</p>
+              </div>
+            </div>
+            `;
+          })
+        })
+      );
+
+      submitCommentButton.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const access_token = localStorage.getItem("access_token");
+        if (!access_token) return;
+
+        const text = commentText.value.trim();
+        if (text.length < 10) return;
+
+        fetch(`http://localhost/api/comments`, {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: `Bearer ${access_token}`,
+          },
+          body: JSON.stringify({ recipe_id: recipeId, text }),
+        }).then((r) =>
+          r.json().then((json) => {
+            commentsList.innerHTML += `
+          <div class="card w-100 mb-4" style="width: 18rem">
+            <div class="card-body">
+              <div class="d-flex mb-2">
+                <h5 class="card-title">Пользователь #${json.user_id}</h5>
+              </div>
+              <p class="card-text">${json.text}</p>
+            </div>
+          </div>
+          `;
+          })
+        );
+      });
+    </script>
+  </body>
+</html>

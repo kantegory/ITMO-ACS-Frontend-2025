@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск рецептов - Кулинарное сообщество</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand text-danger fw-bold" href="index.html">🍳 Кулинарное сообщество</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search.html">Поиск рецептов</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Личный кабинет</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Регистрация</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="text-center mb-4">
+                    <h1 class="display-5 fw-bold text-danger mb-3">Найдите идеальный рецепт</h1>
+                    <p class="lead text-muted">Откройте для себя тысячи рецептов от шеф-поваров и домашних кулинаров</p>
+                </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <form id="searchForm">
+                            <div class="input-group input-group-lg shadow-sm">
+                                <input type="text" class="form-control border-0" id="searchInput" 
+                                       placeholder="Введите название рецепта, ингредиент или кухню...">
+                                <button class="btn btn-danger px-4" type="submit">
+                                    Найти
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h5 class="mb-0 text-danger">Фильтры</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Категория блюда</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterBreakfast" value="breakfast">
+                                <label class="form-check-label" for="filterBreakfast">Завтрак</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterLunch" value="lunch">
+                                <label class="form-check-label" for="filterLunch">Обед</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterDinner" value="dinner">
+                                <label class="form-check-label" for="filterDinner">Ужин</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterDessert" value="dessert">
+                                <label class="form-check-label" for="filterDessert">Десерт</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="filterSnack" value="snack">
+                                <label class="form-check-label" for="filterSnack">Закуска</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Сложность</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterEasy" value="easy">
+                                <label class="form-check-label" for="filterEasy">Легко</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterMedium" value="medium">
+                                <label class="form-check-label" for="filterMedium">Средне</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="filterHard" value="hard">
+                                <label class="form-check-label" for="filterHard">Сложно</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Время приготовления</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterTime30" value="30">
+                                <label class="form-check-label" for="filterTime30">До 30 мин</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterTime60" value="60">
+                                <label class="form-check-label" for="filterTime60">30-60 мин</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterTime90" value="90">
+                                <label class="form-check-label" for="filterTime90">60-90 мин</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="filterTimeMore" value="more">
+                                <label class="form-check-label" for="filterTimeMore">Более 90 мин</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Тип кухни</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterRussian" value="russian">
+                                <label class="form-check-label" for="filterRussian">Русская</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterItalian" value="italian">
+                                <label class="form-check-label" for="filterItalian">Итальянская</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterAsian" value="asian">
+                                <label class="form-check-label" for="filterAsian">Азиатская</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="filterEuropean" value="european">
+                                <label class="form-check-label" for="filterEuropean">Европейская</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="filterAmerican" value="american">
+                                <label class="form-check-label" for="filterAmerican">Американская</label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-danger" id="applyFiltersBtn">
+                                Применить фильтры
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="resetFiltersBtn">
+                                Сбросить фильтры
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="mb-0 text-danger">Популярные теги</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="быстро">быстро</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="полезно">полезно</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="десерт">десерт</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="мясо">мясо</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="рыба">рыба</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="салат">салат</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="суп">суп</button>
+                            <button class="btn btn-sm btn-outline-danger tag-btn" data-tag="выпечка">выпечка</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body py-3">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h5 class="mb-0" id="resultsTitle">Все рецепты</h5>
+                                <p class="text-muted mb-0" id="resultsCount">Найдено рецептов: 0</p>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <div class="d-inline-block">
+                                    <select class="form-select" id="sortSelect">
+                                        <option value="relevance">По релевантности</option>
+                                        <option value="popular">По популярности</option>
+                                        <option value="newest">Сначала новые</option>
+                                        <option value="cooking-time">По времени приготовления</option>
+                                        <option value="rating">По рейтингу</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 mb-4" id="activeFiltersContainer" style="display: none;">
+                    <div class="card-body py-3">
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <span class="fw-semibold">Активные фильтры:</span>
+                            <div id="activeFiltersList"></div>
+                            <button class="btn btn-sm btn-outline-danger ms-auto" id="clearAllFiltersBtn">
+                                Очистить все
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row px-3 mb-4" id="recipesContainer"></div>
+
+                <nav aria-label="Навигация по страницам" class="mt-5" id="paginationContainer" style="display: none;">
+                    <ul class="pagination justify-content-center" id="pagination">
+                </nav>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+        const recipesContainer = document.querySelector("#recipesContainer");
+        const resultsCount = document.querySelector("#resultsCount");
+
+        fetch("http://localhost/api/recipes", {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }).then(r => r.json().then(json => {
+            resultsCount.innerHTML = `Найдено рецептов: ${json.length}`;
+            recipesContainer.innerHTML = "";
+            json.forEach((recipe, index) => {
+                recipesContainer.innerHTML += `
+                <a class="nav-link col-6 mb-4" href="recipe.html?id=${recipe.id}">
+                    <div class="card p-4 ${index % 2 === 0 ? 'me-4' : ''}">
+                        <img src="${recipe.picture}" class="card-img-top" alt="${recipe.title}" style="max-height: 250px; object-fit: cover;">
+                        <div class="mt-4">
+                            <h5 class="card-title">${recipe.title}</h5>
+                            <p class="card-text">${recipe.description.slice(0, 90)}...</p>
+                        </div>
+                    </div>
+                </a>
+                `;
+            });
+        }))
+    </script>
+</body>
+</html>
