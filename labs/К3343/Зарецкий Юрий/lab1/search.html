@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск недвижимости - Аренда недвижимости</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        (() => {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.dataset.bsTheme = theme === 'dark' ? 'dark' : 'light';
+            } catch (e) {
+                console.warn('Не удалось применить сохраненную тему:', e);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation" aria-label="Основная навигация">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <svg class="icon icon-md me-2" aria-hidden="true">
+                        <use href="assets/icons.svg#icon-home"></use>
+                    </svg>
+                    <span>Аренда недвижимости</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                    <span class="navbar-toggler-icon" aria-hidden="true"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container mt-4">
+        <div class="row">
+            <!-- Фильтры -->
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center gap-2">
+                        <svg class="icon icon-md" aria-hidden="true">
+                            <use href="assets/icons.svg#icon-filter"></use>
+                        </svg>
+                        <h2 class="h5 mb-0">Фильтры</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="searchInput" class="form-label">Поиск</label>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Название, адрес...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="propertyType" class="form-label">Тип недвижимости</label>
+                            <select class="form-select" id="propertyType">
+                                <option value="">Все типы</option>
+                                <option value="apartment">Квартира</option>
+                                <option value="house">Дом</option>
+                                <option value="office">Офис</option>
+                                <option value="studio">Студия</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Город</label>
+                            <input type="text" class="form-control" id="location" placeholder="Москва, СПб...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="minPrice" class="form-label">Цена от (₽/мес)</label>
+                            <input type="number" class="form-control" id="minPrice" placeholder="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="maxPrice" class="form-label">Цена до (₽/мес)</label>
+                            <input type="number" class="form-control" id="maxPrice" placeholder="100000">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rooms" class="form-label">Количество комнат</label>
+                            <select class="form-select" id="rooms">
+                                <option value="">Любое</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4+</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="applyFilters()" aria-label="Применить выбранные фильтры поиска">Применить фильтры</button>
+                        <button class="btn btn-outline-secondary w-100 mt-2" onclick="resetFilters()" aria-label="Сбросить все фильтры поиска">Сбросить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Результаты поиска -->
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="h2">Результаты поиска</h1>
+                    <span class="text-muted" id="resultsCount" aria-live="polite">Найдено: 0</span>
+                </div>
+                <div class="row" id="propertiesList">
+                    <!-- Будет заполнено через JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
+
