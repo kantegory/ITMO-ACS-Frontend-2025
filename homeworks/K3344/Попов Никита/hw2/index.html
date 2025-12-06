@@ -24,10 +24,10 @@
     <p>Забронируйте столик в любимом ресторане легко и быстро.</p>
     <section class="my-5" aria-labelledby="search-heading">
         <h3 id="search-heading">Поиск ресторанов</h3>
-        <form id="searchForm" class="row g-3">
+        <form id="searchForm" class="row g-3" role="search" aria-label="Форма поиска ресторанов">
             <div class="col-md-4">
                 <label for="cuisine" class="form-label">Кухня</label>
-                <select class="form-select" id="cuisine">
+                <select class="form-select" id="cuisine" name="cuisine" aria-label="Выбор типа кухни">
                     <option value="">Все</option>
                     <option>Итальянская</option>
                     <option>Японская</option>
@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-4">
                 <label for="location" class="form-label">Расположение</label>
-                <select class="form-select" id="location">
+                <select class="form-select" id="location" name="location" aria-label="Выбор расположения">
                     <option value="">Все</option>
                     <option>Центр</option>
                     <option>Север</option>
@@ -47,7 +47,7 @@
             </div>
             <div class="col-md-4">
                 <label for="price" class="form-label">Цена</label>
-                <select class="form-select" id="price">
+                <select class="form-select" id="price" name="price" aria-label="Выбор ценового диапазона">
                     <option value="">Любая</option>
                     <option>₽</option>
                     <option>₽₽</option>
@@ -71,8 +71,10 @@
         <button type="button" class="btn-close" id="closeLogin" aria-label="Закрыть окно входа"></button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Логин">
-        <input type="password" class="form-control mb-2" placeholder="Пароль">
+        <label for="loginUsername" class="form-label">Логин</label>
+        <input type="text" class="form-control mb-2" id="loginUsername" name="username" placeholder="Логин" required aria-required="true">
+        <label for="loginPassword" class="form-label">Пароль</label>
+        <input type="password" class="form-control mb-2" id="loginPassword" name="password" placeholder="Пароль" required aria-required="true">
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" aria-label="Выполнить вход в систему">Войти</button>
@@ -89,9 +91,12 @@
         <button type="button" class="btn-close" id="closeRegister" aria-label="Закрыть окно регистрации"></button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Логин">
-        <input type="email" class="form-control mb-2" placeholder="Email">
-        <input type="password" class="form-control mb-2" placeholder="Пароль">
+        <label for="registerUsername" class="form-label">Логин</label>
+        <input type="text" class="form-control mb-2" id="registerUsername" name="username" placeholder="Логин" required aria-required="true">
+        <label for="registerEmail" class="form-label">Email</label>
+        <input type="email" class="form-control mb-2" id="registerEmail" name="email" placeholder="Email" required aria-required="true">
+        <label for="registerPassword" class="form-label">Пароль</label>
+        <input type="password" class="form-control mb-2" id="registerPassword" name="password" placeholder="Пароль" required aria-required="true">
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" aria-label="Завершить регистрацию">Зарегистрироваться</button>

@@ -56,10 +56,14 @@
         <button type="button" class="btn-close" id="closeBooking" aria-label="Закрыть окно бронирования"></button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Ваше имя">
-        <input type="email" class="form-control mb-2" placeholder="Email">
-        <input type="date" class="form-control mb-2">
-        <input type="time" class="form-control mb-2">
+        <label for="bookingName" class="form-label">Ваше имя</label>
+        <input type="text" class="form-control mb-2" id="bookingName" name="name" placeholder="Ваше имя" required aria-required="true">
+        <label for="bookingEmail" class="form-label">Email</label>
+        <input type="email" class="form-control mb-2" id="bookingEmail" name="email" placeholder="Email" required aria-required="true">
+        <label for="bookingDate" class="form-label">Дата</label>
+        <input type="date" class="form-control mb-2" id="bookingDate" name="date" required aria-required="true">
+        <label for="bookingTime" class="form-label">Время</label>
+        <input type="time" class="form-control mb-2" id="bookingTime" name="time" required aria-required="true">
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" aria-label="Подтвердить бронирование столика">Забронировать</button>
@@ -76,8 +80,10 @@
         <button type="button" class="btn-close" id="closeLogin" aria-label="Закрыть окно входа"></button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Логин">
-        <input type="password" class="form-control mb-2" placeholder="Пароль">
+        <label for="loginUsernameRest" class="form-label">Логин</label>
+        <input type="text" class="form-control mb-2" id="loginUsernameRest" name="username" placeholder="Логин" required aria-required="true">
+        <label for="loginPasswordRest" class="form-label">Пароль</label>
+        <input type="password" class="form-control mb-2" id="loginPasswordRest" name="password" placeholder="Пароль" required aria-required="true">
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" aria-label="Выполнить вход в систему">Войти</button>
@@ -94,9 +100,12 @@
         <button type="button" class="btn-close" id="closeRegister" aria-label="Закрыть окно регистрации"></button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Логин">
-        <input type="email" class="form-control mb-2" placeholder="Email">
-        <input type="password" class="form-control mb-2" placeholder="Пароль">
+        <label for="registerUsernameRest" class="form-label">Логин</label>
+        <input type="text" class="form-control mb-2" id="registerUsernameRest" name="username" placeholder="Логин" required aria-required="true">
+        <label for="registerEmailRest" class="form-label">Email</label>
+        <input type="email" class="form-control mb-2" id="registerEmailRest" name="email" placeholder="Email" required aria-required="true">
+        <label for="registerPasswordRest" class="form-label">Пароль</label>
+        <input type="password" class="form-control mb-2" id="registerPasswordRest" name="password" placeholder="Пароль" required aria-required="true">
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" aria-label="Завершить регистрацию">Зарегистрироваться</button>
