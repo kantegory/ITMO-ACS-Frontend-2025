@@ -25,7 +25,12 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation" aria-label="Основная навигация">
             <div class="container">
-                <a class="navbar-brand" href="index.html">🏠 Аренда недвижимости</a>
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <svg class="icon icon-md me-2" aria-hidden="true">
+                        <use href="assets/icons.svg#icon-home"></use>
+                    </svg>
+                    <span>Аренда недвижимости</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
                     <span class="navbar-toggler-icon" aria-hidden="true"></span>
                 </button>
@@ -38,7 +43,12 @@
     <main id="main-content" class="container mt-4">
         <nav aria-label="Хлебные крошки">
             <div class="mb-3">
-                <a href="search.html" class="btn btn-outline-secondary" aria-label="Вернуться к результатам поиска">← Назад к поиску</a>
+                <a href="search.html" class="btn btn-outline-secondary d-inline-flex align-items-center" aria-label="Вернуться к результатам поиска">
+                    <svg class="icon icon-md me-2 icon-inline" aria-hidden="true">
+                        <use href="assets/icons.svg#icon-arrow-left"></use>
+                    </svg>
+                    <span>Назад к поиску</span>
+                </a>
             </div>
         </nav>
 
@@ -65,11 +75,17 @@
                         <h1 class="h2 card-title" id="propertyTitle">Загрузка...</h1>
                         <p class="text-muted mb-3" id="propertyLocation">Загрузка...</p>
                         <p class="h3 text-primary mb-4" id="propertyPrice">Загрузка...</p>
-                        <button class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#contactModal" aria-label="Открыть форму связи с владельцем недвижимости">
-                            Связаться с владельцем
+                        <button class="btn btn-primary btn-lg w-100 mb-3 d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#contactModal" aria-label="Открыть форму связи с владельцем недвижимости">
+                            <svg class="icon icon-md me-2 icon-inline" aria-hidden="true">
+                                <use href="assets/icons.svg#icon-phone"></use>
+                            </svg>
+                            <span>Связаться с владельцем</span>
                         </button>
-                        <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#rentModal" aria-label="Открыть форму оформления аренды">
-                            Арендовать
+                        <button class="btn btn-outline-primary w-100 d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#rentModal" aria-label="Открыть форму оформления аренды">
+                            <svg class="icon icon-md me-2 icon-inline" aria-hidden="true">
+                                <use href="assets/icons.svg#icon-building"></use>
+                            </svg>
+                            <span>Арендовать</span>
                         </button>
                     </div>
                 </div>
