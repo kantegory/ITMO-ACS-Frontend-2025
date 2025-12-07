@@ -135,11 +135,14 @@ body {
     padding: 28px 20px 22px 20px;
 }
 .card-title {
-    color: #1DB954;
+    color: #1DB954 !important;
     font-weight: 700;
     font-size: 22px;
     margin-bottom: 14px;
     letter-spacing: .2px;
+}
+.card.album-card {
+  color: #ffffff;
 }
 
 .col-lg-3 {
