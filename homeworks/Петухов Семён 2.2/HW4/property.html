@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Детали объявления — FastRent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="property">
+  <header>
+    <nav class="navbar navbar-expand-lg py-3 container" aria-label="Навигация страницы объявления">
+      <a class="navbar-brand brand" href="index.html">FastRent</a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <div id="nav-user"></div>
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary theme-toggle btn-icon" type="button" aria-pressed="false" aria-label="Переключить тему" title="Переключить тему">
+          <svg class="icon theme-toggle-icon" aria-hidden="true" focusable="false">
+            <use href="assets/icons/sprite.svg#icon-moon" xlink:href="assets/icons/sprite.svg#icon-moon"></use>
+          </svg>
+          <span class="visually-hidden">Переключить тему</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container py-4" role="main">
+    <div class="row" itemscope itemtype="https://schema.org/Offer">
+      <article class="col-lg-8" aria-labelledby="propTitle">
+        <div id="propTitle" class="h3" itemprop="name"></div>
+        <div class="text-muted mb-2" id="propLocation" itemprop="areaServed"></div>
+
+        <div id="propCarousel" class="carousel slide mb-3" aria-label="Фотогалерея объявления">
+          <div class="carousel-inner" id="carouselInner"></div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#propCarousel" data-bs-slide="prev" aria-label="Предыдущее фото">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#propCarousel" data-bs-slide="next" aria-label="Следующее фото">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <section aria-labelledby="descriptionHeading" class="mb-4">
+          <h2 id="descriptionHeading" class="h5">Описание</h2>
+          <p id="propDesc" class="text-muted" itemprop="description"></p>
+        </section>
+
+        <section aria-labelledby="termsHeading">
+          <h2 id="termsHeading" class="h5">Условия аренды</h2>
+          <p id="propTerms" class="text-muted" itemprop="leaseLength"></p>
+        </section>
+      </article>
+
+      <aside class="col-lg-4" aria-label="Действия и контакты" role="complementary">
+        <div class="card card-custom p-3" aria-live="polite">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="text-muted small" id="propMeta"></div>
+              <p id="propPrice" class="h4 mb-0" itemprop="price"></p>
+            </div>
+            <div class="text-end">
+              <button id="contactBtn" class="btn btn-outline-secondary mb-2" aria-haspopup="dialog">Связаться с владельцем</button>
+              <button id="bookPropBtn" class="btn btn-primary d-block">Забронировать</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-custom mt-3 p-3" aria-label="Контактные данные">
+          <small class="text-muted">Данные владельца (демо)</small>
+            <div class="mt-2"><strong>Имя владельца</strong><div class="text-muted small">owner@example.com</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="bookForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookModalLabel">Бронирование</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <input id="bookPropertyId" name="propertyId" type="hidden">
+          <div class="mb-3">
+            <label class="form-label" for="bookMoveInDetail">Дата заселения</label>
+            <input id="bookMoveInDetail" type="date" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="bookMessageDetail">Сообщение</label>
+            <textarea id="bookMessageDetail" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Отмена</button>
+          <button class="btn btn-primary" type="submit">Отправить запрос</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer text-center" role="contentinfo">
+    <div class="container">
+      <small>© 2025 FastRent</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
