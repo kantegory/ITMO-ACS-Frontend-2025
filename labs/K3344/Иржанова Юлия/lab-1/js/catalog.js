@@ -2,20 +2,29 @@
 
 // инициализация
 
-/**
- * Инициализировать каталог
- */
-function initCatalog() {
-    renderAlbums(MOCK_ALBUMS);
-    initFilters();
+let MOCK_ALBUMS = [];
+
+async function loadAlbumsFromApi() {
+  try {
+    const response = await fetch('http://localhost:3000/albums');
+    MOCK_ALBUMS = await response.json();
+    console.log('Альбомы с API:', MOCK_ALBUMS);
+    renderGenreFilters();
+    attachFilterEvents();
+    applyFilters();
+  } catch (e) {
+    console.error('Ошибка при загрузке альбомов с API', e);
+  }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAlbumsFromApi();
+});
+
+
 
 // отображение альбомов
 
-/**
- * Отрендерить список альбомов
- * @param {Array} albums - массив альбомов для отображения
- */
 function renderAlbums(albums) {
     const albumsList = document.getElementById('albumsList');
     if (!albumsList) return;
@@ -32,47 +41,36 @@ function renderAlbums(albums) {
     }
 
     albumsList.innerHTML = albums.map(album => `
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card album-card" onclick="openAlbum(${album.id})">
-                <div class="album-cover">
-                    ${
-                        album.coverUrl
-                        ? `<img src="${album.coverUrl}" alt="${album.albumTitle}" class="img-fluid rounded mb-1">`
-                        : `<span style="font-size:50px;">${album.cover}</span>`
-                    }
-                    <div class="album-rating">${album.rating.toFixed(1)}</div>
-                </div>
-                <div class="album-info">
-                    <div class="album-title">${album.albumTitle}</div>
-                    <div class="album-artist">${album.artist}</div>
-                    <div class="album-year">${album.year} • ${album.genre}</div>
-                </div>
-            </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card album-card" onclick="openAlbum(${album.id})">
+        ${
+            album.coverUrl
+            ? `<img src="${album.coverUrl}" alt="${album.albumTitle}" class="album-img">`
+            : `<span style="font-size:50px;">${album.cover}</span>`
+        }
+        <div class="album-info">
+            <div class="album-title">${album.albumTitle}</div>
+            <div class="album-artist">${album.artist}</div>
+            <div class="album-year">${album.year} • ${album.genre}</div>
+            <div class="album-rating">${album.rating.toFixed(1)}</div>
         </div>
+        </div>
+    </div>
     `).join('');
+
 }
 
-/**
- * Открыть страницу альбома
- * @param {number} albumId - ID альбома
- */
 function openAlbum(albumId) {
     window.location.href = `album-detail.html?id=${albumId}`;
 }
 
 // фильтры
 
-/**
- * Инициализировать фильтры
- */
 function initFilters() {
     renderGenreFilters();
     attachFilterEvents();
 }
 
-/**
- * Отрендерить чекбоксы жанров
- */
 function renderGenreFilters() {
     const genreFilters = document.getElementById('genreFilters');
     
@@ -91,9 +89,6 @@ function renderGenreFilters() {
     `).join('');
 }
 
-/**
- * Присоединить события к элементам фильтров
- */
 function attachFilterEvents() {
     // обработка фильтра по жанру
     document.querySelectorAll('.genre-checkbox').forEach(checkbox => {
@@ -125,36 +120,21 @@ function attachFilterEvents() {
     }
 }
 
-/**
- * Получить выбранные жанры
- * @returns {Array} массив выбранных жанров
- */
 function getSelectedGenres() {
     const checkboxes = document.querySelectorAll('.genre-checkbox:checked');
     return Array.from(checkboxes).map(cb => cb.value);
 }
 
-/**
- * Получить минимальный год
- * @returns {number}
- */
 function getMinYear() {
     const yearFilter = document.getElementById('yearFilter');
     return yearFilter ? parseInt(yearFilter.value) : 1960;
 }
 
-/**
- * Получить минимальный рейтинг
- * @returns {number}
- */
 function getMinRating() {
     const ratingFilter = document.getElementById('ratingFilter');
     return ratingFilter ? parseFloat(ratingFilter.value) : 0;
 }
 
-/**
- * Применить все фильтры к альбомам
- */
 function applyFilters() {
     const selectedGenres = getSelectedGenres();
     const minYear = getMinYear();
@@ -184,9 +164,6 @@ function applyFilters() {
     renderAlbums(filtered);
 }
 
-/**
- * Сбросить все фильтры
- */
 function resetFilters() {
     // очистить все чекбоксы
     document.querySelectorAll('.genre-checkbox').forEach(cb => {
