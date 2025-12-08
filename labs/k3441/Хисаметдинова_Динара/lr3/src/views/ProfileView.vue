@@ -108,31 +108,45 @@ const handleLogout = async () => {
 <style scoped>
 .profile-page {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--bg-color);
 }
 
 .card {
-  border: none;
-  border-radius: 1rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  border: none !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .card {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+  }
 }
 
 .avatar-placeholder {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #f8f9fa;
+  background-color: var(--input-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  border: 3px solid #dee2e6;
+  border: 3px solid var(--border-color);
 }
 
 .profile-section {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .profile-section:last-child {
@@ -142,13 +156,30 @@ const handleLogout = async () => {
 }
 
 .profile-section h4 {
-  color: #495057;
+  color: var(--text-color);
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
+[data-theme="dark"] .profile-section h4 {
+  color: #e9ecef !important;
+}
+
 .form-control[readonly] {
-  background-color: #f8f9fa;
-  border-color: #dee2e6;
+  background-color: var(--input-bg);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.form-label {
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .form-label {
+  color: #e9ecef !important;
+}
+
+[data-theme="dark"] h2 {
+  color: #e9ecef !important;
 }
 </style>

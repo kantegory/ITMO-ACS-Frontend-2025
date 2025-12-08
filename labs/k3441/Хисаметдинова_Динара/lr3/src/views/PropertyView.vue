@@ -7,7 +7,6 @@
     </div>
 
     <div v-else-if="property" class="container py-4" style="margin-top: 80px;">
-      <!-- Property Header -->
       <div class="row mb-4">
         <div class="col-12">
           <h1>{{ property.title }}</h1>
@@ -20,7 +19,6 @@
         </div>
       </div>
 
-      <!-- Property Images -->
       <div class="row mb-4">
         <div class="col-12">
           <img
@@ -32,16 +30,13 @@
         </div>
       </div>
 
-      <!-- Property Details -->
       <div class="row">
         <div class="col-lg-8">
-          <!-- Description -->
           <div class="mb-4">
             <h3>About this property</h3>
             <p>{{ property.description }}</p>
           </div>
 
-          <!-- Property Info -->
           <div class="row mb-4">
             <div class="col-md-4">
               <div class="info-item">
@@ -63,7 +58,6 @@
             </div>
           </div>
 
-          <!-- Amenities -->
           <div class="mb-4">
             <h4>Amenities</h4>
             <div class="row">
@@ -78,7 +72,6 @@
         </div>
 
         <div class="col-lg-4">
-          <!-- Booking Card -->
           <div class="card sticky-top" style="top: 100px;">
             <div class="card-body">
               <div class="d-flex align-items-center mb-3">
@@ -156,13 +149,14 @@ import { ref, computed, onMounted } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useApiService } from '@/composables/useApiService'
+import { type Property } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const { apiService } = useApiService()
 
-const property = ref(null)
+const property = ref<Property | null>(null)
 const isLoading = ref(true)
 
 const bookingForm = ref({
@@ -195,12 +189,21 @@ const loadProperty = async () => {
   isLoading.value = true
 
   try {
-    // Get all properties and find the one with matching ID
-    const response = await apiService.getProperties()
+    const propertyId = route.params.id as string
+    console.log('Loading property with ID:', propertyId)
+
+    const response = await apiService.getPropertyById(propertyId)
 
     if (response.success && response.data) {
-      const propertyId = parseInt(route.params.id as string)
-      property.value = response.data.find((p: any) => p.id === propertyId) || null
+      property.value = response.data
+    } else {
+      const allPropertiesResponse = await apiService.getProperties()
+      if (allPropertiesResponse.success && allPropertiesResponse.data) {
+        const numericId = parseInt(propertyId)
+        property.value = allPropertiesResponse.data.find((p: any) =>
+          p.id === numericId || p.id === propertyId
+        ) || null
+      }
     }
   } catch (error) {
     console.error('Failed to load property:', error)
@@ -220,7 +223,6 @@ const handleBooking = () => {
     return
   }
 
-  // In a real app, you would create the booking via API
   alert(`Booking created for ${totalNights.value} nights. Total: $${totalPrice.value}`)
 }
 </script>

@@ -17,7 +17,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   const { apiService } = useApiService()
 
-  // Initialize from localStorage
   const initializeAuth = () => {
     const savedToken = localStorage.getItem('authToken')
     const savedUser = localStorage.getItem('user')
@@ -41,7 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.success) {
         user.value = response.user
-        token.value = response.token
+        token.value = response.token || null
         return { success: true }
       } else {
         error.value = response.message || 'Login failed'
@@ -69,7 +68,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.success) {
         user.value = response.user
-        token.value = response.token
+        token.value = response.token || null
         return { success: true }
       } else {
         error.value = response.message || 'Registration failed'

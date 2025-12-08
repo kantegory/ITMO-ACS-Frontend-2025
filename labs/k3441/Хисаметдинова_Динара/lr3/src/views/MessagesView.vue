@@ -5,7 +5,6 @@
         <div class="col-12">
           <h1 class="mb-4">Messages</h1>
 
-          <!-- Empty State -->
           <div v-if="conversations.length === 0" class="text-center py-5">
             <i class="fas fa-envelope fa-4x text-muted mb-4"></i>
             <h3>No messages yet</h3>
@@ -15,7 +14,6 @@
             </RouterLink>
           </div>
 
-          <!-- Conversations List -->
           <div v-else class="row">
             <div class="col-lg-4">
               <div class="conversations-list">
@@ -126,7 +124,6 @@ const selectedConversation = ref<Conversation | null>(null)
 const newMessage = ref('')
 
 onMounted(() => {
-  // Mock data - in a real app this would come from an API
   conversations.value = [
     {
       id: 1,
@@ -207,16 +204,17 @@ const formatTime = (dateString: string) => {
 <style scoped>
 .messages-page {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--bg-color);
 }
 
 .conversations-list {
-  background: white;
+  background: var(--card-bg);
   border-radius: 0.5rem;
   padding: 1rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   max-height: 70vh;
   overflow-y: auto;
+  color: var(--text-color);
 }
 
 .conversation-item {
@@ -224,26 +222,40 @@ const formatTime = (dateString: string) => {
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s;
-  border-bottom: 1px solid #f8f9fa;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .conversation-item:hover {
-  background-color: #f8f9fa;
+  background-color: var(--input-bg);
 }
 
 .conversation-item.active {
-  background-color: #e3f2fd;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+[data-theme="dark"] .conversation-item.active {
+  background-color: #0d6efd;
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .conversation-item.active {
+    background-color: #0d6efd;
+    color: white;
+  }
 }
 
 .avatar-small {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #e9ecef;
+  background-color: var(--input-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6c757d;
+  color: var(--text-muted);
 }
 
 .unread-badge {
@@ -260,23 +272,36 @@ const formatTime = (dateString: string) => {
 }
 
 .message-thread {
-  background: white;
+  background: var(--card-bg);
   border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   height: 70vh;
   display: flex;
   flex-direction: column;
+  color: var(--text-color);
 }
 
 .thread-header {
   padding: 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .messages-container {
   flex-grow: 1;
   padding: 1rem;
   overflow-y: auto;
+  background-color: var(--input-bg);
+}
+
+[data-theme="dark"] .messages-container {
+  background-color: #2d3748;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .messages-container {
+    background-color: #2d3748;
+  }
 }
 
 .message {
@@ -304,12 +329,50 @@ const formatTime = (dateString: string) => {
 }
 
 .message-received .message-content {
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .message-input {
   padding: 1rem;
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid var(--border-color);
+  background: var(--card-bg);
+}
+
+.form-control {
+  background-color: var(--input-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+.form-control::placeholder {
+  color: var(--text-muted) !important;
+}
+
+h1, h3, h4, h5, h6 {
+  color: var(--text-color) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #e9ecef !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) h1,
+  :root:not([data-theme="light"]) h3,
+  :root:not([data-theme="light"]) h4,
+  :root:not([data-theme="light"]) h5,
+  :root:not([data-theme="light"]) h6 {
+    color: #e9ecef !important;
+  }
 }
 </style>

@@ -10,7 +10,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-// Initialize auth store
 const authStore = useAuthStore()
 authStore.initializeAuth()
 

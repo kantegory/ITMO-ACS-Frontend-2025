@@ -1,6 +1,5 @@
 <template>
   <main role="main">
-    <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-overlay">
         <div class="container">
@@ -16,7 +15,6 @@
       </div>
     </section>
 
-    <!-- Features Section -->
     <section class="py-5">
       <div class="container">
         <div class="row text-center mb-5">
@@ -50,7 +48,6 @@
       </div>
     </section>
 
-    <!-- Weekend Deals Section -->
     <section class="py-5" id="deals">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -69,7 +66,6 @@
       </div>
     </section>
 
-    <!-- Travel Benefits Section -->
     <TravelBenefits />
   </main>
 </template>
@@ -78,6 +74,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useApiService } from '@/composables/useApiService'
+import { type Property } from '@/types'
 import SearchForm from '@/components/SearchForm.vue'
 import PropertyList from '@/components/PropertyList.vue'
 import TravelBenefits from '@/components/TravelBenefits.vue'
@@ -85,35 +82,46 @@ import TravelBenefits from '@/components/TravelBenefits.vue'
 const router = useRouter()
 const { apiService } = useApiService()
 
-const weekendDeals = ref([])
+const weekendDeals = ref<Property[]>([])
 
 onMounted(async () => {
   const response = await apiService.getProperties()
   if (response.success && response.data) {
-    weekendDeals.value = response.data.slice(0, 4) // Show first 4 properties as deals
+    weekendDeals.value = response.data.slice(0, 4)
   }
 })
 
 const handleSearch = (searchData: any) => {
+  const query: any = {
+    location: searchData.location || '',
+    checkIn: searchData.checkIn || '',
+    checkOut: searchData.checkOut || '',
+    guests: searchData.guests || '1'
+  }
+
+  if (searchData.useLocation && searchData.coordinates) {
+    query.useLocation = 'true'
+    query.latitude = searchData.coordinates.latitude.toString()
+    query.longitude = searchData.coordinates.longitude.toString()
+
+    if (searchData.locationInfo) {
+      query.city = searchData.locationInfo.city
+      query.country = searchData.locationInfo.country
+    }
+  }
+
   router.push({
     name: 'search',
-    query: {
-      location: searchData.location || '',
-      checkIn: searchData.checkIn || '',
-      checkOut: searchData.checkOut || '',
-      guests: searchData.guests || '1'
-    }
+    query
   })
 }
 
 const previousDeals = () => {
   console.log('Previous deals')
-  // Implementation for carousel navigation
 }
 
 const nextDeals = () => {
   console.log('Next deals')
-  // Implementation for carousel navigation
 }
 </script>
 

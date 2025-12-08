@@ -13,31 +13,6 @@ import AppFooter from '@/components/AppFooter.vue'
 </script>
 
 <style>
-:root {
-  --bg-color: #ffffff;
-  --text-color: #212529;
-  --card-bg: #ffffff;
-  --shadow-color: rgba(0,0,0,0.1);
-  --hero-overlay: rgba(0,0,0,0.4);
-}
-
-[data-theme="dark"] {
-  --bg-color: #1a1a1a;
-  --text-color: #e9ecef;
-  --card-bg: #2d3748;
-  --shadow-color: rgba(0,0,0,0.3);
-  --hero-overlay: rgba(0,0,0,0.6);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg-color: #1a1a1a;
-    --text-color: #e9ecef;
-    --card-bg: #2d3748;
-    --shadow-color: rgba(0,0,0,0.3);
-    --hero-overlay: rgba(0,0,0,0.6);
-  }
-}
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

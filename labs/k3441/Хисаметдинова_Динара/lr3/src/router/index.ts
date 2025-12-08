@@ -51,7 +51,6 @@ const router = createRouter({
   ]
 })
 
-// Navigation guard for authentication
 router.beforeEach((to) => {
   const isAuthenticated = localStorage.getItem('authToken')
 

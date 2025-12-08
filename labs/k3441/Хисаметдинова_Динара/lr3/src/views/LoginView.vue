@@ -90,7 +90,6 @@ onMounted(() => {
   authStore.initializeAuth()
   authStore.clearError()
 
-  // Redirect if already authenticated
   if (authStore.isAuthenticated) {
     router.push('/')
   }
@@ -136,7 +135,40 @@ const handleLogin = async () => {
 }
 
 h2 {
-  color: #333;
+  color: var(--text-color);
   font-weight: 700;
+}
+
+[data-theme="dark"] h2 {
+  color: #ffffff !important;
+}
+
+.form-label {
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .form-label {
+  color: #e9ecef !important;
+}
+
+.card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .auth-container {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+[data-theme="dark"] .card-body p {
+  color: #ced4da !important;
+}
+
+[data-theme="dark"] .text-center p {
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: #adb5bd !important;
 }
 </style>

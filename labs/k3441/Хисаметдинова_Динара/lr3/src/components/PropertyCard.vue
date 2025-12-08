@@ -16,18 +16,23 @@
         <i :class="isFavorite ? 'fas fa-heart text-danger' : 'far fa-heart'" aria-hidden="true"></i>
       </button>
     </div>
-    <div class="card-body">
+    <div class="card-body p-3">
       <div class="d-flex align-items-center mb-2">
-        <span class="text-warning">{{ property.rating }}</span>
+        <span class="text-warning">★ {{ property.rating }}</span>
         <small class="text-muted ms-2">{{ getRatingText(property.rating) }}</small>
         <small class="text-muted ms-auto">{{ property.reviews }} reviews</small>
       </div>
-      <h3 class="card-title">{{ property.title }}</h3>
-      <p class="card-text text-muted small">{{ property.location }}</p>
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="h5 mb-0 text-primary">${{ property.price }}</span>
+      <h3 class="card-title h5">{{ property.title }}</h3>
+      <p class="card-text text-muted small mb-2">{{ property.location }}</p>
+      <p class="card-text text-muted small mb-3">{{ property.type }} • {{ property.maxGuests }} guests</p>
+      <div class="mt-auto">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <span class="h5 mb-0 text-primary">${{ property.price }}</span>
+            <small class="text-muted d-block">per night</small>
+          </div>
+        </div>
       </div>
-      <small class="text-muted">per night</small>
     </div>
   </div>
 </template>
@@ -66,7 +71,6 @@ const goToProperty = () => {
 
 const toggleFavorite = () => {
   isFavorite.value = !isFavorite.value
-  // In a real app, you would save this to a favorites store/API
 }
 
 const getRatingText = (rating: number): string => {
@@ -81,8 +85,20 @@ const getRatingText = (rating: number): string => {
 .card {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  aspect-ratio: 1/1.2;
+  min-height: 420px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -90,10 +106,18 @@ const getRatingText = (rating: number): string => {
   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
 .card-img-top {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
+}
+
+.card-title {
+  color: var(--text-color) !important;
 }
 
 .badge {
@@ -107,5 +131,14 @@ const getRatingText = (rating: number): string => {
 
 .btn-light:hover {
   background: white;
+}
+
+[data-theme="dark"] .btn-light {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .btn-light:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 </style>

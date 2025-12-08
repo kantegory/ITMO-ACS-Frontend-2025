@@ -25,6 +25,16 @@
           </li>
         </ul>
         <ul class="navbar-nav">
+          <li class="nav-item">
+            <button
+              class="nav-link btn btn-link theme-toggle"
+              @click="cycleTheme"
+              :title="themeTitle"
+              aria-label="Toggle theme"
+            >
+              {{ nextThemeIcon }}
+            </button>
+          </li>
           <template v-if="isAuthenticated">
             <li class="nav-item">
               <RouterLink class="nav-link" to="/messages">Messages</RouterLink>
@@ -51,14 +61,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useTheme } from '@/composables/useTheme'
 import UshankaSvg from '@/components/icons/UshankaSvg.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const isNavbarOpen = ref(false)
+
+const { nextThemeIcon, themeTitle, cycleTheme, initTheme } = useTheme()
 
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 
@@ -70,6 +83,10 @@ const logout = async () => {
   await authStore.logout()
   router.push('/')
 }
+
+onMounted(() => {
+  initTheme()
+})
 </script>
 
 <style scoped>
