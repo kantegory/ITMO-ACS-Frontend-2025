@@ -39,6 +39,12 @@ export interface PropertiesResponse {
   success: boolean
   data?: Property[]
   message?: string
+  source?: string
+  metadata?: {
+    total: number
+    filters_applied: number
+    api_call_url?: string
+  }
 }
 
 export interface LocationData {

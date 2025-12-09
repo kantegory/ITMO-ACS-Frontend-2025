@@ -1,6 +1,7 @@
 import axios from 'axios'
+import type { Property, PropertiesResponse } from '@/types'
 
-const API_BASE_URL = 'http://localhost:8000'
+const API_BASE_URL = 'http://localhost:8080'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -34,21 +35,6 @@ api.interceptors.response.use(
   }
 )
 
-interface Property {
-  id: number
-  title: string
-  location: string
-  type: string
-  price: number
-  rating: number
-  reviews: number
-  image: string
-  amenities: string[]
-  maxGuests: number
-  bedrooms: number
-  bathrooms: number
-  description: string
-}
 
 interface LoginResponse {
   success: boolean
@@ -64,16 +50,6 @@ interface RegisterResponse {
   message?: string
 }
 
-interface PropertiesResponse {
-  success: boolean
-  data?: Property[]
-  message?: string
-  metadata?: {
-    total: number
-    filters_applied: number
-    api_call_url?: string
-  }
-}
 
 export const useApiService = () => {
   const apiService = {

@@ -154,16 +154,24 @@
 
           <div class="col-md-9">
             <div class="location-search mb-4">
-              <div class="d-flex gap-3">
+              <div class="d-flex gap-2">
                 <div class="flex-grow-1">
                   <input
                     v-model="searchQuery.location"
                     type="text"
                     class="form-control"
-                    placeholder="Search by location..."
-                    @input="filterProperties"
+                    placeholder="Search by location (e.g. Paris, France)..."
+                    @keyup.enter="searchByLocation"
                   >
                 </div>
+                <button
+                  @click="searchByLocation"
+                  class="btn btn-primary"
+                  :disabled="isLoading"
+                >
+                  <i class="fas fa-search me-2"></i>
+                  Search
+                </button>
                 <button
                   @click="searchNearby"
                   class="btn btn-outline-primary"
@@ -415,6 +423,48 @@ const filterProperties = async () => {
     }
   } catch (error) {
     console.error('Failed to filter properties:', error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const searchByLocation = async () => {
+  if (!searchQuery.value.location.trim()) {
+    alert('Please enter a location to search')
+    return
+  }
+
+  isLoading.value = true
+  try {
+    const filterParams = {
+      location: searchQuery.value.location,
+      types: filters.value.types,
+      minPrice: filters.value.minPrice,
+      maxPrice: filters.value.maxPrice,
+      minRating: filters.value.minRating,
+      amenities: filters.value.amenities,
+      adults: filters.value.adults,
+      children: filters.value.children,
+      checkIn: filters.value.checkIn,
+      checkOut: filters.value.checkOut
+    }
+
+    const response = await apiService.getProperties(filterParams)
+    if (response.success && response.data) {
+      properties.value = response.data
+      searchSource.value = response.source || 'backend'
+
+      if (response.source === 'mock') {
+        searchSourceText.value = '🏠 Properties from catalog'
+      } else {
+        searchSourceText.value = '🌐 Properties from server'
+      }
+
+      console.log(`Found ${response.data.length} properties for location: ${searchQuery.value.location}`)
+    }
+  } catch (error) {
+    console.error('Error searching by location:', error)
+    alert('Failed to search properties. Please try again.')
   } finally {
     isLoading.value = false
   }
