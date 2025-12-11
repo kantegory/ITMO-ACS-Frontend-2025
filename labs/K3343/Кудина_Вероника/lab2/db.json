@@ -6,6 +6,13 @@
       "name": "testtest",
       "phone": "999999999",
       "id": 1
+    },
+    {
+      "email": "test2_veronika@gmail.com",
+      "password": "$2a$10$q1qzVv.5XUrNqCrhBKsv8.MIY6G/.9h3GJFKOenFtbxARgppI0P/G",
+      "name": "пупуня",
+      "phone": "999999999",
+      "id": 2
     }
   ],
   "bookings": [
@@ -64,6 +71,42 @@
       "status": "confirmed",
       "createdAt": "2025-12-05T17:23:15.751Z",
       "id": 5
+    },
+    {
+      "userId": 1,
+      "restaurantId": 1,
+      "restaurantName": "Caffe Italia",
+      "date": "2025-12-09",
+      "time": "21:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:26:11.250Z",
+      "id": 6
+    },
+    {
+      "userId": 2,
+      "restaurantId": 3,
+      "restaurantName": "Le Gourmet",
+      "date": "2025-12-26",
+      "time": "15:00",
+      "guests": "6",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:42:53.283Z",
+      "id": 7
+    },
+    {
+      "userId": 2,
+      "restaurantId": 1,
+      "restaurantName": "Caffe Italia",
+      "date": "2025-12-20",
+      "time": "19:00",
+      "guests": "6",
+      "comment": "балблабла",
+      "status": "confirmed",
+      "createdAt": "2025-12-06T14:50:52.559Z",
+      "id": 8
     }
   ],
   "restaurants": [

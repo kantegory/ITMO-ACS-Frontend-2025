@@ -63,7 +63,7 @@ function createRestaurantCard(restaurant) {
   }">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="card-title mb-0">${restaurant.name}</h5>
+                        <h3 class="card-title mb-0">${restaurant.name}</h3>
                         <span class="price-badge">${restaurant.price}</span>
                     </div>
                     <div class="mb-2">
@@ -421,7 +421,7 @@ function displayBookingsHistory() {
             <div class="card booking-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h6 class="mb-0">${booking.restaurantName}</h6>
+                        <h4 class="mb-0">${booking.restaurantName}</h4>
                         <span class="status-badge ${statusClass}">${statusText}</span>
                     </div>
                     <p class="text-muted mb-2">
