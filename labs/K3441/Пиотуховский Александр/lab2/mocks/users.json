@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "username": "anna_cook",
+    "email": "anna@example.com",
+    "firstName": "Анна",
+    "lastName": "Кулинарова",
+    "photoUrl": "https://placehold.co/150x150/4ecdc4/ffffff?text=АК",
+    "isMuted": false,
+    "isActive": true,
+    "registeredAt": "2024-01-15T10:00:00Z",
+    "roleId": 1
+  },
+  {
+    "id": 2,
+    "username": "boris_chef",
+    "email": "boris@example.com",
+    "firstName": "Борис",
+    "lastName": "Шеф",
+    "photoUrl": "https://placehold.co/150x150/9b59b6/ffffff?text=БШ",
+    "isMuted": false,
+    "isActive": true,
+    "registeredAt": "2024-02-10T12:30:00Z",
+    "roleId": 1
+  },
+  {
+    "id": 3,
+    "username": "victoria_gourmet",
+    "email": "victoria@example.com",
+    "firstName": "Виктория",
+    "lastName": "Гурман",
+    "photoUrl": "https://placehold.co/150x150/3498db/ffffff?text=ВГ",
+    "isMuted": false,
+    "isActive": true,
+    "registeredAt": "2024-03-05T08:15:00Z",
+    "roleId": 1
+  }
+]
