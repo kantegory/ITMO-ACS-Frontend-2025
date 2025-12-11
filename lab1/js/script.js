@@ -1,10 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const restaurantsData = [
-    {id:1, name:"La Piazza", cuisine:"Итальянская", location:"Центр", price:2, img:"img/sample-restaurant.jpg"},
-    {id:2, name:"Sushi Time", cuisine:"Японская", location:"Север", price:3, img:"img/sample-sushi.jpg"}
-  ];
-
   const list = document.getElementById('restaurants');
+  const bookingModalEl = document.getElementById('bookingModal');
+  const bookingModal = new bootstrap.Modal(bookingModalEl);
+  const bookingTitle = document.getElementById('bookingTitle');
+  const bookingForm = document.getElementById('bookingForm');
+  let currentRestaurants = [];
+
+  // Получение ресторанов с сервера
+  fetch('http://localhost:3000/restaurants')
+    .then(res => res.json())
+    .then(data => {
+      currentRestaurants = data;
+      render(currentRestaurants);
+    })
+    .catch(err => console.error('Ошибка при получении ресторанов:', err));
 
   function render(arr) {
     list.innerHTML = '';
@@ -17,20 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="card-body">
             <h5 class="card-title">${r.name}</h5>
             <p class="card-text text-muted">${r.cuisine} · ${r.location} · ${'₽'.repeat(r.price)}</p>
-
             <div class="d-flex gap-2">
               <button class="btn btn-outline-secondary btn-more" data-id="${r.id}">Подробнее</button>
               <button class="btn btn-primary btn-book" data-id="${r.id}" data-name="${r.name}">Забронировать</button>
-              </div>
+            </div>
           </div>
         </div>`;
       list.appendChild(col);
     });
-
-    const bookingModalEl = document.getElementById('bookingModal');
-    const bookingModal = new bootstrap.Modal(bookingModalEl);
-    const bookingTitle = document.getElementById('bookingTitle');
-    const bookingForm = document.getElementById('bookingForm');
 
     document.querySelectorAll('.btn-book').forEach(btn => {
       btn.addEventListener('click', e => {
@@ -51,56 +54,46 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = `restaurant.html?id=${id}`;
       });
     });
-
-    bookingForm.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      if (!currentUser) {
-        alert('Сначала войдите в аккаунт');
-        return;
-      }
-
-      const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-
-      bookings.push({
-        email: currentUser.email,
-        id: document.getElementById('restaurantId').value,
-        name: bookingTitle.textContent.replace('Бронирование: ',''),
-        date: document.getElementById('bookingDate').value,
-        guests: document.getElementById('guestsCount').value
-      });
-
-      localStorage.setItem('bookings', JSON.stringify(bookings));
-      alert('Бронирование сохранено');
-      bookingModal.hide();
-    });
   }
 
-  render(restaurantsData);
-
-  // фильтры
+  // Фильтры
   document.getElementById('applyFilters').addEventListener('click', () => {
-  const cuisine = document.getElementById('filterCuisine').value.trim();
-  const location = document.getElementById('filterLocation').value.trim().toLowerCase();
-  const price = document.getElementById('filterPrice').value;
+    const cuisine = document.getElementById('filterCuisine').value.trim();
+    const location = document.getElementById('filterLocation').value.trim().toLowerCase();
+    const price = document.getElementById('filterPrice').value;
 
-  let filtered = restaurantsData;
+    let filtered = currentRestaurants;
+    if (cuisine !== "") filtered = filtered.filter(r => r.cuisine === cuisine);
+    if (location !== "") filtered = filtered.filter(r => r.location.toLowerCase().includes(location));
+    if (price !== "") filtered = filtered.filter(r => r.price <= Number(price));
 
-  if (cuisine !== "") {
-    filtered = filtered.filter(r => r.cuisine === cuisine);
-  }
+    render(filtered);
+  });
 
-  if (location !== "") {
-    filtered = filtered.filter(r => r.location.toLowerCase().includes(location));
-  }
+  // Бронирование через API
+  bookingForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) { alert('Сначала войдите в аккаунт'); return; }
 
-  if (price !== "") {
-    filtered = filtered.filter(r => r.price <= Number(price));
-  }
+    const booking = {
+      email: currentUser.email,
+      id: document.getElementById('restaurantId').value,
+      name: bookingTitle.textContent.replace('Бронирование: ', ''),
+      date: document.getElementById('bookingDate').value,
+      guests: document.getElementById('guestsCount').value
+    };
 
-  render(filtered);
-});
-
-
+    fetch('http://localhost:3000/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(booking)
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert('Бронирование сохранено на сервере!');
+      bookingModal.hide();
+    })
+    .catch(err => console.error('Ошибка при сохранении бронирования:', err));
+  });
 });
