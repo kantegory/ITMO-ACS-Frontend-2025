@@ -1,0 +1,28 @@
+{
+  "users": [],
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "La Piazza",
+      "cuisine": "Итальянская",
+      "location": "Центр",
+      "price": 2,
+      "img": "img/sample-restaurant.jpg",
+      "description": "Уютный итальянский ресторан...",
+      "menu": ["Пицца", "Паста", "Тирамису"],
+      "reviews": ["Отлично!", "Супер!"]
+    },
+    {
+      "id": 2,
+      "name": "Sushi Time",
+      "cuisine": "Японская",
+      "location": "Север",
+      "price": 3,
+      "img": "img/sample-sushi.jpg",
+      "description": "Современный суши бар...",
+      "menu": ["Рамэн", "Роллы"],
+      "reviews": ["Свежая рыба!", "Очень вкусно"]
+    }
+  ],
+  "bookings": []
+}
