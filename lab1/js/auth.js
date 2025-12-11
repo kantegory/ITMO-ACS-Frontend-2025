@@ -1,23 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ---------------- Регистрация ----------------
+  // Регистрация
   const registerForm = document.getElementById('registerForm');
   if (registerForm) {
     registerForm.addEventListener('submit', async e => {
       e.preventDefault();
+
       const name = document.getElementById('regName').value.trim();
       const email = document.getElementById('regEmail').value.trim();
       const password = document.getElementById('regPassword').value;
 
-      // проверка, есть ли пользователь
+      // Проверка существующих пользователей через API
       const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}`);
-      const existing = await res.json();
-      if (existing.length > 0) {
+      const existingUsers = await res.json();
+      if (existingUsers.length > 0) {
         alert('Пользователь с таким email уже зарегистрирован');
         return;
       }
 
-      // добавляем нового пользователя
+      // Создаем нового пользователя на сервере
       await fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,27 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------------- Вход ----------------
+
+  // Вход
   const loginForm = document.getElementById('loginForm');
   if (loginForm) {
     loginForm.addEventListener('submit', async e => {
       e.preventDefault();
+
       const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
 
       const res = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
       const users = await res.json();
+      const user = users[0];
 
-      if (users.length === 0) {
+      if (!user) {
         alert('Неверный email или пароль');
         return;
       }
 
-      const user = users[0];
       localStorage.setItem('currentUser', JSON.stringify(user));
       window.location.href = 'account.html';
     });
   }
+
 
   // ---------------- Личный кабинет ----------------
   const userGreeting = document.getElementById('userGreeting');
