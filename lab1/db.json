@@ -44,5 +44,14 @@
       ]
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "id": "3388",
+      "email": "liza@gmail.com",
+      "restaurantId": "1",
+      "name": "La Piazza",
+      "date": "2025-12-12T10:00",
+      "guests": 2
+    }
+  ]
 }
