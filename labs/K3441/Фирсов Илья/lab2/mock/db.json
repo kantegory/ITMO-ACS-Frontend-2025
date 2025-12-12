@@ -1,0 +1,295 @@
+{
+  "vacancies": [
+    {
+      "id": "101",
+      "title": "Data Product Manager",
+      "company": "SignalDesk",
+      "city": "Казань",
+      "industry": "it",
+      "format": "hybrid",
+      "salaryMin": 180,
+      "salaryMax": 230,
+      "experienceRequired": 3,
+      "description": "Строим продуктовые дашборды и фичи вокруг ML-рекомендаций. Работа с аналитикой, бэклогом и релизами.",
+      "requirements": [
+        "Опыт product-аналитики",
+        "SQL уверенный",
+        "Коммуникации с ML/разработкой"
+      ],
+      "tags": [
+        "Product",
+        "SQL",
+        "ML"
+      ],
+      "posted": "сегодня"
+    },
+    {
+      "id": "102",
+      "title": "Frontend Engineer (Vue)",
+      "company": "Neon Circuit",
+      "city": "Москва",
+      "industry": "finance",
+      "format": "office",
+      "salaryMin": 190,
+      "salaryMax": 260,
+      "experienceRequired": 4,
+      "description": "Делаем интерфейсы риск-платформы. Vue 3, TypeScript, Vite, дизайн-система.",
+      "requirements": [
+        "Vue 3 + TS",
+        "Опыт с графиками/таблицами",
+        "Unit/e2e тесты"
+      ],
+      "tags": [
+        "Vue",
+        "TypeScript",
+        "Charts"
+      ],
+      "posted": "вчера"
+    },
+    {
+      "id": "103",
+      "title": "HR Operations",
+      "company": "Bright Lab",
+      "city": "Самара",
+      "industry": "education",
+      "format": "office",
+      "salaryMin": 110,
+      "salaryMax": 140,
+      "experienceRequired": 1,
+      "description": "Онбординг и найм технических команд, автоматизация HRIS.",
+      "requirements": [
+        "Опыт HR ops/generalist",
+        "Работа с HRIS",
+        "Грамотные коммуникации"
+      ],
+      "tags": [
+        "HRIS",
+        "Onboarding",
+        "Ops"
+      ],
+      "posted": "3 дня назад"
+    },
+    {
+      "id": "1764603798329",
+      "title": "название",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 1000000,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "в работе",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
+    },
+    {
+      "id": "1764603820745",
+      "title": "название2",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 200000,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "в работе",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
+    },
+    {
+      "id": "1764611940880",
+      "title": "название3",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 300000,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
+    }
+  ],
+  "applications": [
+    {
+      "id": "1",
+      "title": "Data Product Manager — SignalDesk",
+      "status": "В рассмотрении",
+      "candidate": "Ирина Смирнова"
+    },
+    {
+      "id": "2",
+      "title": "Frontend Engineer — Neon Circuit",
+      "status": "Отклонено",
+      "candidate": "Ирина Смирнова"
+    },
+    {
+      "id": "7db8",
+      "name": "дашка",
+      "email": "dariaedigareva@gmail.com",
+      "vacancy": "Data Product Manager",
+      "message": "дтмдымдты",
+      "status": "Интервью назначено"
+    },
+    {
+      "id": "a2af",
+      "name": "дашка",
+      "email": "dariaedigareva@gmail.com",
+      "vacancy": "Data Product Manager",
+      "message": "отклик 2",
+      "status": "Отклонено"
+    },
+    {
+      "id": "7c44",
+      "name": "дашка",
+      "email": "dariaedigareva@gmail.com",
+      "vacancy": "Data Product Manager",
+      "message": "оимлыиод"
+    },
+    {
+      "id": "ef57",
+      "name": "дашка",
+      "email": "dariaedigareva@gmail.com",
+      "vacancy": "Data Product Manager",
+      "message": "цаоицлиа"
+    }
+  ],
+  "employerVacancies": [
+    {
+      "id": "1764603798329",
+      "title": "название",
+      "industry": "it",
+      "salaryFrom": 1000000,
+      "level": "middle",
+      "status": "в работе",
+      "company": "Моя компания"
+    },
+    {
+      "id": "1764603820745",
+      "title": "название2",
+      "industry": "it",
+      "salaryFrom": 200000,
+      "level": "middle",
+      "status": "в работе",
+      "company": "Моя компания"
+    },
+    {
+      "id": "1764611940880",
+      "title": "название3",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 300000,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
+    }
+  ],
+  "resumes": [
+    {
+      "title": "Backend-разработчик",
+      "city": "СПб",
+      "experienceYears": 2,
+      "summary": "...!!",
+      "skills": [
+        "FastAPI",
+        "OOP",
+        "REST API"
+      ],
+      "id": "301"
+    },
+    {
+      "id": "ddce",
+      "title": "Frontend-разработчик",
+      "city": "СПб",
+      "experienceYears": 1,
+      "summary": "ляляля",
+      "skills": [
+        "React"
+      ]
+    },
+    {
+      "id": "87c2",
+      "title": "product-manager",
+      "city": "спб",
+      "experienceYears": 1,
+      "summary": "ляляля",
+      "skills": [
+        "scram"
+      ]
+    }
+  ],
+  "auth": [],
+  "users": [
+    {
+      "id": "1",
+      "email": "demo@career.local",
+      "name": "Demo User"
+    },
+    {
+      "id": "1764605431231",
+      "email": "dariaedigareva@gmail.com",
+      "name": "д"
+    },
+    {
+      "id": "1764605446170",
+      "email": "dariaedva@gmail.com",
+      "name": "д"
+    },
+    {
+      "id": "1764606230685",
+      "email": "dari@gmail.com",
+      "name": "анна"
+    },
+    {
+      "id": "1764606415668",
+      "email": "edigareva@gmail.com",
+      "name": "маша"
+    },
+    {
+      "email": "aedig@gmail.com",
+      "password": "$2a$10$pErlCkmFls2AxinniwjsTOmUWt2II3avMeHWrs59k7tVydzhCdROO",
+      "fullName": "леша л",
+      "username": "aedig",
+      "role": "job_seeker",
+      "id": "TG6JCiT"
+    }
+  ]
+}
