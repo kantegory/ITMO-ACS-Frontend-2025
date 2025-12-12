@@ -1,0 +1,244 @@
+{
+  "users": [
+    {
+      "email": "demo@jobbridge.dev",
+      "password": "$2a$10$YUqF5kLaSlma7IcFNrcKhu9Yy4s3S3tw02T28JsUzbiZk37myZIfK",
+      "fullName": "Дарья Demo",
+      "id": 1
+    },
+    {
+      "email": "employer@jobbridge.dev",
+      "password": "$2a$10$YUqF5kLaSlma7IcFNrcKhu9Yy4s3S3tw02T28JsUzbiZk37myZIfK",
+      "fullName": "Работодатель Demo",
+      "id": 2
+    },
+    {
+      "email": "daria@gmail.com",
+      "password": "$2a$10$1qJRcItgmhFjxGlZGwiqSerQYEYPLt.bvKLU4O.SBGkgWpPtEaefu",
+      "fullName": "дарья",
+      "id": 3
+    },
+    {
+      "email": "test@mail.ru",
+      "password": "$2a$10$bZOAHvHqAMsBGwKXRtF9NeHhfTTs0qdNhEcjIz/SaPh9PbNJrtyvO",
+      "fullName": "тест",
+      "id": 4
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "DataPulse",
+      "location": "Москва"
+    },
+    {
+      "id": 2,
+      "name": "NovaTech",
+      "location": "Санкт-Петербург"
+    },
+    {
+      "id": 3,
+      "name": "Cloudy",
+      "location": "Удалённо"
+    },
+    {
+      "id": 4,
+      "name": "Metric Labs",
+      "location": "Москва"
+    },
+    {
+      "id": 5,
+      "name": "Shiftly",
+      "location": "Казань"
+    },
+    {
+      "id": 6,
+      "name": "FinRise",
+      "location": "Екатеринбург"
+    },
+    {
+      "id": 7,
+      "name": "JobBridge",
+      "location": "Новосибирск"
+    }
+  ],
+  "vacancies": [
+    {
+      "id": 1,
+      "title": "Senior React разработчик для аналитической платформы",
+      "companyId": 1,
+      "industry": "technology",
+      "salaryMin": 180000,
+      "salaryMax": 240000,
+      "experienceRequired": 4,
+      "format": "hybrid",
+      "location": "Москва",
+      "description": "Строим новый дашборд для продуктовой аналитики. Работа с микрофронтендами, дизайн-системой и графиками.",
+      "requirements": [
+        "React 18, TypeScript",
+        "Опыт построения дизайн-системы",
+        "CI/CD, code review и метрики качества"
+      ],
+      "tags": [
+        "React",
+        "TypeScript",
+        "Microfrontends"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Frontend стажёр / junior",
+      "companyId": 2,
+      "industry": "technology",
+      "salaryMin": 60000,
+      "salaryMax": 90000,
+      "experienceRequired": 0,
+      "format": "office",
+      "location": "Санкт-Петербург",
+      "description": "Поможем прокачаться в верстке и JS. Ставим задачи с наставником и ревью.",
+      "requirements": [
+        "HTML, CSS, базовый JS",
+        "Понимание Git",
+        "Желание учиться и задавать вопросы"
+      ],
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Data engineer (ETL/DWH)",
+      "companyId": 4,
+      "industry": "finance",
+      "salaryMin": 190000,
+      "salaryMax": 250000,
+      "experienceRequired": 4,
+      "format": "hybrid",
+      "location": "Москва",
+      "description": "Поднимаем пайплайны, наводим порядок в данных, строим витрины. Много общения с аналитиками.",
+      "requirements": [
+        "SQL, Python, Airflow",
+        "Kafka или очереди",
+        "Опыт работы с облаками"
+      ],
+      "tags": [
+        "Data",
+        "Python",
+        "Airflow"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "QA Automation инженер",
+      "companyId": 5,
+      "industry": "technology",
+      "salaryMin": 150000,
+      "salaryMax": 190000,
+      "experienceRequired": 2,
+      "format": "remote",
+      "location": "Казань / удалённо",
+      "description": "Покрываем сервисы автотестами. Много регрессов, помогаем разработке улучшить DX.",
+      "requirements": [
+        "JS/TS или Python",
+        "Playwright/Selenium",
+        "Разбор логов и мониторинга"
+      ],
+      "tags": [
+        "QA",
+        "Automation",
+        "Playwright"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Product manager",
+      "companyId": 6,
+      "industry": "finance",
+      "salaryMin": 170000,
+      "salaryMax": 230000,
+      "experienceRequired": 4,
+      "format": "hybrid",
+      "location": "Екатеринбург",
+      "description": "Работаем над финтех-продуктом. Выстраиваем гипотезы, CJM, следим за метриками.",
+      "requirements": [
+        "JTBD, CustDev, CJM",
+        "Работа с аналитикой",
+        "Навыки презентации"
+      ],
+      "tags": [
+        "Product",
+        "Analytics"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Backend Node.js разработчик",
+      "companyId": 7,
+      "industry": "technology",
+      "salaryMin": 160000,
+      "salaryMax": 210000,
+      "experienceRequired": 2,
+      "format": "office",
+      "location": "Новосибирск",
+      "description": "API для поисковой платформы: аутентификация, профили, вакансии. Работаем с микросервисами.",
+      "requirements": [
+        "Node.js, TypeScript",
+        "PostgreSQL, Redis",
+        "Unit-тесты и CI"
+      ],
+      "tags": [
+        "Node.js",
+        "PostgreSQL",
+        "TypeScript"
+      ]
+    },
+    {
+      "title": "дизайнер",
+      "description": "лялля",
+      "requirements": "ляляля",
+      "salaryMin": 100000,
+      "salaryMax": 160000,
+      "industry": "technology",
+      "format": "office",
+      "location": "Удалённо",
+      "companyId": 3,
+      "id": 8
+    }
+  ],
+  "employers": [
+    {
+      "id": 1,
+      "userId": 2,
+      "companyId": 1,
+      "phone": "+7 999 123-45-67"
+    },
+    {
+      "userId": 4,
+      "companyId": 3,
+      "phone": "6398126498172",
+      "id": 2
+    }
+  ],
+  "profiles": [
+    {
+      "id": 1,
+      "userId": 1,
+      "fullName": "Дарья, Backend разработчик",
+      "position": "Backend разработчик",
+      "city": "СПб / удалённо",
+      "about": "Люблю быстрые и чистые API. Умею строить архитектуру и документацию.",
+      "skills": "FastAPI, OOP, REST API"
+    },
+    {
+      "userId": 4,
+      "fullName": "Backend разработчик",
+      "position": "Backend разработчик",
+      "city": "Москва / удалённо",
+      "about": "Люблю чистый код, архитектуру и ляляляля!",
+      "skills": "FastAPI, REST API, OOP",
+      "id": 2
+    }
+  ]
+}
