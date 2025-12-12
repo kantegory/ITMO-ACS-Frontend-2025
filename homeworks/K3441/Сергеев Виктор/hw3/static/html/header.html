@@ -1,0 +1,43 @@
+<header class="bg-white border-bottom"
+    role="banner" aria-label="Шапка сайта">
+    <nav class="navbar navbar-expand-lg navbar-light container" role="navigation" aria-label="Главная навигация">
+        <a class="navbar-brand" href="index.html">RecipeApp</a>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="index.html"
+                    aria-label="Переход на главную страницу">
+                    Главная
+                </a></li>
+                <li class="nav-item"><a class="nav-link" href="search.html"
+                    aria-label="Переход на страницу поиска">
+                    Поиск
+                </a></li>
+                <li class="nav-item"><a class="nav-link" href="recipe_create.html"
+                    aria-label="Переход на страницу создания рецепта">
+                    Создать рецепт
+                </a></li>
+            </ul>
+            <div class="d-flex gap-2 align-items-center">
+                <button id="themeToggle" class="btn btn-outline-secondary btn-sm" aria-label="Сменить тему сайта">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <a id="navLoginLink" class="btn btn-outline-primary btn-sm" href="login.html"
+                    aria-label="Переход на страницу входа в аккаунт">
+                    Войти
+                </a>
+                <a id="navRegisterLink" class="btn btn-primary btn-sm" href="register.html"
+                    aria-label="Переход на страницу регистрации нового аккаунта">
+                    Регистрация
+                </a>
+                <a id="navProfileLink" class="btn btn-outline-secondary btn-sm d-none" href="user.html?mode=me"
+                    aria-label="Переход на страницу личного профиля">
+                    Мой профиль
+                </a>
+                <button id="navLogoutButton" class="btn btn-outline-danger btn-sm d-none"
+                    aria-label="Выйти из аккаунта">
+                    Выйти
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
