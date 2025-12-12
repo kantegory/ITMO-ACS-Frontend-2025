@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Создание рецепта</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<a id="skip-to-main" href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+<div id="header-placeholder" role="banner"></div>
+
+<main id="main-content" class="container py-4" role="main">
+    <div id="recipeFormAlert" class="alert inline-alert"
+        role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+    <section class="page-header" aria-labelledby="pageTitle">
+        <h1 id="pageTitle">Создать рецепт</h1>
+        <p class="text-muted mb-0">Заполните форму.</p>
+    </section>
+
+    <form id="recipeForm" class="form-section" role="form"
+        aria-describedby="recipeFormHelp" aria-labelledby="pageTitle">
+        <p id="recipeFormHelp" class="visually-hidden">Форма создания рецепта</p>
+        
+        <section class="card shadow-sm mb-4" aria-labelledby="infoHeading">
+            <div class="card-body">
+                <h2 id="infoHeading" class="h5 mb-3">Основная информация</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="titleInput" class="form-label">Название*</label>
+                        <input id="titleInput" class="form-control" type="text" required
+                            aria-required="true" aria-label="Название">
+                    </div>
+                    <div class="col-md-3" aria-hidden="true"></div>
+                    <div class="col-md-3">
+                        <label for="difficultyInput" class="form-label">Сложность*</label>
+                        <input id="difficultyInput" class="form-control" type="number" min="1" max="5" required
+                             aria-required="true" aria-label="Сложность"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="descriptionInput" class="form-label">Описание</label>
+                        <textarea id="descriptionInput" class="form-control" rows="3"
+                            aria-label="Описание рецепта"></textarea>
+                    </div>
+                    <div class="col-md-3" aria-hidden="true"></div>
+                    <div class="col-md-3">
+                        <label for="cookTimeInput" class="form-label">Готовка (мин)*</label>
+                        <input id="cookTimeInput" class="form-control" type="number" min="1" required
+                            aria-required="true" aria-label="Время готовки">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card shadow-sm mb-4" aria-labelledby="mediaHeading">
+            <div class="card-body">
+                <h2 id="mediaHeading" class="h5 mb-3">Медиа</h2>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="imageInput" class="form-label">Ссылка на фото</label>
+                        <input id="imageInput" class="form-control" type="url" placeholder="https://..."
+                            aria-label="Ссылка на фотографию рецепта">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="videoInput" class="form-label">Ссылка на видео</label>
+                        <input id="videoInput" class="form-control" type="url" placeholder="https://..."
+                            aria-label="Ссылка на видео рецепта">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card shadow-sm mb-4" aria-labelledby="ingredientsHeading">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 id="ingredientsHeading" class="h5 mb-0">Ингредиенты</h2>
+                    <button type="button" id="addIngredientButton" class="btn btn-sm btn-outline-primary"
+                        aria-label="Добавить ингредиент">
+                        Добавить
+                    </button>
+                </div>
+                <div id="ingredientsRows" role="list" aria-live="polite" aria-label="Список ингредиентов"></div>
+            </div>
+        </section>
+
+        <section class="card shadow-sm mb-4" aria-labelledby="tagsHeading">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 id="tagsHeading" class="h5 mb-0">Теги</h2>
+                    <button type="button" id="addTagButton" class="btn btn-sm btn-outline-primary"
+                        aria-label="Добавить тег">
+                        Добавить
+                    </button>
+                </div>
+                <div id="tagsRows" role="list" aria-live="polite" aria-label="Список тегов"></div>
+            </div>
+        </section>
+
+        <section class="card shadow-sm mb-4" aria-labelledby="stepsHeading">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 id="stepsHeading" class="h5 mb-0">Шаги приготовления</h2>
+                    <button type="button" id="addStepButton" class="btn btn-sm btn-outline-primary"
+                        aria-label="Добавить шаг приготовления">
+                        Добавить
+                    </button>
+                </div>
+                <div id="stepsRows" role="list" aria-live="polite" aria-label="Список шагов приготовления"></div>
+            </div>
+        </section>
+
+        <div class="text-end">
+            <button id="recipeSubmitButton" class="btn btn-primary btn-lg" type="submit"
+                aria-label="Создать рецепт">
+                Создать рецепт
+            </button>
+        </div>
+    </form>
+</main>
+
+<div id="footer-placeholder" role="contentinfo"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/session.js"></script>
+<script src="/static/js/ui.js"></script>
+<script src="/static/js/recipe-form.js"></script>
+<script src="/static/js/components.js"></script>
+</body>
+</html>
