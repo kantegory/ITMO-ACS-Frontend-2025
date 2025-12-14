@@ -7,7 +7,10 @@ function setTheme(theme) {
 function updateIcon(theme) {
     const icons = document.querySelectorAll('[id^="theme-icon"]');
     icons.forEach(icon => {
-        icon.className = theme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars';
+        const useElement = icon.querySelector('use');
+        if (useElement) {
+            useElement.setAttribute('xlink:href', theme === 'dark' ? '#sun-fill' : '#moon-stars');
+        }
     });
 }
 
