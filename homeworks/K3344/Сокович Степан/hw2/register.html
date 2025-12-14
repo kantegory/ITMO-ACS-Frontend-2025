@@ -8,41 +8,43 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body class="d-flex align-items-center min-vh-100">
+<a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
-<main class="container">
+<main id="main-content" class="container" role="main">
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card p-4">
-                <h3 class="card-title mb-3">Регистрация</h3>
-                <form id="registerForm" novalidate>
+                <h1 class="card-title mb-3">Регистрация</h1>
+                <form id="registerForm" novalidate aria-label="Форма регистрации">
                     <div class="mb-3">
                         <label for="regEmail" class="form-label">Email</label>
-                        <input id="regEmail" type="email" class="form-control" required>
-                        <div class="invalid-feedback">Введите корректный email</div>
+                        <input id="regEmail" type="email" class="form-control" required aria-required="true" aria-describedby="regEmailError" autocomplete="email">
+                        <div class="invalid-feedback" id="regEmailError" role="alert">Введите корректный email</div>
                     </div>
                     <div class="mb-3">
                         <label for="regPassword" class="form-label">Пароль</label>
-                        <input id="regPassword" type="password" class="form-control" required minlength="6">
-                        <div class="invalid-feedback">Пароль минимум 6 символов</div>
+                        <input id="regPassword" type="password" class="form-control" required minlength="6" aria-required="true" aria-describedby="regPasswordError" autocomplete="new-password">
+                        <div class="invalid-feedback" id="regPasswordError" role="alert">Пароль минимум 6 символов</div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-primary w-100" aria-label="Зарегистрироваться">Зарегистрироваться</button>
                     <div class="text-center mt-3">
-                        <a href="login.html">Вход</a>
+                        <a href="login.html" aria-label="Перейти на страницу входа">Вход</a>
                     </div>
+                    <div id="errorMessage" role="alert" aria-live="assertive"></div>
                 </form>
             </div>
         </div>
     </div>
 </main>
 
-<div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel" aria-describedby="registerSuccessModalBody" aria-hidden="true" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="registerSuccessModalLabel">Успешная регистрация</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                <h2 class="modal-title" id="registerSuccessModalLabel">Успешная регистрация</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть модальное окно"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="registerSuccessModalBody">
                 Вы успешно зарегистрированы. Сейчас вы будете перенаправлены в личный кабинет.
             </div>
         </div>
@@ -69,7 +71,8 @@
 
         const errorDiv = document.getElementById('errorMessage');
         if (errorDiv) {
-            errorDiv.remove();
+            errorDiv.textContent = '';
+            errorDiv.className = '';
         }
 
         try {
@@ -82,11 +85,9 @@
                 window.location = 'profile.html';
             }, 2000);
         } catch (error) {
-            const errorDiv = document.createElement('div');
-            errorDiv.id = 'errorMessage';
+            const errorDiv = document.getElementById('errorMessage');
             errorDiv.className = 'alert alert-danger mt-3';
             errorDiv.textContent = error.message || 'Ошибка регистрации. Попробуйте еще раз.';
-            form.appendChild(errorDiv);
         }
     });
 </script>
