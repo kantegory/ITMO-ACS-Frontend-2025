@@ -1,49 +1,93 @@
-/* базовый фон страницы */
+/* СВЕТЛАЯ ТЕМА */
+:root {
+    --bg-color: #f1f3f5;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --navbar-bg: #212529;
+    --navbar-text: #ffffff;
+
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+
+    --input-bg: #ffffff;
+    --input-text: #212529;
+    --border-color: #ced4da;
+}
+
+/* ТЁМНАЯ ТЕМА */
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e9ecef;
+    --card-bg: #1e1e1e;
+    --navbar-bg: #000000;
+    --navbar-text: #ffffff;
+
+    --primary-color: #4dabf7;
+    --secondary-color: #adb5bd;
+
+    --input-bg: #1e1e1e;
+    --input-text: #e9ecef;
+    --border-color: #495057;
+}
+
+/* ОБЩИЕ СТИЛИ */
 body {
-    background-color: #f1f3f5; /* чуть темнее, чем было */
-    color: #212529; /* стандартный тёмный текст bootstrap */
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
-/* Карточки */
+.navbar {
+    background-color: var(--navbar-bg) !important;
+}
+
+.navbar-brand,
+.nav-link {
+    color: var(--navbar-text) !important;
+}
+
 .card {
-    background-color: #ffffff;
-    color: #212529;
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
 
-/* заголовки чуть контрастнее */
+.card-text {
+    color: var(--text-color);
+}
+
 h1, h2, h3, h4, h5, h6 {
-    color: #111;
+    color: var(--text-color);
 }
 
-/* текст внутри карточек */
-.card-text,
-.card p {
-    color: #212529;
+/* формы */
+.form-control,
+.form-select {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--border-color);
 }
 
-/* placeholder должен быть читаемым */
 .form-control::placeholder {
-    color: #6c757d;
+    color: var(--secondary-color);
     opacity: 1;
 }
 
-/* select */
-.form-select {
-    color: #212529;
+/* кнопки */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-/* кнопка выхода (outline) - слабое место по контрасту */
 .btn-outline-secondary {
-    color: #212529;
-    border-color: #6c757d;
+    color: var(--text-color);
+    border-color: var(--secondary-color);
 }
 
 .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: #ffffff;
+    background-color: var(--secondary-color);
+    color: #fff;
 }
 
-/* изображения карточек */
+/* картинки */
 .card img {
     height: 200px;
     object-fit: cover;
