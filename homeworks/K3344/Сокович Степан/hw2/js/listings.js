@@ -43,21 +43,30 @@ function createListingCard(listing) {
     col.setAttribute('data-price', listing.price);
     col.setAttribute('data-location', listing.location);
     col.setAttribute('data-id', listing.id);
+    col.setAttribute('role', 'listitem');
+
+    const imageAlt = listing.title || `Изображение недвижимости: ${listing.type}`;
+    const priceText = `${listing.price.toLocaleString('ru-RU')} ₽ / мес`;
+    const locationText = `Район: ${listing.location}`;
 
     col.innerHTML = `
-        <div class="card h-100">
-            <img src="${listing.image}" class="card-img-top" alt="${listing.title}">
+        <article class="card h-100">
+            <img src="${listing.image}" class="card-img-top" alt="${imageAlt}" loading="lazy">
             <div class="card-body">
-                <h5 class="card-title">${listing.title}</h5>
-                <p class="card-text">Цена: ${listing.price.toLocaleString('ru-RU')} ₽ / мес · Район: ${listing.location}</p>
+                <h3 class="card-title h5">${listing.title}</h3>
+                <p class="card-text">
+                    <span aria-label="Цена аренды">${priceText}</span> · 
+                    <span aria-label="Расположение">${locationText}</span>
+                </p>
                 <button class="btn btn-outline-primary btn-details"
                         data-id="${listing.id}"
                         data-title="${listing.title}"
-                        data-info="${listing.description}">
+                        data-info="${listing.description}"
+                        aria-label="Подробнее об объявлении: ${listing.title}">
                     Подробнее
                 </button>
             </div>
-        </div>
+        </article>
     `;
 
     return col;

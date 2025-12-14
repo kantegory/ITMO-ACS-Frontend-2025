@@ -9,37 +9,40 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-<header class="bg-light">
-    <nav class="navbar navbar-expand-lg w-100 px-3">
-        <a class="navbar-brand" href="index.html">RentalSite</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-            <span class="navbar-toggler-icon"></span>
+<a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+<header class="bg-light" role="banner">
+    <nav class="navbar navbar-expand-lg w-100 px-3" role="navigation" aria-label="Основная навигация">
+        <a class="navbar-brand" href="index.html" aria-label="RentalSite - главная страница">RentalSite</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon" aria-hidden="true"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMain">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item" id="loginNav"><a class="nav-link" href="login.html">Вход</a></li>
-                <li class="nav-item" id="registerNav"><a class="btn btn-primary ms-2" href="register.html">Регистрация</a></li>
+            <ul class="navbar-nav ms-auto" role="menubar">
+                <li class="nav-item" id="loginNav" role="none"><a class="nav-link" href="login.html" role="menuitem">Вход</a></li>
+                <li class="nav-item" id="registerNav" role="none"><a class="btn btn-primary ms-2" href="register.html" role="menuitem">Регистрация</a></li>
 
-                <li class="nav-item" id="profileNav" style="display:none;">
-                    <a class="nav-link" href="profile.html">Профиль</a>
+                <li class="nav-item" id="profileNav" style="display:none;" role="none">
+                    <a class="nav-link" href="profile.html" role="menuitem">Профиль</a>
                 </li>
-                <li class="nav-item" id="logoutNav" style="display:none;">
-                    <a class="nav-link text-danger" href="#" id="logoutBtn">Выход</a>
+                <li class="nav-item" id="logoutNav" style="display:none;" role="none">
+                    <a class="nav-link text-danger" href="#" id="logoutBtn" role="menuitem" aria-label="Выйти из системы">Выход</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
 
-<main class="container my-4">
+<main id="main-content" class="container my-4" role="main">
+    <h1 class="visually-hidden">Поиск недвижимости для аренды</h1>
     <div class="row g-4">
-        <aside class="col-lg-3">
+        <aside class="col-lg-3" role="complementary" aria-label="Фильтры поиска">
             <div class="card p-3">
-                <h5>Фильтры</h5>
-                <form id="filterForm">
+                <h2>Фильтры</h2>
+                <form id="filterForm" role="search" aria-label="Фильтры поиска недвижимости">
                     <div class="mb-2">
-                        <label class="form-label">Тип</label>
-                        <select id="typeFilter" class="form-select">
+                        <label for="typeFilter" class="form-label">Тип недвижимости</label>
+                        <select id="typeFilter" class="form-select" aria-label="Выберите тип недвижимости">
                             <option value="any">Любой</option>
                             <option value="apartment">Квартира</option>
                             <option value="house">Дом</option>
@@ -47,46 +50,46 @@
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label class="form-label">Макс. цена, ₽</label>
-                        <input id="priceFilter" type="number" class="form-control" placeholder="Например 50000">
+                        <label for="priceFilter" class="form-label">Максимальная цена, ₽</label>
+                        <input id="priceFilter" type="number" class="form-control" placeholder="Например 50000" aria-label="Максимальная цена в рублях" min="0">
                     </div>
                     <div class="mb-2">
-                        <label class="form-label">Район</label>
-                        <input id="locationFilter" class="form-control" placeholder="Поиск по городу/району">
+                        <label for="locationFilter" class="form-label">Район</label>
+                        <input id="locationFilter" type="text" class="form-control" placeholder="Поиск по городу/району" aria-label="Поиск по району или городу">
                     </div>
-                    <button type="button" id="applyFilters" class="btn btn-primary w-100 mt-2">Применить</button>
-                    <button type="button" id="clearFilters" class="btn btn-outline-secondary w-100 mt-2">Сбросить</button>
+                    <button type="button" id="applyFilters" class="btn btn-primary w-100 mt-2" aria-label="Применить фильтры поиска">Применить</button>
+                    <button type="button" id="clearFilters" class="btn btn-outline-secondary w-100 mt-2" aria-label="Сбросить все фильтры">Сбросить</button>
                 </form>
             </div>
         </aside>
 
-        <section class="col-lg-9">
+        <section class="col-lg-9" aria-label="Результаты поиска">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="mb-0">Результаты поиска</h4>
-                <small id="resultsCount">Загрузка...</small>
+                <h2 class="mb-0">Результаты поиска</h2>
+                <div id="resultsCount" role="status" aria-live="polite" aria-atomic="true">Загрузка...</div>
             </div>
 
-            <div id="listings" class="row g-3">
+            <div id="listings" class="row g-3" role="list" aria-label="Список объявлений о недвижимости">
             </div>
         </section>
     </div>
 </main>
 
-<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-describedby="detailsModalBody" aria-hidden="true" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailsModalLabel">Название</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                <h3 class="modal-title" id="detailsModalLabel">Название</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть модальное окно"></button>
             </div>
-            <div class="modal-body" id="detailsModalBody">
+            <div class="modal-body" id="detailsModalBody" role="document">
                 Информация
             </div>
         </div>
     </div>
 </div>
 
-<footer class="bg-light py-3 mt-4">
+<footer class="bg-light py-3 mt-4" role="contentinfo">
     <div class="container text-center small">© RentalSite</div>
 </footer>
 

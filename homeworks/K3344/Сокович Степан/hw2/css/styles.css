@@ -4,6 +4,36 @@ body {
     color: #333;
 }
 
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.visually-hidden-focusable:focus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: #fff;
+    border: 2px solid #000;
+    text-decoration: none;
+    color: #000;
+}
+
 .navbar {
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
