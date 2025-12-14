@@ -201,6 +201,21 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
 }
 
+[data-theme="dark"] .card-text span,
+[data-theme="dark"] .card-text {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] strong {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .modal-body p,
+[data-theme="dark"] .modal-body strong {
+    color: var(--text-primary);
+}
+
 [data-theme="dark"] .invalid-feedback {
     color: #ff6b6b;
 }
