@@ -1,66 +1,109 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --card-bg: #ffffff;
+  --card-text-muted: #6c757d;
+
+  --nav-bg: #f8f9fa;
+  --nav-text: #111111;
+
+  --btn-primary-bg: #0d6efd;
+  --btn-primary-color: #ffffff;
+  --btn-primary-border: #0d6efd;
+
+  --btn-outline-bg: #ffffff;
+  --btn-outline-color: #0d6efd;
+  --btn-outline-border: #0d6efd;
+
+  --link-color: #0d6efd;
+  --link-hover: #0b5ed7;
+}
+
+/* --- Тёмная тема --- */
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --card-text-muted: #b0b0b0;
+
+  --nav-bg: #1a1a1a;
+  --nav-text: #e0e0e0;
+
+  --btn-primary-bg: #bb86fc;
+  --btn-primary-color: #121212;
+  --btn-primary-border: #bb86fc;
+
+  --btn-outline-bg: #121212;
+  --btn-outline-color: #bb86fc;
+  --btn-outline-border: #bb86fc;
+
+  --link-color: #bb86fc;
+  --link-hover: #ffffff;
+}
+
 /* --- Основной текст --- */
 body {
-  color: #111;           /* тёмно-серый для хорошего контраста */
-  background-color: #fff; /* белый фон */
+  color: var(--text-color);
+  background-color: var(--bg-color);
   font-family: Arial, sans-serif;
 }
 
 /* --- Навигация --- */
 nav.navbar.navbar-light.bg-light {
-  background-color: #f8f9fa; /* светлый фон */
-  color: #111;               /* тёмный текст для контраста */
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
 }
 
 /* --- Кнопки в навигации --- */
 a.btn.btn-outline-primary.me-2 {
-  color: #0d6efd;            /* тёмно-синий текст */
-  background-color: #fff;     /* белый фон */
-  border-color: #0d6efd;     /* граница совпадает с текстом */
+  color: var(--btn-outline-color);
+  background-color: var(--btn-outline-bg);
+  border-color: var(--btn-outline-border);
 }
 
 a.btn.btn-outline-primary.me-2:hover {
-  color: #fff;                /* белый текст при hover */
-  background-color: #0d6efd;  /* синий фон при hover */
-  border-color: #0b5ed7;      /* немного тёмнее при hover */
+  color: var(--btn-outline-bg);
+  background-color: var(--btn-outline-color);
+  border-color: var(--btn-outline-border);
 }
 
 /* --- Кнопки обычные --- */
 .btn-primary {
-  background-color: #0d6efd;  /* синий фон */
-  color: #fff;                 /* белый текст */
-  border-color: #0d6efd;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border-color: var(--btn-primary-border);
 }
 
 .btn-primary:hover {
-  background-color: #0b5ed7;  /* чуть тёмнее при hover */
-  border-color: #0a58ca;
-  color: #fff;
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-border);
+  color: var(--btn-primary-color);
 }
 
 /* --- Заголовки и текст --- */
 h1, h2, h3, h4, h5, h6 {
-  color: #111; /* тёмные заголовки */
+  color: var(--text-color);
 }
 
 .card-title {
-  color: #111;
+  color: var(--text-color);
 }
 
 .card-text {
-  color: #333;
+  color: var(--card-text-muted);
 }
 
 /* --- Метки форм --- */
 .form-label {
-  color: #111;
+  color: var(--text-color);
 }
 
 /* --- Ссылки --- */
 a {
-  color: #0d6efd;
+  color: var(--link-color);
 }
 
 a:hover {
-  color: #0b5ed7;
+  color: var(--link-hover);
   text-decoration: underline;
 }
