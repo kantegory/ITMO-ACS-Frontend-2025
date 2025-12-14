@@ -5,6 +5,7 @@
     --bg-header: #212529;
     --text-primary: #212529;
     --text-secondary: #6c757d;
+    --text-header: #ffffff;
     --border-color: #dee2e6;
     --card-bg: #ffffff;
     --modal-bg: #ffffff;
@@ -19,6 +20,7 @@
     --bg-header: #0d1117;
     --text-primary: #e1e4e8;
     --text-secondary: #8b949e;
+    --text-header: #ffffff;
     --border-color: #30363d;
     --card-bg: #2d2d2d;
     --modal-bg: #2d2d2d;
@@ -59,11 +61,37 @@ body {
 
 header {
     background-color: var(--bg-header) !important;
-    transition: background-color 0.3s ease;
+    color: var(--text-header) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header h1 {
     margin: 0;
+    color: var(--text-header) !important;
+}
+
+header * {
+    color: var(--text-header) !important;
+}
+
+header .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: var(--text-header) !important;
+}
+
+header .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+    color: var(--text-header) !important;
+}
+
+header .btn-secondary {
+    color: var(--text-header) !important;
+}
+
+header .theme-toggle {
+    color: var(--text-header) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .theme-toggle {
