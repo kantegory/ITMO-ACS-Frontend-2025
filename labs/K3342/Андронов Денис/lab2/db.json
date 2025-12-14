@@ -49,6 +49,12 @@
       "name": "test",
       "email": "test@inbox.ru",
       "password": "123"
+    },
+    {
+      "id": "9141",
+      "name": "Денис",
+      "email": "test1@mail.ru",
+      "password": "123"
     }
   ],
   "bookings": [
@@ -59,6 +65,22 @@
       "date": "2025-11-12",
       "time": "19:00",
       "guests": 2
+    },
+    {
+      "id": "8ab3",
+      "userId": "9141",
+      "restaurantId": 1,
+      "date": "2025-12-15",
+      "time": "12:00",
+      "guests": "1"
+    },
+    {
+      "id": "4749",
+      "userId": "9141",
+      "restaurantId": 2,
+      "date": "2027-12-15",
+      "time": "12:00",
+      "guests": "1"
     }
   ]
 }
