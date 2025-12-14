@@ -25,7 +25,7 @@ if (loginForm) {
             }
 
             // сохраняем пользователя в localStorage
-            localStorage.setItem('user', JSON.stringify(users[0]));
+            localStorage.setItem('restorator_user', JSON.stringify(users[0]));
 
             // перенаправляем в профиль
             window.location.href = 'profile.html';
