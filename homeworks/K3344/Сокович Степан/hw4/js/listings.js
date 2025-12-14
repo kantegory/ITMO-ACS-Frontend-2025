@@ -63,7 +63,7 @@ function createListingCard(listing) {
                         data-title="${listing.title}"
                         data-info="${listing.description}"
                         aria-label="Подробнее об объявлении: ${listing.title}">
-                    Подробнее
+                    <svg class="icon icon-eye" aria-hidden="true"><use href="#icon-eye"></use></svg> Подробнее
                 </button>
             </div>
         </article>
