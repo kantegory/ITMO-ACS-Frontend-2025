@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>История бронирований — RestaurantBooking</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-light bg-white shadow-sm" role="navigation">
+<nav class="navbar navbar-light" role="navigation">
   <div class="container">
-    <a class="navbar-brand" href="index.html">RestaurantBooking</a>
-    <button id="themeToggle" class="btn btn-secondary">Тёмная тема</button>
-    <a class="btn btn-outline-primary" href="account.html">Личный кабинет</a>
+    <a class="navbar-brand themed-btn" href="index.html">RestaurantBooking</a>
+    <button id="themeToggle" class="btn btn-secondary themed-btn">Тёмная тема</button>
+    <a class="btn btn-outline-primary themed-btn" href="account.html">Личный кабинет</a>
   </div>
 </nav>
 
@@ -27,6 +27,29 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // ---------------- Темная/светлая тема ----------------
+  const toggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
+
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-theme');
+    if (toggleBtn) toggleBtn.textContent = 'Светлая тема';
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      if (body.classList.contains('dark-theme')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = 'Светлая тема';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = 'Тёмная тема';
+      }
+    });
+  }
+
+  // ---------------- Загружаем историю ----------------
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (!currentUser) {
     window.location.href = 'login.html';
@@ -43,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   userBookings.forEach(b => {
     const item = document.createElement('div');
-    item.className = "list-group-item";
+    item.className = "list-group-item themed-btn";
     item.setAttribute('role', 'listitem');
     item.innerHTML = `
       <h5>${b.name}</h5>

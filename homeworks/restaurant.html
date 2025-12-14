@@ -5,21 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ресторан — RestaurantBooking</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-light bg-white shadow-sm" role="navigation">
+<nav class="navbar navbar-light" aria-label="Основная навигация">
   <div class="container">
-    <a class="navbar-brand" href="index.html">RestaurantBooking</a>
-    <button id="themeToggle" class="btn btn-secondary">Тёмная тема</button>
+    <a class="navbar-brand themed-btn" href="index.html">RestaurantBooking</a>
+    <button id="themeToggle" class="btn btn-secondary themed-btn">Тёмная тема</button>
   </div>
 </nav>
 
 <main class="container mt-4" id="restaurantContainer" role="main" aria-live="polite">
-  <!-- JS заполнит страницу -->
+  <!-- JS заполнит страницу ресторана -->
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/restaurant.js"></script>
+
+<!-- Темная/светлая тема -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // Применяем сохранённую тему
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-theme');
+    if (toggleBtn) toggleBtn.textContent = 'Светлая тема';
+  }
+
+  // Переключение темы
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      if (body.classList.contains('dark-theme')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = 'Светлая тема';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = 'Тёмная тема';
+      }
+    });
+  }
+});
+</script>
+
 </body>
 </html>

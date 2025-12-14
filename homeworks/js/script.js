@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookingModal = new bootstrap.Modal(bookingModalEl);
   const bookingTitle = document.getElementById('bookingTitle');
   const bookingForm = document.getElementById('bookingForm');
+  const toggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
 
   let currentRestaurants = [];
 
@@ -16,45 +18,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   function render(arr) {
-  list.innerHTML = '';
-  arr.forEach(r => {
-    const col = document.createElement('div');
-    col.className = 'col';
-    col.innerHTML = `
-      <div class="card h-100">
-        <img src="${r.img}" class="card-img-top" alt="${r.name}">
-        <div class="card-body">
-          <h3 class="card-title">${r.name}</h3> <!-- заменили h5 на h3 -->
-          <p class="card-text text-muted">${r.cuisine} · ${r.location} · ${'₽'.repeat(r.price)}</p>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-more" data-id="${r.id}">Подробнее</button>
-            <button class="btn btn-primary btn-book" data-id="${r.id}" data-name="${r.name}">Забронировать</button>
+    list.innerHTML = '';
+    arr.forEach(r => {
+      const col = document.createElement('div');
+      col.className = 'col';
+      col.innerHTML = `
+        <div class="card h-100">
+          <img src="${r.img}" class="card-img-top" alt="${r.name}">
+          <div class="card-body">
+            <h3 class="card-title">${r.name}</h3>
+            <p class="card-text text-muted">${r.cuisine} · ${r.location} · ${'₽'.repeat(r.price)}</p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary btn-more" data-id="${r.id}">Подробнее</button>
+              <button class="btn btn-primary btn-book" data-id="${r.id}" data-name="${r.name}">Забронировать</button>
+            </div>
           </div>
-        </div>
-      </div>`;
-    list.appendChild(col);
-  });
-
-  document.querySelectorAll('.btn-more').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const id = e.currentTarget.dataset.id;
-      window.location.href = `restaurant.html?id=${id}`;
+        </div>`;
+      list.appendChild(col);
     });
-  });
 
-  document.querySelectorAll('.btn-book').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const id = e.currentTarget.dataset.id;
-      const name = e.currentTarget.dataset.name;
-      document.getElementById('restaurantId').value = id;
-      bookingTitle.textContent = `Бронирование: ${name}`;
-      document.getElementById('guestName').value = '';
-      document.getElementById('bookingDate').value = '';
-      document.getElementById('guestsCount').value = 2;
-      bookingModal.show();
+    document.querySelectorAll('.btn-more').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const id = e.currentTarget.dataset.id;
+        window.location.href = `restaurant.html?id=${id}`;
+      });
     });
-  });
-}
+
+    document.querySelectorAll('.btn-book').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const id = e.currentTarget.dataset.id;
+        const name = e.currentTarget.dataset.name;
+        document.getElementById('restaurantId').value = id;
+        bookingTitle.textContent = `Бронирование: ${name}`;
+        document.getElementById('guestName').value = '';
+        document.getElementById('bookingDate').value = '';
+        document.getElementById('guestsCount').value = 2;
+        bookingModal.show();
+      });
+    });
+  }
 
   // ---------------- Отправка бронирования ----------------
   bookingForm.addEventListener('submit', async e => {
@@ -93,5 +95,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     render(filtered);
   });
-});
 
+  // -------------------- Переключение темы --------------------
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-theme');
+    if (toggleBtn) toggleBtn.textContent = 'Светлая тема';
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      if (body.classList.contains('dark-theme')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = 'Светлая тема';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = 'Тёмная тема';
+      }
+    });
+  }
+  document.body.classList.add('dark-theme');
+  console.log(getComputedStyle(document.body).backgroundColor);
+});

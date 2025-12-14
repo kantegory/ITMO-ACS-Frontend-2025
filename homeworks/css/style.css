@@ -1,4 +1,5 @@
 :root {
+  /* --- Светлая тема --- */
   --bg-color: #ffffff;
   --text-color: #111111;
   --card-bg: #ffffff;
@@ -41,51 +42,20 @@
   --link-hover: #ffffff;
 }
 
-/* --- Основной текст --- */
+/* --- Общие стили --- */
 body {
   color: var(--text-color);
   background-color: var(--bg-color);
   font-family: Arial, sans-serif;
 }
 
-/* --- Навигация --- */
-nav.navbar.navbar-light.bg-light {
+nav.navbar {
   background-color: var(--nav-bg);
   color: var(--nav-text);
 }
 
-/* --- Кнопки в навигации --- */
-a.btn.btn-outline-primary.me-2 {
-  color: var(--btn-outline-color);
-  background-color: var(--btn-outline-bg);
-  border-color: var(--btn-outline-border);
-}
-
-a.btn.btn-outline-primary.me-2:hover {
-  color: var(--btn-outline-bg);
-  background-color: var(--btn-outline-color);
-  border-color: var(--btn-outline-border);
-}
-
-/* --- Кнопки обычные --- */
-.btn-primary {
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-color);
-  border-color: var(--btn-primary-border);
-}
-
-.btn-primary:hover {
-  background-color: var(--btn-primary-bg);
-  border-color: var(--btn-primary-border);
-  color: var(--btn-primary-color);
-}
-
-/* --- Заголовки и текст --- */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-color);
-}
-
-.card-title {
+.card {
+  background-color: var(--card-bg);
   color: var(--text-color);
 }
 
@@ -93,9 +63,29 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--card-text-muted);
 }
 
-/* --- Метки форм --- */
-.form-label {
-  color: var(--text-color);
+/* --- Кнопки с темой --- */
+.themed-btn {
+  color: var(--btn-outline-color) !important;
+  background-color: var(--btn-outline-bg) !important;
+  border-color: var(--btn-outline-border) !important;
+}
+
+.themed-btn:hover {
+  color: var(--btn-outline-bg) !important;
+  background-color: var(--btn-outline-color) !important;
+  border-color: var(--btn-outline-border) !important;
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-color) !important;
+  border-color: var(--btn-primary-border) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-border) !important;
+  color: var(--btn-primary-color) !important;
 }
 
 /* --- Ссылки --- */
