@@ -2,7 +2,9 @@ export class ThemeManager {
     constructor() {
         this.themeToggle = document.getElementById('themeToggle');
         this.themeIcon = document.getElementById('themeIcon');
-        this.currentTheme = this.getStoredTheme() || this.getSystemTheme();
+        this.currentTheme = document.documentElement.getAttribute('data-theme') || 
+                           this.getStoredTheme() || 
+                           this.getSystemTheme();
         
         this.init();
     }
