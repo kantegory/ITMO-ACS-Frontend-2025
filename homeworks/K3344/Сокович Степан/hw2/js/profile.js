@@ -11,7 +11,7 @@ async function loadProfile() {
             usernameDisplay.textContent = user.email || user.username;
         }
 
-        const profileInfo = document.querySelector('.col-md-9 p');
+        const profileInfo = document.getElementById('profileInfo');
         if (profileInfo) {
             profileInfo.textContent = `Краткая информация: ${user.email || ''}, ${user.phone || ''}`;
         }
@@ -26,21 +26,20 @@ async function loadProfile() {
 async function loadBookings(userId) {
     try {
         const bookings = await bookingsAPI.getByUserId(userId);
-        const bookingsContainer = document.querySelector('.col-md-9');
+        const bookingsContainer = document.getElementById('bookingsContainer');
         
         if (!bookingsContainer) return;
 
-        let bookingsSection = bookingsContainer.querySelector('h5.mt-4');
-        if (!bookingsSection) return;
-
-        const oldCards = bookingsContainer.querySelectorAll('.card.mb-2');
+        const oldCards = bookingsContainer.querySelectorAll('.card.mb-2[role="listitem"]');
         oldCards.forEach(card => card.remove());
 
         if (bookings.length === 0) {
             const noBookings = document.createElement('p');
             noBookings.className = 'text-muted';
             noBookings.textContent = 'У вас нет активных бронирований';
-            bookingsSection.parentNode.insertBefore(noBookings, bookingsSection.nextSibling);
+            noBookings.setAttribute('role', 'status');
+            noBookings.setAttribute('aria-live', 'polite');
+            bookingsContainer.appendChild(noBookings);
             return;
         }
 
@@ -48,7 +47,7 @@ async function loadBookings(userId) {
             try {
                 const listing = await listingsAPI.getById(booking.listingId);
                 const bookingCard = createBookingCard(booking, listing);
-                bookingsSection.parentNode.insertBefore(bookingCard, bookingsSection.nextSibling);
+                bookingsContainer.appendChild(bookingCard);
             } catch (error) {
                 console.error(`Error loading listing ${booking.listingId}:`, error);
             }
@@ -61,6 +60,7 @@ async function loadBookings(userId) {
 function createBookingCard(booking, listing) {
     const card = document.createElement('div');
     card.className = 'card mb-2';
+    card.setAttribute('role', 'listitem');
     
     const startDate = new Date(booking.startDate).toLocaleDateString('ru-RU');
     const endDate = new Date(booking.endDate).toLocaleDateString('ru-RU');
@@ -69,12 +69,13 @@ function createBookingCard(booking, listing) {
         <div class="card-body d-flex justify-content-between align-items-center">
             <div>
                 <strong>${listing.title}</strong><br>
-                ${startDate} — ${endDate}
+                <span aria-label="Период аренды с ${startDate} по ${endDate}">${startDate} — ${endDate}</span>
             </div>
             <div>
                 <button class="btn btn-outline-secondary btn-sm me-1 btn-view-booking" 
                         data-booking-id="${booking.id}"
-                        data-listing-id="${listing.id}">
+                        data-listing-id="${listing.id}"
+                        aria-label="Просмотреть детали бронирования: ${listing.title}">
                     Просмотреть
                 </button>
             </div>
@@ -124,14 +125,18 @@ function createBookingModal() {
     bookingModalEl.classList.add('modal', 'fade');
     bookingModalEl.id = 'bookingModal';
     bookingModalEl.tabIndex = -1;
+    bookingModalEl.setAttribute('role', 'dialog');
+    bookingModalEl.setAttribute('aria-labelledby', 'bookingModalTitle');
+    bookingModalEl.setAttribute('aria-describedby', 'bookingModalBody');
+    bookingModalEl.setAttribute('aria-hidden', 'true');
     bookingModalEl.innerHTML = `
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Детали бронирования</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h2 class="modal-title" id="bookingModalTitle">Детали бронирования</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть модальное окно"></button>
                 </div>
-                <div class="modal-body" id="bookingModalBody">
+                <div class="modal-body" id="bookingModalBody" role="document">
                     Здесь будет информация о бронировании.
                 </div>
             </div>
