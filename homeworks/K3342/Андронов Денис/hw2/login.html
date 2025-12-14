@@ -16,30 +16,31 @@
 </nav>
 
 <!-- контейнер формы -->
-<div class="container py-5" style="max-width: 400px;">
+<main class="container py-5" style="max-width: 400px;">
     <h2 class="mb-4">Вход</h2>
 
     <!-- форма входа -->
     <form id="loginForm">
         <div class="mb-3">
-            <label class="form-label">Email</label>
+            <label for="loginEmail" class="form-label">Email</label>
             <input id="loginEmail" type="email" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Пароль</label>
+            <label for="loginPassword" class="form-label">Пароль</label>
             <input id="loginPassword" type="password" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Войти</button>
-
     </form>
 
     <!-- для ошибок -->
     <div id="loginError" class="text-danger mt-3"></div>
-</div>
+</main>
+
 <script src="js/api.js"></script>
 <!-- js-логика авторизации -->
 <script src="js/auth.js"></script>
 </body>
 </html>
+

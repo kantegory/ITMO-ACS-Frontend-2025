@@ -21,18 +21,20 @@
     </div>
 </nav>
 
-<div class="container py-4">
+<main class="container py-4">
     <h1 class="mb-4">Поиск ресторанов</h1>
 
     <!-- Фильтры -->
     <div class="row g-3 mb-4">
         <div class="col-md-4">
+            <label for="searchInput" class="form-label">Название или кухня</label>
             <input id="searchInput" type="text" class="form-control" placeholder="Название/кухня">
         </div>
 
         <div class="col-md-4">
+            <label for="districtSelect" class="form-label">Район</label>
             <select id="districtSelect" class="form-select">
-                <option>Район</option>
+                <option value="">Все районы</option>
                 <option>Центральный</option>
                 <option>Петроградский</option>
                 <option>Адмиралтейский</option>
@@ -41,8 +43,9 @@
         </div>
 
         <div class="col-md-4">
+            <label for="priceSelect" class="form-label">Цена</label>
             <select id="priceSelect" class="form-select">
-                <option>Цена</option>
+                <option value="">Любая цена</option>
                 <option>₽ Дёшево</option>
                 <option>₽₽ Средне</option>
                 <option>₽₽₽ Дорого</option>
@@ -52,7 +55,8 @@
 
     <!-- Список ресторанов (щас достаем из json)-->
     <div class="row" id="restaurants-list"></div>
-</div>
+</main>
+
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
 <script src="js/authNav.js"></script>

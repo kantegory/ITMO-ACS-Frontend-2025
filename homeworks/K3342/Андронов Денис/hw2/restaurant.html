@@ -12,7 +12,6 @@
         <a class="navbar-brand" href="index.html">RestOrator</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-              <ul class="navbar-nav ms-auto">
                 <li class="nav-item" id="loginLink"><a class="nav-link" href="login.html">Вход</a></li>
                 <li class="nav-item" id="registerLink"><a class="nav-link" href="register.html">Регистрация</a></li>
                 <li class="nav-item" id="profileLink"><a class="nav-link" href="profile.html">Личный кабинет</a></li>
@@ -21,37 +20,41 @@
     </div>
 </nav>
 
-<div class="container py-4">
-  <h2 id="restName" class="mb-3">—</h2>
-  <img id="restImg" src="" class="img-fluid rounded mb-4" alt="">
-  <p><strong>Кухня:</strong> <span id="restType">-</span></p>
-  <p><strong>Цена:</strong> <span id="restPrice">-</span></p>
-  <p><strong>Описание:</strong> <span id="restDesc">-</span></p>
+<main class="container py-4">
+    <h2 id="restName" class="mb-3">—</h2>
+    <img id="restImg" src="" class="img-fluid rounded mb-4" alt="Фотография ресторана">
+    <p><strong>Кухня:</strong> <span id="restType">-</span></p>
+    <p><strong>Цена:</strong> <span id="restPrice">-</span></p>
+    <p><strong>Описание:</strong> <span id="restDesc">-</span></p>
 
-  <div class="card p-3 mt-3">
-    <h5>Забронировать столик</h5>
-    <form id="bookingForm">
-      <div class="mb-2">
-        <label class="form-label">Дата</label>
-        <input id="bookDate" type="date" class="form-control" required>
-      </div>
-      <div class="mb-2">
-        <label class="form-label">Время</label>
-        <input id="bookTime" type="time" class="form-control" required>
-      </div>
-      <div class="mb-2">
-        <label class="form-label">Человек</label>
-        <select id="bookGuests" class="form-select">
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
-        </select>
-      </div>
-      <button class="btn btn-success" type="submit">Забронировать</button>
-    </form>
-  </div>
-</div>
+    <div class="card p-3 mt-3">
+        <h5>Забронировать столик</h5>
+        <form id="bookingForm">
+            <div class="mb-2">
+                <label for="bookDate" class="form-label">Дата</label>
+                <input id="bookDate" type="date" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="bookTime" class="form-label">Время</label>
+                <input id="bookTime" type="time" class="form-control" required>
+            </div>
+            <div class="mb-2">
+                <label for="bookGuests" class="form-label">Количество человек</label>
+                <select id="bookGuests" class="form-select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5+</option>
+                </select>
+            </div>
+            <button class="btn btn-success" type="submit">Забронировать</button>
+        </form>
+    </div>
+</main>
+
 <script src="js/api.js"></script>
 <script src="js/restaurant.js"></script>
 <script src="js/authNav.js"></script>
 </body>
 </html>
-

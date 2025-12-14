@@ -14,23 +14,23 @@
     </div>
 </nav>
 
-<div class="container py-5" style="max-width: 400px;">
+<main class="container py-5" style="max-width: 400px;">
     <h2 class="mb-4">Регистрация</h2>
 
     <!-- форма регистрации -->
     <form id="registerForm">
         <div class="mb-3">
-            <label class="form-label">Имя</label>
+            <label for="registerName" class="form-label">Имя</label>
             <input id="registerName" type="text" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Email</label>
+            <label for="registerEmail" class="form-label">Email</label>
             <input id="registerEmail" type="email" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Пароль</label>
+            <label for="registerPassword" class="form-label">Пароль</label>
             <input id="registerPassword" type="password" class="form-control" required>
         </div>
 
@@ -38,7 +38,8 @@
     </form>
 
     <div id="registerError" class="text-danger mt-3"></div>
-</div>
+</main>
+
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 </body>
