@@ -1,8 +1,24 @@
 const ThemeManager = {
     init() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        let savedTheme = localStorage.getItem('theme');
+        
+        if (!savedTheme) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            savedTheme = prefersDark ? 'dark' : 'light';
+        }
+        
         this.setTheme(savedTheme);
         this.createToggleButton();
+        this.watchSystemTheme();
+    },
+
+    watchSystemTheme() {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                this.setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
     },
 
     setTheme(theme) {
