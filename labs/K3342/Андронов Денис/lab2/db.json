@@ -1,7 +1,7 @@
 {
   "restaurants": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Balerina Capuccino",
       "type": "итальянская",
       "location": "Центральный",
@@ -10,7 +10,7 @@
       "description": "Уютный ресторан итальянской кухни."
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Ramen",
       "type": "японская",
       "location": "Петроградский",
@@ -19,7 +19,7 @@
       "description": "Аутентичный рамен по доступной цене."
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Steak House",
       "type": "европейская",
       "location": "Адмиралтейский",
@@ -28,7 +28,7 @@
       "description": "Лучшие стейки в городе."
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Burgers",
       "type": "американская",
       "location": "Василеостровский",
@@ -39,15 +39,21 @@
   ],
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Denis",
       "email": "den-andronov@inbox.ru",
       "password": "pass123"
+    },
+    {
+      "id": "cd57",
+      "name": "test",
+      "email": "test@inbox.ru",
+      "password": "123"
     }
   ],
   "bookings": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "restaurantId": 1,
       "date": "2025-11-12",
