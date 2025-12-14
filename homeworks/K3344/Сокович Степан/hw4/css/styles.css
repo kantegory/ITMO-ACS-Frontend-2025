@@ -288,6 +288,45 @@ h1, h2, h3, h4, h5, h6 {
     outline-offset: 2px;
 }
 
+.icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+.icon-home {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.3em;
+}
+
+.icon-filter {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.3em;
+    vertical-align: text-bottom;
+}
+
+.icon-search {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.3em;
+    vertical-align: text-bottom;
+}
+
+.btn-close .icon {
+    width: 1em;
+    height: 1em;
+}
+
+.nav-link .icon,
+.btn .icon {
+    margin-right: 0.25em;
+}
+
 @media (max-width: 768px) {
     .card-img-top {
         height: 150px;
