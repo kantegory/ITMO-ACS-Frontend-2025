@@ -2,9 +2,6 @@
 
 // инициализация
 
-/**
- * Инициализировать страницу альбома
- */
 function initAlbumPage() {
     const albumId = getAlbumIdFromURL();
     
@@ -31,38 +28,20 @@ function initAlbumPage() {
 
 // получение данных
 
-/**
- * Получить ID альбома из URL параметров
- * @returns {number|null}
- */
 function getAlbumIdFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('id') ? parseInt(params.get('id')) : null;
 }
 
-/**
- * Найти альбом по ID
- * @param {number} id
- * @returns {Object|null}
- */
 function findAlbumById(id) {
     return MOCK_ALBUMS.find(album => album.id === id) || null;
 }
 
-/**
- * Получить альбом из localStorage (с отзывами пользователя)
- * @param {number} id
- * @returns {Object|null}
- */
 function getAlbumFromStorage(id) {
     const albums = JSON.parse(localStorage.getItem('albums') || '[]');
     return albums.find(album => album.id === id);
 }
 
-/**
- * Сохранить альбом в localStorage
- * @param {Object} album
- */
 function saveAlbumToStorage(album) {
     let albums = JSON.parse(localStorage.getItem('albums') || '[]');
     const index = albums.findIndex(a => a.id === album.id);
@@ -78,10 +57,6 @@ function saveAlbumToStorage(album) {
 
 // отображение информации об альбоме
 
-/**
- * Отобразить информацию об альбоме
- * @param {Object} album
- */
 function displayAlbumInfo(album) {
     // заголовок
     document.getElementById('albumTitle').textContent = album.albumTitle;
@@ -95,7 +70,6 @@ function displayAlbumInfo(album) {
 
     }
     
-    // мета-информация (артист, год, жанр)
     const metaInfo = `${album.artist} • ${album.year} • ${album.genre}`;
     document.getElementById('albumMetaInfo').textContent = metaInfo;
 
@@ -110,10 +84,6 @@ function displayAlbumInfo(album) {
     }
 }
 
-/**
- * Отобразить список треков
- * @param {Object} album
- */
 function displayTracks(album) {
     console.log(album.tracks);
     console.log('Треки для рендера:', album.tracks);
@@ -132,10 +102,6 @@ function displayTracks(album) {
 
 // отзывы
 
-/**
- * Отобразить отзывы альбома
- * @param {Object} album
- */
 function displayReviews(album) {
     const reviewsList = document.getElementById('reviewsList');
     const reviewsCount = document.getElementById('reviewsCount');
@@ -177,11 +143,6 @@ function displayReviews(album) {
     `).join('');
 }
 
-/**
- * Рассчитать среднюю оценку альбома
- * @param {Object} album
- * @returns {number}
- */
 function calculateAverageRating(album) {
     const reviews = album.reviews || [];
     
@@ -193,10 +154,6 @@ function calculateAverageRating(album) {
 
 // обработка формы отзыва
 
-/**
- * Присоединить обработчик к форме отзыва
- * @param {Object} album
- */
 function attachReviewFormHandler(album) {
     const reviewForm = document.getElementById('reviewForm');
     
@@ -230,34 +187,25 @@ function attachReviewFormHandler(album) {
             date: new Date().toLocaleDateString('ru-RU')
         };
 
-        // добавить отзыв к альбому
         album.reviews.push(review);
 
-        // сохранить в localStorage
         saveAlbumToStorage(album);
 
         console.log('Отзыв опубликован');
         alert('Спасибо за ваш отзыв!');
 
-        // обновить отображение
         displayReviews(album);
         displayAlbumInfo(album);
 
-        // закрыть модальное окно
         const modal = bootstrap.Modal.getInstance(document.getElementById('addReviewModal'));
         if (modal) modal.hide();
 
-        // очистить форму
         reviewForm.reset();
     });
 }
 
 // кнопка избранное
 
-/**
- * Присоединить обработчик к кнопке избранного
- * @param {Object} album
- */
 function attachFavoriteButton(album) {
     const favoriteBtn = document.getElementById('favoriteBtn');
     
@@ -295,11 +243,6 @@ function attachFavoriteButton(album) {
     });
 }
 
-/**
- * Обновить вид кнопки избранного
- * @param {HTMLElement} button
- * @param {boolean} isFavorite
- */
 function updateFavoriteButtonState(button, isFavorite) {
     if (isFavorite) {
         button.classList.remove('btn-outline-danger');
