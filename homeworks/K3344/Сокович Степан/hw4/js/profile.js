@@ -76,7 +76,7 @@ function createBookingCard(booking, listing) {
                         data-booking-id="${booking.id}"
                         data-listing-id="${listing.id}"
                         aria-label="Просмотреть детали бронирования: ${listing.title}">
-                    Просмотреть
+                    <svg class="icon icon-eye" aria-hidden="true"><use href="#icon-eye"></use></svg> Просмотреть
                 </button>
             </div>
         </div>
