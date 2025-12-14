@@ -9,77 +9,129 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Навбар -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="catalog.html"> AlbumRate</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile.html">Профиль</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Выход</a></li>
-                </ul>
+    <header>
+        <!-- Навбар -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="catalog.html">AlbumRate</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Переключить навигацию"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile.html">Профиль</a></li>
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link p-0" id="logoutBtn" type="button">Выход</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <div class="container my-5">
+    <main class="container my-5">
         <!-- Информация об альбоме -->
-        <div class="row mb-5">
+        <section class="row mb-5" aria-labelledby="albumTitle">
             <div class="col-lg-4 mb-4">
-                <div id="albumCover" class="ratio ratio-1x1 bg-secondary rounded" style="font-size: 120px; display: flex; align-items: center; justify-content: center;"></div>
+                <div
+                    id="albumCover"
+                    class="ratio ratio-1x1 bg-secondary rounded"
+                    style="font-size: 120px; display: flex; align-items: center; justify-content: center;"
+                    role="img"
+                    aria-label="Обложка альбома"
+                ></div>
             </div>
             <div class="col-lg-8">
                 <h1 id="albumTitle"></h1>
                 <p class="text-muted mb-4" id="albumMetaInfo"></p>
+
                 <div class="mb-4">
-                    <h4>Средняя оценка: <span id="albumRating" class="badge bg-warning">0</span>/10</h4>
+                    <h2 class="h4">
+                        Средняя оценка:
+                        <span id="albumRating" class="badge bg-warning">0</span>
+                        <span class="visually-hidden">из 10</span>
+                        /10
+                    </h2>
                     <p id="albumDescription"></p>
                 </div>
 
                 <!-- Список треков -->
-                <div class="mb-4">
-                    <h5>Треки:</h5>
-                    <ol id="tracksList" class="list-group">
-                    </ol>
-                </div>
+                <section class="mb-4" aria-labelledby="tracksHeading">
+                    <h2 id="tracksHeading" class="h5">Треки:</h2>
+                    <ol id="tracksList" class="list-group"></ol>
+                </section>
 
-                <button class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#addReviewModal">Добавить отзыв</button>
-                <button class="btn btn-outline-danger btn-lg" id="favoriteBtn">Добавить в избранное</button>
+                <button
+                    class="btn btn-primary btn-lg me-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addReviewModal"
+                    type="button"
+                >
+                    Добавить отзыв
+                </button>
+                <button class="btn btn-outline-danger btn-lg" id="favoriteBtn" type="button">
+                    Добавить в избранное
+                </button>
             </div>
-        </div>
+        </section>
 
         <!-- Отзывы -->
-        <div class="row">
+        <section class="row" aria-labelledby="reviewsHeading">
             <div class="col-lg-8">
-                <h3 class="mb-4">Отзывы (<span id="reviewsCount">0</span>)</h3>
+                <h2 id="reviewsHeading" class="mb-4">
+                    Отзывы (<span id="reviewsCount">0</span>)
+                </h2>
                 <div id="reviewsList"></div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <!-- Модальное окно добавления отзыва -->
-    <div class="modal fade" id="addReviewModal" tabindex="-1">
+    <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="addReviewTitle" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Оценить альбом</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h2 class="modal-title h5" id="addReviewTitle">Оценить альбом</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <form id="reviewForm">
+                <form id="reviewForm" novalidate>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="reviewRating" class="form-label"><strong>Оценка (1-10) *</strong></label>
-                            <input type="number" class="form-control" id="reviewRating" min="1" max="10" required>
-                            <small class="text-muted">Обязательное поле</small>
+                            <label for="reviewRating" class="form-label"><strong>Оценка (1–10) *</strong></label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="reviewRating"
+                                name="reviewRating"
+                                min="1"
+                                max="10"
+                                required
+                                aria-describedby="reviewRatingHelp"
+                            >
+                            <small class="text-muted" id="reviewRatingHelp">Обязательное поле</small>
                         </div>
                         <div class="mb-3">
                             <label for="reviewText" class="form-label">Ваш отзыв (опционально)</label>
-                            <textarea class="form-control" id="reviewText" rows="4" placeholder="Напишите ваше мнение об альбоме"></textarea>
-                            <small class="text-muted">Можно оставить пусто и поставить только оценку</small>
+                            <textarea
+                                class="form-control"
+                                id="reviewText"
+                                name="reviewText"
+                                rows="4"
+                                placeholder="Напишите ваше мнение об альбоме"
+                                aria-describedby="reviewTextHelp"
+                            ></textarea>
+                            <small class="text-muted" id="reviewTextHelp">
+                                Можно оставить пусто и поставить только оценку
+                            </small>
                         </div>
                     </div>
                     <div class="modal-footer">

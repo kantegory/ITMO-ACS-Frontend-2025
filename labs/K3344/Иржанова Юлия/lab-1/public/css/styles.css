@@ -100,9 +100,9 @@ body {
     position: absolute;
     right: 18px;
     top: 10px;
-    background: rgba(30,217,84,0.14);
-    color: #1DB954;
-    font-weight: 800;
+    background: #ffc107;
+    color:  #000000;
+    font-weight: 600;
     font-size: 17px;
     border-radius: 8px;
     padding: 7px 13px 6px 13px;
@@ -282,13 +282,16 @@ input[type="checkbox"] {
 }
 
 .btn-success {
-    background-color: var(--success-color);
-    border-color: var(--success-color);
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #ffffff;  /* белый текст вместо стандартного */
+  font-weight: 600;
 }
 
 .btn-success:hover {
-    background-color: #218838;
-    border-color: #218838;
+  background-color: #218838;
+  border-color: #218838;
+  color: #ffffff;
 }
 
 .btn-warning {
@@ -314,14 +317,15 @@ input[type="checkbox"] {
 }
 
 .btn-outline-danger {
-    color: var(--danger-color);
-    border: 2px solid var(--danger-color);
-    background-color: transparent;
+  color: #ff6b6b;  /* более яркий красный вместо var(--danger-color) */
+  border: 2px solid #ff6b6b;
+  background-color: transparent;
+  font-weight: 600;
 }
 
 .btn-outline-danger:hover {
-    background-color: var(--danger-color);
-    color: var(--text-primary);
+  background-color: #ff6b6b;
+  color: #ffffff;  /* белый текст на красном фоне */
 }
 
 .btn-lg {
@@ -361,9 +365,10 @@ input[type="checkbox"] {
 }
 
 .nav-link.active {
-    color: var(--primary-color);
-    background-color: transparent;
-    border-bottom-color: var(--primary-color);
+  color: #054a1d !important;  
+  background-color: transparent;
+  border-bottom-color: #1DB954;
+  font-weight: 600;
 }
 
 .tab-content {
@@ -746,6 +751,18 @@ input[type="checkbox"] {
     color: white;
 }
 
+/* Ссылка в тексте регистрации */
+a.text-decoration-none {
+  color: #1DB954;  /* яркий зелёный */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.text-decoration-none:hover {
+  color: #1ed760;  /* ещё ярче при наведении */
+  text-decoration: underline;
+}
+
 /* адаптивность */
 
 @media (min-width: 1000px) {
@@ -882,7 +899,9 @@ input[type="checkbox"] {
 }
 
 .card {
-    animation: fadeInUp 0.4s ease-out;
+  background-color: var(--spotify-card);
+  border: 1px solid var(--spotify-border);
+  color: var(--text-primary);  /* белый текст */
 }
 
 /* СКРОЛБАР */

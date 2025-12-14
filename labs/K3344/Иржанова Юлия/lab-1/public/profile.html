@@ -9,91 +9,163 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Навбар -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="catalog.html"> AlbumRate</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="profile.html">Профиль</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Выход</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container my-5">
-        <div class="row">
-            <!-- Боковая панель профиля -->
-            <div class="col-lg-3 mb-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="avatar-placeholder mb-3" style="width: 100px; height: 100px; margin: 0 auto; background: #6c757d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
-                            👤
-                        </div>
-                        <h4 id="profileName">Имя пользователя</h4>
-                        <p class="text-muted mb-3" id="profileEmail">user@email.com</p>
-                        <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#editProfileModal">Редактировать профиль</button>
-                    </div>
+    <header>
+        <!-- Навбар -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="catalog.html">AlbumRate</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Переключить навигацию"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="profile.html" aria-current="page">Профиль</a></li>
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-link p-0" id="logoutBtn" type="button">Выход</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+    </header>
+
+    <main class="container my-5">
+        <div class="row">
+            <!-- Боковая панель профиля -->
+            <aside class="col-lg-3 mb-4" aria-labelledby="profileName">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div
+                            class="avatar-placeholder mb-3"
+                            style="width: 100px; height: 100px; margin: 0 auto; background: #6c757d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;"
+                            role="img"
+                            aria-label="Аватар пользователя"
+                        >
+                            👤
+                        </div>
+                        <h1 id="profileName" class="h4">Имя пользователя</h1>
+                        <p class="text-muted mb-3" id="profileEmail">user@email.com</p>
+                        <button
+                            class="btn btn-outline-primary w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editProfileModal"
+                            type="button"
+                        >
+                            Редактировать профиль
+                        </button>
+                    </div>
+                </div>
+            </aside>
 
             <!-- Основной контент -->
-            <div class="col-lg-9">
+            <section class="col-lg-9" aria-label="Активность пользователя">
                 <ul class="nav nav-tabs mb-4" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="reviewsTab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">Мои отзывы</button>
+                        <button
+                            class="nav-link active"
+                            id="reviewsTab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#reviews"
+                            type="button"
+                            role="tab"
+                            aria-controls="reviews"
+                            aria-selected="true"
+                        >
+                            Мои отзывы
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="favoritesTab" data-bs-toggle="tab" data-bs-target="#favorites" type="button">Избранные альбомы</button>
+                        <button
+                            class="nav-link"
+                            id="favoritesTab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#favorites"
+                            type="button"
+                            role="tab"
+                            aria-controls="favorites"
+                            aria-selected="false"
+                        >
+                            Избранные альбомы
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="collectionsTab" data-bs-toggle="tab" data-bs-target="#collections" type="button">Плейлисты</button>
+                        <button
+                            class="nav-link"
+                            id="collectionsTab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#collections"
+                            type="button"
+                            role="tab"
+                            aria-controls="collections"
+                            aria-selected="false"
+                        >
+                            Плейлисты
+                        </button>
                     </li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="reviews" role="tabpanel">
+                    <div
+                        class="tab-pane fade show active"
+                        id="reviews"
+                        role="tabpanel"
+                        aria-labelledby="reviewsTab"
+                    >
                         <div id="reviewsList">
                             <p class="text-muted">Вы пока не оставили ни одного отзыва</p>
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="favorites" role="tabpanel">
+                    <div
+                        class="tab-pane fade"
+                        id="favorites"
+                        role="tabpanel"
+                        aria-labelledby="favoritesTab"
+                    >
                         <div class="row" id="favoritesList">
                             <p class="text-muted">Нет избранных альбомов</p>
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="collections" role="tabpanel">
+                    <div
+                        class="tab-pane fade"
+                        id="collections"
+                        role="tabpanel"
+                        aria-labelledby="collectionsTab"
+                    >
                         <p class="text-muted">Плейлисты скоро будут доступны</p>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </div>
+    </main>
 
     <!-- Модальное окно редактирования профиля -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileTitle" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Редактировать профиль</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h2 class="modal-title h5" id="editProfileTitle">Редактировать профиль</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <form id="editProfileForm">
+                <form id="editProfileForm" novalidate>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="editName" class="form-label">Имя</label>
-                            <input type="text" class="form-control" id="editName">
+                            <input type="text" class="form-control" id="editName" name="editName" autocomplete="name">
                         </div>
                         <div class="mb-3">
                             <label for="editEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="editEmail">
+                            <input type="email" class="form-control" id="editEmail" name="editEmail" autocomplete="email">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -104,7 +176,6 @@
             </div>
         </div>
     </div>
-
 
     <script src="js/profile.js"></script>
     <script>

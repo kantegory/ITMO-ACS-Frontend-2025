@@ -9,50 +9,86 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-light">
-    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-        <div class="card shadow-lg" style="width: 100%; max-width: 450px;">
+    <main class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <section class="card shadow-lg" style="width: 100%; max-width: 450px;" aria-labelledby="registerHeading">
             <div class="card-body p-5">
-                <h2 class="card-title text-center mb-4">Регистрация</h2>
+                <h1 id="registerHeading" class="card-title text-center mb-4">Регистрация</h1>
                 
-                <form id="registerForm">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Login</label>
-                    <input type="text" class="form-control" id="name"
-                        placeholder="Придумайте ник или введите имя" required>
-                    <small class="text-danger d-none" id="nameError"></small>
-                </div>
+                <form id="registerForm" novalidate>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Login</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            autocomplete="nickname"
+                            required
+                            aria-describedby="nameError"
+                            placeholder="Придумайте ник или введите имя"
+                        >
+                        <small class="text-danger d-none" id="nameError"></small>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email"
-                        placeholder="your@email.com" required>
-                    <small class="text-danger d-none" id="emailError"></small>
-                </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            autocomplete="email"
+                            required
+                            aria-describedby="emailError"
+                            placeholder="your@email.com"
+                        >
+                        <small class="text-danger d-none" id="emailError"></small>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Пароль</label>
-                    <input type="password" class="form-control" id="password"
-                        placeholder="Минимум 6 символов" required>
-                    <small class="text-danger d-none" id="passwordError"></small>
-                </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Пароль</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            autocomplete="new-password"
+                            required
+                            aria-describedby="passwordError"
+                            placeholder="Минимум 6 символов"
+                        >
+                        <small class="text-danger d-none" id="passwordError"></small>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="passwordConfirm" class="form-label">Повторите пароль</label>
-                    <input type="password" class="form-control" id="passwordConfirm"
-                        placeholder="Повторите пароль" required>
-                    <small class="text-danger d-none" id="passwordConfirmError"></small>
-                </div>
+                    <div class="mb-3">
+                        <label for="passwordConfirm" class="form-label">Повторите пароль</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="passwordConfirm"
+                            name="passwordConfirm"
+                            autocomplete="new-password"
+                            required
+                            aria-describedby="passwordConfirmError"
+                            placeholder="Повторите пароль"
+                        >
+                        <small class="text-danger d-none" id="passwordConfirmError"></small>
+                    </div>
 
-                <button type="submit" class="btn btn-success w-100 mb-3">Создать аккаунт</button>
+                    <button type="submit" class="btn btn-success w-100 mb-3">
+                        Создать аккаунт
+                    </button>
                 </form>
 
-
                 <div class="text-center">
-                    <p class="mb-0">Уже есть аккаунт? <a href="login.html" class="text-decoration-none">Войти</a></p>
+                    <p class="mb-0">
+                        Уже есть аккаунт?
+                        <a href="login.html" class="text-decoration-none">Войти</a>
+                    </p>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/storage.js"></script>
