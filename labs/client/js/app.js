@@ -8,16 +8,16 @@ function qS(sel) { return document.querySelector(sel); }
 function qSA(sel) { return document.querySelectorAll(sel); }
 function getParam(name) { return new URLSearchParams(location.search).get(name); }
 
-//  Загрузка рецептов с сервера
-let RECIPES = []; // сюда грузятся рецепты с json-server
+// ----- ЗАГРУЗКА РЕЦЕПТОВ С СЕРВЕРА -----
+let RECIPES = []; // сюда грузятся все рецепты с json-server (базовые + добавленные пользователями)
 
 async function loadRecipes() {
   try {
-    const response = await fetch('http://localhost:3000/recipes');
+    const response = await fetch('http://localhost:3000/recipes'); // по сути GET-запрос, так как идет подгрузка из файла
     if (!response.ok) {
       throw new Error(`HTTP ошибка: ${response.status}`);
     }
-    RECIPES = await response.json(); // заполнение переменной
+    RECIPES = await response.json(); // заполнение глобальной переменной
 
     renderGrid();
     renderRecipePage();
@@ -28,7 +28,7 @@ async function loadRecipes() {
   } catch (error) {
     console.error('Не удалось загрузить рецепты с сервера:', error);
     
-    // Если что-то пошло не так
+    // Если что-то пошло не так — показываем ошибку в контейнерах
     const containers = document.querySelectorAll('#recipesGrid, #savedRecipes, #myRecipes');
     containers.forEach(container => {
       if (container) {
@@ -44,11 +44,11 @@ async function loadRecipes() {
 
 // ----- ЛАЙКИ -----
 const LS_LIKES = 'recipes_likes';
-// ----- LS: пользователи, сохранённые, кастомные рецепты -----
+// ----- LS: пользователи, сохранённые -----
 const LS_USER = 'recipes_user';
 const LS_USERS = 'recipes_users';
 const LS_SAVED = 'recipes_saved';
-const LS_CUSTOM = 'recipes_custom';
+// LS_CUSTOM больше не нужен — рецепты хранятся на сервере
 
 function getLikes() {
   try { return JSON.parse(localStorage.getItem(LS_LIKES)) || {}; }
@@ -72,7 +72,6 @@ function renderCard(recipe, options = {}) {
   const deleteBtn = (user && recipe.author === user.name)
     ? `<button class="btn btn-danger btn-sm delete-recipe" data-id="${recipe.id}">Удалить</button>`
     : '';
-
 
   return `
     <div class="col-12 col-sm-6 col-md-4">
@@ -107,12 +106,10 @@ function renderGrid() {
   if (!container) return;
 
   const q = (getParam('q') || '').toLowerCase();
-  const custom = JSON.parse(localStorage.getItem(LS_CUSTOM) || '[]');
-  const all = [...RECIPES, ...custom];
+  let list = RECIPES; // все рецепты теперь только с сервера
 
-  let list = all;
   if (q) {
-    list = all.filter(r =>
+    list = RECIPES.filter(r =>
       r.title.toLowerCase().includes(q) ||
       (r.short && r.short.toLowerCase().includes(q))
     );
@@ -128,10 +125,7 @@ function applyFilters() {
   const diff = qS('#difficultyFilter')?.value || '';
   const time = qS('#timeFilter')?.value ? Number(qS('#timeFilter').value) : null;
 
-  const custom = JSON.parse(localStorage.getItem(LS_CUSTOM) || '[]');
-  const all = [...RECIPES, ...custom];
-
-  const filtered = all.filter(r => {
+  const filtered = RECIPES.filter(r => {
     if (text && !r.title.toLowerCase().includes(text) && !(r.short && r.short.toLowerCase().includes(text))) return false;
     if (cats.length && !r.tags?.some(t => cats.includes(t))) return false;
     if (diff && r.difficulty !== diff) return false;
@@ -148,7 +142,6 @@ function applyFilters() {
 }
 
 // ----- ОБРАБОТЧИКИ (лайк, удалить) -----
-// Note: обработчик карточечной кнопки "сохранить" удалён — кнопка сохранения существует только на странице recipe.html
 function attachLikeAndDeleteHandlers() {
   // Обработчик лайков
   qSA('.like-btn').forEach(btn => {
@@ -164,17 +157,51 @@ function attachLikeAndDeleteHandlers() {
     };
   });
 
-  // Удаление рецепта (работаем со строковыми id)
+  // Удаление рецепта — через DELETE-запрос на сервер
   qSA('.delete-recipe').forEach(btn => {
-    btn.onclick = () => {
-      if (!confirm('Удалить этот рецепт навсегда?')) return;
+    btn.onclick = async () => {
+      if (!confirm('Удалить этот рецепт навсегда? Это действие нельзя отменить!')) return;
+
       const id = String(btn.dataset.id);
-      let custom = JSON.parse(localStorage.getItem(LS_CUSTOM) || '[]');
-      custom = custom.filter(r => String(r.id) !== id);
-      localStorage.setItem(LS_CUSTOM, JSON.stringify(custom));
-      renderGrid();
-      updateProfilePage();
-      if (location.pathname.includes('recipe.html')) renderRecipePage();
+
+      try {
+        const response = await fetch(`http://localhost:3000/recipes/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          throw new Error('Не удалось удалить рецепт на сервере');
+        }
+
+        // Удаляем из локального массива
+        RECIPES = RECIPES.filter(r => String(r.id) !== id);
+
+        // Обновляем интерфейс
+        renderGrid();
+        updateProfilePage();
+        if (location.pathname.includes('recipe.html')) {
+          const currentId = getParam('id');
+          if (currentId === id) {
+            // Если удаляем текущий просматриваемый рецепт
+            qS('#recipeTitle').textContent = 'Рецепт удалён';
+            qS('#recipeSubtitle').textContent = 'Этот рецепт был удалён автором.';
+            document.querySelector('main .container').innerHTML = `
+              <div class="text-center py-5">
+                <h3 class="text-muted">Рецепт удалён</h3>
+                <p><a href="index.html" class="btn btn-primary">Вернуться на главную</a></p>
+              </div>
+            `;
+          } else {
+            renderRecipePage();
+          }
+        }
+
+        alert('Рецепт успешно удалён!');
+
+      } catch (error) {
+        console.error('Ошибка при удалении рецепта:', error);
+        alert('Не удалось удалить рецепт. Проверьте, запущен ли сервер.');
+      }
     };
   });
 }
@@ -187,9 +214,7 @@ function renderRecipePage() {
   const id = getParam('id');
   if (!id) { titleEl.textContent = 'Рецепт не найден'; return; }
 
-  const custom = JSON.parse(localStorage.getItem(LS_CUSTOM) || '[]');
-  const all = [...RECIPES, ...custom];
-  const recipe = all.find(r => String(r.id) === id);
+  const recipe = RECIPES.find(r => String(r.id) === id);
   if (!recipe) { titleEl.textContent = 'Рецепт не найден'; return; }
 
   titleEl.textContent = recipe.title;
@@ -231,7 +256,7 @@ function renderRecipePage() {
     };
   }
 
-  // СОХРАНЕНИЕ В ИЗБРАННОЕ (кнопка на странице рецепта — единственная точка сохранения)
+  // СОХРАНЕНИЕ В ИЗБРАННОЕ
   const saveBtn = qS('#saveBtn');
   const user = getCurrentUser();
   const savedObjAll = JSON.parse(localStorage.getItem(LS_SAVED) || '{}');
@@ -253,12 +278,10 @@ function renderRecipePage() {
 
       const index = savedObj[user.email].indexOf(id);
       if (index === -1) {
-        // Добавление
         savedObj[user.email].push(id);
         saveBtn.textContent = 'В избранном';
         saveBtn.className = 'btn btn-success';
       } else {
-        // Удаление
         savedObj[user.email].splice(index, 1);
         saveBtn.textContent = 'Сохранить в избранное';
         saveBtn.className = 'btn btn-outline-primary';
@@ -332,13 +355,11 @@ function updateProfilePage() {
   qS('#guestView')?.classList.add('d-none');
   qS('#userView')?.classList.remove('d-none');
 
-  const custom = JSON.parse(localStorage.getItem(LS_CUSTOM) || '[]');
-  const myRecipes = custom.filter(r => r.author === user.name);
+  const myRecipes = RECIPES.filter(r => r.author === user.name);
 
   const savedIds = (JSON.parse(localStorage.getItem(LS_SAVED) || '{}')[user.email] || []);
-  const all = [...RECIPES, ...custom];
   const savedRecipes = savedIds
-    .map(id => all.find(r => String(r.id) === String(id)))
+    .map(id => RECIPES.find(r => String(r.id) === String(id)))
     .filter(Boolean);
 
   // Сохранённые
@@ -467,9 +488,9 @@ if (qS('#authModal')) {
   };
 }
 
-// Добавление рецепта
+// Добавление рецепта — через POST на сервер
 document.querySelectorAll('#addRecipeForm, #addRecipeFormInline').forEach(form => {
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const user = getCurrentUser();
@@ -501,44 +522,58 @@ document.querySelectorAll('#addRecipeForm, #addRecipeFormInline').forEach(form =
       return;
     }
 
-    const custom = JSON.parse(localStorage.getItem(LS_CUSTOM) || '[]');
-    const newId = String(Date.now() + Math.random().toString(36).substr(2, 9));
+    try {
+      const newRecipe = {
+        title,
+        short,
+        time,
+        difficulty,
+        ingredients,
+        steps,
+        author: user.name,
+        published: new Date().toLocaleDateString('ru'),
+        image: 'assets/img/example.jpg',
+        images: ['assets/img/example.jpg'],
+        tags: []
+      };
 
-    custom.push({
-      id: newId,
-      title,
-      short,
-      time,
-      difficulty,
-      ingredients,
-      steps,
-      author: user.name,
-      published: new Date().toLocaleDateString('ru'),
-      image: 'assets/img/example.jpg',
-      images: ['assets/img/example.jpg'],
-      tags: []
-    });
+      const response = await fetch('http://localhost:3000/recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newRecipe)
+      });
 
-    localStorage.setItem(LS_CUSTOM, JSON.stringify(custom));
-    this.reset();
+      if (!response.ok) {
+        throw new Error('Не удалось сохранить рецепт на сервере');
+      }
 
-    // Закрыть модалку, если открыта
-    const modal = this.closest('.modal');
-    if (modal) {
-      bootstrap.Modal.getInstance(modal)?.hide();
-    }
+      const createdRecipe = await response.json();
 
-    // Обновление
-    renderGrid();
-    updateProfilePage();
-    if (location.pathname.includes('search.html')) applyFilters();
+      RECIPES.push(createdRecipe);
 
-    // Модалка публикации рецепта
-    const successModalEl = document.getElementById('successRecipeModal');
-    if (successModalEl) {
-      bootstrap.Modal.getOrCreateInstance(successModalEl).show();
-    } else {
-      alert('Рецепт опубликован!');
+      renderGrid();
+      updateProfilePage();
+      if (location.pathname.includes('search.html')) applyFilters();
+
+      this.reset();
+
+      const modal = this.closest('.modal');
+      if (modal) {
+        bootstrap.Modal.getInstance(modal)?.hide();
+      }
+
+      const successModalEl = document.getElementById('successRecipeModal');
+      if (successModalEl) {
+        bootstrap.Modal.getOrCreateInstance(successModalEl).show();
+      } else {
+        alert('Рецепт успешно опубликован!');
+      }
+
+    } catch (error) {
+      console.error('Ошибка при добавлении рецепта:', error);
+      alert('Не удалось опубликовать рецепт. Проверьте, запущен ли сервер.');
     }
   });
 });
@@ -557,9 +592,9 @@ document.addEventListener('DOMContentLoaded', () => {
   loadRecipes();
 
   updateHeaderUserInfo();
-  updateProfilePage(); // покажет "Гость", если нет пользователя
+  updateProfilePage();
 
-  // Фильтры на странице поиска обработчики
+  // Фильтры на странице поиска
   if (qS('#searchInput')) {
     ['#searchInput', '.category-filter', '#difficultyFilter', '#timeFilter'].forEach(sel => {
       qSA(sel).forEach(el => el.addEventListener('input', applyFilters));
