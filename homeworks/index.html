@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Поиск ресторанов — RestaurantBooking</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- SVG-спрайт -->
+<div style="display:none">
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+      <path d="M6 21c0-3 6-3 6-3s6 0 6 3" stroke="currentColor" stroke-width="2" fill="none"/>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+      <path d="M12 21s-6-5-10-9c-2-2 0-5 3-5 2 0 4 2 4 2s2-2 4-2c3 0 5 3 3 5-4 4-10 9-10 9z" stroke="currentColor" stroke-width="2" fill="none"/>
+    </symbol>
+    <symbol id="icon-dollar" viewBox="0 0 24 24">
+      <path d="M12 1v22M17 5H9a4 4 0 1 0 0 8h6a4 4 0 1 1 0 8H7" stroke="currentColor" stroke-width="2" fill="none"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+    </symbol>
+  </svg>
+</div>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar navbar-light" aria-label="Основная навигация">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">RestaurantBooking</a>
+      <button id="themeToggle" class="btn btn-secondary themed-btn">
+        <svg class="icon"><use xlink:href="#icon-sun"></use></svg>
+      </button>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-primary themed-btn" href="login.html">
+          <svg class="icon"><use xlink:href="#icon-user"></use></svg> Вход
+        </a>
+        <a class="btn btn-primary themed-btn" href="register.html">
+          <svg class="icon"><use xlink:href="#icon-user"></use></svg> Регистрация
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container my-4">
+  <h1 class="mb-3">Найдите ресторан</h1>
+
+  <form id="filters" class="row g-2 align-items-end" aria-label="Фильтры поиска ресторанов">
+    <div class="col-md-4">
+      <label for="filterCuisine" class="form-label">Кухня</label>
+      <select id="filterCuisine" class="form-select themed-btn">
+        <option value="">Любая</option>
+        <option>Итальянская</option>
+        <option>Японская</option>
+        <option>Русская</option>
+        <option>Международная</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label for="filterLocation" class="form-label">Район / Город</label>
+      <input id="filterLocation" type="text" class="form-control themed-btn" placeholder="Например, центр" aria-label="Район или город">
+    </div>
+
+    <div class="col-md-3">
+      <label for="filterPrice" class="form-label">Цена</label>
+      <div class="input-group">
+        <select id="filterPrice" class="form-select themed-btn">
+          <option value="">Любая</option>
+          <option value="1">₽</option>
+          <option value="2">₽₽</option>
+          <option value="3">₽₽₽</option>
+        </select>
+        <span class="input-group-text themed-btn">
+          <svg class="icon"><use xlink:href="#icon-dollar"></use></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-2 d-grid">
+      <button id="applyFilters" type="button" class="btn btn-primary themed-btn">
+        <svg class="icon"><use xlink:href="#icon-search"></use></svg> Показать
+      </button>
+    </div>
+  </form>
+
+  <hr>
+
+  <h2>Список ресторанов</h2>
+  <section id="restaurants" class="row row-cols-1 row-cols-md-2 g-3" aria-live="polite" aria-label="Список ресторанов">
+  </section>
+</main>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="bookingTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="bookingForm" class="modal-content themed-btn" aria-label="Форма бронирования">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bookingTitle">Бронирование</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="restaurantId">
+        <div class="mb-3">
+          <label for="guestName">Имя</label>
+          <input id="guestName" type="text" class="form-control themed-btn" required aria-required="true">
+        </div>
+        <div class="mb-3">
+          <label for="bookingDate">Дата и время</label>
+          <input id="bookingDate" type="datetime-local" class="form-control themed-btn" required aria-required="true">
+        </div>
+        <div class="mb-3">
+          <label for="guestsCount">Количество гостей</label>
+          <input id="guestsCount" type="number" min="1" class="form-control themed-btn" required aria-required="true">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary themed-btn">Подтвердить</button>
+        <button type="button" class="btn btn-secondary themed-btn" data-bs-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-outline-danger">
+          <svg class="icon"><use xlink:href="#icon-heart"></use></svg> В избранное
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
