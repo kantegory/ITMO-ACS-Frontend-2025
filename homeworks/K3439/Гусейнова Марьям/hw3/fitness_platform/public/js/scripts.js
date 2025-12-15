@@ -28,13 +28,13 @@ function showPage(pageId) {
     // навигация
     document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
         link.classList.remove('active');
-        link.removeAttribute('aria-current'); // Добавлено для A11y
+        link.removeAttribute('aria-current');
     });
 
     const activeLink = document.querySelector(`.navbar-nav [data-page="${pageId}"]`);
     if (activeLink) {
         activeLink.classList.add('active');
-        activeLink.setAttribute('aria-current', 'page'); // Добавлено для A11y
+        activeLink.setAttribute('aria-current', 'page');
     }
 }
 
@@ -210,10 +210,10 @@ function renderWorkoutCard(workout) {
     const levelBadge = `<span class="badge bg-secondary me-2">${workout.level.charAt(0).toUpperCase() + workout.level.slice(1)}</span>`;
     const durationBadge = `<span class="badge bg-secondary">${workout.duration} мин</span>`;
     const imgText = workout.type.charAt(0).toUpperCase() + workout.type.slice(1);
-    const imgColor = workout.type === 'strength' ? '3498db' : (workout.type === 'cardio' ? '1abc9c' : '9b59b6');
+    const imgColor = workout.type === 'силовые' ? '3498db' : (workout.type === 'кардио' ? '1abc9c' : '9b59b6');
 
     return `
-        <div class="card mb-3 training-card" data-level="${workout.level}" data-type="${workout.type}" data-duration="${workout.duration}" data-id="${workout.id}" style="display: block;">
+        <div class="card mb-3 training-card" data-id="${workout.id}" role="article">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="https://placehold.co/400x250/${imgColor}/ffffff?text=${imgText}" class="img-fluid rounded-start h-100" alt="${workout.title}">
@@ -223,7 +223,7 @@ function renderWorkoutCard(workout) {
                         <h5 class="card-title fw-bold text-primary">${workout.title}</h5>
                         <p class="card-text">${workout.description}</p>
                         <p class="card-text">${typeBadge} ${levelBadge} ${durationBadge}</p>
-                        <button class="btn btn-outline-primary btn-sm details-btn" data-id="${workout.id}">Подробнее</button>
+                        <button class="btn btn-outline-brand btn-sm details-btn" data-id="${workout.id}">Подробнее</button>
                     </div>
                 </div>
             </div>
@@ -231,61 +231,82 @@ function renderWorkoutCard(workout) {
     `;
 }
 
-// Загрузка тренировок с API (используется при первом посещении search-page)
-async function loadWorkouts() {
+// Загрузка тренировок с API с фильтрацией
+async function loadWorkoutsWithFilters(filters = {}) {
+    const resultsContainer = document.getElementById('trainingResults');
+
+    // Показываем состояние загрузки
+    resultsContainer.setAttribute('aria-busy', 'true');
+    resultsContainer.innerHTML = '<p class="text-center">Поиск тренировок...</p>';
+
     try {
-        const response = await fetch(`${API_URL}/workouts`);
+        // Собираем query-параметры для фильтрации
+        const queryParams = new URLSearchParams();
+
+        if (filters.level) queryParams.append('level', filters.level);
+        if (filters.type) queryParams.append('type', filters.type);
+        if (filters.duration) queryParams.append('duration_lte', filters.duration);
+
+        const queryString = queryParams.toString();
+        const url = queryString ? `${API_URL}/workouts?${queryString}` : `${API_URL}/workouts`;
+
+        console.log(`Запрос к API: ${url}`);
+
+        const response = await fetch(url);
+
         if (!response.ok) throw new Error('Не удалось загрузить тренировки');
         
         const workouts = await response.json();
-        const resultsContainer = document.getElementById('trainingResults');
+
+        // Очищаем и заполняем контейнер
         resultsContainer.innerHTML = '';
         
-        workouts.forEach(workout => {
-            resultsContainer.insertAdjacentHTML('beforeend', renderWorkoutCard(workout));
-        });
-        
-        document.querySelectorAll('.details-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const workoutId = e.currentTarget.getAttribute('data-id');
-                showTrainingDetails(workoutId);
+        if (workouts.length === 0) {
+            resultsContainer.innerHTML = '<p class="text-center text-muted">По вашему запросу тренировок не найдено.</p>';
+        } else {
+            workouts.forEach(workout => {
+                resultsContainer.insertAdjacentHTML('beforeend', renderWorkoutCard(workout));
             });
-        });
 
-        applyFilters(false);
+            document.querySelectorAll('.details-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const workoutId = e.currentTarget.getAttribute('data-id');
+                    showTrainingDetails(workoutId);
+                });
+            });
+        }
+
+        resultsContainer.setAttribute('aria-busy', 'false');
+        return workouts.length;
 
     } catch (error) {
+        resultsContainer.setAttribute('aria-busy', 'false');
         console.error('Ошибка загрузки тренировок:', error);
-        document.getElementById('trainingResults').innerHTML = '<p class="text-danger">Не удалось загрузить тренировки с сервера.</p>';
+        resultsContainer.innerHTML = '<p class="text-danger">Не удалось загрузить тренировки с сервера.</p>';
+        return 0;
     }
 }
 
-function applyFilters(showAlert = true) {
+// функция для загрузки всех тренировок (без фильтров)
+async function loadWorkouts() {
+    return loadWorkoutsWithFilters({}); // Пустые фильтры = все тренировки
+}
+
+// фильтрация на сервере
+async function applyFilters(showAlert = true) {
     const level = document.getElementById('filterLevel').value;
     const type = document.getElementById('filterType').value;
     const duration = parseInt(document.getElementById('filterDuration').value);
 
-    console.log(`Применяем фильтры: Уровень=${level}, Тип=${type}, Продолжительность<=${duration}`);
+    console.log(`Применяем фильтры на сервере: Уровень=${level}, Тип=${type}, Продолжительность<=${duration}`);
 
-    const cards = document.querySelectorAll('.training-card');
-    let foundCount = 0;
+    // Собираем объект фильтров
+    const filters = {};
+    if (level) filters.level = level;
+    if (type) filters.type = type;
+    if (duration && !isNaN(duration)) filters.duration = duration;
 
-    cards.forEach(card => {
-        const cardLevel = card.getAttribute('data-level');
-        const cardType = card.getAttribute('data-type');
-        const cardDuration = parseInt(card.getAttribute('data-duration'));
-
-        const levelMatch = (level === '' || cardLevel === level);
-        const typeMatch = (type === '' || cardType === type);
-        const durationMatch = (cardDuration <= duration);
-
-        if (levelMatch && typeMatch && durationMatch) {
-            card.style.display = 'block';
-            foundCount++;
-        } else {
-            card.style.display = 'none';
-        }
-    });
+    const foundCount = await loadWorkoutsWithFilters(filters);
 
     if (showAlert) {
         showSuccess(`Поиск завершен! Найдено ${foundCount} тренировок.`, null);
@@ -314,6 +335,11 @@ async function showTrainingDetails(workoutId) {
         document.querySelector('#trainingDetailModal .modal-body > p:nth-of-type(1)').innerHTML = `${workout.description} Сегодня мы выполним:`;
         
         trainingDetailModal.show();
+        
+        setTimeout(() => {
+            const startButton = document.querySelector('#trainingDetailModal .btn-primary');
+            if (startButton) startButton.focus();
+        }, 100);
 
     } catch (error) {
         console.error(`Ошибка загрузки деталей тренировки ID ${workoutId}:`, error);
@@ -338,7 +364,7 @@ async function loadBlogPosts() {
                         <div class="card-body">
                             <h3 class="card-title">${post.title}</h3>
                             <p class="card-text text-muted">${post.text}</p>
-                            <a href="#" class="btn btn-sm btn-outline-success">Читать</a>
+                            <a href="#" class="btn btn-sm btn-outline-brand">Читать</a>
                         </div>
                     </div>
                 </div>
@@ -355,10 +381,17 @@ async function loadBlogPosts() {
 // Проверяет localStorage и устанавливает тему при загрузке страницы
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
-    // Если сохранена темная тема
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
+    // Если сохранена тема
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+        // Используем сохраненную
+        document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+    } else {
+        // Проверяем системную тему
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.toggle('dark-theme', prefersDark);
+        localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
     }
+    
     updateThemeToggleIcon();
 }
 
@@ -395,6 +428,11 @@ window.onload = () => {
     // Инициализация темы должна быть первой операцией
     initializeTheme();
 
+    // Скрываем все секции
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('d-none');
+    });
+
     // Начальная загрузка главной страницы (запустит loadBlogPosts)
     showPage('home-page');
     
@@ -405,7 +443,7 @@ window.onload = () => {
     }
 
     // Переключение страниц
-    document.querySelectorAll('.navbar-nav .nav-link, .navbar-brand, .btn[data-page]').forEach(link => {
+    document.querySelectorAll('[data-page]').forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
             const pageId = link.dataset.page;
@@ -430,6 +468,7 @@ window.onload = () => {
 
     document.getElementById('filterDuration').addEventListener('input', function() {
         document.getElementById('durationValue').textContent = this.value;
+        this.setAttribute('aria-valuenow', this.value);
     });
     document.getElementById('durationValue').textContent = document.getElementById('filterDuration').value;
 
@@ -438,6 +477,4 @@ window.onload = () => {
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', toggleTheme);
     }
-    
-    document.getElementById('durationValue').textContent = document.getElementById('filterDuration').value;
 };

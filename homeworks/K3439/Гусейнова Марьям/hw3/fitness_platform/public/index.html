@@ -10,6 +10,7 @@
 </head>
 <body>
 
+    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" aria-label="Основная навигация сайта">
         <div class="container-fluid container-lg">
             <a class="navbar-brand text-success fw-bold" href="#" data-page="home-page">
@@ -36,7 +37,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary ms-2" href="#" data-page="registration-page">
+                        <a class="nav-link" href="#" data-page="registration-page">
                             Регистрация
                         </a>
                     </li>
@@ -51,6 +52,7 @@
 
     <main class="container-lg my-4">
 
+        <!-- Home -->
         <section id="home-page" class="page-section d-block" aria-label="Главная страница с анонсами">
             <div class="hero-block p-5 text-center rounded-3 shadow-lg">
                 <h1 class="text-success display-4 fw-bold mb-3">Твой путь к здоровой жизни!</h1>
@@ -59,11 +61,13 @@
                 <button class="btn btn-lg btn-outline-secondary mt-3" data-page="registration-page">Присоединиться</button>
             </div>
 
+            <!-- Блог о здоровье и питании -->
             <h2 class="mt-5 mb-4 text-center fw-bold">Блог о Здоровье и Питании</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4" role="region" aria-label="Последние посты в блоге">
                 </div>
         </section>
 
+        <!-- Login -->
         <section id="login-page" class="page-section" aria-labelledby="login-title">
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-5">
@@ -90,6 +94,7 @@
             </div>
         </section>
 
+        <!-- Registration -->
         <section id="registration-page" class="page-section" aria-labelledby="registration-title">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-7">
@@ -129,12 +134,14 @@
             </div>
         </section>
 
+        <!-- Лк пользователя -->
         <section id="dashboard-page" class="page-section" aria-labelledby="dashboard-title">
             <h2 class="mb-4 text-primary fw-bold" id="dashboard-title">Личный Кабинет <span id="userNameDisplay">Пользователя</span></h2>
             <div class="row g-4">
+                <!-- Трекинг прогресса -->
                 <div class="col-lg-6" role="region" aria-label="Раздел трекинга прогресса">
                     <div class="card p-4 h-100">
-                        <h4 class="fw-bold mb-3"><i class="bi bi-graph-up me-2 text-success" aria-hidden="true"></i>Трекинг Прогресса</h4>
+                        <h3 class="fw-bold mb-3"><i class="bi bi-graph-up me-2 text-success" aria-hidden="true"></i>Трекинг Прогресса</h3>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Вес: <span id="progressWeight">75 кг</span> <span class="badge bg-success">↓ -1.5 кг</span>
@@ -146,13 +153,14 @@
                                 Цель: 50 отжиманий <span class="badge bg-warning text-dark"><span id="progressGoal">35</span>/50</span>
                             </li>
                         </ul>
-                        <button class="btn btn-outline-success mt-3">Обновить данные</button>
+                        <button class="btn btn-outline-brand mt-3">Обновить данные</button>
                     </div>
                 </div>
 
+                <!-- Планы тренировок -->
                 <div class="col-lg-6" role="region" aria-label="Раздел плана тренировок">
                     <div class="card p-4 h-100">
-                        <h4 class="fw-bold mb-3"><i class="bi bi-calendar-check me-2 text-primary" aria-hidden="true"></i>Твой План Тренировок</h4>
+                        <h3 class="fw-bold mb-3"><i class="bi bi-calendar-check me-2 text-primary" aria-hidden="true"></i>Твой План Тренировок</h3>
                         <div class="accordion" id="trainingPlanAccordion">
                             <p class="text-muted text-center p-3">План загружается...</p>
                         </div>
@@ -162,35 +170,37 @@
             </div>
         </section>
 
+        <!-- Страница поиска тренировок с фильтрацией -->
         <section id="search-page" class="page-section" aria-labelledby="search-title">
             <h2 class="mb-4 text-primary fw-bold" id="search-title">Найти Идеальную Тренировку</h2>
             <div class="row g-4">
+                <!-- Панель фильтров -->
                 <div class="col-lg-4">
                     <div class="filter-group" role="search" aria-label="Фильтры для поиска тренировок">
-                        <h4 class="mb-3 fw-bold">Фильтры</h4>
+                        <h3 class="mb-3 fw-bold">Фильтры</h3>
                         <form id="filterForm">
                             <div class="mb-3">
                                 <label for="filterLevel" class="form-label">Уровень</label>
                                 <select class="form-select" id="filterLevel" aria-describedby="filterDurationHelp">
                                     <option value="">Все уровни</option>
-                                    <option value="beginner">Начинающий</option>
-                                    <option value="intermediate">Средний</option>
-                                    <option value="advanced">Продвинутый</option>
+                                    <option value="начинающий">Начинающий</option>
+                                    <option value="средний">Средний</option>
+                                    <option value="продвинутый">Продвинутый</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="filterType" class="form-label">Тип</label>
                                 <select class="form-select" id="filterType">
                                     <option value="">Все типы</option>
-                                    <option value="cardio">Кардио</option>
-                                    <option value="strength">Силовые</option>
-                                    <option value="yoga">Йога</option>
+                                    <option value="кардио">Кардио</option>
+                                    <option value="силовые">Силовые</option>
+                                    <option value="йога">Йога</option>
                                     <option value="hiit">HIIT</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="filterDuration" class="form-label">Продолжительность (мин)</label>
-                                <input type="range" class="form-range" min="10" max="90" step="5" value="30" id="filterDuration" aria-valuemin="10" aria-valuemax="90" aria-valuenow="30">
+                                <label for="filterDuration" class="form-label">Продолжительность в минутах (макс.)</label>
+                                <input type="range" class="form-range" min="10" max="90" step="5" value="30" id="filterDuration" aria-valuemin="10" aria-valuemax="90" aria-valuenow="30"  aria-describedby="durationValue" aria-label="Максимальная продолжительность тренировки в минутах">
                                 <div class="d-flex justify-content-between">
                                     <small>10 мин</small><small><span id="durationValue">30</span> мин</small><small>90 мин</small>
                                 </div>
@@ -202,6 +212,7 @@
                     </div>
                 </div>
 
+                <!-- Список результатов тренировок -->
                 <div class="col-lg-8" id="trainingResults" role="feed" aria-busy="false" aria-label="Результаты поиска тренировок">
                     </div>
             </div>
@@ -209,6 +220,7 @@
 
     </main>
 
+    <!-- Детали тренировки -->
     <div class="modal fade" id="trainingDetailModal" tabindex="-1" aria-labelledby="trainingDetailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -231,6 +243,7 @@
         </div>
     </div>
 
+    <!-- Окно успешного действия -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

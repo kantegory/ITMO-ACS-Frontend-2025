@@ -1,36 +1,52 @@
+/* Базовые переменные для светлой темы */
 :root {
-    --brand-color: #1abc9c; 
+    --brand-color: #2cd5b3;
     --brand-color-dark: #15a085;
-    --brand-color-success: #157347; 
+    --brand-color-success: #198754;
     
-    /* Светлая тема (по умолчанию) */
-    --bg-primary: #ffffff;             
-    --bg-secondary: #f8f9fa;           
-    --text-color: #212529;             
-    --text-muted: #555555;             
+    /* Светлая тема */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-btn-outline: #ffffff;
+    
+    --text-color: #212529;
+    --text-color-dark: #333333;
+    --text-color-muted: #555555;
+    --text-color-on-brand: #333333;
+    
     --shadow-color: rgba(0, 0, 0, 0.1);
     --shadow-light: rgba(0, 0, 0, 0.05);
+    --border-color-outline: #333333;
+
+    /* Наследование для светлой темы */
+    color-scheme: light;
 }
 
-/* Тёмная тема переопределяем переменные */
+/* Темная тема */
 body.dark-theme {
+    /* Переопределяем brand-color для всей темной темы */
+    --brand-color-success: var(--brand-color);
+    
     /* Фоны */
-    --bg-secondary: #1e1f22;   /* фон страницы */
-    --bg-primary: #2a2d31;     /* карточки / формы */
-
+    --bg-secondary: #1e1f22;
+    --bg-primary: #2a2d31;
+    --bg-btn-outline: transparent;
+    
     /* Текст */
     --text-color: #e9ecef;
-    --text-muted: #adb5bd;
-
-    /* Тени */
+    --text-color-dark: #ffffff; /* Темный текст (в темной = белый) */
+    --text-color-muted: #adb5bd;
+    --text-color-on-brand: #000000;
+    
+    /* Тени и границы */
     --shadow-color: rgba(0, 0, 0, 0.6);
     --shadow-light: rgba(0, 0, 0, 0.35);
-}
-
-body.dark-theme {
+    --border-color-outline: #6c757d;
+    
     color-scheme: dark;
 }
 
+/* Наследование цветов для темной темы */
 body.dark-theme,
 body.dark-theme .card,
 body.dark-theme .card-body,
@@ -49,11 +65,146 @@ body.dark-theme h6 {
     color: var(--text-color);
 }
 
+/* Базовые стили */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-secondary); 
+    color: var(--text-color); 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Навигация и хедер */
+.navbar-light.bg-white {
+    background-color: var(--bg-primary) !important;
+    box-shadow: 0 0.5rem 1rem var(--shadow-color) !important;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.navbar-nav .nav-link, 
+.navbar-brand {
+    color: var(--text-color) !important;
+    transition: color 0.3s;
+}
+
+/* Логотип в навбаре (использует brand-color-success в светлой, brand-color в темной) */
+.navbar-brand.text-success {
+    color: var(--brand-color-success) !important;
+}
+
+/* Активная ссылка в навигации */
+.nav-link.active {
+    color: var(--brand-color-success) !important; /* #198754 в светлой, #2cd5b3 в темной */
+    border-bottom: 2px solid var(--brand-color-success);
+}
+
+/* Слоган на главной странице */
+.text-success {
+    color: var(--brand-color-success) !important; /* #198754 в светлой, #2cd5b3 в темной */
+}
+
+/* Карточки и блоки */
+.card {
+    border-radius: 1rem;
+    background-color: var(--bg-primary); 
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.filter-group {
+    background-color: var(--bg-primary); 
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px var(--shadow-light);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.hero-block {
+    background-color: var(--bg-primary);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.hero-block .lead {
+    color: var(--text-color-muted);
+}
+
+/* Формы */
+.form-control, .form-select, textarea {
+    background-color: var(--bg-primary);
+    color: var(--text-color);
+    border-color: var(--shadow-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--brand-color);
+    box-shadow: 0 0 0 0.25rem rgba(44, 213, 179, 0.25);
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
+    color: var(--text-color-on-brand) !important; /* Черный текст в темной теме */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--brand-color-dark);
+    border-color: var(--brand-color-dark);
+    color: var(--text-color-on-brand) !important;
+}
+
+.btn-outline-secondary {
+    background-color: var(--bg-btn-outline);
+    border-color: var(--border-color-outline);
+    color: var(--text-color-dark);
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+/* Outline кнопки с брендовым цветом */
+.btn-outline-brand {
+    background-color: transparent;
+    border-color: var(--brand-color-success);
+    color: var(--brand-color-success);
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn-outline-brand:hover {
+    background-color: var(--brand-color-success);
+    border-color: var(--brand-color-success);
+    color: #ffffff; /* Белый текст в светлой теме при наведении */
+}
+
+/* В темной теме переопределяем на --brand-color (#2cd5b3) */
+body.dark-theme .btn-outline-brand {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+}
+
+body.dark-theme .btn-outline-brand:hover {
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
+    color: var(--text-color-on-brand); /* Черный текст в темной теме при наведении */
+}
+
+/* Модальные окна */
+.modal-content {
+    background-color: var(--bg-primary);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Темная тема - специфичные стили */
 body.dark-theme .form-control,
 body.dark-theme .form-select,
 body.dark-theme textarea {
     background-color: #1f2226;
-    color: var(--text-color);
     border-color: #3a3f45;
 }
 
@@ -71,39 +222,13 @@ body.dark-theme input:-webkit-autofill:focus {
     transition: background-color 9999s ease-in-out 0s;
 }
 
-body.dark-theme .btn-primary {
-    color: #ffffff;
-}
 body.dark-theme .card {
     border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-body.dark-theme .btn-outline-secondary {
-    color: var(--text-color);
-    border-color: #6c757d;
-}
-
 body.dark-theme .btn-outline-secondary:hover {
     background-color: #6c757d;
-    color: #fff;
-}
-
-body.dark-theme .modal-content {
-    background-color: var(--bg-primary);
-    color: var(--text-color);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-body.dark-theme .modal-header,
-body.dark-theme .modal-footer {
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-body.dark-theme .modal-title,
-body.dark-theme .modal-body h4,
-body.dark-theme .modal-body h5,
-body.dark-theme .modal-body p {
-    color: var(--text-color);
+    color: var(--text-color-dark);
 }
 
 body.dark-theme .btn-close {
@@ -116,114 +241,76 @@ body.dark-theme .list-group-item {
     border-color: rgba(255, 255, 255, 0.08);
 }
 
-body.dark-theme .badge.bg-warning {
-    color: #212529 !important;
-}
-
-body.dark-theme #dashboard-title {
-    color: var(--text-color);
-}
-
 body.dark-theme iframe {
     border-radius: 0.75rem;
     background-color: #000;
 }
 
-.hero-block {
-    background-color: var(--bg-primary);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+body.dark-theme ::placeholder {
+    color: #8b949e;
 }
 
-/* Подзаголовок */
-.hero-block .lead {
-    color: var(--text-muted);
+/* Гамбургер-иконка в темной теме */
+body.dark-theme .navbar-toggler-icon {
+    /* Инвертируем цвет иконки */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28233, 236, 239, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-secondary); 
-    color: var(--text-color); 
-    transition: background-color 0.3s, color 0.3s;
+body.dark-theme .navbar-toggler {
+    border-color: rgba(233, 236, 239, 0.3);
 }
 
+body.dark-theme .navbar-toggler:focus {
+    box-shadow: 0 0 0 2px rgba(44, 213, 179, 0.5);
+}
+
+/* Аккордеон в темной теме */
+body.dark-theme .accordion-button {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-theme .accordion-button:not(.collapsed) {
+    background-color: rgba(44, 213, 179, 0.15) !important;
+    color: var(--brand-color) !important; /* Брендовый цвет для активного состояния */
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-theme .accordion-item {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-theme .accordion-body {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    color: var(--text-color) !important;
+}
+
+body.dark-theme .accordion-button::after {
+    /* Инвертируем цвет стрелки для светлого фона */
+    filter: invert(1) brightness(2) grayscale(1);
+}
+
+body.dark-theme .accordion-button:not(.collapsed)::after {
+    /* Для активного состояния используем брендовый цвет */
+    filter: invert(73%) sepia(58%) saturate(482%) hue-rotate(123deg) brightness(89%) contrast(89%);
+}
+
+/* Утилиты */
+.text-muted {
+    color: var(--text-color-muted) !important;
+}
+
+.text-primary {
+    color: var(--brand-color-success) !important; /* #198754 в светлой, #2cd5b3 в темной */
+}
+
+/* Дополнительные стили */
 .page-section {
     display: none;
     min-height: 80vh;
     padding-top: 20px;
-}
-.card {
-    border-radius: 1rem;
-    background-color: var(--bg-primary); 
-    box-shadow: 0 4px 12px var(--shadow-color);
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-}
-
-.navbar-light.bg-white {
-    background-color: var(--bg-primary) !important;
-    box-shadow: 0 0.5rem 1rem var(--shadow-color) !important;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.navbar-nav .nav-link, 
-.navbar-brand {
-    color: var(--text-color) !important;
-    transition: color 0.3s;
-}
-
-.nav-link.active {
-    color: var(--brand-color) !important;
-    border-bottom: 2px solid var(--brand-color);
-}
-
-.btn-primary {
-    background-color: var(--brand-color);
-    border-color: var(--brand-color);
-    color: var(--text-color); 
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: var(--brand-color-dark);
-    border-color: var(--brand-color-dark);
-    color: var(--text-color);
-}
-
-.filter-group {
-    background-color: var(--bg-primary); 
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px var(--shadow-light);
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.form-control, .form-select {
-    background-color: var(--bg-primary);
-    color: var(--text-color);
-    border-color: var(--shadow-color);
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
- body.dark-theme ::placeholder {
-    color: #8b949e;
-}
-
-
-.form-control:focus, .form-select:focus {
-    border-color: var(--brand-color);
-    box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
-}
-
-.text-muted {
-    color: var(--text-muted) !important; 
-}
-
-.text-success {
-    color: var(--brand-color-success) !important; 
-}
-
-.text-primary {
-    color: var(--brand-color) !important;
 }
 
 #home-page .card-body h3 {
