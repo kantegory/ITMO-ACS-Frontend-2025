@@ -1,5 +1,4 @@
 :root {
-  /* --- Светлая тема --- */
   --bg-color: #ffffff;
   --text-color: #111111;
   --card-bg: #ffffff;
@@ -20,7 +19,6 @@
   --link-hover: #0b5ed7;
 }
 
-/* --- Тёмная тема --- */
 .dark-theme {
   --bg-color: #121212;
   --text-color: #e0e0e0;

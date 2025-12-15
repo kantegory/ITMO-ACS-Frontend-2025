@@ -8,26 +8,55 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- Navbar с контрастной кнопкой "Вход" -->
+<!-- SVG-СПРАЙТ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-login" viewBox="0 0 24 24">
+    <path d="M10 17l5-5-5-5v10zM3 3h8v2H5v14h6v2H3V3zm10 2h8v14h-8v-2h6V7h-6V5z"/>
+  </symbol>
+
+  <symbol id="icon-register" viewBox="0 0 24 24">
+    <path d="M15 12a4 4 0 1 0-6 0c-2.7 1-4 3-4 5v2h14v-2c0-2-1.3-4-4-5z"/>
+  </symbol>
+
+  <symbol id="icon-filter" viewBox="0 0 24 24">
+    <path d="M3 5h18v2l-7 7v5l-4 2v-7L3 7V5z"/>
+  </symbol>
+</svg>
+
+<!-- HEADER -->
 <header>
   <nav class="navbar navbar-light" aria-label="Основная навигация">
     <div class="container">
       <a class="navbar-brand" href="index.html">RestaurantBooking</a>
-      <button id="themeToggle" class="btn btn-secondary">Тёмная тема</button>
-      <div class="d-flex">
-        <a class="btn btn-outline-primary me-2 themed-btn" href="login.html">Вход</a>
-        <a class="btn btn-primary themed-btn" href="register.html">Регистрация</a>
+
+      <button id="themeToggle" class="btn btn-secondary">
+        Тёмная тема
+      </button>
+
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-primary themed-btn d-flex align-items-center gap-1" href="login.html">
+          <svg class="icon"><use href="#icon-login"></use></svg>
+          Вход
+        </a>
+
+        <a class="btn btn-primary themed-btn d-flex align-items-center gap-1" href="register.html">
+          <svg class="icon"><use href="#icon-register"></use></svg>
+          Регистрация
+        </a>
       </div>
     </div>
   </nav>
 </header>
 
+<!-- MAIN -->
 <main class="container my-4">
   <h1 class="mb-3">Найдите ресторан</h1>
 
-  <form id="filters" class="row g-2 align-items-end" aria-label="Фильтры поиска ресторанов">
+  <!-- ФИЛЬТРЫ -->
+  <form class="row g-2 align-items-end" aria-label="Фильтры поиска ресторанов">
     <div class="col-md-4">
       <label for="filterCuisine" class="form-label">Кухня</label>
       <select id="filterCuisine" class="form-select themed-btn">
@@ -41,38 +70,42 @@
 
     <div class="col-md-3">
       <label for="filterLocation" class="form-label">Район / Город</label>
-      <input id="filterLocation" type="text" class="form-control themed-btn" placeholder="Например, центр" aria-label="Район или город">
+      <input id="filterLocation" type="text" class="form-control themed-btn" placeholder="Например, центр">
     </div>
 
     <div class="col-md-3">
       <label for="filterPrice" class="form-label">Цена</label>
       <select id="filterPrice" class="form-select themed-btn">
         <option value="">Любая</option>
-        <option value="1">₽ (дёшево)</option>
-        <option value="2">₽₽ (средне)</option>
-        <option value="3">₽₽₽ (дорого)</option>
+        <option value="1">₽</option>
+        <option value="2">₽₽</option>
+        <option value="3">₽₽₽</option>
       </select>
     </div>
 
     <div class="col-md-2 d-grid">
-      <button id="applyFilters" type="button" class="btn btn-primary themed-btn" aria-label="Применить фильтры">Показать</button>
+      <button id="applyFilters" type="button"
+        class="btn btn-primary themed-btn d-flex align-items-center justify-content-center gap-1">
+        <svg class="icon"><use href="#icon-filter"></use></svg>
+        Показать
+      </button>
     </div>
   </form>
 
   <hr>
 
   <h2>Список ресторанов</h2>
-  <section id="restaurants" class="row row-cols-1 row-cols-md-2 g-3" aria-live="polite" aria-label="Список ресторанов">
+  <section id="restaurants" class="row row-cols-1 row-cols-md-2 g-3" aria-live="polite">
   </section>
 </main>
 
-<!-- Модальное окно бронирования -->
-<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="bookingTitle" aria-hidden="true">
+<!-- MODAL -->
+<div class="modal fade" id="bookingModal" tabindex="-1">
   <div class="modal-dialog">
-    <form id="bookingForm" class="modal-content themed-btn" aria-label="Форма бронирования">
+    <form id="bookingForm" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="bookingTitle">Бронирование</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть окно"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
@@ -80,17 +113,17 @@
 
         <div class="mb-3">
           <label for="guestName">Имя</label>
-          <input id="guestName" type="text" class="form-control themed-btn" required aria-required="true">
+          <input id="guestName" class="form-control themed-btn" required>
         </div>
 
         <div class="mb-3">
           <label for="bookingDate">Дата и время</label>
-          <input id="bookingDate" type="datetime-local" class="form-control themed-btn" required aria-required="true">
+          <input id="bookingDate" type="datetime-local" class="form-control themed-btn" required>
         </div>
 
         <div class="mb-3">
           <label for="guestsCount">Количество гостей</label>
-          <input id="guestsCount" type="number" min="1" class="form-control themed-btn" required aria-required="true">
+          <input id="guestsCount" type="number" min="1" class="form-control themed-btn" required>
         </div>
       </div>
 
@@ -104,5 +137,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/script.js"></script>
+
 </body>
 </html>
