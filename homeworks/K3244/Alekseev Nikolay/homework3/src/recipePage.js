@@ -1,4 +1,6 @@
 import { recipes, currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage } from "./data.js"
+import { applyTheme } from "./theme.js"
+applyTheme(currentUser?.theme)
 
 const params = new URLSearchParams(window.location.search)
 const id = parseInt(params.get("id"))

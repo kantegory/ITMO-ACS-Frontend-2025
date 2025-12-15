@@ -1,11 +1,12 @@
 export default class User {
-  constructor({ id, name, savedRecipes = [], myRecipes = [], likedRecipes = [], subscriptions = [] }) {
+  constructor({ id, name, savedRecipes = [], myRecipes = [], likedRecipes = [], subscriptions = [], theme = "light" }) {
     this.id = id
     this.name = name
     this.savedRecipes = savedRecipes
     this.myRecipes = myRecipes
     this.likedRecipes = likedRecipes
     this.subscriptions = subscriptions
+    this.theme = theme  
   }
 
   saveRecipe(recipeId) {

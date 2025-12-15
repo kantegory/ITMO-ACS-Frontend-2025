@@ -1,4 +1,7 @@
 import { users, saveUserToStorage } from "./data.js"
+import { applyTheme, setTheme, getInitialTheme } from "./theme.js"
+
+applyTheme()
 
 const savedUser = localStorage.getItem("currentUser")
 if (savedUser) window.location.href = "index.html"
@@ -11,6 +14,8 @@ document.getElementById("loginBtn").addEventListener("click", () => {
     alert("Пользователь не найден. Зарегистрируйтесь.")
     return
   }
+  if (user.theme !== "light" && user.theme !== "dark") user.theme = getInitialTheme()
   saveUserToStorage(user)
+  setTheme(user.theme)
   window.location.href = "index.html"
 })

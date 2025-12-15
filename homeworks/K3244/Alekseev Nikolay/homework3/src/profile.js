@@ -1,6 +1,28 @@
-import { recipes, currentUser } from "./data.js"
+import { recipes, currentUser, saveUserToStorage } from "./data.js"
+import { applyTheme, setTheme } from "./theme.js"
+
+applyTheme(currentUser?.theme)
 
 document.getElementById("profileName").textContent = `Профиль: ${currentUser.name}`
+
+const toolbar = document.createElement("div")
+toolbar.className = "d-flex gap-2 mb-4"
+
+const themeBtn = document.createElement("button")
+themeBtn.type = "button"
+themeBtn.className = "btn btn-outline-secondary"
+themeBtn.textContent = currentUser.theme === "dark" ? "Тема: тёмная" : "Тема: светлая"
+
+toolbar.appendChild(themeBtn)
+
+document.getElementById("profileName").insertAdjacentElement("beforebegin", toolbar)
+
+themeBtn.addEventListener("click", () => {
+  currentUser.theme = currentUser.theme === "dark" ? "light" : "dark"
+  saveUserToStorage(currentUser)
+  setTheme(currentUser.theme)
+  themeBtn.textContent = currentUser.theme === "dark" ? "Тема: тёмная" : "Тема: светлая"
+})
 
 function renderRecipeCard(recipe) {
   const card = document.createElement("div")

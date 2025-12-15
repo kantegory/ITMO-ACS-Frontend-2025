@@ -1,4 +1,6 @@
 import { recipes } from "./src/data.js"
+import { applyTheme } from "./src/theme.js"
+applyTheme()
 
 if (!localStorage.getItem("currentUser")) {
   window.location.href = "login.html"

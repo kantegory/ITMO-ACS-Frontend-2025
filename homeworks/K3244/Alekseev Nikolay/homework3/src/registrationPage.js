@@ -1,5 +1,8 @@
 import { users, saveUserToStorage } from "./data.js"
 import User from "./User.js"
+import { applyTheme, setTheme, getInitialTheme } from "./theme.js"
+
+applyTheme()
 
 const savedUser = localStorage.getItem("currentUser")
 
@@ -18,10 +21,12 @@ document.getElementById("registerBtn").addEventListener("click", () => {
     savedRecipes: [],
     myRecipes: [],
     likedRecipes: [],
-    subscriptions: []
+    subscriptions: [],
+    theme: getInitialTheme()
   })
   users.push(newUser)
   localStorage.setItem("users", JSON.stringify(users))
   saveUserToStorage(newUser)
+  setTheme(newUser.theme)
   window.location.href = "index.html"
 })
