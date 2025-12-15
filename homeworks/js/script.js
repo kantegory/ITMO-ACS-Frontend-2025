@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookingForm = document.getElementById('bookingForm');
   const toggleBtn = document.getElementById('themeToggle');
   const body = document.body;
+  const themeIcon = toggleBtn.querySelector('use');
 
   let currentRestaurants = [];
 
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const col = document.createElement('div');
       col.className = 'col';
       col.innerHTML = `
-        <div class="card h-100">
+        <div class="card h-100 themed-btn">
           <img src="${r.img}" class="card-img-top" alt="${r.name}">
           <div class="card-body">
             <h3 class="card-title">${r.name}</h3>
@@ -96,24 +97,24 @@ document.addEventListener('DOMContentLoaded', () => {
     render(filtered);
   });
 
-  // -------------------- Переключение темы --------------------
-  if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark-theme');
-    if (toggleBtn) toggleBtn.textContent = 'Светлая тема';
+  // ---------------- Переключение темы ----------------
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      body.classList.add('dark-theme');
+      themeIcon.setAttribute('xlink:href', '#icon-moon');
+    } else {
+      body.classList.remove('dark-theme');
+      themeIcon.setAttribute('xlink:href', '#icon-sun');
+    }
+    localStorage.setItem('theme', theme);
   }
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      body.classList.toggle('dark-theme');
-      if (body.classList.contains('dark-theme')) {
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = 'Светлая тема';
-      } else {
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = 'Тёмная тема';
-      }
-    });
-  }
-  document.body.classList.add('dark-theme');
-  console.log(getComputedStyle(document.body).backgroundColor);
+  // Применяем сохранённую тему
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme);
+
+  toggleBtn.addEventListener('click', () => {
+    const newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
 });

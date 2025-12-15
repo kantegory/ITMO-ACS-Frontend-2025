@@ -1,6 +1,8 @@
+/* CSS-переменные светлой темы */
 :root {
   --bg-color: #ffffff;
   --text-color: #111111;
+
   --card-bg: #ffffff;
   --card-text-muted: #6c757d;
 
@@ -19,9 +21,11 @@
   --link-hover: #0b5ed7;
 }
 
-.dark-theme {
+/* CSS-переменные тёмной темы */
+body.dark-theme {
   --bg-color: #121212;
   --text-color: #e0e0e0;
+
   --card-bg: #1e1e1e;
   --card-text-muted: #b0b0b0;
 
@@ -40,40 +44,45 @@
   --link-hover: #ffffff;
 }
 
-/* --- Общие стили --- */
+/* Базовые стили страницы */
 body {
-  color: var(--text-color);
   background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: Arial, sans-serif;
 }
 
+/* Навигация */
 nav.navbar {
-  background-color: var(--nav-bg);
+  background-color: var(--nav-bg) !important;
   color: var(--nav-text);
 }
 
+/* Карточки */
 .card {
   background-color: var(--card-bg);
   color: var(--text-color);
 }
 
-.card-text {
-  color: var(--card-text-muted);
+.card-text,
+.text-muted {
+  color: var(--card-text-muted) !important;
 }
 
-/* --- Кнопки с темой --- */
-.themed-btn {
-  color: var(--btn-outline-color) !important;
+/* Кнопки с темой */
+.themed-btn.btn,
+.themed-btn.form-control,
+.themed-btn.form-select {
   background-color: var(--btn-outline-bg) !important;
+  color: var(--btn-outline-color) !important;
   border-color: var(--btn-outline-border) !important;
 }
 
-.themed-btn:hover {
-  color: var(--btn-outline-bg) !important;
+.themed-btn.btn:hover {
   background-color: var(--btn-outline-color) !important;
-  border-color: var(--btn-outline-border) !important;
+  color: var(--btn-outline-bg) !important;
 }
 
+/* Основные кнопки */
 .btn-primary {
   background-color: var(--btn-primary-bg) !important;
   color: var(--btn-primary-color) !important;
@@ -82,11 +91,22 @@ nav.navbar {
 
 .btn-primary:hover {
   background-color: var(--btn-primary-bg) !important;
-  border-color: var(--btn-primary-border) !important;
   color: var(--btn-primary-color) !important;
 }
 
-/* --- Ссылки --- */
+/* Формы */
+.form-control,
+.form-select {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--btn-outline-border);
+}
+
+.form-control::placeholder {
+  color: var(--card-text-muted);
+}
+
+/* Ссылки */
 a {
   color: var(--link-color);
 }
@@ -94,4 +114,11 @@ a {
 a:hover {
   color: var(--link-hover);
   text-decoration: underline;
+}
+
+/* SVG-иконки */
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }
