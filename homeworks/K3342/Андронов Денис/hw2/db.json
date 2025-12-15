@@ -1,0 +1,86 @@
+{
+  "restaurants": [
+    {
+      "id": "1",
+      "name": "Balerina Capuccino",
+      "type": "итальянская",
+      "location": "Центральный",
+      "price": "₽₽ Средне",
+      "image": "img/demo.jpg",
+      "description": "Уютный ресторан итальянской кухни."
+    },
+    {
+      "id": "2",
+      "name": "Ramen",
+      "type": "японская",
+      "location": "Петроградский",
+      "price": "₽ Дёшево",
+      "image": "img/demo.jpg",
+      "description": "Аутентичный рамен по доступной цене."
+    },
+    {
+      "id": "3",
+      "name": "Steak House",
+      "type": "европейская",
+      "location": "Адмиралтейский",
+      "price": "₽₽₽ Дорого",
+      "image": "img/demo.jpg",
+      "description": "Лучшие стейки в городе."
+    },
+    {
+      "id": "4",
+      "name": "Burgers",
+      "type": "американская",
+      "location": "Василеостровский",
+      "price": "₽₽ Средне",
+      "image": "img/demo.jpg",
+      "description": "Классические и авторские бургеры."
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Denis",
+      "email": "den-andronov@inbox.ru",
+      "password": "pass123"
+    },
+    {
+      "id": "cd57",
+      "name": "test",
+      "email": "test@inbox.ru",
+      "password": "123"
+    },
+    {
+      "id": "9141",
+      "name": "Денис",
+      "email": "test1@mail.ru",
+      "password": "123"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "1",
+      "userId": 1,
+      "restaurantId": 1,
+      "date": "2025-11-12",
+      "time": "19:00",
+      "guests": 2
+    },
+    {
+      "id": "8ab3",
+      "userId": "9141",
+      "restaurantId": 1,
+      "date": "2025-12-15",
+      "time": "12:00",
+      "guests": "1"
+    },
+    {
+      "id": "4749",
+      "userId": "9141",
+      "restaurantId": 2,
+      "date": "2027-12-15",
+      "time": "12:00",
+      "guests": "1"
+    }
+  ]
+}
