@@ -9,14 +9,19 @@
 </head>
 <body>
   <header class="d-flex bg-light">
+    <h1 class="visually-hidden">Food Source</h1>
+  
     <div class="w-50 p-5">
-      <input class="w-100 p-1" type="text" placeholder="поиск по названию">
+      <label class="visually-hidden" for="searchInput">Поиск по названию</label>
+      <input id="searchInput" class="w-100 p-2" type="text" placeholder="Поиск по названию">
     </div>
+  
     <div class="w-50 text-center d-flex flex-column">
       <h2>Фильтры</h2>
       <div class="d-flex">
         <div class="d-flex flex-column align-items-center w-25">
           <p class="">Тип блюда</p>
+          <label class="visually-hidden" for="typeSelect">Тип блюда</label>
           <select id="typeSelect" class="form-select">
             <option selected>Любой</option>
             <option value="1">Завтрак</option>
@@ -26,8 +31,10 @@
             <option value="5">Напиток</option>
           </select>
         </div>
+  
         <div class="d-flex flex-column align-items-center w-25">
           <p class="w-50">Сложность</p>
+          <label class="visually-hidden" for="difficultySelect">Сложность</label>
           <select id="difficultySelect" class="form-select">
             <option selected>Любая</option>
             <option value="1">Легко</option>
@@ -35,12 +42,14 @@
             <option value="3">Сложно</option>
           </select>
         </div>
+  
         <div class="d-flex flex-column align-items-center w-50">
           <p class="w-50">Ингредиенты</p>
           <div id="ingredientsContainer" class="d-flex flex-wrap gap-2 justify-content-center p-2"></div>
         </div>
       </div>
     </div>
+  
     <nav class="p-5">
       <a href="profile.html" class="btn btn-outline-primary">Профиль</a>
     </nav>

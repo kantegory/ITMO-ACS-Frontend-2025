@@ -10,7 +10,7 @@ function renderRecipeCard(recipe) {
       <div class="card shadow-sm h-100">
         <img src="${recipe.photo}" class="card-img-top object-fit-cover" style="height:200px;width:100%">
         <div class="card-body">
-          <h5 class="card-title">${recipe.name}</h5>
+          <h1 class="h4 card-title">${recipe.name}</h1>
           <p class="card-text small text-muted">${recipe.text}</p>
         </div>
       </div>

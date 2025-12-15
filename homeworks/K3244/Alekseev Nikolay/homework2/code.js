@@ -4,7 +4,7 @@ if (!localStorage.getItem("currentUser")) {
   window.location.href = "login.html"
 }
 
-const searchInput = document.querySelector("input[type='text']")
+const searchInput = document.getElementById("searchInput")
 const typeSelect = document.getElementById("typeSelect")
 const difficultySelect = document.getElementById("difficultySelect")
 
@@ -33,7 +33,7 @@ function renderRecipes(list) {
         <div class="card shadow-sm h-100" style="cursor:pointer;">
           <img src="${r.photo}" class="card-img-top object-fit-cover" alt="${r.name}" style="height: 200px; width: 100%;">
           <div class="card-body">
-            <h5 class="card-title">${r.name}</h5>
+            <h1 class="h4 card-title">${r.name}</h1>
             <p class="card-text small text-muted">${r.text}</p>
             <p><strong>Ингредиенты:</strong> ${r.ingredients.join(", ")}</p>
             <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][r.difficulty - 1]}</p>
@@ -83,7 +83,7 @@ Array.from(ingredientsSet).sort().forEach(ingredient => {
 
   const input = document.createElement("input")
   input.type = "checkbox"
-  input.classList.add("form-check-input", "me-1")
+  input.classList.add("me-3")
   input.style.cursor = "pointer"
   input.value = ingredient
 

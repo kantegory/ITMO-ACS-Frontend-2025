@@ -11,7 +11,7 @@ if (!recipe) {
   container.innerHTML = `
     <img src="${recipe.photo}" class="object-fit-cover" alt="${recipe.name}" style="width: 100%;">
     <div class="card-body">
-      <h5 class="card-title">${recipe.name}</h5>
+      <h2 class="h4 card-title">${recipe.name}</h2>
       <p class="card-text small text-muted">${recipe.text}</p>
       <p><strong>Ингредиенты:</strong> ${recipe.ingredients.join(", ")}</p>
       <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][recipe.difficulty - 1]}</p>
@@ -97,7 +97,8 @@ if (!recipe) {
 
   const commentsSection = document.createElement("div")
   commentsSection.classList.add("mt-4")
-  const commentsTitle = document.createElement("h5")
+  const commentsTitle = document.createElement("h3")
+  commentsTitle.classList.add("h5")  
   commentsTitle.textContent = "Комментарии"
   commentsSection.append(commentsTitle)
 
@@ -135,6 +136,7 @@ if (!recipe) {
     commentItem.innerHTML = `<strong>${newComment.user}:</strong> ${newComment.text}`
     commentsList.append(commentItem)
     commentInput.value = ""
+    commentInput.setAttribute("aria-label", "Комментарий")
     saveCommentToStorage(recipe)
   })
 }
