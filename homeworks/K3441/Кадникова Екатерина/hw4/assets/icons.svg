@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+
+    <symbol id="icon-house-heart" viewBox="0 0 16 16">
+        <path d="M8 3.293l6 6V15a1 1 0 0 1-1 1h-3v-4H6v4H3a1 1 0 0 1-1-1V9.293l6-6z"/>
+        <path d="M8 1.5l-7 7 .708.707L8 2.914l6.293 6.293.707-.707-7-7z"/>
+        <path d="M11 6.5c0-1.657-1.343-3-3-3S5 4.843 5 6.5c0 2.5 3 4.5 3 4.5s3-2 3-4.5z"/>
+    </symbol>
+
+    <symbol id="icon-geo" viewBox="0 0 16 16">
+        <path d="M8 0a5 5 0 0 0-5 5c0 3.25 5 11 5 11s5-7.75 5-11a5 5 0 0 0-5-5z"/>
+        <circle cx="8" cy="5" r="2"/>
+    </symbol>
+
+    <symbol id="icon-house" viewBox="0 0 16 16">
+        <path d="M8 3l6 6v7H2V9l6-6z"/>
+    </symbol>
+
+    <symbol id="icon-calendar" viewBox="0 0 16 16">
+        <rect x="2" y="3" width="12" height="11" rx="1"/>
+        <path d="M2 6h12"/>
+    </symbol>
+
+    <symbol id="icon-ruble" viewBox="0 0 16 16">
+        <path d="M6 1h5a3 3 0 0 1 0 6H6v2h5v2H6v3H4V1h2zm0 2v2h5a1 1 0 0 0 0-2H6z"/>
+    </symbol>
+
+    <symbol id="icon-eye" viewBox="0 0 16 16">
+        <path d="M8 3c4.5 0 7.5 5 7.5 5S12.5 13 8 13 .5 8 .5 8 3.5 3 8 3z"/>
+        <circle cx="8" cy="8" r="2"/>
+    </symbol>
+
+    <symbol id="icon-chat" viewBox="0 0 16 16">
+        <path d="M2 2h12v8H5l-3 3V2z"/>
+    </symbol>
+
+    <symbol id="icon-info-circle" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="7"/>
+        <path d="M8 7v4M8 4h.01"/>
+    </symbol>
+
+    <symbol id="icon-send" viewBox="0 0 16 16">
+        <path d="M15 1L1 8l5 2 2 5 7-14z"/>
+    </symbol>
+
+    <symbol id="icon-check-lg" viewBox="0 0 16 16">
+        <path d="M13.485 1.929a.75.75 0 0 1 .086 1.057L6.75 13.5 2.43 9.207a.75.75 0 1 1 1.06-1.06l3.25 3.25 6.69-8.468a.75.75 0 0 1 1.055-.086z"/>
+    </symbol>
+
+    <symbol id="icon-plus-circle" viewBox="0 0 16 16">
+        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 3.5a.5.5 0 0 1 .5.5V7.5H11a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V8.5H5a.5.5 0 0 1 0-1h2.5V5a.5.5 0 0 1 .5-.5z"/>
+    </symbol>
+
+    <symbol id="icon-tags" viewBox="0 0 16 16">
+        <path d="M3 2v4l7 7 4-4-7-7H3z"/>
+        <circle cx="5" cy="4" r="1"/>
+    </symbol>
+
+    <symbol id="icon-images" viewBox="0 0 16 16">
+        <path d="M4 4h8v8H4z"/>
+        <path d="M2 6h1v6h6v1H2z"/>
+    </symbol>
+
+    <symbol id="icon-image" viewBox="0 0 16 16">
+        <path d="M2 2h12v12H2z"/>
+        <circle cx="5" cy="5" r="1.5"/>
+        <path d="M14 11l-4-4-3 3-2-2-3 3"/>
+    </symbol>
+
+    <symbol id="icon-arrow-left" viewBox="0 0 16 16">
+        <path d="M15 8H2"/>
+        <path d="M6 4L2 8l4 4"/>
+    </symbol>
+
+    <symbol id="icon-lightbulb" viewBox="0 0 16 16">
+        <path d="M8 1a5 5 0 0 0-3 9.042V13a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.958A5 5 0 0 0 8 1z"/>
+        <path d="M6 15h4"/>
+    </symbol>
+
+    <symbol id="icon-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+    </symbol>
+
+    <symbol id="icon-chat-dots" viewBox="0 0 16 16">
+        <path d="M2 2h12v8H5l-3 3V2z"/>
+        <circle cx="5" cy="6" r="1"/>
+        <circle cx="8" cy="6" r="1"/>
+        <circle cx="11" cy="6" r="1"/>
+    </symbol>
+
+    <symbol id="icon-person-badge" viewBox="0 0 16 16">
+        <path d="M6.5 2a2.5 2.5 0 1 1 0 5"/>
+        <path d="M4 8a2 2 0 0 0-2 2v3h9v-3a2 2 0 0 0-2-2z"/>
+        <path d="M14 4h-2v1h2zM14 6h-2v1h2zM14 8h-2v1h2z"/>
+    </symbol>
+
+    <symbol id="icon-box-arrow-right" viewBox="0 0 16 16">
+        <path d="M10 8l-3-3v2H1v2h6v2z"/>
+        <path d="M13 2h-4v1h4v10h-4v1h4a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+    </symbol>
+
+    <symbol id="icon-box-arrow-in-right" viewBox="0 0 16 16">
+        <path d="M6 8l3 3V9h6V7H9V5z"/>
+        <path d="M2 2h4v1H2v10h4v1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/>
+    </symbol>
+
+    <symbol id="icon-person-plus" viewBox="0 0 16 16">
+        <path d="M6 8a3 3 0 1 0 0-6"/>
+        <path d="M1 14a5 5 0 0 1 10 0"/>
+        <path d="M13 5v2h2v1h-2v2h-1V8h-2V7h2V5z"/>
+    </symbol>
+
+    <symbol id="icon-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.46 3.69l-2.12-2.12 1.043-1.043a.5.5 0 0 1 .707 0l1.412 1.412z"/>
+        <path d="M13.75 4.396l-2.12-2.12L4 9.905V12h2.095l7.655-7.604z"/>
+        <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a.5.5 0 0 0 0-1h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 0-1 0z"/>
+    </symbol>
+
+    <symbol id="icon-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 0a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+    </symbol>
+
+    <symbol id="icon-info-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zM8 4a.905.905 0 1 1 0 1.81A.905.905 0 0 1 8 4zm1 7H7v-1h1V7H7V6h2v4z"/>
+    </symbol>
+
+    <symbol id="icon-send" viewBox="0 0 16 16">
+        <path d="M15.964 0.686a.5.5 0 0 0-.492-.031L0 7.5l5 1.5L10 15l1.5-10.5L15.964.686z"/>
+    </symbol>
+
+    <symbol id="icon-check-circle" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.5 11.5l7-7-1-1-6 6-2-2-1 1 3 3z"/>
+    </symbol>
+
+    <symbol id="icon-bar-chart" viewBox="0 0 16 16">
+        <path d="M0 0h1v16H0V0zm3 6h1v10H3V6zm3-3h1v13H6V3zm3 5h1v8H9V8zm3-2h1v10h-1V6z"/>
+    </symbol>
+
+    <symbol id="icon-houses" viewBox="0 0 16 16">
+        <path d="M1 8l7-7 7 7v7H1V8zm7-6.293L2 8.707V15h4V9h4v6h4V8.707L8 1.707z"/>
+    </symbol>
+
+    <symbol id="icon-sun" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+        <path d="M8 0h0.5v2H8zM8 14h0.5v2H8zM0 8h2v0.5H0zM14 8h2v0.5h-2z"/>
+        <path d="M2.343 2.343l1.414 1.414M12.243 12.243l1.414 1.414M2.343 13.657l1.414-1.414M12.243 3.757l1.414-1.414"/>
+    </symbol>
+
+    <symbol id="icon-moon" viewBox="0 0 16 16">
+        <path d="M11.5 15a7.5 7.5 0 0 1-6.364-11.364A6.5 6.5 0 1 0 11.5 15z"/>
+    </symbol>
+
+</svg>
