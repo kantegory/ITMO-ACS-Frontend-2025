@@ -8,6 +8,40 @@ function qS(sel) { return document.querySelector(sel); }
 function qSA(sel) { return document.querySelectorAll(sel); }
 function getParam(name) { return new URLSearchParams(location.search).get(name); }
 
+//  Загрузка рецептов с сервера
+let RECIPES = []; // сюда грузятся рецепты с json-server
+
+async function loadRecipes() {
+  try {
+    const response = await fetch('http://localhost:3000/recipes');
+    if (!response.ok) {
+      throw new Error(`HTTP ошибка: ${response.status}`);
+    }
+    RECIPES = await response.json(); // заполнение переменной
+
+    renderGrid();
+    renderRecipePage();
+    updateProfilePage();
+    if (document.querySelector('#searchInput')) {
+      applyFilters(); // для страницы поиска
+    }
+  } catch (error) {
+    console.error('Не удалось загрузить рецепты с сервера:', error);
+    
+    // Если что-то пошло не так
+    const containers = document.querySelectorAll('#recipesGrid, #savedRecipes, #myRecipes');
+    containers.forEach(container => {
+      if (container) {
+        container.innerHTML = `
+          <div class="col-12 text-center text-danger p-5">
+            <h5>Ошибка подключения к серверу</h5>
+            <p>Запустите: <code>npx json-server server/db.json --port 3000</code></p>
+          </div>`;
+      }
+    });
+  }
+}
+
 // ----- ЛАЙКИ -----
 const LS_LIKES = 'recipes_likes';
 // ----- LS: пользователи, сохранённые, кастомные рецепты -----
@@ -39,7 +73,6 @@ function renderCard(recipe, options = {}) {
     ? `<button class="btn btn-danger btn-sm delete-recipe" data-id="${recipe.id}">Удалить</button>`
     : '';
 
-  // => УБРАНА КНОПКА "сохранить" из карточки (требование: кнопка сохранения — только на странице recipe.html)
 
   return `
     <div class="col-12 col-sm-6 col-md-4">
@@ -520,10 +553,13 @@ qS('#logoutBtn')?.addEventListener('click', () => {
 
 // ----- ЗАПУСК -----
 document.addEventListener('DOMContentLoaded', () => {
+  // Загрузка рецептов с сервера
+  loadRecipes();
+
   updateHeaderUserInfo();
-  updateProfilePage();
-  renderGrid();
-  renderRecipePage();
+  updateProfilePage(); // покажет "Гость", если нет пользователя
+
+  // Фильтры на странице поиска обработчики
   if (qS('#searchInput')) {
     ['#searchInput', '.category-filter', '#difficultyFilter', '#timeFilter'].forEach(sel => {
       qSA(sel).forEach(el => el.addEventListener('input', applyFilters));
@@ -536,6 +572,5 @@ document.addEventListener('DOMContentLoaded', () => {
       qS('#timeFilter').value = '';
       applyFilters();
     });
-    applyFilters();
   }
 });
