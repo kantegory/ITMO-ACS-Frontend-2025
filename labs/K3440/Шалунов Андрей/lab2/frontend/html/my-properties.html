@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои объявления</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+    <div>
+        <button
+            id="themeToggle"
+            type="button"
+            class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2"
+        >
+            <span aria-hidden="true" data-theme-icon>🌙</span>
+            <span data-theme-text>Тёмная тема</span>
+        </button>
+
+        <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
+        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2">Профиль</a>
+        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
+    </div>
+
+    <main id="main-content">
+        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="h2 mb-0">Мои объявления</h1>
+                <button class="btn btn-primary" id="openCreateModalBtn" type="button">
+                    Создать объявление
+                </button>
+            </div>
+
+            <div id="myPropertiesEmpty" class="alert alert-info d-none" role="status" aria-live="polite">
+                У вас пока нет объявлений. Нажмите «Создать объявление», чтобы добавить первое.
+            </div>
+
+            <div id="myPropertiesError" class="alert alert-danger d-none" role="alert" aria-live="assertive">
+                Не удалось загрузить объявления. Попробуйте обновить страницу.
+            </div>
+
+            <div class="row" id="myPropertiesList"></div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-lg">
+            <form class="modal-content" id="propertyForm">
+                <div class="modal-header">
+                    <h2 class="modal-title h5" id="propertyModalLabel">Создать объявление</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="propertyId">
+
+                    <div class="mb-3">
+                        <label for="propertyTitle" class="form-label">Заголовок</label>
+                        <input type="text" class="form-control" id="propertyTitle" required aria-required="true">
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="propertyType" class="form-label">Тип жилья</label>
+                            <select class="form-select" id="propertyType" required aria-required="true">
+                                <option value="flat">Квартира</option>
+                                <option value="house">Дом</option>
+                                <option value="room">Комната</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="propertyStatus" class="form-label">Статус</label>
+                            <select class="form-select" id="propertyStatus" required aria-required="true">
+                                <option value="available">Свободно</option>
+                                <option value="occupied">Занято</option>
+                                <option value="closed">Неактивно</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="propertyPrice" class="form-label">Цена в сутки, ₽</label>
+                            <input type="number" min="0" class="form-control" id="propertyPrice" required aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="mt-3 mb-3">
+                        <label for="propertyLocation" class="form-label">Адрес / локация</label>
+                        <input type="text" class="form-control" id="propertyLocation" placeholder="г. Санкт-Петербург, Петровский проспект, д. 2" required aria-required="true">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="propertyDescription" class="form-label">Описание</label>
+                        <textarea class="form-control" id="propertyDescription" rows="3" required aria-required="true"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="propertyFeatures" class="form-label">Особенности (по одной в строке, необязательно)</label>
+                        <textarea class="form-control" id="propertyFeatures" rows="2" placeholder="Балкон&#10;Вид на Неву"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="propertyRentalTerms" class="form-label">Условия аренды (по одной в строке, необязательно)</label>
+                        <textarea class="form-control" id="propertyRentalTerms" rows="2" placeholder="Минимум 3 ночи&#10;Без животных"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="photoUrls" class="form-label">Фотографии (URL, по одной ссылке в строке)</label>
+                        <textarea class="form-control" id="photoUrls" rows="3"
+                                  aria-describedby="photoUrlsHelp"
+                                  placeholder="https://.../photo1.jpg&#10;https://.../photo2.jpg"></textarea>
+                        <div class="form-text" id="photoUrlsHelp">
+                            Сейчас сервис картинок принимает только ссылки. При редактировании можно добавить новые фото — они будут привязаны к объявлению.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger d-none" id="propertyFormError" role="alert" aria-live="assertive"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary" id="propertyFormSubmitBtn">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletePropertyModal" tabindex="-1" aria-labelledby="deletePropertyModalLabel" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title h5" id="deletePropertyModalLabel">Удалить объявление</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Вы уверены, что хотите удалить объявление
+                    <span class="fw-semibold" id="deletePropertyTitle"></span>?
+                    Это действие нельзя отменить.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeletePropertyBtn">
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/my-properties-page.js"></script>
+    <script type="module" src="../js/theme.js"></script>
+</body>
+</html>

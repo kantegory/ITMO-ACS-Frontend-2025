@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+    <div>
+        <button
+            id="themeToggle"
+            type="button"
+            class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2"
+        >
+            <span aria-hidden="true" data-theme-icon>🌙</span>
+            <span data-theme-text>Тёмная тема</span>
+        </button>
+
+        <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
+        <a href="my-properties.html" class="btn btn-outline-primary btn-sm me-2">Мои объявления</a>
+        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
+    </div>
+
+    <main id="main-content" class="container-fluid px-4 py-4">
+        <div class="alert alert-danger d-none mb-3" data-error role="alert" aria-live="assertive"></div>
+
+        <h1 class="mb-4 h2">Личный кабинет</h1>
+
+        <section class="mb-5" aria-labelledby="profile-data-heading">
+            <h2 class="h5" id="profile-data-heading">Мои данные</h2>
+            <p class="mb-1">
+                <strong>Имя:</strong>
+                <span data-profile-name></span>
+            </p>
+            <p class="mb-1">
+                <strong>Email:</strong>
+                <span data-profile-email></span>
+            </p>
+            <p class="mb-1">
+                <strong>Телефон:</strong>
+                <span data-profile-phone></span>
+            </p>
+            <a href="profile-edit.html" class="btn btn-outline-primary btn-sm mt-3">
+                Изменить данные
+            </a>
+        </section>
+
+        <section class="row g-4 mb-4" aria-label="Список объектов">
+            <div class="col-12 col-lg-6 mb-4">
+                <h2 class="h5">Арендую</h2>
+                <div data-rentals-list>
+                    <p class="text-muted small mb-0">Загрузка...</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 mb-4">
+                <h2 class="h5">Сдаю</h2>
+                <div data-owned-list>
+                    <p class="text-muted small mb-0">Загрузка...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-4" aria-labelledby="deals-heading">
+            <h2 class="h5" id="deals-heading">История сделок</h2>
+            <div class="table-responsive mb-4">
+                <table class="table table-sm align-middle" aria-describedby="dealsCaption">
+                    <caption id="dealsCaption" class="visually-hidden">
+                        История сделок пользователя: тип операции, объект, цена, адрес и статус.
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Тип</th>
+                            <th scope="col">Объект</th>
+                            <th scope="col">Цена</th>
+                            <th scope="col">Адрес</th>
+                            <th scope="col">Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody data-deals-body>
+                        <tr>
+                            <td colspan="5" class="text-muted small">Загрузка...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mb-4" aria-labelledby="messages-heading">
+            <h2 class="h5" id="messages-heading">История сообщений</h2>
+            <ul class="list-group" data-messages-list>
+                <li class="list-group-item text-muted small">Загрузка...</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/profile-page.js"></script>
+    <script type="module" src="../js/theme.js"></script>
+</body>
+</html>
