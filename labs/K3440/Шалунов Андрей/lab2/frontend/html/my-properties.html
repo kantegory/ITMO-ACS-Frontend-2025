@@ -10,16 +10,20 @@
 <body class="bg-light">
     <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
-    <nav class="navbar navbar-light bg-light border-bottom" role="navigation" aria-label="Основная навигация">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand" href="search.html">Аренда жилья</a>
-            <div>
-                <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
-                <a href="profile.html" class="btn btn-outline-primary btn-sm me-2">Профиль</a>
-                <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
-            </div>
-        </div>
-    </nav>
+    <div>
+        <button
+            id="themeToggle"
+            type="button"
+            class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2"
+        >
+            <span aria-hidden="true" data-theme-icon>🌙</span>
+            <span data-theme-text>Тёмная тема</span>
+        </button>
+
+        <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
+        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2">Профиль</a>
+        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
+    </div>
 
     <main id="main-content">
         <div class="container py-3">
@@ -144,5 +148,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="../js/my-properties-page.js"></script>
+    <script type="module" src="../js/theme.js"></script>
 </body>
 </html>
