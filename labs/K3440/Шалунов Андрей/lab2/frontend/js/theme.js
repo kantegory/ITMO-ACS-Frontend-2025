@@ -1,54 +1,70 @@
 const STORAGE_KEY = 'theme';
 
-function getPreferredTheme() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === 'light' || saved === 'dark') {
-        return saved;
+function getStoredTheme() {
+    try {
+        return localStorage.getItem(STORAGE_KEY);
+    } catch {
+        return null;
     }
+}
 
-    if (window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
+function setStoredTheme(theme) {
+    try {
+        localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
     }
+}
 
-    return 'light';
+function getSystemTheme() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function getInitialTheme() {
+    return getStoredTheme() || getSystemTheme();
+}
+
+function setThemeAttr(theme) {
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+}
+
+function setToggleUI(theme) {
+    const textEls = document.querySelectorAll('[data-theme-text]');
+    textEls.forEach((el) => {
+        el.textContent = theme === 'dark' ? 'Светлая тема' : 'Тёмная тема';
+    });
+
+    const useEls = document.querySelectorAll('use[data-theme-icon]');
+    useEls.forEach((useEl) => {
+        const currentHref = useEl.getAttribute('href') || '';
+        const base = currentHref.includes('#') ? currentHref.split('#')[0] : '../assets/icons/sprite.svg';
+        const nextSymbol = theme === 'dark' ? 'icon-sun' : 'icon-moon';
+        const nextHref = `${base}#${nextSymbol}`;
+        useEl.setAttribute('href', nextHref);
+        useEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', nextHref);
+    });
 }
 
 function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(STORAGE_KEY, theme);
+    setThemeAttr(theme);
+    setToggleUI(theme);
+}
 
-    const btn = document.getElementById('themeToggle');
-    if (!btn) return;
-
-    const icon = btn.querySelector('[data-theme-icon]');
-    const text = btn.querySelector('[data-theme-text]');
-
-    if (icon) {
-        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
-    if (text) {
-        text.textContent = theme === 'dark' ? 'Светлая тема' : 'Тёмная тема';
-    }
-
-    btn.setAttribute(
-        'aria-label',
-        theme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на тёмную тему'
-    );
+function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const nextTheme = isDark ? 'light' : 'dark';
+    setStoredTheme(nextTheme);
+    applyTheme(nextTheme);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const current = getPreferredTheme();
-    applyTheme(current);
+    applyTheme(getInitialTheme());
 
     const btn = document.getElementById('themeToggle');
-    if (!btn) return;
-
-    btn.addEventListener('click', () => {
-        const now = document.documentElement.getAttribute('data-theme') === 'dark'
-            ? 'dark'
-            : 'light';
-        const next = now === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-    });
+    if (btn) {
+        btn.addEventListener('click', toggleTheme);
+    }
 });

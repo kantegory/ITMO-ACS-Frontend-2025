@@ -15,12 +15,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title fs-6" id="loginModalTitle">Вход</h2>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Закрыть"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
                     <p>Вход выполнен. Перейдите в личный кабинет.</p>
@@ -36,12 +31,10 @@
         <div class="row w-100 justify-content-center">
             <div class="col-12 col-md-5">
                 <div class="d-flex justify-content-end mb-3">
-                    <button
-                        id="themeToggle"
-                        type="button"
-                        class="btn btn-outline-secondary btn-sm theme-toggle-btn"
-                    >
-                        <span aria-hidden="true" data-theme-icon>🌙</span>
+                    <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn">
+                        <svg class="icon" aria-hidden="true" focusable="false">
+                            <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+                        </svg>
                         <span data-theme-text>Тёмная тема</span>
                     </button>
                 </div>
@@ -49,37 +42,16 @@
                 <form id="signin-form" class="bg-white p-4 rounded shadow" aria-describedby="signinHelp">
                     <h1 class="text-center mb-4 h2">Вход</h1>
 
-                    <div
-                        class="alert alert-danger d-none"
-                        role="alert"
-                        aria-live="assertive"
-                        data-error
-                    ></div>
+                    <div class="alert alert-danger d-none" role="alert" aria-live="assertive" data-error></div>
 
                     <div class="mb-4">
                         <label class="form-label" for="signin-email">Email</label>
-                        <input
-                            id="signin-email"
-                            name="email"
-                            type="email"
-                            class="form-control"
-                            placeholder="email@gmail.com"
-                            required
-                            aria-required="true"
-                        >
+                        <input id="signin-email" name="email" type="email" class="form-control" placeholder="email@gmail.com" required aria-required="true">
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label" for="signin-password">Пароль</label>
-                        <input
-                            id="signin-password"
-                            name="password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Пароль"
-                            required
-                            aria-required="true"
-                        >
+                        <input id="signin-password" name="password" type="password" class="form-control" placeholder="Пароль" required aria-required="true">
                     </div>
 
                     <p id="signinHelp" class="visually-hidden">
@@ -87,11 +59,7 @@
                     </p>
 
                     <div class="d-grid gap-3 justify-content-center">
-                        <button
-                            type="submit"
-                            class="btn btn-primary login-btn"
-                            style="width: 150px;"
-                        >
+                        <button type="submit" class="btn btn-primary login-btn" style="width: 150px;">
                             Войти
                         </button>
                         <a href="register.html" class="text-decoration-none text-center">

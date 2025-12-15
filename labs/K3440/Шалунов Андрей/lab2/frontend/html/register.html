@@ -15,20 +15,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title fs-6" id="registerModalTitle">Регистрация</h2>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Закрыть"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
                     <p>Аккаунт создан. Теперь вы можете войти.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="signin.html" class="btn btn-primary">
-                        Перейти на страницу входа
-                    </a>
+                    <a href="signin.html" class="btn btn-primary">Перейти на страницу входа</a>
                 </div>
             </div>
         </div>
@@ -38,12 +31,10 @@
         <div class="row w-100 justify-content-center">
             <div class="col-12 col-md-6 col-lg-5">
                 <div class="d-flex justify-content-end mb-3">
-                    <button
-                        id="themeToggle"
-                        type="button"
-                        class="btn btn-outline-secondary btn-sm theme-toggle-btn"
-                    >
-                        <span aria-hidden="true" data-theme-icon>🌙</span>
+                    <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn">
+                        <svg class="icon" aria-hidden="true" focusable="false">
+                            <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+                        </svg>
                         <span data-theme-text>Тёмная тема</span>
                     </button>
                 </div>
@@ -51,57 +42,26 @@
                 <form id="register-form" class="bg-white p-4 rounded shadow" aria-describedby="registerHelp">
                     <h1 class="text-center mb-4 h2">Регистрация</h1>
 
-                    <div
-                        class="alert alert-danger d-none"
-                        role="alert"
-                        aria-live="assertive"
-                        data-error
-                    ></div>
+                    <div class="alert alert-danger d-none" role="alert" aria-live="assertive" data-error></div>
 
                     <div class="mb-3">
                         <label class="form-label" for="reg-name">Имя</label>
-                        <input
-                            id="reg-name"
-                            type="text"
-                            class="form-control"
-                            placeholder="Имя"
-                            required
-                            aria-required="true"
-                        >
+                        <input id="reg-name" type="text" class="form-control" placeholder="Имя" required aria-required="true">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="reg-email">Email</label>
-                        <input
-                            id="reg-email"
-                            type="email"
-                            class="form-control"
-                            placeholder="email@gmail.com"
-                            required
-                            aria-required="true"
-                        >
+                        <input id="reg-email" type="email" class="form-control" placeholder="email@gmail.com" required aria-required="true">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="reg-password">Пароль</label>
-                        <input
-                            id="reg-password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Пароль"
-                            required
-                            aria-required="true"
-                        >
+                        <input id="reg-password" type="password" class="form-control" placeholder="Пароль" required aria-required="true">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="reg-phone">Номер телефона</label>
-                        <input
-                            id="reg-phone"
-                            type="tel"
-                            class="form-control"
-                            placeholder="+7xxx-xxx-xx-xx"
-                        >
+                        <input id="reg-phone" type="tel" class="form-control" placeholder="+7xxx-xxx-xx-xx">
                     </div>
 
                     <p id="registerHelp" class="visually-hidden">
@@ -109,11 +69,7 @@
                     </p>
 
                     <div class="d-grid gap-3 justify-content-center">
-                        <button
-                            type="submit"
-                            class="btn btn-primary register-btn"
-                            style="width: 200px;"
-                        >
+                        <button type="submit" class="btn btn-primary register-btn" style="width: 200px;">
                             Зарегистрироваться
                         </button>
                         <a href="signin.html" class="text-decoration-none text-center">

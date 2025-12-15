@@ -11,19 +11,40 @@
     <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
     <div>
-        <button
-            id="themeToggle"
-            type="button"
-            class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2"
-        >
-            <span aria-hidden="true" data-theme-icon>🌙</span>
+        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+            </svg>
             <span data-theme-text>Тёмная тема</span>
         </button>
 
-        <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
-        <a href="my-properties.html" class="btn btn-outline-primary btn-sm me-2">Мои объявления</a>
-        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2">Профиль</a>
-        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
+        <a href="search.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-search"></use>
+            </svg>
+            Поиск
+        </a>
+
+        <a href="my-properties.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-home"></use>
+            </svg>
+            Мои объявления
+        </a>
+
+        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-user"></use>
+            </svg>
+            Профиль
+        </a>
+
+        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-logout"></use>
+            </svg>
+            Выйти
+        </a>
     </div>
 
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="messageModalTitle">
@@ -37,22 +58,11 @@
                     <form id="messageForm">
                         <div class="mb-3">
                             <label class="form-label" for="messageSubject">Тема</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="messageSubject"
-                                placeholder="Например: Вопрос по аренде"
-                            >
+                            <input type="text" class="form-control" id="messageSubject" placeholder="Например: Вопрос по аренде">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="messageText">Сообщение</label>
-                            <textarea
-                                class="form-control"
-                                id="messageText"
-                                rows="4"
-                                placeholder="Здравствуйте, скажите, пожалуйста..."
-                                aria-describedby="messageError"
-                            ></textarea>
+                            <textarea class="form-control" id="messageText" rows="4" placeholder="Здравствуйте, скажите, пожалуйста..." aria-describedby="messageError"></textarea>
                         </div>
                         <p class="text-danger small mb-0 d-none" id="messageError" role="alert" aria-live="assertive">
                             Напишите, пожалуйста, текст сообщения.
@@ -60,7 +70,12 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="sendMessageBtn">Отправить сообщение</button>
+                    <button class="btn btn-primary d-inline-flex align-items-center gap-1" id="sendMessageBtn">
+                        <svg class="icon" aria-hidden="true" focusable="false">
+                            <use href="../assets/icons/sprite.svg#icon-message"></use>
+                        </svg>
+                        Отправить сообщение
+                    </button>
                 </div>
             </div>
         </div>
@@ -74,9 +89,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-0" id="successText">
-                        Действие выполнено успешно.
-                    </p>
+                    <p class="mb-0" id="successText">Действие выполнено успешно.</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" data-bs-dismiss="modal">Ок</button>
@@ -99,11 +112,7 @@
         <div class="row g-4 mb-4">
             <div class="col-12 col-lg-7">
                 <div class="card mb-3 property-main-photo position-relative">
-                    <img
-                        id="mainPhoto"
-                        class="card-img-top"
-                        alt="Фото объекта"
-                    >
+                    <img id="mainPhoto" class="card-img-top" alt="Фото объекта">
                     <button type="button" class="btn btn-light btn-sm gallery-nav gallery-prev" aria-label="Предыдущее фото">
                         &#10094;
                     </button>
@@ -141,7 +150,10 @@
                             <strong>Телефон:</strong>
                             <span id="ownerPhone" class="text-muted">+7-***-***-**-**</span>
                         </p>
-                        <button class="btn btn-outline-primary btn-sm" id="showPhoneBtn" type="button" aria-label="Показать номер телефона владельца">
+                        <button class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1" id="showPhoneBtn" type="button" aria-label="Показать номер телефона владельца">
+                            <svg class="icon" aria-hidden="true" focusable="false">
+                                <use href="../assets/icons/sprite.svg#icon-phone"></use>
+                            </svg>
                             Показать номер
                         </button>
                     </div>
@@ -162,19 +174,11 @@
                         <form id="bookingForm" aria-describedby="bookingError">
                             <div class="mb-2">
                                 <label for="bookingStart" class="form-label">Дата заезда</label>
-                                <input
-                                    type="date"
-                                    class="form-control form-control-sm"
-                                    id="bookingStart"
-                                >
+                                <input type="date" class="form-control form-control-sm" id="bookingStart">
                             </div>
                             <div class="mb-2">
                                 <label for="bookingEnd" class="form-label">Дата выезда</label>
-                                <input
-                                    type="date"
-                                    class="form-control form-control-sm"
-                                    id="bookingEnd"
-                                >
+                                <input type="date" class="form-control form-control-sm" id="bookingEnd">
                             </div>
                             <p class="mb-2">
                                 <strong>Итого:</strong>
@@ -184,11 +188,7 @@
                                 Пожалуйста, проверьте даты бронирования.
                             </p>
                             <div class="d-flex justify-content-center mt-2">
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary btn-sm btn-booking"
-                                    id="createBookingBtn"
-                                >
+                                <button type="submit" class="btn btn-primary btn-sm btn-booking" id="createBookingBtn">
                                     Забронировать
                                 </button>
                             </div>
@@ -197,15 +197,16 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button
-                        class="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#messageModal"
-                        type="button"
-                    >
+                    <button class="btn btn-primary d-inline-flex align-items-center justify-content-center gap-1" data-bs-toggle="modal" data-bs-target="#messageModal" type="button">
+                        <svg class="icon" aria-hidden="true" focusable="false">
+                            <use href="../assets/icons/sprite.svg#icon-message"></use>
+                        </svg>
                         Написать владельцу
                     </button>
-                    <a href="search.html" class="btn btn-outline-secondary">
+                    <a href="search.html" class="btn btn-outline-secondary d-inline-flex align-items-center justify-content-center gap-1">
+                        <svg class="icon" aria-hidden="true" focusable="false">
+                            <use href="../assets/icons/sprite.svg#icon-search"></use>
+                        </svg>
                         Вернуться к поиску
                     </a>
                 </div>
@@ -217,9 +218,7 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <h3 class="card-title mb-3 h5">Описание</h3>
-                        <p class="mb-0" data-property-description>
-                            Описание объекта будет загружено с сервера.
-                        </p>
+                        <p class="mb-0" data-property-description>Описание объекта будет загружено с сервера.</p>
                     </div>
                 </div>
             </div>

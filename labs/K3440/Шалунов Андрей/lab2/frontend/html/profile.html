@@ -11,18 +11,33 @@
     <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
     <div>
-        <button
-            id="themeToggle"
-            type="button"
-            class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2"
-        >
-            <span aria-hidden="true" data-theme-icon>🌙</span>
+        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+            </svg>
             <span data-theme-text>Тёмная тема</span>
         </button>
 
-        <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
-        <a href="my-properties.html" class="btn btn-outline-primary btn-sm me-2">Мои объявления</a>
-        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
+        <a href="search.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-search"></use>
+            </svg>
+            Поиск
+        </a>
+
+        <a href="my-properties.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-home"></use>
+            </svg>
+            Мои объявления
+        </a>
+
+        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-logout"></use>
+            </svg>
+            Выйти
+        </a>
     </div>
 
     <main id="main-content" class="container-fluid px-4 py-4">
@@ -44,7 +59,10 @@
                 <strong>Телефон:</strong>
                 <span data-profile-phone></span>
             </p>
-            <a href="profile-edit.html" class="btn btn-outline-primary btn-sm mt-3">
+            <a href="profile-edit.html" class="btn btn-outline-primary btn-sm mt-3 d-inline-flex align-items-center gap-1">
+                <svg class="icon" aria-hidden="true" focusable="false">
+                    <use href="../assets/icons/sprite.svg#icon-user"></use>
+                </svg>
                 Изменить данные
             </a>
         </section>

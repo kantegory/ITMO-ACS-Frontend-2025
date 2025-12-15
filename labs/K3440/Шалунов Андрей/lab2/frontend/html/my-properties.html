@@ -11,25 +11,43 @@
     <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
     <div>
-        <button
-            id="themeToggle"
-            type="button"
-            class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2"
-        >
-            <span aria-hidden="true" data-theme-icon>🌙</span>
+        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+            </svg>
             <span data-theme-text>Тёмная тема</span>
         </button>
 
-        <a href="search.html" class="btn btn-outline-primary btn-sm me-2">Поиск</a>
-        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2">Профиль</a>
-        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm">Выйти</a>
+        <a href="search.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-search"></use>
+            </svg>
+            Поиск
+        </a>
+
+        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-user"></use>
+            </svg>
+            Профиль
+        </a>
+
+        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+            <svg class="icon" aria-hidden="true" focusable="false">
+                <use href="../assets/icons/sprite.svg#icon-logout"></use>
+            </svg>
+            Выйти
+        </a>
     </div>
 
     <main id="main-content">
         <div class="container py-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1 class="h2 mb-0">Мои объявления</h1>
-                <button class="btn btn-primary" id="openCreateModalBtn" type="button">
+                <button class="btn btn-primary d-inline-flex align-items-center gap-1" id="openCreateModalBtn" type="button">
+                    <svg class="icon" aria-hidden="true" focusable="false">
+                        <use href="../assets/icons/sprite.svg#icon-plus"></use>
+                    </svg>
                     Создать объявление
                 </button>
             </div>
@@ -106,9 +124,7 @@
 
                     <div class="mb-3">
                         <label for="photoUrls" class="form-label">Фотографии (URL, по одной ссылке в строке)</label>
-                        <textarea class="form-control" id="photoUrls" rows="3"
-                                  aria-describedby="photoUrlsHelp"
-                                  placeholder="https://.../photo1.jpg&#10;https://.../photo2.jpg"></textarea>
+                        <textarea class="form-control" id="photoUrls" rows="3" aria-describedby="photoUrlsHelp" placeholder="https://.../photo1.jpg&#10;https://.../photo2.jpg"></textarea>
                         <div class="form-text" id="photoUrlsHelp">
                             Сейчас сервис картинок принимает только ссылки. При редактировании можно добавить новые фото — они будут привязаны к объявлению.
                         </div>
@@ -138,9 +154,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeletePropertyBtn">
-                        Удалить
-                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmDeletePropertyBtn">Удалить</button>
                 </div>
             </div>
         </div>
