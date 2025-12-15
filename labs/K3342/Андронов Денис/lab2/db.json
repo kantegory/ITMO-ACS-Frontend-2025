@@ -81,6 +81,14 @@
       "date": "2027-12-15",
       "time": "12:00",
       "guests": "1"
+    },
+    {
+      "id": "edb5",
+      "userId": "1",
+      "restaurantId": 1,
+      "date": "2025-12-16",
+      "time": "12:00",
+      "guests": "1"
     }
   ]
 }
