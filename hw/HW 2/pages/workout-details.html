@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Details - Fitness Platform</title>
+    <meta name="description" content="Detailed information about the selected workout">
+    <meta name="color-scheme" content="light dark">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .completion-badge {
+            background: linear-gradient(135deg, #38b2ac, #2c5282);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .completion-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 82, 130, 0.3);
+        }
+        
+        .completion-badge.completed {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .workout-stats {
+            background-color: rgba(44, 82, 130, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .workout-stats .stat-item {
+            text-align: center;
+            padding: 8px;
+        }
+        
+        .workout-stats .stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .workout-stats .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        /* Компактное изображение */
+        .workout-image-container {
+            width: 100%;
+            height: 220px; /* Уменьшено для компактности */
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .workout-image-detail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        /* Компактные стили */
+        .container {
+            margin-top: 1.5rem;
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+        }
+        
+        .workout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* Единые карточки */
+        .uniform-card .card-body {
+            padding: 1.25rem;
+        }
+        
+        .instruction-card {
+            height: 100%;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 1rem;
+        }
+        
+        .instruction-card .card-body {
+            padding: 1rem;
+        }
+        
+        /* Грид для одинаковых карточек */
+        .uniform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Стили для плана тренировок */
+        .plan-item {
+            border-left: 3px solid #2c5282;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-item .card-body {
+            padding: 0.75rem;
+        }
+        
+        .plan-item strong {
+            font-size: 0.95rem;
+        }
+        
+        .plan-item small {
+            font-size: 0.8rem;
+        }
+        
+        /* Стили для режима уменьшения движения */
+        @media (prefers-reduced-motion: reduce) {
+            .completion-badge,
+            .workout-image-detail,
+            .plan-item {
+                transition: none;
+            }
+            
+            .completion-badge:hover,
+            .plan-item:hover {
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .workout-image-container {
+                height: 180px;
+            }
+            
+            .workout-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .form-title {
+                font-size: 1.6rem;
+            }
+            
+            .uniform-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="mb-3">
+            <a href="workouts.html" class="btn btn-back light-blue-text" aria-label="Return to workouts list">
+                <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Workouts
+            </a>
+            <a href="../index.html" class="btn btn-back light-blue-text ms-2" aria-label="Return to homepage">
+                <i class="fas fa-home me-2" aria-hidden="true"></i>Back to Home
+            </a>
+        </div>
+        
+        <main id="main-content" tabindex="-1">
+            <h1 class="visually-hidden">Workout Details - Detailed information about the selected workout</h1>
+            
+            <div class="workout-header">
+                <h2 class="form-title mb-0" id="page-title">Workout Details</h2>
+                <button id="completeWorkoutBtn" class="btn completion-badge" aria-label="Mark this workout as completed">
+                    <i class="far fa-check-circle" aria-hidden="true"></i> Mark as Completed
+                </button>
+            </div>
+            
+            <!-- Информация о загрузке -->
+            <div id="connectionStatus" style="display: none;"></div>
+            
+            <!-- Статистика тренировки -->
+            <div id="workoutStats" class="workout-stats">
+                <!-- Заполняется через JS -->
+            </div>
+            
+            <!-- Контент тренировки -->
+            <div id="workoutContent">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading workout details...</span>
+                    </div>
+                    <p class="mt-2">Loading workout details...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    // API URL
+    const API_URL = 'http://localhost:3000/api';
+
+    // Запасные данные
+    const FALLBACK_WORKOUTS = [
+        {
+            id: 1,
+            name: "Cardio Training",
+            description: "Improve your endurance with our cardio exercises. Perfect for burning calories and strengthening your heart.",
+            type: "cardio",
+            level: "beginner",
+            duration: "medium",
+            calories: "300-400",
+            equipment: "Treadmill, Jump Rope",
+            image: "http://localhost:3000/images/cardio.jpeg"
+        },
+        {
+            id: 2,
+            name: "Strength Training",
+            description: "Build muscle and increase strength with our weight training programs. Suitable for all fitness levels.",
+            type: "strength",
+            level: "intermediate",
+            duration: "long",
+            calories: "400-500",
+            equipment: "Dumbbells, Barbell, Bench",
+            image: "http://localhost:3000/images/strength.jpeg"
+        },
+        {
+            id: 3,
+            name: "Yoga Flow",
+            description: "Improve flexibility and mindfulness with our yoga sessions. Perfect for stress relief.",
+            type: "yoga",
+            level: "beginner",
+            duration: "medium",
+            calories: "200-300",
+            equipment: "Yoga Mat",
+            image: "http://localhost:3000/images/yoga.jpeg"
+        },
+        {
+            id: 4,
+            name: "Stretching Routine",
+            description: "Increase flexibility and prevent injuries with our stretching exercises.",
+            type: "stretching",
+            level: "beginner",
+            duration: "short",
+            calories: "150-200",
+            equipment: "Yoga Mat",
+            image: "http://localhost:3000/images/stretching.jpeg"
+        },
+        {
+            id: 5,
+            name: "HIIT Workout",
+            description: "High Intensity Interval Training for maximum calorie burn in minimal time.",
+            type: "hiit",
+            level: "advanced",
+            duration: "short",
+            calories: "400-450",
+            equipment: "Timer, Mat",
+            image: "http://localhost:3000/images/hiit.jpeg"
+        },
+        {
+            id: 6,
+            name: "Power Lifting",
+            description: "Build maximum strength with power lifting techniques and heavy weights.",
+            type: "power-lifting",
+            level: "advanced",
+            duration: "long",
+            calories: "500-600",
+            equipment: "Barbell, Plates, Power Rack",
+            image: "http://localhost:3000/images/power-lifting.jpeg"
+        }
+    ];
+
+    // Функция для получения изображения
+    function getWorkoutImage(workout) {
+        if (workout.image && workout.image.startsWith('http')) {
+            return workout.image;
+        }
+        
+        if (workout.image && workout.image.startsWith('/')) {
+            return `http://localhost:3000${workout.image}`;
+        }
+        
+        if (workout.image && workout.image.startsWith('../images/')) {
+            const imageName = workout.image.replace('../images/', '');
+            return `http://localhost:3000/images/${imageName}`;
+        }
+        
+        const type = workout.type ? workout.type.toLowerCase() : 'default';
+        const imageMap = {
+            'cardio': 'http://localhost:3000/images/cardio.jpeg',
+            'strength': 'http://localhost:3000/images/strength.jpeg',
+            'yoga': 'http://localhost:3000/images/yoga.jpeg',
+            'stretching': 'http://localhost:3000/images/stretching.jpeg',
+            'hiit': 'http://localhost:3000/images/hiit.jpeg',
+            'hitt': 'http://localhost:3000/images/hiit.jpeg',
+            'powerlifting': 'http://localhost:3000/images/power-lifting.jpeg',
+            'power-lifting': 'http://localhost:3000/images/power-lifting.jpeg',
+            'power lifting': 'http://localhost:3000/images/power-lifting.jpeg',
+            'default': 'http://localhost:3000/images/workout.jpg'
+        };
+        
+        return imageMap[type] || imageMap['default'];
+    }
+
+    // Обработка ошибок изображений
+    function handleImageError(imgElement) {
+        console.warn('Image failed to load:', imgElement.src);
+        imgElement.src = 'http://localhost:3000/images/workout.jpg';
+        imgElement.alt = 'Default workout image';
+        imgElement.onerror = null;
+    }
+
+    // Загрузка деталей тренировки
+    async function loadWorkoutDetails() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const workoutId = urlParams.get('id');
+            
+            if (!workoutId) {
+                showError('Workout ID not found in URL');
+                return;
+            }
+            
+            console.log('Loading workout with ID:', workoutId);
+            
+            let workout;
+            
+            // Пробуем загрузить с API
+            try {
+                const response = await fetch(`${API_URL}/workouts/${workoutId}`);
+                
+                if (response.ok) {
+                    workout = await response.json();
+                    console.log('Workout loaded from API:', workout);
+                    
+                    // Обогащаем данные изображением
+                    workout.image = getWorkoutImage(workout);
+                } else {
+                    throw new Error('API response not ok');
+                }
+            } catch (apiError) {
+                console.log('API недоступен, использую локальные данные:', apiError);
+                workout = FALLBACK_WORKOUTS.find(w => w.id == workoutId) || FALLBACK_WORKOUTS[0];
+                showConnectionWarning('Server unavailable. Using offline data.');
+            }
+            
+            if (!workout) {
+                showError('Workout not found');
+                return;
+            }
+            
+            // Обновляем интерфейс
+            updateWorkoutUI(workout);
+            
+        } catch (error) {
+            console.error('Error loading workout details:', error);
+            
+            // Используем локальные данные
+            const urlParams = new URLSearchParams(window.location.search);
+            const workoutId = urlParams.get('id') || '1';
+            const workout = FALLBACK_WORKOUTS.find(w => w.id == workoutId) || FALLBACK_WORKOUTS[0];
+            
+            showConnectionWarning('Error loading data. Using offline mode.');
+            updateWorkoutUI(workout);
+        }
+    }
+
+    // Обновление интерфейса тренировки
+    function updateWorkoutUI(workout) {
+        // Обновляем заголовок
+        document.title = `${workout.name} - Fitness Platform`;
+        document.getElementById('page-title').textContent = workout.name;
+        
+        // Обновляем статистику
+        updateWorkoutStats(workout);
+        
+        // Обновляем контент
+        updateWorkoutContent(workout);
+        
+        // Инициализируем кнопки
+        initCompletionButtons(workout.id, workout.name, workout.level);
+    }
+
+    // Обновление статистики
+    function updateWorkoutStats(workout) {
+        const statsContainer = document.getElementById('workoutStats');
+        
+        let durationMinutes = '30 min';
+        if (workout.duration === 'short') durationMinutes = '20 min';
+        if (workout.duration === 'medium') durationMinutes = '30 min';
+        if (workout.duration === 'long') durationMinutes = '45 min';
+        
+        let calories = workout.calories || '300-400';
+        
+        statsContainer.innerHTML = `
+            <div class="row">
+                <div class="col-md-3 col-6 stat-item">
+                    <div class="stat-value">${durationMinutes}</div>
+                    <div class="stat-label">Duration</div>
+                </div>
+                <div class="col-md-3 col-6 stat-item">
+                    <div class="stat-value">${calories}</div>
+                    <div class="stat-label">Calories Burned</div>
+                </div>
+                <div class="col-md-3 col-6 stat-item">
+                    <div class="stat-value">${workout.level || 'Intermediate'}</div>
+                    <div class="stat-label">Difficulty Level</div>
+                </div>
+                <div class="col-md-3 col-6 stat-item">
+                    <div class="stat-value">${workout.type || 'General'}</div>
+                    <div class="stat-label">Workout Type</div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Обновление контента
+    function updateWorkoutContent(workout) {
+        const contentContainer = document.getElementById('workoutContent');
+        
+        const equipmentList = workout.equipment ? 
+            workout.equipment.split(',').map(item => `<li>${item.trim()}</li>`).join('') : 
+            '<li>None required</li>';
+        
+        // Получаем целевые зоны
+        const targetAreas = getTargetAreas(workout.type);
+        const targetAreasList = targetAreas.map(area => `<li>${area}</li>`).join('');
+        
+        contentContainer.innerHTML = `
+            <div class="uniform-card">
+                <div class="card glass-card h-100">
+                    <div class="card-body">
+                        <!-- Заголовок с бейджем -->
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h2 class="card-title light-blue-text mb-0 h3">${workout.name}</h2>
+                            <span class="badge bg-${getLevelBadgeColor(workout.level)}" aria-label="Difficulty level: ${workout.level || 'Intermediate'}">
+                                ${workout.level || 'Intermediate'}
+                            </span>
+                        </div>
+                        
+                        <!-- Описание -->
+                        <p class="card-text mb-3">${workout.description || 'No description available.'}</p>
+                        
+                        <!-- Изображение -->
+                        <div class="mb-3">
+                            <div class="workout-image-container">
+                                <img src="${workout.image}" 
+                                     class="workout-image-detail" 
+                                     alt="${workout.name} - ${workout.type} workout"
+                                     onerror="handleImageError(this)"
+                                     loading="lazy"
+                                     width="800"
+                                     height="220">
+                            </div>
+                        </div>
+                        
+                        <!-- Информация в одинаковых карточках -->
+                        <div class="uniform-grid mb-3">
+                            <div class="instruction-card card">
+                                <div class="card-header bg-light py-2">
+                                    <h3 class="h6 mb-0"><i class="fas fa-dumbbell me-2" aria-hidden="true"></i>Equipment Needed</h3>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="mb-0">
+                                        ${equipmentList}
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="instruction-card card">
+                                <div class="card-header bg-light py-2">
+                                    <h3 class="h6 mb-0"><i class="fas fa-bullseye me-2" aria-hidden="true"></i>Target Areas</h3>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="mb-0">
+                                        ${targetAreasList}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Инструкции -->
+                        <div class="instructions-section">
+                            <h3 class="light-blue-text mb-2 h5">
+                                <i class="fas fa-list-ol me-2" aria-hidden="true"></i>Workout Instructions
+                            </h3>
+                            ${getWorkoutInstructions(workout.type, workout.level)}
+                        </div>
+                        
+                        <!-- Блок отметки о выполнении -->
+                        <div class="mt-4 pt-3 border-top">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="light-blue-text mb-1 h5"><i class="fas fa-chart-line me-2" aria-hidden="true"></i>Track Your Progress</h3>
+                                    <p class="text-muted mb-0 small">Mark this workout as completed to track your progress in your profile.</p>
+                                </div>
+                                <div class="text-end">
+                                    <div id="completionStatus" class="mb-1" style="display: none;">
+                                        <span class="badge bg-success small">
+                                            <i class="fas fa-check-circle me-1" aria-hidden="true"></i> Completed on <span id="completionDate"></span>
+                                        </span>
+                                    </div>
+                                    <button id="markCompleteBtn" class="btn btn-form-primary btn-sm" aria-label="Mark this workout as completed">
+                                        <i class="far fa-check-circle me-1" aria-hidden="true"></i> Mark as Completed
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Вспомогательные функции
+    function getLevelBadgeColor(level) {
+        if (!level) return 'primary';
+        
+        switch(level.toLowerCase()) {
+            case 'beginner': return 'success';
+            case 'intermediate': return 'warning';
+            case 'advanced': return 'danger';
+            default: return 'primary';
+        }
+    }
+
+    function getTargetAreas(type) {
+        if (!type) return ['General fitness'];
+        
+        const typeLower = type.toLowerCase();
+        
+        switch(typeLower) {
+            case 'cardio': return ['Cardiovascular system', 'Leg muscles', 'Core stability'];
+            case 'strength': return ['Full body muscles', 'Strength endurance', 'Joint stability'];
+            case 'yoga': return ['Flexibility', 'Balance', 'Mind-body connection'];
+            case 'stretching': return ['Mobility', 'Flexibility', 'Muscle recovery'];
+            case 'hiit':
+            case 'hitt': return ['Full body', 'Cardiovascular endurance', 'Metabolic rate'];
+            case 'powerlifting':
+            case 'power-lifting': return ['Strength', 'Muscle mass', 'Power'];
+            default: return ['General fitness'];
+        }
+    }
+
+    function getWorkoutInstructions(type, level) {
+        const typeLower = type ? type.toLowerCase() : 'general';
+        
+        let instructions = '';
+        
+        if (typeLower === 'cardio') {
+            instructions = `
+                <div class="uniform-grid">
+                    <div class="instruction-card card">
+                        <div class="card-header bg-light py-2">
+                            <h4 class="h6 mb-0">Warm-up (5 min)</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0 small">
+                                <li>Light jogging: 2 min</li>
+                                <li>Dynamic stretching: 3 min</li>
+                                <li>Arm circles: 30 sec</li>
+                                <li>Leg swings: 30 sec</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-card card">
+                        <div class="card-header bg-light py-2">
+                            <h4 class="h6 mb-0">Main Circuit (15 min)</h4>
+                        </div>
+                        <div class="card-body">
+                            <ol class="mb-0 small">
+                                <li>Jumping Jacks: 30 sec</li>
+                                <li>High Knees: 30 sec</li>
+                                <li>Butt Kicks: 30 sec</li>
+                                <li>Mountain Climbers: 30 sec</li>
+                                <li>Rest: 60 sec</li>
+                                <li>Repeat 3x</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-card card">
+                        <div class="card-header bg-light py-2">
+                            <h4 class="h6 mb-0">Cool Down (5 min)</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0 small">
+                                <li>Slow walking: 2 min</li>
+                                <li>Static stretching: 3 min</li>
+                                <li>Quad stretch: 30 sec</li>
+                                <li>Hamstring stretch: 30 sec</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (typeLower === 'strength') {
+            instructions = `
+                <div class="uniform-grid">
+                    <div class="instruction-card card">
+                        <div class="card-header bg-light py-2">
+                            <h4 class="h6 mb-0">Warm-up (5 min)</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0 small">
+                                <li>Dynamic stretches: 3 min</li>
+                                <li>Light cardio: 2 min</li>
+                                <li>Joint mobilization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-card card">
+                        <div class="card-header bg-light py-2">
+                            <h4 class="h6 mb-0">Strength (25 min)</h4>
+                        </div>
+                        <div class="card-body">
+                            <ol class="mb-0 small">
+                                <li>Squats: 3x12 reps</li>
+                                <li>Push-ups: 3x10 reps</li>
+                                <li>Rows: 3x12 reps</li>
+                                <li>Lunges: 3x10 each leg</li>
+                                <li>Plank: 3x30 sec</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-card card">
+                        <div class="card-header bg-light py-2">
+                            <h4 class="h6 mb-0">Cool Down (5 min)</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0 small">
+                                <li>Full body stretch</li>
+                                <li>Foam rolling</li>
+                                <li>Deep breathing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            instructions = `
+                <div class="alert alert-info small">
+                    <h4 class="h6"><i class="fas fa-info-circle me-2" aria-hidden="true"></i>General Instructions</h4>
+                    <p class="mb-1">Follow these general guidelines for a safe and effective workout:</p>
+                    <ul class="mb-0">
+                        <li>Always start with a 5-10 minute warm-up</li>
+                        <li>Focus on proper form throughout each exercise</li>
+                        <li>Maintain steady breathing during exercises</li>
+                        <li>Finish with a 5-10 minute cool down</li>
+                        <li>Stay hydrated and listen to your body</li>
+                    </ul>
+                </div>
+            `;
+        }
+        
+        return instructions;
+    }
+
+    // Инициализация кнопок
+    function initCompletionButtons(workoutId, workoutName, workoutLevel) {
+        const markCompleteBtn = document.getElementById('markCompleteBtn');
+        const completeWorkoutBtn = document.getElementById('completeWorkoutBtn');
+        const completionStatus = document.getElementById('completionStatus');
+        const completionDate = document.getElementById('completionDate');
+        
+        // Проверяем, есть ли отметка о выполнении
+        const completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || [];
+        const workoutCompleted = completedWorkouts.find(w => w.id == workoutId);
+        
+        if (workoutCompleted) {
+            updateCompletionUI(true, workoutCompleted.date);
+        }
+        
+        // Обработчик для кнопки в основном блоке
+        markCompleteBtn.addEventListener('click', async function() {
+            if (!workoutCompleted) {
+                const success = await markWorkoutAsCompleted(workoutId, workoutName, workoutLevel);
+                if (success) {
+                    updateCompletionUI(true, new Date().toISOString());
+                    showNotification('Workout marked as completed!');
+                }
+            }
+        });
+        
+        // Обработчик для кнопки в заголовке
+        completeWorkoutBtn.addEventListener('click', function() {
+            if (!workoutCompleted) {
+                markCompleteBtn.click();
+            }
+        });
+        
+        function updateCompletionUI(completed, dateString = null) {
+            if (completed) {
+                markCompleteBtn.innerHTML = '<i class="fas fa-check-circle" aria-hidden="true"></i> Completed';
+                markCompleteBtn.classList.add('completed');
+                markCompleteBtn.disabled = true;
+                markCompleteBtn.setAttribute('aria-label', 'This workout has been completed');
+                
+                completeWorkoutBtn.innerHTML = '<i class="fas fa-check-circle" aria-hidden="true"></i> Completed';
+                completeWorkoutBtn.classList.add('completed');
+                completeWorkoutBtn.disabled = true;
+                
+                if (dateString) {
+                    const date = new Date(dateString);
+                    const formattedDate = date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                    const time = date.toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    completionDate.textContent = formattedDate + ' at ' + time;
+                }
+                completionStatus.style.display = 'block';
+            }
+        }
+    }
+
+    // Функция отметки тренировки
+    async function markWorkoutAsCompleted(workoutId, workoutName, workoutLevel) {
+        try {
+            const completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || [];
+            
+            const alreadyCompleted = completedWorkouts.find(item => item.id == workoutId);
+            
+            if (!alreadyCompleted) {
+                completedWorkouts.push({
+                    id: workoutId,
+                    name: workoutName,
+                    level: workoutLevel,
+                    date: new Date().toISOString()
+                });
+                
+                localStorage.setItem('completedWorkouts', JSON.stringify(completedWorkouts));
+                
+                return true;
+            } else {
+                showNotification('You have already completed this workout!');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error marking workout as completed:', error);
+            showNotification('Failed to mark workout as completed');
+            return false;
+        }
+    }
+
+    // Вспомогательные функции
+    function showError(message) {
+        document.getElementById('workoutContent').innerHTML = `
+            <div class="alert alert-danger" role="alert">
+                <h4 class="h5"><i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>Error</h4>
+                <p>${message}</p>
+                <a href="workouts.html" class="btn btn-sm btn-outline-danger" aria-label="Return to workouts list">
+                    <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Workouts
+                </a>
+            </div>
+        `;
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
+        notification.setAttribute('role', 'alert');
+        notification.setAttribute('aria-live', 'assertive');
+        notification.setAttribute('aria-atomic', 'true');
+        notification.style.cssText = `
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 250px;
+            max-width: 300px;
+            font-size: 0.9rem;
+        `;
+        
+        notification.innerHTML = `
+            <span class="visually-hidden">Success notification: </span>
+            <i class="fas fa-check-circle me-2" aria-hidden="true"></i>
+            ${message}
+            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close notification"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 3000);
+    }
+
+    function showConnectionWarning(message) {
+        const statusDiv = document.getElementById('connectionStatus');
+        statusDiv.innerHTML = `
+            <div class="alert alert-warning alert-dismissible fade show small" role="alert">
+                <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+                ${message}
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close warning"></button>
+            </div>
+        `;
+        statusDiv.style.display = 'block';
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        loadWorkoutDetails();
+        
+        // Обработка клавиатурной навигации
+        document.addEventListener('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.tagName === 'BUTTON') {
+                e.preventDefault();
+                e.target.click();
+            }
+        });
+    });
+    </script>
+
+    <script src="../script.js"></script>
+</body>
+</html>
