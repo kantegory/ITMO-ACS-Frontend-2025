@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-light bg-light border-bottom">
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+    <nav class="navbar navbar-light bg-light border-bottom" role="navigation" aria-label="Основная навигация">
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="search.html">Аренда жилья</a>
             <div>
@@ -19,30 +21,32 @@
         </div>
     </nav>
 
-    <div class="container py-3">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Мои объявления</h2>
-            <button class="btn btn-primary" id="openCreateModalBtn">
-                Создать объявление
-            </button>
+    <main id="main-content">
+        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="h2 mb-0">Мои объявления</h1>
+                <button class="btn btn-primary" id="openCreateModalBtn" type="button">
+                    Создать объявление
+                </button>
+            </div>
+
+            <div id="myPropertiesEmpty" class="alert alert-info d-none" role="status" aria-live="polite">
+                У вас пока нет объявлений. Нажмите «Создать объявление», чтобы добавить первое.
+            </div>
+
+            <div id="myPropertiesError" class="alert alert-danger d-none" role="alert" aria-live="assertive">
+                Не удалось загрузить объявления. Попробуйте обновить страницу.
+            </div>
+
+            <div class="row" id="myPropertiesList"></div>
         </div>
+    </main>
 
-        <div id="myPropertiesEmpty" class="alert alert-info d-none">
-            У вас пока нет объявлений. Нажмите «Создать объявление», чтобы добавить первое.
-        </div>
-
-        <div id="myPropertiesError" class="alert alert-danger d-none">
-            Не удалось загрузить объявления. Попробуйте обновить страницу.
-        </div>
-
-        <div class="row" id="myPropertiesList"></div>
-    </div>
-
-    <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true">
+    <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="modal-dialog modal-lg">
             <form class="modal-content" id="propertyForm">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="propertyModalLabel">Создать объявление</h5>
+                    <h2 class="modal-title h5" id="propertyModalLabel">Создать объявление</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
@@ -50,13 +54,13 @@
 
                     <div class="mb-3">
                         <label for="propertyTitle" class="form-label">Заголовок</label>
-                        <input type="text" class="form-control" id="propertyTitle" required>
+                        <input type="text" class="form-control" id="propertyTitle" required aria-required="true">
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="propertyType" class="form-label">Тип жилья</label>
-                            <select class="form-select" id="propertyType" required>
+                            <select class="form-select" id="propertyType" required aria-required="true">
                                 <option value="flat">Квартира</option>
                                 <option value="house">Дом</option>
                                 <option value="room">Комната</option>
@@ -64,7 +68,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="propertyStatus" class="form-label">Статус</label>
-                            <select class="form-select" id="propertyStatus" required>
+                            <select class="form-select" id="propertyStatus" required aria-required="true">
                                 <option value="available">Свободно</option>
                                 <option value="occupied">Занято</option>
                                 <option value="closed">Неактивно</option>
@@ -72,18 +76,18 @@
                         </div>
                         <div class="col-md-4">
                             <label for="propertyPrice" class="form-label">Цена в сутки, ₽</label>
-                            <input type="number" min="0" class="form-control" id="propertyPrice" required>
+                            <input type="number" min="0" class="form-control" id="propertyPrice" required aria-required="true">
                         </div>
                     </div>
 
                     <div class="mt-3 mb-3">
                         <label for="propertyLocation" class="form-label">Адрес / локация</label>
-                        <input type="text" class="form-control" id="propertyLocation" placeholder="г. Санкт-Петербург, Петровский проспект, д. 2" required>
+                        <input type="text" class="form-control" id="propertyLocation" placeholder="г. Санкт-Петербург, Петровский проспект, д. 2" required aria-required="true">
                     </div>
 
                     <div class="mb-3">
                         <label for="propertyDescription" class="form-label">Описание</label>
-                        <textarea class="form-control" id="propertyDescription" rows="3" required></textarea>
+                        <textarea class="form-control" id="propertyDescription" rows="3" required aria-required="true"></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -99,13 +103,14 @@
                     <div class="mb-3">
                         <label for="photoUrls" class="form-label">Фотографии (URL, по одной ссылке в строке)</label>
                         <textarea class="form-control" id="photoUrls" rows="3"
-                                placeholder="https://.../photo1.jpg&#10;https://.../photo2.jpg"></textarea>
-                        <div class="form-text">
-                            Сейчас сервис картинок принимает только ссылки. При редактировании можно добавить новые фото - они будут привязаны к объявлению.
+                                  aria-describedby="photoUrlsHelp"
+                                  placeholder="https://.../photo1.jpg&#10;https://.../photo2.jpg"></textarea>
+                        <div class="form-text" id="photoUrlsHelp">
+                            Сейчас сервис картинок принимает только ссылки. При редактировании можно добавить новые фото — они будут привязаны к объявлению.
                         </div>
                     </div>
 
-                    <div class="alert alert-danger d-none" id="propertyFormError"></div>
+                    <div class="alert alert-danger d-none" id="propertyFormError" role="alert" aria-live="assertive"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
@@ -115,11 +120,11 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deletePropertyModal" tabindex="-1" aria-labelledby="deletePropertyModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deletePropertyModal" tabindex="-1" aria-labelledby="deletePropertyModalLabel" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deletePropertyModalLabel">Удалить объявление</h5>
+                    <h2 class="modal-title h5" id="deletePropertyModalLabel">Удалить объявление</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
@@ -129,7 +134,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeletePropertyBtn">Удалить</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeletePropertyBtn">
+                        Удалить
+                    </button>
                 </div>
             </div>
         </div>
