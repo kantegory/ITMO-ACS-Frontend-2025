@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить недвижимость - RentEstate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-section h5 {
+            color: #0d6efd;
+            border-bottom: 2px solid #0d6efd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-preview-container {
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+        }
+
+        .price-input {
+            position: relative;
+        }
+
+        .price-input .input-group-text {
+            background-color: #f8f9fa;
+        }
+
+        .amenity-tag {
+            background-color: #e9ecef;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .amenity-tag button {
+            margin-left: 8px;
+            opacity: 0.6;
+        }
+
+        .amenity-tag button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-theme bg-primary"
+    aria-label="Главная навигация сайта">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <i class="bi bi-house-heart me-2"></i>
+            <span>RentEstate</span>
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Открыть меню навигации">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul id="navbarNavLinks"
+                class="navbar-nav ms-auto"
+                role="menubar"
+                aria-label="Основные разделы сайта">
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-plus-circle me-2"></i> Добавить новый объект недвижимости</h4>
+                </div>
+                <div class="card-body">
+                    <form id="addPropertyForm" novalidate>
+                        <div class="form-section">
+                            <h5><i class="bi bi-info-circle me-2"></i> Основная информация</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="propertyTitle" class="form-label">Название объекта *</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="propertyTitle"
+                                           required
+                                           autocomplete="off"
+                                           placeholder="Например: Уютная квартира в центре">
+                                    <div class="invalid-feedback">Пожалуйста, введите название объекта</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="propertyLocation" class="form-label">Местоположение *</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="propertyLocation"
+                                           autocomplete="address-level2"
+                                           placeholder="Например: Москва, Центральный район" required>
+                                    <div class="invalid-feedback">Пожалуйста, укажите местоположение</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="propertyDescription" class="form-label">Описание</label>
+                                <textarea class="form-control" id="propertyDescription" rows="4"
+                                          placeholder="Опишите ваш объект: расположение, особенности, инфраструктура вокруг..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h5><i class="bi bi-tags me-2"></i> Тип и цена</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="propertyType" class="form-label">Тип недвижимости *</label>
+                                    <select class="form-select" id="propertyType" required>
+                                        <option value="">Выберите тип...</option>
+                                    </select>
+                                    <div class="invalid-feedback">Пожалуйста, выберите тип недвижимости</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="rentalType" class="form-label">Тип аренды *</label>
+                                    <select class="form-select" id="rentalType" required>
+                                        <option value="">Выберите тип аренды...</option>
+                                    </select>
+                                    <div class="invalid-feedback">Пожалуйста, выберите тип аренды</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="propertyPrice" class="form-label">Стоимость аренды *</label>
+                                <div class="input-group price-input">
+                                    <input type="number"
+                                           class="form-control"
+                                           id="propertyPrice"
+                                           min="0"
+                                           step="1000"
+                                           required
+                                           autocomplete="off"
+                                           placeholder="Например: 50000">
+                                    <span class="input-group-text" id="priceUnit">₽</span>
+                                    <div class="invalid-feedback">Пожалуйста, укажите стоимость аренды</div>
+                                </div>
+                                <small class="form-text text-muted">Укажите стоимость за выбранный период аренды</small>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h5><i class="bi bi-images me-2"></i> Изображения</h5>
+                            <div class="mb-3">
+                                <label for="propertyImages" class="form-label">Загрузить фотографии</label>
+                                <input type="file"
+                                       class="form-control"
+                                       id="propertyImages"
+                                       accept="image/*"
+                                       multiple
+                                       autocomplete="off">
+                                <small class="form-text text-muted">Можно загрузить несколько изображений (макс. 10)</small>
+                            </div>
+                            <div id="imagePreview" class="image-preview-container">
+                                <div class="text-muted">
+                                    <i class="bi bi-image display-4 d-block mb-2"></i>
+                                    <p>Предпросмотр изображений появится здесь</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="profile.html" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-arrow-left"></i> Назад к профилю
+                            </a>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <i class="bi bi-check-lg"></i> Создать объект
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="formMessage" class="alert mt-3 d-none"></div>
+                </div>
+            </div>
+
+            <div class="card shadow mt-4">
+                <div class="card-body">
+                    <h6><i class="bi bi-lightbulb me-2"></i> Советы по заполнению</h6>
+                    <ul class="mb-0">
+                        <li class="small">Указывайте реальные и актуальные данные</li>
+                        <li class="small">Добавляйте качественные фотографии объекта</li>
+                        <li class="small">Подробное описание увеличивает шансы на аренду</li>
+                        <li class="small">Укажите все доступные удобства</li>
+                        <li class="small">Проверьте правильность контактной информации</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="../js/navbar.js"></script>
+<script type="module" src="../js/add-property.js"></script>
+<script type="module" src="../js/theme.js"></script>
+</body>
+</html>
