@@ -872,7 +872,7 @@ function renderTrainingPlanDetail(plan: TrainingPlan, workouts: Workout[], conta
             workout.duration_min || 0
           } min</p>
                 </div>
-                <a class="small" href="workout.html?id=${workout.id}">View workout</a>
+                <a class="btn btn-outline-dark" href="workout.html?id=${workout.id}">View workout</a>
               </div>
             </li>
           `,

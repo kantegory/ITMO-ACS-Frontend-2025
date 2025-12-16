@@ -71,7 +71,6 @@ body {
   background-color: var(--bg-body);
   color: var(--text-body);
   padding-top: 72px;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar-brand img {
