@@ -11,76 +11,140 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#">RentHouse</a>
-        <a href="profile.html" class="btn btn-outline-primary">Личный кабинет</a>
-    </div>
-</nav>
-
-<div class="container mt-4">
-
-    <div class="card p-3 search-card">
-        <h4>Поиск недвижимости</h4>
-
-        <div class="row mt-2 g-3">
-            <div class="col-md-3">
-                <input id="searchInput" type="text" class="form-control" placeholder="Город / район">
-            </div>
-
-            <div class="col-md-3">
-                <select id="typeSelect" class="form-select">
-                    <option value="">Тип</option>
-                    <option>Квартира</option>
-                    <option>Дом</option>
-                    <option>Комната</option>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <select id="priceSelect" class="form-select">
-                    <option value="">Цена</option>
-                    <option value="30000">до 30 000</option>
-                    <option value="50000">до 50 000</option>
-                    <option value="100000">до 100 000</option>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <button class="btn btn-primary w-100" id="filterBtn">Фильтровать</button>
-            </div>
+<header>
+    <nav class="navbar navbar-expand-lg" aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand" href="search.html">RentHouse</a>
+            <a
+                    href="profile.html"
+                    class="btn btn-outline-primary"
+                    aria-label="Перейти в личный кабинет"
+            >
+                Личный кабинет
+            </a>
         </div>
-    </div>
+    </nav>
+</header>
 
-    <div class="row g-3 mt-3" id="propertyList">
+<main class="container mt-4" id="main-content">
 
-        <div class="col-md-4 property-item" data-price="45000" data-type="Квартира" data-location="Москва">
+    <section
+            class="card p-3 search-card"
+            aria-labelledby="search-title"
+    >
+        <h1 id="search-title">Поиск недвижимости</h1>
+
+        <form>
+            <div class="row mt-2 g-3">
+
+                <div class="col-md-3">
+                    <label for="searchInput" class="form-label">
+                        Город или район
+                    </label>
+                    <input
+                            id="searchInput"
+                            type="text"
+                            class="form-control"
+                            placeholder="Москва, Питер"
+                    >
+                </div>
+
+                <div class="col-md-3">
+                    <label for="typeSelect" class="form-label">
+                        Тип недвижимости
+                    </label>
+                    <select id="typeSelect" class="form-select">
+                        <option value="">Любой</option>
+                        <option>Квартира</option>
+                        <option>Дом</option>
+                        <option>Комната</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="priceSelect" class="form-label">
+                        Максимальная цена
+                    </label>
+                    <select id="priceSelect" class="form-select">
+                        <option value="">Любая</option>
+                        <option value="30000">до 30 000</option>
+                        <option value="50000">до 50 000</option>
+                        <option value="100000">до 100 000</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 d-flex align-items-end">
+                    <button
+                            class="btn btn-primary w-100"
+                            id="filterBtn"
+                            type="button"
+                            aria-controls="propertyList"
+                    >
+                        Фильтровать
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </section>
+
+    <section
+            class="row g-3 mt-3"
+            id="propertyList"
+            aria-live="polite"
+            aria-atomic="true"
+    >
+
+        <article
+                class="col-md-4 property-item"
+                role="article"
+                data-price="45000"
+                data-type="Квартира"
+                data-location="Москва"
+        >
             <div class="card property-card">
-                <img src="img/house1.jpg" class="card-img-top">
+                <img
+                        src="img/house1.jpg"
+                        class="card-img-top"
+                        alt="Квартира в Москве, интерьер"
+                >
                 <div class="card-body">
-                    <h5>Квартира в Москве</h5>
+                    <h2 class="h5">Квартира в Москве</h2>
                     <p>45 000 ₽/мес</p>
                     <button
                             class="btn btn-success w-100 rentBtn"
+                            type="button"
+                            aria-label="Арендовать: Квартира в Москве"
                             data-title="Квартира в Москве"
                             data-price="45000"
                             data-img="img/house1.jpg"
                     >
                         Арендовать
                     </button>
-
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="col-md-4 property-item" data-price="30000" data-type="Комната" data-location="Питер">
+        <article
+                class="col-md-4 property-item"
+                role="article"
+                data-price="30000"
+                data-type="Комната"
+                data-location="Питер"
+        >
             <div class="card property-card">
-                <img src="img/house2.jpg" class="card-img-top">
+                <img
+                        src="img/house2.jpg"
+                        class="card-img-top"
+                        alt="Комната в центре города"
+                >
                 <div class="card-body">
-                    <h5>Комната в центре</h5>
+                    <h2 class="h5">Комната в центре</h2>
                     <p>30 000 ₽/мес</p>
                     <button
                             class="btn btn-success w-100 rentBtn"
+                            type="button"
+                            aria-label="Арендовать: Комната в центре"
                             data-title="Комната в центре"
                             data-price="30000"
                             data-img="img/house2.jpg"
@@ -89,16 +153,28 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </article>
 
-    </div>
-</div>
+    </section>
+</main>
 
-<div class="modal fade" id="rentModal" tabindex="-1">
+<div
+        class="modal fade"
+        id="rentModal"
+        tabindex="-1"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rentModalTitle"
+        aria-describedby="rentModalDesc"
+>
     <div class="modal-dialog">
         <div class="modal-content p-3">
-            <h4>Заявка отправлена!</h4>
-            <p class="mt-2">Владелец свяжется с вами.</p>
+            <h2 id="rentModalTitle" tabindex="-1">
+                Заявка отправлена!
+            </h2>
+            <p id="rentModalDesc" class="mt-2">
+                Владелец свяжется с вами.
+            </p>
         </div>
     </div>
 </div>
