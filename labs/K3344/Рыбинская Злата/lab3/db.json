@@ -1,0 +1,85 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@lakomka.ru",
+      "password": "0101",
+      "name": "Администратор"
+    },
+    {
+      "id": "2",
+      "email": "zlata@test.com",
+      "password": "123456",
+      "name": "Злата"
+    }
+  ],
+  "recipes": [
+    {
+      "id": "1",
+      "title": "Шоколадный торт",
+      "image": "https://media.istockphoto.com/id/1370520449/ru/фото/кусочек-шоколадного-торта-с-глазурью.jpg?s=1024x1024&w=is&k=20&c=qNbPk8s8Qe8qqDT0zxYSVheTf8lQ3rFrXI6KIvVxE_I=",
+      "description": "Воздушный бисквит с насыщенным кремом из тёмного шоколада.",
+      "ingredients": [
+        "Мука — 200 г",
+        "Какао — 50 г",
+        "Яйца — 3 шт",
+        "Сахар — 150 г"
+      ],
+      "steps": [
+        "Смешать сухие ингредиенты",
+        "Добавить яйца",
+        "Выпекать 35 минут при 180°C"
+      ],
+      "difficulty": "Средне",
+      "type": "Торт",
+      "author": "1",
+      "link": "recipe.html?id=1",
+      "time": "90 min"
+    },
+    {
+      "id": "2",
+      "title": "Эклеры с заварным кремом",
+      "image": "https://media.istockphoto.com/id/135896040/ru/фото/шоколадный-eclairs.jpg?s=1024x1024&w=is&k=20&c=GEaaF3mzBQEPV6-sxGS_e7gHZAt7IcfslodpPo_ajfE=",
+      "description": "Нежные эклеры с ванильным кремом и шоколадной глазурью.",
+      "ingredients": [
+        "Мука — 150 г",
+        "Вода — 250 мл",
+        "Яйца — 4 шт",
+        "Сливочное масло — 100 г"
+      ],
+      "steps": [
+        "Вскипятить воду с маслом",
+        "Вмешать муку",
+        "Добавить яйца",
+        "Выпекать",
+        "Наполнить кремом"
+      ],
+      "difficulty": "Сложно",
+      "type": "Пироженное",
+      "author": "2",
+      "link": "recipe.html?id=2",
+      "time": "40 min"
+    },
+    {
+      "id": "3",
+      "title": "Яблочный пирог",
+      "image": "https://media.istockphoto.com/id/512602151/ru/фото/классическая-американская-яблочный-пирог.jpg?s=1024x1024&w=is&k=20&c=5JTDoo_OSarOcymSnpKvq-ZfURK7-d2o0n0S8Xqr3KI=",
+      "description": "Классика: сочные яблоки, аромат корицы и рассыпчатое тесто.",
+      "ingredients": [
+        "Яблоки — 3 шт",
+        "Мука — 200 г",
+        "Корица — 1 ч.л."
+      ],
+      "steps": [
+        "Нарезать яблоки",
+        "Смешать тесто",
+        "Выпекать 40 минут"
+      ],
+      "difficulty": "Легко",
+      "type": "Выпечка",
+      "author": "2",
+      "link": "recipe.html?id=3",
+      "time": "30 min"
+    }
+  ]
+}
