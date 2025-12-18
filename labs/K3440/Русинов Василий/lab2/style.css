@@ -1,0 +1,128 @@
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #212529;
+
+    --card-bg: #ffffff;
+    --navbar-bg: #ffffff;
+    --border-color: #0d6efd;
+
+    --btn-primary-bg: #0d6efd;
+    --btn-primary-text: #ffffff;
+
+    --shadow-color: rgba(0, 0, 0, 0.12);
+}
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+
+    --card-bg: #1e1e1e;
+    --navbar-bg: #1c1c1c;
+    --border-color: #4dabf7;
+
+    --btn-primary-bg: #4dabf7;
+    --btn-primary-text: #000000;
+
+    --shadow-color: rgba(0, 0, 0, 0.6);
+}
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: "Segoe UI", Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar {
+    background: var(--navbar-bg);
+    border-bottom: 3px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 6px var(--shadow-color);
+    transition: background-color 0.3s;
+}
+.card,
+.card p,
+.card span,
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card h5 {
+    color: var(--text-color);
+}
+p {
+    color: var(--text-color);
+}
+
+.property-card img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: var(--btn-primary-bg);
+    border-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+}
+
+.form-control,
+.form-select {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+}
+
+.form-control::placeholder {
+    color: #888;
+}
+
+.login-card,
+.register-card {
+    max-width: 420px;
+}
+
+.search-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #121212;
+        --text-color: #f1f1f1;
+        --card-bg: #1e1e1e;
+        --navbar-bg: #1c1c1c;
+        --border-color: #4dabf7;
+        --btn-primary-bg: #4dabf7;
+        --btn-primary-text: #000000;
+        --shadow-color: rgba(0, 0, 0, 0.6);
+    }
+}
+svg {
+    fill: currentColor;
+    display: block;
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+#themeToggle {
+    width: 42px;
+    height: 38px;
+    padding: 0;
+}
