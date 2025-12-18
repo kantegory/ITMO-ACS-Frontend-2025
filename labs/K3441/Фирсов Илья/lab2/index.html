@@ -1,341 +1,375 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Atlas — вакансии, резюме и интервью</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Atlas — вакансии, резюме и интервью</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <header class="topbar">
+<a class="skip-link" href="#mainContent">Перейти к основному содержимому</a>
+<header class="topbar">
     <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
-      <div class="brand">Career Atlas</div>
-      <nav class="nav-links">
-        <a href="#" data-section-target="auth">Вход / Регистрация</a>
-        <a href="#" data-section-target="candidate">ЛК соискателя</a>
-        <a href="#" data-section-target="vacancy">Поиск вакансий</a>
-        <a href="#" data-section-target="employer">ЛК работодателя</a>
-      </nav>
-      <div class="user-badge" id="userBadge">Не авторизован</div>
+        <div class="brand">Career Atlas</div>
+        <nav class="nav-links" aria-label="Разделы сайта">
+            <a href="#" data-section-target="auth">Вход / Регистрация</a>
+            <a href="#" data-section-target="candidate">ЛК соискателя</a>
+            <a href="#" data-section-target="vacancy" aria-current="page">Поиск вакансий</a>
+            <a href="#" data-section-target="employer">ЛК работодателя</a>
+        </nav>
+        <div class="user-badge" id="userBadge">Не авторизован</div>
     </div>
-  </header>
+</header>
 
-  <section class="hero text-white">
+<section class="hero text-white">
     <div class="container py-5 position-relative">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-8">
-          <p class="eyebrow text-uppercase mb-2">новая версия</p>
-          <h1 class="display-5 fw-semibold mb-3">Платформа вакансий без шаблонных откликов</h1>
-          <p class="lead text-white-75 mb-4">
-            Вход, регистрация, личные кабинеты соискателя и работодателя, поиск с фильтрами и карточка вакансии — всё на одной странице.
-          </p>
-          <div class="d-flex flex-wrap gap-3">
-            <button class="btn btn-primary" data-section-target="auth">Войти</button>
-            <button class="btn btn-contrast" data-section-target="vacancy">Посмотреть вакансии</button>
-          </div>
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <p class="eyebrow text-uppercase mb-2">новая версия</p>
+                <h1 class="display-5 fw-semibold mb-3">Платформа вакансий без шаблонных откликов</h1>
+                <p class="lead text-white-75 mb-4">
+                    Вход, регистрация, личные кабинеты соискателя и работодателя, поиск с фильтрами и карточка вакансии
+                    — всё на одной странице.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <button class="btn btn-primary" data-section-target="auth">Войти</button>
+                    <button class="btn btn-contrast" data-section-target="vacancy">Посмотреть вакансии</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
+</section>
 
-  <main>
+<main id="mainContent" role="main">
     <section id="auth" class="section-padding page" data-section="auth">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-lg-6">
-            <div class="glass-panel p-4 h-100">
-              <p class="eyebrow">Вход</p>
-              <h3 class="mb-3">Продолжить как соискатель или работодатель</h3>
-              <form id="loginForm" class="row g-3">
-                <div class="col-12">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" required>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="glass-panel p-4 h-100">
+                        <p class="eyebrow">Вход</p>
+                        <h3 class="mb-3">Продолжить как соискатель или работодатель</h3>
+                        <form id="loginForm" class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="loginEmail">Email</label>
+                                <input type="email" class="form-control" id="loginEmail"
+                                       name="email" autocomplete="email" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="loginPassword">Пароль</label>
+                                <input type="password" class="form-control" id="loginPassword"
+                                       name="password" autocomplete="current-password" required>
+                            </div>
+                            <div class="col-12 d-flex gap-3 align-items-center">
+                                <label class="form-label visually-hidden" for="loginRole">Роль</label>
+<select class="form-select" id="loginRole" name="role">
+
+                                    <option value="job_seeker">Соискатель</option>
+                                    <option value="employer">Работодатель</option>
+                                </select>
+                                <button class="btn btn-primary flex-grow-1" type="submit">Войти</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-12">
-                  <label class="form-label">Пароль</label>
-                  <input type="password" class="form-control" required>
+                <div class="col-lg-6" id="register">
+                    <div class="glass-panel p-4 h-100">
+                        <p class="eyebrow">Регистрация</p>
+                        <h3 class="mb-3">Создать аккаунт</h3>
+                        <form id="registerForm" class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="regFirstName">Имя</label>
+<input type="text" class="form-control" id="regFirstName"
+       name="given-name" autocomplete="given-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="regLastName">Фамилия</label>
+<input type="text" class="form-control" id="regLastName"
+       name="family-name" autocomplete="family-name" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="regEmail">Email</label>
+<input type="email" class="form-control" id="regEmail"
+       name="email" autocomplete="email" required>
+
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="regPassword">Пароль</label>
+<input type="password" class="form-control" id="regPassword"
+       name="new-password" autocomplete="new-password" required>
+
+                            </div>
+                            <div class="col-12 d-flex gap-3 flex-wrap">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="regRole" id="roleSeeker"
+                                           value="job_seeker" checked>
+                                    <label class="form-check-label" for="roleSeeker">Соискатель</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="regRole" id="roleEmployer"
+                                           value="employer">
+                                    <label class="form-check-label" for="roleEmployer">Работодатель</label>
+                                </div>
+                                <button class="btn btn-contrast ms-auto" type="submit">Зарегистрироваться</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-12 d-flex gap-3 align-items-center">
-                  <select class="form-select" aria-label="role">
-                    <option value="job_seeker">Соискатель</option>
-                    <option value="employer">Работодатель</option>
-                  </select>
-                  <button class="btn btn-primary flex-grow-1" type="submit">Войти</button>
-                </div>
-              </form>
             </div>
-          </div>
-          <div class="col-lg-6" id="register">
-            <div class="glass-panel p-4 h-100">
-              <p class="eyebrow">Регистрация</p>
-              <h3 class="mb-3">Создать аккаунт</h3>
-              <form id="registerForm" class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label">Имя</label>
-                  <input type="text" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Фамилия</label>
-                  <input type="text" class="form-control" required>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" required>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Пароль</label>
-                  <input type="password" class="form-control" required>
-                </div>
-                <div class="col-12 d-flex gap-3 flex-wrap">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="regRole" id="roleSeeker" value="job_seeker" checked>
-                    <label class="form-check-label" for="roleSeeker">Соискатель</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="regRole" id="roleEmployer" value="employer">
-                    <label class="form-check-label" for="roleEmployer">Работодатель</label>
-                  </div>
-                  <button class="btn btn-contrast ms-auto" type="submit">Зарегистрироваться</button>
-                </div>
-              </form>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
     <section id="candidate" class="section-padding alt-bg page" data-section="candidate">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-          <div>
-            <p class="eyebrow">Личный кабинет</p>
-            <h2 class="h1 mb-0">Резюме и активность соискателя</h2>
-          </div>
-          <button class="btn btn-outline-light" id="addResumeBtn">Добавить резюме</button>
-        </div>
-        <div class="row g-4">
-          <div class="col-lg-12">
-            <div class="row g-3" id="resumeList"></div>
-          </div>
-        </div>
-        <div class="row g-3 mt-3">
-          <div class="col-12">
-            <div class="glass-panel p-4">
-              <h6 class="mb-3">Активные отклики</h6>
-              <div class="card-row" id="candidateApplications"></div>
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                <div>
+                    <p class="eyebrow">Личный кабинет</p>
+                    <h2 class="h1 mb-0">Резюме и активность соискателя</h2>
+                </div>
+                <button class="btn btn-outline-light" id="addResumeBtn">Добавить резюме</button>
             </div>
-          </div>
+            <div class="row g-4">
+                <div class="col-lg-12">
+                    <div class="row g-3" id="resumeList"></div>
+                </div>
+            </div>
+            <div class="row g-3 mt-3">
+                <div class="col-12">
+                    <div class="glass-panel p-4">
+                        <h6 class="mb-3">Активные отклики</h6>
+                        <div class="card-row" id="candidateApplications"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
     <section id="vacancy-search" class="section-padding page" data-section="vacancy">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-          <div>
-            <p class="eyebrow">Поиск</p>
-            <h2 class="h1 mb-1">Вакансии с фильтрами по отрасли, зарплате и опыту</h2>
-            <p class="text-muted mb-0">Фильтры слева, подходящие позиции справа.</p>
-          </div>
-        </div>
-        <div class="row g-4">
-          <div class="col-lg-4">
-            <div class="glass-panel p-4 h-100">
-              <form id="filterForm" class="vstack gap-3">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
                 <div>
-                  <label class="form-label">Ключевые слова</label>
-                  <input type="text" id="searchQuery" class="form-control" placeholder="дизайн, аналитик...">
+                    <p class="eyebrow">Поиск</p>
+                    <h2 class="h1 mb-1">Вакансии с фильтрами по отрасли, зарплате и опыту</h2>
+                    <p class="text-muted mb-0">Фильтры слева, подходящие позиции справа.</p>
                 </div>
-                <div>
-                  <label class="form-label">Отрасль</label>
-                  <select id="industryFilter" class="form-select">
-                    <option value="">Любая</option>
-                    <option value="it">IT</option>
-                    <option value="finance">Финансы</option>
-                    <option value="healthcare">Здравоохранение</option>
-                    <option value="education">Образование</option>
-                    <option value="manufacturing">Производство</option>
-                    <option value="retail">Ритейл</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="form-label">Опыт</label>
-                  <select id="experienceFilter" class="form-select">
-                    <option value="">Любой</option>
-                    <option value="intern">Стажировка</option>
-                    <option value="junior">Junior</option>
-                    <option value="middle">Middle</option>
-                    <option value="senior">Senior</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="form-label d-flex justify-content-between">
-                    <span>Минимальная зарплата</span>
-                    <span class="text-muted" id="salaryValue">0 тыс</span>
-                  </label>
-                  <input type="range" class="form-range" id="salaryFilter" min="0" max="400" step="10" value="0">
-                </div>
-                <button class="btn btn-primary" type="submit">Применить фильтры</button>
-              </form>
             </div>
-          </div>
-          <div class="col-lg-8">
-            <div class="row g-3" id="vacancyList"></div>
-            <div class="glass-panel p-4 mt-4" id="vacancyDetailCard">
-              <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
-                <div>
-                  <p class="eyebrow mb-1">Детали выбранной позиции</p>
-                  <h4 class="mb-0">Выберите вакансию</h4>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="glass-panel p-4 h-100">
+                        <form id="filterForm" class="vstack gap-3">
+                            <div>
+                                <label class="form-label" for="searchQuery">Ключевые слова</label>
+                                <input type="text" id="searchQuery" class="form-control"
+                                       placeholder="дизайн, аналитик...">
+                            </div>
+                            <div>
+                                <label class="form-label">Отрасль</label>
+                                <select id="industryFilter" class="form-select">
+                                    <option value="">Любая</option>
+                                    <option value="it">IT</option>
+                                    <option value="finance">Финансы</option>
+                                    <option value="healthcare">Здравоохранение</option>
+                                    <option value="education">Образование</option>
+                                    <option value="manufacturing">Производство</option>
+                                    <option value="retail">Ритейл</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Опыт</label>
+                                <select id="experienceFilter" class="form-select">
+                                    <option value="">Любой</option>
+                                    <option value="intern">Стажировка</option>
+                                    <option value="junior">Junior</option>
+                                    <option value="middle">Middle</option>
+                                    <option value="senior">Senior</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label d-flex justify-content-between">
+                                    <span>Минимальная зарплата</span>
+                                    <span class="text-muted" id="salaryValue">0 тыс</span>
+                                </label>
+                                <input type="range" class="form-range" id="salaryFilter"
+       min="0" max="400" step="10" value="0"
+       aria-describedby="salaryValue">
+                            </div>
+                            <button class="btn btn-primary" type="submit">Применить фильтры</button>
+                        </form>
+                    </div>
                 </div>
-                <button class="btn btn-contrast" data-bs-toggle="modal" data-bs-target="#applicationModal" id="detailApplyBtn" data-vacancy="">Откликнуться</button>
-              </div>
-              <p class="text-muted mb-0">Нажмите «Смотреть детали» у вакансии справа, и здесь появится описание, требования и компания.</p>
+                <div class="col-lg-8">
+                    <div class="row g-3" id="vacancyList"></div>
+                    <div class="glass-panel p-4 mt-4" id="vacancyDetailCard"
+     aria-live="polite" aria-atomic="true">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                            <div>
+                                <p class="eyebrow mb-1">Детали выбранной позиции</p>
+                                <h4 class="mb-0">Выберите вакансию</h4>
+                            </div>
+                            <button class="btn btn-contrast"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#applicationModal"
+        aria-haspopup="dialog"
+        aria-controls="applicationModal"
+        id="detailApplyBtn" data-vacancy="">
+  Откликнуться
+</button>
+
+                        </div>
+                        <p class="text-muted mb-0">Нажмите «Смотреть детали» у вакансии справа, и здесь появится
+                            описание, требования и компания.</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
     <section id="employer" class="section-padding page" data-section="employer">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-          <div>
-            <p class="eyebrow">ЛК работодателя</p>
-            <h2 class="h1 mb-0">Управление вакансиями</h2>
-          </div>
-        </div>
-        <div class="row g-4">
-          <div class="col-lg-7">
-            <div class="glass-panel p-4 h-100">
-              <h6 class="mb-3">Опубликованные позиции</h6>
-              <div class="d-flex flex-column gap-3" id="employerVacancies"></div>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="glass-panel p-4 h-100">
-              <h6 class="mb-3">Быстрое создание</h6>
-              <form id="employerForm" class="vstack gap-3">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
                 <div>
-                  <label class="form-label">Название</label>
-                  <input type="text" id="empTitle" class="form-control" required>
+                    <p class="eyebrow">ЛК работодателя</p>
+                    <h2 class="h1 mb-0">Управление вакансиями</h2>
                 </div>
-                <div>
-                  <label class="form-label">Отрасль</label>
-                  <select id="empIndustry" class="form-select">
-                    <option value="it">IT</option>
-                    <option value="finance">Финансы</option>
-                    <option value="education">Образование</option>
-                  </select>
-                </div>
-                <div class="d-flex gap-2">
-                  <input type="number" id="empSalary" class="form-control" placeholder="Зарплата от, тыс" min="0">
-                  <select id="empLevel" class="form-select">
-                    <option value="middle">Middle</option>
-                    <option value="senior">Senior</option>
-                    <option value="junior">Junior</option>
-                  </select>
-                </div>
-                <button class="btn btn-primary" type="submit">Сохранить</button>
-              </form>
             </div>
-          </div>
-        </div>
-        <div class="row g-3 mt-3">
-          <div class="col-12">
-            <div class="glass-panel p-4">
-              <h6 class="mb-3">Отклики на вакансии</h6>
-              <div class="card-row" id="employerApplications"></div>
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="glass-panel p-4 h-100">
+                        <h6 class="mb-3">Опубликованные позиции</h6>
+                        <div class="d-flex flex-column gap-3" id="employerVacancies"></div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="glass-panel p-4 h-100">
+                        <h6 class="mb-3">Быстрое создание</h6>
+                        <form id="employerForm" class="vstack gap-3">
+                            <div>
+                                <label class="form-label">Название</label>
+                                <input type="text" id="empTitle" class="form-control" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Отрасль</label>
+                                <select id="empIndustry" class="form-select">
+                                    <option value="it">IT</option>
+                                    <option value="finance">Финансы</option>
+                                    <option value="education">Образование</option>
+                                </select>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <input type="number" id="empSalary" class="form-control" placeholder="Зарплата от, тыс"
+                                       min="0">
+                                <select id="empLevel" class="form-select">
+                                    <option value="middle">Middle</option>
+                                    <option value="senior">Senior</option>
+                                    <option value="junior">Junior</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="row g-3 mt-3">
+                <div class="col-12">
+                    <div class="glass-panel p-4">
+                        <h6 class="mb-3">Отклики на вакансии</h6>
+                        <div class="card-row" id="employerApplications"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
-  </main>
+</main>
 
-  <footer class="py-4">
+<footer class="py-4">
     <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div>
-        <strong>Career Atlas</strong>
-        <p class="text-muted small mb-0">Делаем трудоустройство предсказуемым и честным.</p>
-      </div>
-      <div class="d-flex gap-3 align-items-center">
-        <a href="#login" class="text-muted small">Вход</a>
-        <a href="#vacancy-search" class="text-muted small">Вакансии</a>
-        <a href="mailto:hello@career-atlas.io" class="text-muted small">hello@career-atlas.io</a>
-        <span class="badge rounded-pill text-bg-success">online</span>
-      </div>
+        <div>
+            <strong>Career Atlas</strong>
+            <p class="text-muted small mb-0">Делаем трудоустройство предсказуемым и честным.</p>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <a href="#login" class="text-muted small">Вход</a>
+            <a href="#vacancy-search" class="text-muted small">Вакансии</a>
+            <a href="mailto:hello@career-atlas.io" class="text-muted small">hello@career-atlas.io</a>
+            <span class="badge rounded-pill text-bg-success">online</span>
+        </div>
     </div>
-  </footer>
+</footer>
 
-  <div class="modal fade" id="resumeModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="resumeModal" tabindex="-1"
+     aria-hidden="true" role="dialog" aria-labelledby="resumeModalTitle">
     <div class="modal-dialog">
-      <div class="modal-content glass-panel">
-        <div class="modal-header border-0">
-          <h5 class="modal-title">Новое резюме</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content glass-panel">
+            <div class="modal-header border-0">
+<h5 class="modal-title" id="resumeModalTitle">Новое резюме</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="resumeForm">
+                    <input type="hidden" id="resumeId">
+                    <div class="mb-3">
+                        <label class="form-label"><label class="form-label" for="resumeTitle">Позиция</label></label>
+                        <input type="text" class="form-control" id="resumeTitle" placeholder="Product Manager" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Город</label>
+                        <input type="text" class="form-control" id="resumeCity" placeholder="Казань" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Опыт (лет)</label>
+                        <input type="number" class="form-control" id="resumeYears" min="0" max="40" value="3">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Навыки (через запятую)</label>
+                        <input type="text" class="form-control" id="resumeSkillsInput" placeholder="SQL, A/B, UX">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Кратко</label>
+                        <textarea class="form-control" id="resumeSummary" rows="3" placeholder="Короткое описание опыта"
+                                  required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Сохранить резюме</button>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <form id="resumeForm">
-            <input type="hidden" id="resumeId">
-            <div class="mb-3">
-              <label class="form-label">Позиция</label>
-              <input type="text" class="form-control" id="resumeTitle" placeholder="Product Manager" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Город</label>
-              <input type="text" class="form-control" id="resumeCity" placeholder="Казань" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Опыт (лет)</label>
-              <input type="number" class="form-control" id="resumeYears" min="0" max="40" value="3">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Навыки (через запятую)</label>
-              <input type="text" class="form-control" id="resumeSkillsInput" placeholder="SQL, A/B, UX">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Кратко</label>
-              <textarea class="form-control" id="resumeSummary" rows="3" placeholder="Короткое описание опыта" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Сохранить резюме</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <div class="modal fade" id="applicationModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="applicationModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content glass-panel">
-        <div class="modal-header border-0">
-          <h5 class="modal-title">Оставить отклик</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content glass-panel">
+            <div class="modal-header border-0">
+<h5 class="modal-title" id="applicationModalTitle">Оставить отклик</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="applicationForm">
+                    <div class="mb-3">
+                        <label class="form-label" for="applicantName">Имя и фамилия</label>
+<input type="text" class="form-control" id="applicantName"
+       autocomplete="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="applicantEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Сообщение</label>
+                        <textarea class="form-control" id="applicationMessage" rows="3"
+                                  placeholder="Коротко о релевантном опыте" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Отправить</button>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <form id="applicationForm">
-            <div class="mb-3">
-              <label class="form-label">Имя и фамилия</label>
-              <input type="text" class="form-control" id="applicantName" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control" id="applicantEmail" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Сообщение</label>
-              <textarea class="form-control" id="applicationMessage" rows="3" placeholder="Коротко о релевантном опыте" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Отправить</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
