@@ -165,22 +165,23 @@ document.getElementById("logoutBtn")?.addEventListener("click", () => {
     location.href = "login";
 });
 const themeToggle = document.getElementById("themeToggle");
-const savedTheme = localStorage.getItem("theme");
+const themeIcon = document.getElementById("themeIcon");
 
-if (savedTheme) {
-    document.documentElement.setAttribute("data-theme", savedTheme);
+if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    themeIcon.setAttribute("href", "sprite.svg#icon-sun");
 }
 
-themeToggle?.addEventListener("click", () => {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
+themeToggle.addEventListener("click", () => {
+    const dark = document.documentElement.getAttribute("data-theme") === "dark";
 
-    if (currentTheme === "dark") {
+    if (dark) {
         document.documentElement.removeAttribute("data-theme");
         localStorage.removeItem("theme");
-        themeToggle.textContent = "🌙";
+        themeIcon.setAttribute("href", "sprite.svg#icon-moon");
     } else {
         document.documentElement.setAttribute("data-theme", "dark");
         localStorage.setItem("theme", "dark");
-        themeToggle.textContent = "☀️";
+        themeIcon.setAttribute("href", "sprite.svg#icon-sun");
     }
 });

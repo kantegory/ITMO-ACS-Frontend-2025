@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+
+    <symbol id="icon-search" viewBox="0 0 24 24">
+        <path d="M10 2a8 8 0 105.3 14.1l4.3 4.3 1.4-1.4-4.3-4.3A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+    </symbol>
+
+    <symbol id="icon-user" viewBox="0 0 24 24">
+        <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/>
+    </symbol>
+
+    <symbol id="icon-logout" viewBox="0 0 24 24">
+        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3H10v2h10v14H10v2h10a2 2 0 002-2V5a2 2 0 00-2-2z"/>
+    </symbol>
+
+    <symbol id="icon-moon" viewBox="0 0 101 101">
+        <path d="M81.69,88.64a2.74,2.74,0,0,0-2.91-1.88A35.85,35.85,0,0,1,40.66,61.16a1.09,1.09,0,0,1,.17-1,1.06,1.06,0,0,1,.86-.43H52.8a3.9,3.9,0,0,0,3.66-2.45A4,4,0,0,0,55.6,53l-8.74-8.74a10.52,10.52,0,0,1-1.31-13.41A35.75,35.75,0,0,1,71.45,15.48a36.47,36.47,0,0,1,7.31,0,2.76,2.76,0,0,0,2.92-1.89,2.69,2.69,0,0,0-1.2-3.22,47.37,47.37,0,1,0,0,81.48A2.73,2.73,0,0,0,81.69,88.64Z"/>
+        <path d="M33.41,43.43a1.5,1.5,0,0,0-2.12-2.12,3.83,3.83,0,0,1-5.27,0,1.5,1.5,0,1,0-2.11,2.13,6.74,6.74,0,0,0,9.5,0Z"/>
+    </symbol>
+
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+
+        <line x1="12" y1="1" x2="12" y2="4"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="12" y1="20" x2="12" y2="23"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="1" y1="12" x2="4" y2="12"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="20" y1="12" x2="23" y2="12"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+        <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+
+</svg>
