@@ -1,0 +1,446 @@
+/* переменные - светлая тема */
+:root {
+    --bg-body: #f8f9fa;
+    --color-text: #333;
+    --color-text-muted: #6c757d;
+    --primary: #0d6efd;
+    --primary-dark: #0056b3;
+    --success: #198754;
+    --danger: #dc3545;
+    --info: #0dcaf0;
+    --warning: #ffc107;
+    --card-bg: #ffffff;
+    --card-text: #212529;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --badge-bg: #4a90e2;
+    --badge-color: #ffffff;
+    --input-bg: #ffffff;
+    --input-color: #212529;
+    --input-border: rgba(0, 0, 0, 0.15);
+    --input-focus-border: #0d6efd;
+    --input-focus-shadow: rgba(13, 110, 253, 0.25);
+    --modal-bg: #ffffff;
+    --modal-color: #212529;
+    --footer-bg-start: #343a40;
+    --footer-bg-end: #212529;
+    --gradient-primary-start: #667eea;
+    --gradient-primary-end: #764ba2;
+    --chat-own-bg: linear-gradient(135deg, #007bff, #0056b3);
+    --chat-other-bg: #ffffff;
+    --chat-other-border: #e9ecef;
+}
+
+/* переменные - темная тема */
+.dark-theme {
+    --bg-body: #1c1e23;
+    --color-text: #e0e0e0;
+    --color-text-muted: #a0a0b0;
+
+    --primary: #3390ff;
+    --primary-dark: #0a71d0;
+    --success: #28a745;
+
+    --card-bg: #2a2d34;
+    --card-text: #e0e0e0;
+    --card-shadow: rgba(0, 0, 0, 0.5);
+
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    --input-bg: #2a2d34;
+    --input-color: #e0e0e0;
+    --input-border: rgba(255, 255, 255, 0.2);
+    --input-focus-border: #3390ff;
+    --input-focus-shadow: rgba(51, 144, 255, 0.3);
+
+    --modal-bg: #2a2d34;
+    --modal-color: #e0e0e0;
+
+    --footer-bg-start: #2c2f36;
+    --footer-bg-end: #1c1e23;
+
+    --chat-own-bg: linear-gradient(135deg, #3390ff, #0a71d0);
+    --chat-other-bg: #2a2d34;
+    --chat-other-border: #444;
+}
+
+/* общее */
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg-body);
+    color: var(--color-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* навигационная панель */
+
+.navbar-nav .nav-link {
+    color: #f1f1f1;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.navbar-theme .navbar-brand,
+.navbar-theme .navbar-brand i,
+.navbar-theme .nav-link,
+.navbar-theme .nav-link i {
+    color: #ffffff !important;
+}
+
+/* карточки */
+
+.card,
+.property-card,
+.rental-property-card,
+.auth-card,
+.modal-description {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.card.mb-4 {
+    box-shadow: 0 2px 8px var(--card-shadow);
+}
+
+.card-title,
+.card-text,
+.price-tag {
+    color: var(--card-text);
+}
+
+.property-card .text-muted {
+    color: var(--color-text-muted) !important;
+}
+
+.property-type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    background-color: var(--badge-bg);
+    color: var(--badge-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.price-tag {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+/* формы */
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    border: 1px solid var(--input-border);
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
+    color: var(--color-text-muted);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 0.2rem var(--input-focus-shadow);
+    outline: none;
+}
+
+.form-text,
+.invalid-feedback {
+    color: var(--color-text-muted);
+}
+
+/* кнопки */
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+}
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn i {
+    vertical-align: -0.1em;
+}
+
+/* модалки */
+
+.modal-content {
+    background-color: var(--modal-bg);
+    color: var(--modal-color);
+}
+
+.modal-body h5,
+.modal-body h6,
+.modal-body p {
+    color: var(--modal-color);
+}
+
+.message.own-message .message-content {
+    background: var(--chat-own-bg);
+    color: #ffffff;
+}
+
+.other-message .message-content {
+    background-color: var(--chat-other-bg);
+    border: 1px solid var(--chat-other-border);
+    color: var(--card-text);
+}
+
+/* футер */
+
+footer {
+    margin-top: auto;
+    background: linear-gradient(
+            135deg,
+            var(--footer-bg-start),
+            var(--footer-bg-end)
+    );
+    color: var(--color-text-muted);
+}
+
+/* градиент */
+
+.gradient-bg {
+    background: linear-gradient(
+            135deg,
+            var(--gradient-primary-start),
+            var(--gradient-primary-end)
+    );
+}
+
+.text-gradient {
+    background: linear-gradient(
+            135deg,
+            var(--gradient-primary-start),
+            var(--gradient-primary-end)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* профиль */
+
+.profile-page .card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border: 1px solid var(--border-color);
+}
+
+.profile-page .text-muted,
+.profile-page .small,
+.profile-page .text-muted.small {
+    color: var(--color-text-muted) !important;
+}
+
+.dark-theme.profile-page .text-muted,
+.dark-theme.profile-page .small,
+.dark-theme.profile-page .text-muted.small {
+    color: #b8b8c8 !important;
+}
+
+
+.profile-page .profile-sidebar p i,
+.profile-page .main-content p i,
+.profile-page .text-muted i {
+    color: var(--color-text-muted);
+}
+
+.dark-theme.profile-page .profile-sidebar p i,
+.dark-theme.profile-page .main-content p i {
+    color: #b8b8c8;
+}
+
+.profile-page .btn i,
+.profile-page .btn svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+.profile-page .empty-state,
+.profile-page .empty-state * {
+    color: var(--color-text-muted);
+}
+
+/* логин и регистрация */
+
+.auth-card .auth-header p.text-muted,
+.auth-card .auth-header p.small,
+.auth-card .auth-header p.text-muted.small {
+    color: var(--color-text-muted) !important;
+}
+
+.dark-theme .auth-card .auth-header p.text-muted,
+.dark-theme .auth-card .auth-header p.small,
+.dark-theme .auth-card .auth-header p.text-muted.small {
+    color: #b8b8c8 !important;
+}
+
+
+@media (max-width: 768px) {
+    .property-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* svg иконки */
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: -0.125em;
+}
+
+.property-actions .btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+}
+
+.property-actions .icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.price-line {
+    line-height: 1;
+}
+
+.property-actions {
+    display: flex;
+    align-items: center;
+}
+
+.property-actions .btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.property-actions .icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.dark-theme .text-muted,
+.dark-theme .form-text {
+    color: var(--color-text-muted) !important;
+}
+
+.image-preview-container {
+    border: 1px dashed var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+}
+
+.image-preview-container,
+.image-preview-container p,
+.image-preview-container .icon {
+    color: var(--color-text-muted);
+    fill: currentColor;
+}
+
+/* переключатель темы */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 180px;
+    height: 50px;
+    background-color: var(--primary);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: pointer;
+    z-index: 1000;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle .label {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: 600;
+    user-select: none;
+}
+
+.theme-toggle .circle {
+    width: 36px;
+    height: 36px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    transition: transform 0.3s, color 0.3s;
+}
+
+.theme-toggle.dark {
+    background-color: var(--primary);
+}
+
+.theme-toggle.dark .circle {
+    transform: translateX(130px);
+    color: #0a71d0;
+}
+
+.theme-toggle .icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
