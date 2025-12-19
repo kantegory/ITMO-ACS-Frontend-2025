@@ -276,16 +276,77 @@
                 aria-label="Закрыть окно оформления аренды"></button>
       </div>
 
-      <div id="rentalModalBody"
-           class="modal-body"></div>
+      <div id="rentalModalBody" class="modal-body">
+        <div class="rental-summary mb-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h6 class="text-muted mb-1">Оформление аренды</h6>
+              <h5 id="rentalPropertyTitle" class="mb-2"></h5>
+              <div class="text-muted small">
+                Вы подтверждаете заявку на аренду выбранного объекта
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <form id="rentalForm" class="rental-form">
+          <input type="hidden" id="rentalPropertyId">
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="rentalStart" class="form-label">
+                <svg class="icon me-1">
+                  <use href="assets/icons.svg#icon-calendar"></use>
+                </svg>
+                Дата начала
+              </label>
+              <input type="date"
+                     id="rentalStart"
+                     class="form-control form-control-lg"
+                     required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="rentalEnd" class="form-label">
+                <svg class="icon me-1">
+                  <use href="assets/icons.svg#icon-calendar"></use>
+                </svg>
+                Дата окончания
+              </label>
+              <input type="date"
+                     id="rentalEnd"
+                     class="form-control form-control-lg"
+                     required>
+            </div>
+          </div>
+
+          <div class="rental-info-box mb-4">
+            <svg class="icon me-2 text-primary">
+              <use href="assets/icons.svg#icon-info-circle"></use>
+            </svg>
+            Владелец получит вашу заявку и свяжется с вами для подтверждения аренды.
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">
+              Оформить аренду
+            </button>
+
+            <button type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
+              Отмена
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="./js/navbar.js"></script>
-<script type="module" src="./js/main.js"></script>
-<script type="module" src="./js/theme.js"></script>
+<script type="module" src="js/core/navbar.js"></script>
+<script type="module" src="js/pages/main.js"></script>
+<script type="module" src="js/core/theme.js"></script>
 </body>
 </html>

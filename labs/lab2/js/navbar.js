@@ -12,7 +12,6 @@ class Navbar {
         ];
 
         this.cache = {};
-
         this.init();
     }
 
@@ -29,18 +28,20 @@ class Navbar {
             }
         }
 
-        console.warn('Navbar container not found. Available selectors:', this.containerSelectors);
+        console.warn('Navbar container not found.');
         return null;
     }
 
     getBasePath() {
         const currentPath = window.location.pathname;
 
-        if (currentPath.includes('/pages/') ||
+        if (
+            currentPath.includes('/pages/') ||
             currentPath.includes('login.html') ||
             currentPath.includes('register.html') ||
             currentPath.includes('profile.html') ||
-            currentPath.includes('chats.html')) {
+            currentPath.includes('chats.html')
+        ) {
             return '../';
         }
 
@@ -58,24 +59,49 @@ class Navbar {
         const safeUsername = this.escapeHtml(user.username || 'Пользователь');
 
         return `
-            <li class="nav-item">
-                <span class="nav-link text-light">
-                    <i class="bi bi-person-circle me-1"></i>${safeUsername}
+            <li class="nav-item" role="none">
+                <span class="nav-link text-light"
+                      role="menuitem"
+                      aria-label="Текущий пользователь: ${safeUsername}">
+                    <svg class="icon me-2" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-person-circle"></use>
+                    </svg>
+                    <span>${safeUsername}</span>
                 </span>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${basePath}pages/chats.html">
-                    <i class="bi bi-chat-dots"></i> Чаты
+
+            <li class="nav-item" role="none">
+                <a class="nav-link"
+                   role="menuitem"
+                   href="${basePath}pages/chats.html">
+                    <svg class="icon me-2" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-chat-dots"></use>
+                    </svg>
+                    <span>Чаты</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${basePath}pages/profile.html">
-                    <i class="bi bi-person-badge"></i> Личный кабинет
+
+            <li class="nav-item" role="none">
+                <a class="nav-link"
+                   role="menuitem"
+                   href="${basePath}pages/profile.html">
+                    <svg class="icon me-1" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-person-badge"></use>
+                    </svg>
+                    <span>Личный кабинет</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="logoutLink">
-                    <i class="bi bi-box-arrow-right"></i> Выйти
+
+            <li class="nav-item" role="none">
+                <a class="nav-link"
+                   href="#"
+                   id="logoutLink"
+                   role="menuitem"
+                   aria-label="Выйти из аккаунта">
+                    <svg class="icon me-1" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-box-arrow-right"></use>
+                    </svg>
+                    <span>Выйти</span>
                 </a>
             </li>
         `;
@@ -84,9 +110,14 @@ class Navbar {
     generateGuestNavbar(basePath, currentPath) {
         if (currentPath.includes('login.html')) {
             return `
-                <li class="nav-item">
-                    <a class="nav-link" href="${basePath}pages/register.html">
-                        <i class="bi bi-person-plus"></i> Регистрация
+                <li class="nav-item" role="none">
+                    <a class="nav-link"
+                       role="menuitem"
+                       href="${basePath}pages/register.html">
+                        <svg class="icon me-1" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-person-plus"></use>
+                        </svg>
+                        <span>Регистрация</span>
                     </a>
                 </li>
             `;
@@ -94,38 +125,65 @@ class Navbar {
 
         if (currentPath.includes('register.html')) {
             return `
-                <li class="nav-item">
-                    <a class="nav-link" href="${basePath}pages/login.html">
-                        <i class="bi bi-box-arrow-in-right"></i> Вход
+                <li class="nav-item" role="none">
+                    <a class="nav-link"
+                       role="menuitem"
+                       href="${basePath}pages/login.html">
+                        <svg class="icon me-2" aria-hidden="true"><use href="../assets/icons.svg#icon-box-arrow-in-right"></use></svg>
+                        <span>Вход</span>
                     </a>
                 </li>
             `;
         }
 
         return `
-            <li class="nav-item">
-                <a class="nav-link" href="${basePath}pages/login.html">
-                    <i class="bi bi-box-arrow-in-right"></i> Вход
+            <li class="nav-item" role="none">
+                <a class="nav-link"
+                   role="menuitem"
+                   href="${basePath}pages/login.html">
+                    <svg class="icon me-2" aria-hidden="true"><use href="../assets/icons.svg#icon-box-arrow-in-right"></use></svg>
+                    <span>Вход</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${basePath}pages/register.html">
-                    <i class="bi bi-person-plus"></i> Регистрация
+
+            <li class="nav-item" role="none">
+                <a class="nav-link"
+                   role="menuitem"
+                   href="${basePath}pages/register.html">
+                    <svg class="icon me-2" aria-hidden="true"><use href="../assets/icons.svg#icon-chat-dots"></use></svg>
+                    <span>Регистрация</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${basePath}pages/chats.html">
-                    <i class="bi bi-chat-dots"></i> Чаты
+
+            <li class="nav-item" role="none">
+                <a class="nav-link"
+                   role="menuitem"
+                   href="${basePath}pages/chats.html">
+                    <svg class="icon me-1" aria-hidden="true"><use href="../assets/icons.svg#icon-chat-dots"></use></svg>
+                    <span>Чаты</span>
                 </a>
             </li>
         `;
     }
 
+    setCurrentPage(container) {
+        const currentPath = window.location.pathname;
+
+        container.querySelectorAll('a.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && currentPath.includes(href)) {
+                link.setAttribute('aria-current', 'page');
+            }
+        });
+    }
+
     attachEventHandlers(basePath) {
         const logoutLink = document.getElementById('logoutLink');
+
         if (logoutLink) {
             logoutLink.addEventListener('click', async (e) => {
                 e.preventDefault();
+
                 try {
                     await logoutApi();
                 } catch (error) {
@@ -142,28 +200,26 @@ class Navbar {
     async init() {
         try {
             const container = this.findContainer();
-            if (!container) {
-                console.log('Navbar: Container not found, waiting for DOM...');
-                return;
-            }
+            if (!container) return;
+
+            container.setAttribute('role', 'menubar');
+            container.setAttribute('aria-label', 'Основные разделы сайта');
 
             const basePath = this.getBasePath();
             const currentPath = window.location.pathname;
             const auth = isAuthenticated();
             const user = authManager.getCurrentUser();
 
-            let navbarHTML = '';
-
-            if (auth && user) {
-                navbarHTML = this.generateAuthNavbar(user, basePath);
-            } else {
-                navbarHTML = this.generateGuestNavbar(basePath, currentPath);
-            }
+            let navbarHTML = auth && user
+                ? this.generateAuthNavbar(user, basePath)
+                : this.generateGuestNavbar(basePath, currentPath);
 
             container.innerHTML = navbarHTML;
+
+            this.setCurrentPage(container);
             this.attachEventHandlers(basePath);
 
-            console.log('Navbar initialized successfully');
+            console.log('Navbar initialized (accessible)');
 
         } catch (error) {
             console.error('Navbar initialization error:', error);

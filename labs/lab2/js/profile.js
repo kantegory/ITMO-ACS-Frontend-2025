@@ -5,7 +5,7 @@ import {
     getCurrentUser as getCurrentUserFromApi,
     setCurrentUser as setCurrentUserInApi
 } from './api.js';
-import { authManager } from './auth.js';
+import {authManager} from './auth.js';
 import {
     getUserProperties,
     propertyTypeMap,
@@ -257,12 +257,17 @@ async function loadMyRentals(userId) {
             content.innerHTML = `
                 <div class="text-center py-4">
                     <div class="mb-3">
-                        <i class="bi bi-journal-check display-4 text-muted"></i>
+                        <svg class="icon display-4 text-muted" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-journal-check"></use>
+                        </svg>
                     </div>
                     <h5>У вас пока нет заявок на аренду</h5>
                     <p class="text-muted">Найдите подходящую недвижимость и отправьте заявку на аренду</p>
                     <a href="../index.html" class="btn btn-primary">
-                        <i class="bi bi-search"></i> Найти недвижимость
+                        <svg class="icon" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-search"></use>
+                        </svg>
+                        Найти недвижимость
                     </a>
                 </div>
             `;
@@ -331,12 +336,17 @@ async function loadMyProperties(userId) {
             propertiesHTML = `
                 <div class="text-center py-4">
                     <div class="mb-3">
-                        <i class="bi bi-houses display-4 text-muted"></i>
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-houses"></use>
+                        </svg>
                     </div>
                     <h5>У вас нет объектов недвижимости</h5>
                     <p class="text-muted mb-4">Добавьте свой первый объект, чтобы начать сдавать его в аренду</p>
-                    <a href="add-property.html" class="btn btn-success btn-lg">
-                        <i class="bi bi-plus-circle"></i> Добавить объект недвижимости
+                    <a href="../pages/add-property.html" class="btn btn-success btn-lg">
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-plus-circle"></use>
+                        </svg> 
+                        Добавить объект недвижимости
                     </a>
                 </div>
             `;
@@ -350,7 +360,10 @@ async function loadMyProperties(userId) {
                         <p class="text-muted mb-0 small">Всего: ${userProperties.length} объектов</p>
                     </div>
                     <a href="add-property.html" class="btn btn-success">
-                        <i class="bi bi-plus-circle"></i> Добавить еще
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-plus-circle"></use>
+                        </svg>
+                        Добавить еще
                     </a>
                 </div>
                 <div class="row">
@@ -382,28 +395,34 @@ async function loadMyProperties(userId) {
                                         <h5 class="card-title">${escapeHtml(property.title)}</h5>
                                         <p class="card-text text-muted small flex-grow-1">${escapeHtml(shortDescription)}</p>
                                         <div class="mt-3">
-                                            <p class="mb-1"><i class="bi bi-geo-alt"></i> ${escapeHtml(property.location || 'Не указано')}</p>
+                                            <p class="mb-1"><svg class="icon me-2" aria-hidden="true"><use href="../assets/icons.svg#icon-geo"></use></svg> ${escapeHtml(property.location || 'Не указано')}</p>
                                             <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
                                                 <div>
                                                     <span class="price-tag fw-bold text-primary">${formatPrice(property.price)}</span>
                                                     <span class="text-muted small ms-1">/ ${getRentalPeriodText(property.rentalType)}</span>
                                                 </div>
-                                                <div class="btn-group btn-group-sm">
-                                                    <a href="../index.html?property=${property.id}" 
-                                                       class="btn btn-outline-primary" 
-                                                       title="Просмотреть на сайте" 
-                                                       target="_blank">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-                                                    <button class="btn btn-outline-warning" 
+                                                <div class="btn-group property-actions">
+                                                    <a href="../index.html?property=${property.id}"
+                                                        class="btn btn-outline-primary d-flex align-items-center justify-content-center"
+                                                        title="Посмотреть на сайте"
+                                                        target="_blank">
+                                                        <svg class="icon" aria-hidden="true">
+                                                            <use href="../assets/icons.svg#icon-eye"></use>
+                                                        </svg>
+    <                                               </a>
+                                                    <button class="btn btn-outline-warning d-flex align-items-center justify-content-center"
                                                             onclick="editProperty(${property.id})"
                                                             title="Редактировать">
-                                                        <i class="bi bi-pencil"></i>
+                                                        <svg class="icon" aria-hidden="true">
+                                                            <use href="../assets/icons.svg#icon-pencil"></use>
+                                                        </svg>
                                                     </button>
-                                                    <button class="btn btn-outline-danger" 
+                                                    <button class="btn btn-outline-danger d-flex align-items-center justify-content-center"
                                                             onclick="deleteProperty(${property.id})"
                                                             title="Удалить">
-                                                        <i class="bi bi-trash"></i>
+                                                        <svg class="icon" aria-hidden="true">
+                                                            <use href="../assets/icons.svg#icon-trash"></use>
+                                                        </svg>
                                                     </button>
                                                 </div>
                                             </div>
@@ -417,7 +436,11 @@ async function loadMyProperties(userId) {
                 
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h6><i class="bi bi-bar-chart me-2"></i> Статистика по объектам</h6>
+                        <h6>
+                            <svg class="icon me-2" aria-hidden="true">
+                                <use href="../assets/icons.svg#icon-bar-chart"></use>
+                            </svg>
+                            Статистика по объектам</h6>
                         <div class="row text-center">
                             <div class="col-4">
                                 <div class="h4 text-primary mb-1">${userProperties.length}</div>
@@ -448,7 +471,10 @@ async function loadMyProperties(userId) {
             </div>
             <div class="d-grid mt-3">
                 <a href="add-property.html" class="btn btn-success">
-                    <i class="bi bi-plus-circle"></i> Добавить объект недвижимости
+                    <svg class="icon me-2" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-plus-circle"></use>
+                    </svg>
+                    Добавить объект недвижимости
                 </a>
             </div>
         `;
@@ -484,7 +510,7 @@ function setupTabSwitching() {
         return;
     }
 
-    rentalTabs.addEventListener('shown.bs.tab', async function(event) {
+    rentalTabs.addEventListener('shown.bs.tab', async function (event) {
         const user = getCurrentUserFromApi() || authManager.getCurrentUser();
         if (!user) return;
 
@@ -548,21 +574,30 @@ function getRentalTypeText(rentalType) {
 }
 
 function getRentalPeriodText(rentalType) {
-    switch(rentalType) {
-        case 'daily': return 'день';
-        case 'monthly': return 'месяц';
-        case 'yearly': return 'год';
-        default: return 'период';
+    switch (rentalType) {
+        case 'daily':
+            return 'день';
+        case 'monthly':
+            return 'месяц';
+        case 'yearly':
+            return 'год';
+        default:
+            return 'период';
     }
 }
 
 function getStatusClass(status) {
-    switch(status) {
-        case 'pending': return 'bg-warning';
-        case 'approved': return 'bg-success';
-        case 'rejected': return 'bg-danger';
-        case 'cancelled': return 'bg-secondary';
-        default: return 'bg-light text-dark';
+    switch (status) {
+        case 'pending':
+            return 'bg-warning';
+        case 'approved':
+            return 'bg-success';
+        case 'rejected':
+            return 'bg-danger';
+        case 'cancelled':
+            return 'bg-secondary';
+        default:
+            return 'bg-light text-dark';
     }
 }
 
@@ -613,10 +648,16 @@ function showMessage(text, type = 'info') {
     toast.innerHTML = `
         <div class="d-flex">
             <div class="toast-body">
-                <i class="bi ${type === 'success' ? 'bi-check-circle' : type === 'danger' ? 'bi-exclamation-circle' : 'bi-info-circle'} me-2"></i>
+                <svg class="icon me-2">
+                    <use href="#icon-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-circle' : 'info-circle'}"></use>
+                </svg>
                 ${escapeHtml(text)}
             </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            <button type="button"
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast"
+                aria-label="Закрыть уведомление">
+            </button>
         </div>
     `;
 

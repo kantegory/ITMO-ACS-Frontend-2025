@@ -54,36 +54,88 @@ function createPropertyCard(property) {
     const col = document.createElement('div');
     col.className = 'col-md-6 col-lg-4 mb-4';
 
-    const imageUrl = (property.images && property.images[0]) ? property.images[0] : getPlaceholderImage(property.propertyType);
-    const priceText = property.price ? `${formatPrice(property.price)}` : 'Цена не указана';
-    const rentalTypeText = rentalTypeMap[property.rentalType] || property.rentalType;
-    const propertyTypeText = propertyTypeMap[property.propertyType] || property.propertyType;
+    const hasRealImage = property.images && property.images.length > 0;
+    const imageUrl = hasRealImage
+        ? property.images[0]
+        : getPlaceholderImage(property.propertyType);
 
-    const pricePer = property.rentalType === 'daily' ? 'день' :
-        property.rentalType === 'monthly' ? 'месяц' :
-            property.rentalType === 'yearly' ? 'год' : '';
+    const propertyTypeText = propertyTypeMap[property.propertyType] || 'Недвижимость';
+    const rentalTypeText = rentalTypeMap[property.rentalType] || property.rentalType;
+
+    const priceText = property.price
+        ? `${formatPrice(property.price)}`
+        : 'Цена не указана';
+
+    const pricePer =
+        property.rentalType === 'daily' ? 'день' :
+            property.rentalType === 'monthly' ? 'месяц' :
+                property.rentalType === 'yearly' ? 'год' : '';
+
+    const imageAlt = hasRealImage
+        ? `${propertyTypeText}: ${property.title || 'Объект недвижимости'} — ${property.location || 'Локация не указана'}`
+        : 'Изображение объекта недвижимости отсутствует';
 
     col.innerHTML = `
-        <div class="card property-card h-100 shadow-sm hover-shadow" style="transition: transform 0.2s, box-shadow 0.2s;">
-            <div class="property-image-container position-relative" style="height: 200px; overflow: hidden;">
-                <img src="${imageUrl}" class="card-img-top property-image" alt="${escapeHtml(property.title)}"
+        <div class="card property-card h-100 shadow-sm hover-shadow"
+             style="transition: transform 0.2s, box-shadow 0.2s;">
+
+            <div class="property-image-container position-relative"
+                 style="height: 200px; overflow: hidden;">
+
+                <img src="${imageUrl}"
+                     class="card-img-top property-image"
+                     alt="${escapeHtml(imageAlt)}"
                      style="height: 100%; width: 100%; object-fit: cover;"
-                     onerror="this.onerror=null; this.src='${getPlaceholderImage(property.propertyType)}';">
-                <span class="badge bg-primary position-absolute top-0 start-0 m-2">${propertyTypeText}</span>
-                <span class="badge bg-success position-absolute top-0 end-0 m-2">${rentalTypeText}</span>
+                     onerror="this.onerror=null;
+                              this.src='${getPlaceholderImage(property.propertyType)}';
+                              this.alt='Изображение объекта недвижимости отсутствует';">
+
+                <span class="badge bg-primary position-absolute top-0 start-0 m-2">
+                    ${propertyTypeText}
+                </span>
+
+                <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                    ${rentalTypeText}
+                </span>
             </div>
+
             <div class="card-body d-flex flex-column">
-                <h5 class="card-title">${escapeHtml(property.title)}</h5>
-                <p class="card-text text-muted small flex-grow-1" style="min-height: 60px;">${escapeHtml(property.description || 'Без описания')}</p>
+                <h5 class="card-title">
+                    ${escapeHtml(property.title || 'Без названия')}
+                </h5>
+
+                <p class="card-text text-muted small flex-grow-1"
+                   style="min-height: 60px;">
+                    ${escapeHtml(property.description || 'Описание отсутствует')}
+                </p>
+
                 <div class="mt-3">
-                    <p class="mb-1"><i class="bi bi-geo-alt"></i> ${escapeHtml(property.location || 'Не указано')}</p>
-                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                    <p class="mb-1">
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-geo"></use>
+                        </svg>
+                        ${escapeHtml(property.location || 'Не указано')}
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center
+                                mt-auto pt-2 border-top">
+
                         <div>
-                            <span class="price-tag fw-bold fs-5 text-primary">${priceText}</span>
-                            ${pricePer ? `<span class="text-muted small ms-1">/ ${pricePer}</span>` : ''}
+                            <span class="price-tag fw-bold fs-5 text-primary">
+                                ${priceText}
+                            </span>
+                            ${pricePer
+        ? `<span class="text-muted small ms-1">/ ${pricePer}</span>`
+        : ''}
                         </div>
-                        <button class="btn btn-outline-primary btn-sm view-details" data-property-id="${property.id}">
-                            <i class="bi bi-eye"></i> Подробнее
+
+                        <button class="btn btn-outline-primary btn-sm view-details"
+                                data-property-id="${property.id}"
+                                aria-label="Подробнее об объекте ${escapeHtml(property.title || '')}">
+                            <svg class="icon me-2" aria-hidden="true">
+                                <use href="../assets/icons.svg#icon-eye"></use>
+                            </svg>
+                            Подробнее
                         </button>
                     </div>
                 </div>
@@ -295,10 +347,21 @@ async function showPropertyDetails(propertyId) {
             modalTitle.dataset.propertyId = property.id;
         }
 
-        const propertyImage = (property.images && property.images[0]) ? property.images[0] : getPlaceholderImage(property.propertyType);
+        const propertyImage = (property.images && property.images[0])
+            ? property.images[0]
+            : getPlaceholderImage(property.propertyType);
+
         if (modalImage) {
             modalImage.src = propertyImage;
-            modalImage.alt = property.title;
+
+            modalImage.alt = `${propertyTypeMap[property.propertyType] || 'Недвижимость'}: ` +
+                `${property.title || 'Объект недвижимости'} — ` +
+                `${property.location || 'Локация не указана'}`;
+
+            modalImage.onerror = () => {
+                modalImage.src = getPlaceholderImage(property.propertyType);
+                modalImage.alt = 'Изображение объекта недвижимости отсутствует';
+            };
         }
 
         if (modalLocation) modalLocation.textContent = property.location || 'Не указано';
@@ -348,7 +411,9 @@ async function showPropertyDetails(propertyId) {
         if (isAuthenticated()) {
             if (modalChatBtn) {
                 modalChatBtn.disabled = false;
-                modalChatBtn.innerHTML = '<i class="bi bi-chat"></i> Начать чат с владельцем';
+                modalChatBtn.innerHTML = '<svg class="icon me-2" aria-hidden="true">\n' +
+                    '                  <use href="../assets/icons.svg#icon-chat"></use>\n' +
+                    '                </svg> Начать чат с владельцем';
             }
             if (modalRentBtn) {
                 modalRentBtn.disabled = false;
@@ -357,7 +422,9 @@ async function showPropertyDetails(propertyId) {
         } else {
             if (modalChatBtn) {
                 modalChatBtn.disabled = false;
-                modalChatBtn.innerHTML = '<i class="bi bi-chat"></i> Войти для чата';
+                modalChatBtn.innerHTML = '<svg class="icon me-2" aria-hidden="true">\n' +
+                    '                  <use href="../assets/icons.svg#icon-chat"></use>\n' +
+                    '                </svg> Войти для чата';
             }
             if (modalRentBtn) {
                 modalRentBtn.disabled = false;
@@ -367,6 +434,15 @@ async function showPropertyDetails(propertyId) {
 
         const modalEl = document.getElementById('propertyModal');
         const modal = new bootstrap.Modal(modalEl);
+
+        let lastFocusedElement = document.activeElement;
+
+        modalEl.addEventListener('hidden.bs.modal', () => {
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
+        }, { once: true });
+
         modal.show();
 
     } catch (err) {
@@ -400,7 +476,7 @@ function handleRental(propertyId) {
     rentalBody.innerHTML = `
         <div class="rental-property-info mb-4">
             <h5>Оформление аренды</h5>
-            <div class="property-card bg-light p-3 rounded mb-3">
+            <div class="rental-property-card mb-3">
                 <h6>${escapeHtml(propertyTitle)}</h6>
                 <p class="mb-0"><strong>Арендатор:</strong> ${escapeHtml(user?.username || '')} (${escapeHtml(user?.email || '')})</p>
             </div>
@@ -413,11 +489,11 @@ function handleRental(propertyId) {
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Срок аренды *</label>
-                    <div class="input-group">
-                        <input type="number" id="rentalDuration" class="form-control" min="1" value="1" required>
-                        <span class="input-group-text" id="durationUnit">дней</span>
-                    </div>
-                    <div class="form-text">Минимальный срок: 1 день</div>
+                        <div class="input-group">
+                            <input type="number" id="rentalDuration" class="form-control" min="1" value="1" required>
+                            <span class="input-group-text" id="durationUnit">дней</span>
+                        </div>
+                        <div class="form-text">Минимальный срок: 1 день</div>
                 </div>
             </div>
             <div class="mb-3">
@@ -425,11 +501,17 @@ function handleRental(propertyId) {
                 <textarea id="rentalComment" class="form-control" rows="3" placeholder="Дополнительная информация..."></textarea>
             </div>
             <div class="alert alert-info">
-                <i class="bi bi-info-circle"></i> После отправки заявки владелец недвижимости свяжется с вами для подтверждения.
+                <svg class="icon me-2" aria-hidden="true">
+                    <use href="../assets/icons.svg#icon-info-circle"></use>
+                </svg>
+                После отправки заявки владелец недвижимости свяжется с вами для подтверждения.
             </div>
             <div class="d-grid gap-2">
                 <button class="btn btn-primary" type="submit">
-                    <i class="bi bi-send"></i> Отправить заявку на аренду
+                    <svg class="icon me-2" aria-hidden="true">
+                        <use href="../assets/icons.svg#icon-send"></use>
+                    </svg>
+                 Отправить заявку на аренду
                 </button>
                 <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Отмена</button>
             </div>
@@ -443,6 +525,15 @@ function handleRental(propertyId) {
 
     const rentalModalEl = document.getElementById('rentalModal');
     const rentalModal = new bootstrap.Modal(rentalModalEl);
+
+    let lastFocusedElement = document.activeElement;
+
+    rentalModalEl.addEventListener('hidden.bs.modal', () => {
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+        }
+    }, { once: true });
+
     rentalModal.show();
 
     document.getElementById('rentalForm').addEventListener('submit', async (e) => {
@@ -456,7 +547,10 @@ function handleRental(propertyId) {
             successToast.innerHTML = `
                 <div class="toast show bg-success text-white" role="alert">
                     <div class="toast-body">
-                        <i class="bi bi-check-circle"></i> Заявка на аренду отправлена! Владелец свяжется с вами в ближайшее время.
+                        <svg class="icon me-2" aria-hidden="true">
+                            <use href="../assets/icons.svg#icon-check-circle"></use>
+                        </svg>
+                        Заявка на аренду отправлена! Владелец свяжется с вами в ближайшее время.
                     </div>
                 </div>
             `;
