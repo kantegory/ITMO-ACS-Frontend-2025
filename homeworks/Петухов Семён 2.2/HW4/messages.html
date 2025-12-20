@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Messages & Transactions — FastRent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="messages">
+  <header>
+    <nav class="navbar container py-3" aria-label="Навигация сообщений">
+      <a class="navbar-brand brand" href="index.html">FastRent</a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <div id="nav-user"></div>
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary theme-toggle btn-icon" type="button" aria-pressed="false" aria-label="Переключить тему" title="Переключить тему">
+          <svg class="icon theme-toggle-icon" aria-hidden="true" focusable="false">
+            <use href="assets/icons/sprite.svg#icon-moon" xlink:href="assets/icons/sprite.svg#icon-moon"></use>
+          </svg>
+          <span class="visually-hidden">Переключить тему</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container py-4" role="main">
+    <section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3" aria-labelledby="messagesHeading">
+      <div>
+        <h1 id="messagesHeading" class="h3 mb-1">Сообщения и платежи</h1>
+        <p class="text-muted mb-0">Следите за диалогами с владельцами и историей транзакций.</p>
+      </div>
+      <div class="mt-3 mt-md-0"><a href="dashboard.html" class="btn btn-outline-secondary">К объявлениям</a></div>
+    </section>
+
+    <div class="row" aria-live="polite">
+      <section class="col-md-6" aria-labelledby="conversationsHeading">
+        <h2 id="conversationsHeading" class="h5">Диалоги</h2>
+        <div id="conversations" role="list"></div>
+      </section>
+      <section class="col-md-6" aria-labelledby="transactionsHeading">
+        <h2 id="transactionsHeading" class="h5">История транзакций</h2>
+        <div id="transactions" role="list"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer text-center" role="contentinfo">
+    <div class="container"><small>© FastRent</small></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
