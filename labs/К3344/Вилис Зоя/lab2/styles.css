@@ -129,3 +129,41 @@ a {
     border: 2px solid #2a3c319a;
     border-radius: 5px;
 }
+
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+.gallery > * {
+    width: 90%;
+}
+
+.parameters {
+    display: grid;
+    color: #2a3c31;
+    grid-template: 1fr/ 1fr 1fr;
+    margin-left: 8%;
+    margin-right: 7%;
+}
+
+.latestbox {
+    padding-top: 10px;
+}
+
+.dropdown-menu {
+    width: 60%;
+    padding-left: 7px;
+    font-size: 1.3rem;
+    background-color: #F5F5F0;
+}
+
+.dropdown-button {
+    width: 100%;
+    border: 0px;
+    background-color: #F5F5F0;
+    text-align: left;
+}
