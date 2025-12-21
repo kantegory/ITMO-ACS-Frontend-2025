@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Property card. Find detailed information
+        about propery specification, owner, description and make the best choice!">
+
     <title>Карточка недвижимости</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="../styles/base.css">
     <link rel="stylesheet" href="../styles/property.css">
 
@@ -15,45 +21,44 @@
 <body>
    <nav>
         <div class="logo"><a href="main.html">GreenRent</a></div>
-        <div class="city">
-            <select id="citySelect">
-                <option>Москва</option>
-                <option>Санкт-Петербург</option>
-                <option>Екатеринбург</option>
-            </select>
-        </div>
+        <label for="citySelect" style="color: #3c8c5a; font-size: 18px;">Ваш город:</label>
+        <select id="citySelect">
+            <option>Санкт-Петербург</option>
+            <option>Москва</option>
+            <option>Екатеринбург</option>
+        </select>   
         <div class="nav-links" id="navLinks"></div>
     </nav>
 
     <main>
         <div class="container mt-4">
-            <div id="propertyCarousel" class="carousel slide mb-4">
+            <div id="carousel" class="carousel slide mb-4">
                 <div id="carouselInner" class="carousel-inner"></div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev" title="previous">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
 
-                <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next" title="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start mb-2">
-                <div id="propertyTitle" class="property-title"></div>
-                <div id="propertyPrice" class="price mt-2 mt-md-0"></div>
+                <div id="propertyTitle" class="property-title skeleton"></div>
+                <div id="propertyPrice" class="price mt-2 mt-md-0 skeleton"></div>
             </div>
 
             <div id="propertyAddress" class="text-muted mb-4"></div>
 
             <div class="row">
                 <div class="col-md-7">
-                    <div id="propertySpecs" class="info-box"></div>
-                    <div id="propertyDescription" class="info-box"></div>
+                    <div id="propertySpecs" class="info-box specs-skeleton"></div>
+                    <div id="propertyDescription" class="info-box desc-skeleton"></div>
                 </div>
 
                 <div class="col-md-5">
-                    <div id="landlordInfo" class="info-box contact-box"></div>
+                    <div id="landlordInfo" class="info-box contact-box owner-skeleton"></div>
                 </div>
             </div>
         </div>
@@ -86,10 +91,10 @@
         </div>
     </footer>
 
-    <script src="../scripts/vars.js"></script>
-    <script src="../scripts/user.js"></script>
-    <script src="../scripts/property.js"></script>
+    <script src="../scripts/vars.js" defer></script>
+    <script src="../scripts/user.js" defer></script>
+    <script src="../scripts/property.js" defer></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
 </body>
 </html>

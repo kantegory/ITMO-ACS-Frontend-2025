@@ -16,11 +16,11 @@
       "role": "tenant"
     },
     {
-      "id": "cc22",
+      "id": "fe29",
       "name": "Тест",
-      "email": "just@man.ru",
-      "phone": "+7 (988) 888-88-56",
-      "password": "777",
+      "email": "test@test.ru",
+      "phone": "+7 (888) 888-88-56",
+      "password": "111",
       "role": "tenant"
     }
   ],
@@ -30,13 +30,14 @@
       "owner_id": 1,
       "type": "flat",
       "title": "Квартира",
-      "description": "Ааа",
+      "description": "Вашему вниманию предлагается уникальная квартира, в историческом центре Северной Столицы, в доме, построенном в стиле классицизма . Прекрасная видовая квартира расположена на 2м этаже четырехэтажного дома",
       "price": 80000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Невский пр., 88",
       "feed_img": "../media/images/nevskiy.jpg",
       "images": [
-        "../media/images/nevskiy.jpg"
+        "../media/images/nevsk1.jpeg",
+        "../media/images/nevsk2.jpg"
       ],
       "rooms": 2,
       "floor": 2,
@@ -47,13 +48,14 @@
       "owner_id": 2,
       "type": "flat",
       "title": "Квартира",
-      "description": "Test description",
+      "description": "Развитая социальная инфраструктура, рядом школа, сад, новая поликлиника. · Крытый паркинг. Кладовые. Рядом лес. Спортивные площадки. 2 санузла. Променад с ручьем. Закрытая территория. Гардеробные. Детские площадки",
       "price": 67000,
       "is_daily_payment": false,
       "address": "Москва, ул. Лесная, 12",
       "feed_img": "../media/images/Lesnaya.jpg",
       "images": [
-        "../media/images/Lesnaya.jpg"
+        "../media/images/lesn1.webp",
+        "../media/images/lesn2.jpeg"
       ],
       "rooms": 2,
       "floor": 5,
@@ -64,13 +66,13 @@
       "owner_id": 5,
       "type": "flat",
       "title": "Квартира",
-      "description": "Test description 2",
+      "description": "Сдаётся 1-комнатная квартира общей площадью 34.8 кв. м на 4 этаже 5-этажного дома. Дом, построенный в 1966 году, располагается в районе метро Чкаловская, до которого всего 5 минут на автомобиле.",
       "price": 27000,
       "is_daily_payment": false,
       "address": "Екатеринбург, ул. Мира, 25",
       "feed_img": "../media/images/ekb.jpg",
       "images": [
-        "../media/images/ekb.jpg"
+        "../media/images/ekb1.jpg"
       ],
       "rooms": 1,
       "floor": 4,
@@ -81,12 +83,13 @@
       "owner_id": 1,
       "type": "flat",
       "title": "Квартира",
-      "description": "Test description 3",
+      "description": "«Апартаменты Атмосфера на Большом 25 (2)» расположены в Санкт-Петербурге. Эти апартаменты находятся в пешей доступности от центра города. Рядом с апартаментами — Чкаловская, Стадион «Петровский» и Петропавловская крепость.",
       "price": 71000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Большой проспект Петроградской стороны, 25/2",
       "feed_img": "../media/images/petrograd.webp",
       "images": [
+        "../media/images/petr1.jpg",
         "../media/images/petrograd.webp"
       ],
       "rooms": 2,
@@ -98,13 +101,14 @@
       "owner_id": 6,
       "title": "Квартира",
       "type": "flat",
-      "description": "Test description 4",
+      "description": "Уникальное предложение в новом районе Санкт-Петербурга! Сдается уютная однокомнатная квартира в Зеленом квартале по адресу Санкт-Петербург, Пулковское шоссе, 71к3",
       "price": 25000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Пулковское шоссе, 71к3",
       "feed_img": "../media/images/zelenyyjj-kvartal.jpg",
       "images": [
-        "../media/images/zelenyyjj-kvartal.jpg"
+        "../media/images/zk1.jpg",
+        "../media/images/zk2.jpg"
       ],
       "rooms": 1,
       "floor": 4,
@@ -115,7 +119,7 @@
       "owner_id": 3,
       "title": "Квартира",
       "type": "flat",
-      "description": "Test description 4",
+      "description": "Бизнес Центр в Подсосенском переулке, 23с3 находится по адресу Москва, Подсосенский переулок, 23С3, расположен недалеко от метро «Чкаловская», «Курская», «Китай-город». Здание площадью 1 253 м², 1785 года постройки, имеет 2 этажа.",
       "price": 110000,
       "is_daily_payment": false,
       "address": "Москва, Подсосенский переулок, 23с3",
