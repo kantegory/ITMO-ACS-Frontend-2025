@@ -14,13 +14,13 @@
 .search input {
     padding: 12px; 
     border-radius: 10px; 
-    border: 1px solid #cde3d4; 
+    border: 1px solid var(--border-main); 
     width: 100%;
 }
 
 .search button {
-    background: #4caf7a; 
-    color: #fff; 
+    background: var(--green-accent); 
+    color: var(--bg-surface); 
     border: none;
     padding: 12px 20px;     
     border-radius: 10px; 
@@ -28,15 +28,15 @@
     font-size: 16px;
 }
 
-.search button:hover { background: #40986a; }
+.search button:hover { background: var(--green-btn-hover); }
 
 .filters {
     display: flex;
     flex-direction: column;
     justify-content: first baseline;
-    background: #ffffff;
+    background: var(--bg-surface);
     border-radius: 5px;
-    border: 1px solid #cde3d4;
+    border: 1px solid var(--border-main);
     width: calc(25% - 12px);
     position: sticky;
     top: 75px; 
@@ -52,35 +52,35 @@
     justify-content: flex-start;
     font-size: 14px;
     cursor: pointer;
-    color: #2e4d39;
+    /* color: #2e4d39; */
 }
 
 .filter select {
-    padding: 8px;
+    padding: 5px;
     border-radius: 5px; 
-    border: 1px solid #cde3d4; 
+    border: 1px solid var(--border-main);
     width: calc(100% - 20px)
 }
 
-.filter h6 {
+.filter label, h6 {
     margin: 5px 0 5px 0;
-    color: #3c8c5a;
+    color: var(--green-main); 
 }
 
 .filter input[type="checkbox"] {
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     border-radius: 5px;
     cursor: pointer;
-    accent-color: #4caf7a;
+    accent-color: var(--green-accent); ;
 }
 
 .apply-btn {
     width: 100%;
     padding: 10px 20px;
     margin-top: auto;
-    background:#4caf7a; 
-    color:#fff; 
+    background: var(--green-accent); ; 
+    color: var(--bg-surface);
     border:none; 
     border-radius: 0 0 5px 5px; 
     font-size: 16px; 
@@ -97,8 +97,8 @@
 .card {
     display: flex; 
     flex-direction: row;
-    background: #ffffff;
-    border: 1px solid #cde3d4;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
     border-radius: 5px; 
     overflow: hidden;
     margin-left: 10px;
@@ -119,18 +119,18 @@
 
 .card-link {
     text-decoration: none; 
-    color: #3c8c5a;
+    color: var(--green-main); 
     font-size: 16px; 
     background: none; 
     border: none; 
     cursor: pointer;
 }
 
-.card-link:hover { color: #2f7247; }
+.card-link:hover { color: var(--green-hover); }
 
 .price { 
     font-size: 20px; 
-    color: #3c8c5a; 
+    color: var(--green-main); 
     font-weight: bold; 
 }
 
@@ -141,4 +141,5 @@
     -webkit-line-clamp: 3; 
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--text-main);
 }
