@@ -23,6 +23,13 @@ main {
     margin: auto; 
 }
 
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--icon);
+    display: inline-block;
+}
+
 #citySelect {
     float: left;
     padding: 8px; 
