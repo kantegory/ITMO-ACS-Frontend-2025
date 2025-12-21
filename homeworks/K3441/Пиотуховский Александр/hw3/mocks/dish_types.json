@@ -1,0 +1,22 @@
+[
+  {
+    "id": "breakfast",
+    "title": "Завтрак"
+  },
+  {
+    "id": "lunch",
+    "title": "Обед"
+  },
+  {
+    "id": "dinner",
+    "title": "Ужин"
+  },
+  {
+    "id": "dessert",
+    "title": "Десерт"
+  },
+  {
+    "id": "snack",
+    "title": "Закуска"
+  }
+]
