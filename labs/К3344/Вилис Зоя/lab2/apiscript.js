@@ -64,11 +64,31 @@ async function getItems (apiUrl) {
         //     });
 
         console.log(extended);
+
+        const extNumSorted = extended.toSorted((a, b) => a.skill - b.skill);
+
+        const extAZSorted = extended.toSorted((a, b) => {
+            const nameA = a.recipe;
+            const nameB = b.recipe;
+            return nameA.localeCompare(nameB);
+        });
+
+        const extZASorted = extended.toSorted((a, b) => {
+            const nameA = a.recipe;
+            const nameB = b.recipe;
+            return nameB.localeCompare(nameA);
+        });
+        
+        console.log(extNumSorted);
+        console.log(extAZSorted);
+        console.log(extZASorted);
         return responseJson;
     // } catch (error) {
     //         console.error(`Caught error ${error}`)
     // };
 };
+
+
 
 getItems(foodApi);
 
