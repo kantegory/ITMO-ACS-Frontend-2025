@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Основная навигация">
+    <a class="visually-hidden-focusable" href="#main">Перейти к содержимому</a>
+    <div class="container">
+        <a class="navbar-brand icon-text" href="../screen/index.html">
+            <svg class="icon-house" width="24" height="24" aria-hidden="true">
+                <use href="../img/house.svg#icon-house"></use>
+            </svg>
+            <span>Площадь.ру</span>
+        </a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbar"
+                aria-controls="navbar"
+                aria-expanded="false"
+                aria-label="Открыть меню навигации">
+            <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-2">
+                <li class="nav-item">
+                    <a
+                            id="themeToggle"
+                            class="nav-link p-2 theme-toggle"
+                            href="#"
+                            role="button"
+                            aria-label="Переключить тему"
+                            title="Переключить тему"
+                    >
+                        <svg class="theme-toggle__icon" width="24" height="24" aria-hidden="true">
+                            <use href="/img/day-night.svg#icon-theme"></use>
+                        </svg>
+                    </a>
+                </li>
+
+                <li class="nav-item" id="guestMenu">
+                    <a class="btn btn-outline-light me-2" href="../screen/login.html">
+                        Вход
+                    </a>
+                </li>
+                <li class="nav-item d-none" id="userMenu">
+                    <a class="nav-link text-white" href="../screen/profile.html">
+                        Личный кабинет
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
