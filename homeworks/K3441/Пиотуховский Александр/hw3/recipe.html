@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Просмотр детального рецепта на SharCook - ингредиенты, инструкции по приготовлению и комментарии">
+    <title>Рецепт - SharCook</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к рецепту</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white" role="navigation" aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="SharCook - Главная страница">
+                <svg class="icon icon-logo" aria-hidden="true" width="32" height="32">
+                    <use href="images/icons-sprite.svg#icon-egg-fried"></use>
+                </svg>
+                <span class="fw-bold">SharCook</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Поиск</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Профиль</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2 align-items-center">
+                    <button id="theme-toggle" class="btn btn-theme-toggle" aria-label="Переключить цветовую тему" title="Сменить цветовую тему">
+                        <svg class="icon" aria-hidden="true" width="20" height="20">
+                            <use href="images/icons-sprite.svg#icon-palette"></use>
+                        </svg>
+                    </button>
+                    <div class="d-flex gap-2" id="auth-buttons" role="navigation" aria-label="Авторизация">
+                        <a href="login.html" class="btn btn-outline-secondary">Войти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="recipe-detail-section" aria-labelledby="recipe-title">
+            <div class="container">
+                <nav aria-label="Хлебные крошки">
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="search.html">Рецепты</a></li>
+                        <li class="breadcrumb-item active" id="breadcrumb-title" aria-current="page">Загрузка...</li>
+                    </ol>
+                </nav>
+
+                <h1 class="mb-3" id="recipe-title">Загрузка...</h1>
+
+                <div class="mb-3" id="recipe-meta">
+                </div>
+
+                <div class="mb-3" id="recipe-tags">
+                </div>
+
+                <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="recipe-description mb-4" id="recipe-description">
+                        <p>Загрузка описания...</p>
+                    </div>
+
+                    <div class="recipe-blocks mb-5" id="recipe-blocks-container">
+                        <h4 class="mb-4">Приготовление</h4>
+                        <div id="recipe-blocks">
+                        </div>
+                    </div>
+
+                    <section class="comments-section" id="comments-section" aria-labelledby="comments-heading">
+                        <h2 id="comments-heading" class="mb-4 h4">
+                            Комментарии <span class="comments-count text-muted" id="comments-count">(0)</span>
+                        </h2>
+
+                        <div class="mb-4">
+                            <form class="comment-form" id="comment-form" aria-label="Форма добавления комментария">
+                                <div class="mb-3">
+                                    <label for="comment-textarea" class="visually-hidden">Текст комментария</label>
+                                    <textarea
+                                        id="comment-textarea"
+                                        class="form-control"
+                                        rows="3"
+                                        placeholder="Поделитесь своим мнением о рецепте..."
+                                        required
+                                        aria-required="true"
+                                    ></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-send me-2" aria-hidden="true"></i>
+                                    Отправить комментарий
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="comments-list" id="comments-list" role="list" aria-label="Список комментариев">
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="col-lg-4" aria-label="Информация о рецепте">
+                    <div class="ingredients-card mb-4">
+                        <h2 class="mb-3 h5">
+                            <i class="bi bi-basket2 me-2 text-primary" aria-hidden="true"></i>
+                            Ингредиенты
+                        </h2>
+                        <ul class="ingredients-list" id="ingredients-list" aria-label="Список ингредиентов">
+                        </ul>
+                    </div>
+                </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <img src="" alt="Recipe Image" class="modal-image w-100" id="modal-image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/mocks.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeId = parseInt(urlParams.get('id')) || 1;
+
+        async function loadRecipeData() {
+            try {
+                let recipe, users, comments;
+                try {
+                    recipe = await api.getRecipe(recipeId);
+                    users = await api.getUsers();
+                    comments = await api.getComments('recipe', recipeId);
+                } catch (apiError) {
+                    console.log("API недоступно; используются моки");
+                    const recipes = await MockData.loadJSON('mocks/recipes.json');
+                    users = await MockData.loadJSON('mocks/users.json');
+                    const allComments = await MockData.loadJSON('mocks/comments.json');
+                    recipe = recipes?.find(r => r.id === recipeId);
+                    comments = allComments?.filter(c =>
+                        c.commentableType === 'recipe' && c.commentableId === recipeId
+                    ) || [];
+                }
+
+                if (!recipe || !users) {
+                    document.getElementById('recipe-title').textContent = 'Рецепт не найден';
+                    return;
+                }
+
+                const author = users.find(u => u.id === recipe.authorId);
+
+                renderRecipe(recipe, author);
+                renderComments(comments, users);
+
+            } catch (error) {
+                console.error('Error loading recipe:', error);
+            }
+        }
+
+        function renderRecipe(recipe, author) {
+            document.getElementById('recipe-title').textContent = recipe.title;
+            document.getElementById('breadcrumb-title').textContent = recipe.title;
+
+            const diffBadge = MockData.getDifficultyBadge(recipe.difficulty);
+            document.getElementById('recipe-meta').innerHTML = `
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center">
+                        <img src="${author?.photoUrl || 'https://placehold.co/50x50/999/fff?text=?'}"
+                             alt="${author?.username || 'User'}"
+                             class="rounded-circle me-2"
+                             style="width: 50px; height: 50px;">
+                        <div>
+                            <strong>${author?.firstName || 'Пользователь'} ${author?.lastName || ''}</strong>
+                            <div class="small text-muted">${MockData.formatDate(recipe.createdAt)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('recipe-tags').innerHTML = `
+                <span class="badge bg-light text-dark">${recipe.dishType.title}</span>
+                <span class="badge ${diffBadge.class}">${diffBadge.text}</span>
+            `;
+
+            if (recipe.description) {
+                document.getElementById('recipe-description').innerHTML = `
+                    <h4 class="mb-3">Описание</h4>
+                    <p>${recipe.description}</p>
+                `;
+            } else {
+                document.getElementById('recipe-description').style.display = 'none';
+            }
+
+            document.getElementById('recipe-blocks').innerHTML = MockData.renderRecipeBlocks(recipe.blocks);
+            document.getElementById('ingredients-list').innerHTML = MockData.renderIngredients(recipe.ingredients);
+        }
+
+        function renderComments(comments, users) {
+            const commentsList = document.getElementById('comments-list');
+            const commentsCount = document.getElementById('comments-count');
+
+            commentsCount.textContent = `(${comments.length})`;
+
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p class="text-muted">Пока нет комментариев. Будьте первым!</p>';
+                return;
+            }
+            commentsList.innerHTML = MockData.renderCommentsTree(comments, users);
+        }
+
+        async function handleCommentSubmit(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const form = event.target;
+            const textarea = form.querySelector('textarea');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const content = textarea.value.trim();
+
+            if (!content) {
+                showToast('Пожалуйста, введите текст комментария', 'error');
+                return;
+            }
+
+            if (!api.isLoggedIn()) {
+                showToast('Необходимо войти в систему для добавления комментариев', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+
+            if (submitBtn.disabled) {
+                return;
+            }
+
+            submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Отправка...';
+
+            try {
+                const currentUser = await api.getCurrentUser();
+                if (!currentUser) {
+                    throw new Error('Не удалось получить данные пользователя');
+                }
+
+                await api.createComment({
+                    commentableType: 'recipe',
+                    commentableId: recipeId,
+                    userId: currentUser.id,
+                    parentId: null,
+                    content: content
+                });
+
+                showToast('Комментарий успешно добавлен!', 'success');
+
+                textarea.value = '';
+                const comments = await api.getComments('recipe', recipeId);
+                const users = await api.getUsers();
+                renderComments(comments, users);
+
+            } catch (error) {
+                console.error('Error submitting comment:', error);
+                showToast(error.message || 'Ошибка при отправке комментария', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        loadRecipeData();
+        updateAuthUI();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', handleCommentSubmit);
+            }
+        });
+    </script>
+</body>
+</html>
