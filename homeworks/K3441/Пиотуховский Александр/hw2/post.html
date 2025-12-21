@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Просмотр поста на SharCook - читайте и обсуждайте кулинарные истории и рецепты">
+    <title>Пост - SharCook</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Перейти к посту</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white" role="navigation" aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="SharCook - Главная страница">
+                <i class="bi bi-egg-fried fs-3 me-2" aria-hidden="true"></i>
+                <span class="fw-bold">SharCook</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Поиск</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Профиль</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2" id="auth-buttons" role="navigation" aria-label="Авторизация">
+                    <a href="login.html" class="btn btn-outline-secondary">Войти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <article class="post-detail-section">
+            <div class="container">
+                <nav aria-label="Хлебные крошки" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="profile.html">Профиль</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Пост</li>
+                    </ol>
+                </nav>
+
+                <div class="d-flex align-items-center mb-4">
+                    <img id="author-avatar" src="" alt="Author" class="rounded-circle me-3" width="60" height="60">
+                    <div>
+                        <h5 id="author-name" class="mb-1"></h5>
+                        <small id="post-date" class="text-muted"></small>
+                    </div>
+                </div>
+
+                <h1 id="post-title" class="fw-bold mb-3"></h1>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary">
+                        <i class="bi bi-heart me-2"></i>
+                        <span id="like-count">0</span>
+                    </button>
+                    <button class="btn btn-outline-primary">
+                        <i class="bi bi-bookmark me-2"></i>
+                        Сохранить
+                    </button>
+                    <button class="btn btn-outline-secondary">
+                        <i class="bi bi-share me-2"></i>
+                        Поделиться
+                    </button>
+                </div>
+
+                <div class="post-content mb-4">
+                    <div id="post-content-text"></div>
+                </div>
+
+                <div id="post-images-section" class="post-images mb-4" style="display: none;">
+                    <h3 class="fw-bold mb-4">
+                        <i class="bi bi-images me-2"></i>
+                        Фотографии
+                    </h3>
+                    <div id="post-images"></div>
+                </div>
+
+                <div id="post-recipes-section" class="post-recipes mb-4" style="display: none;">
+                    <h3 class="fw-bold mb-4">
+                        <i class="bi bi-book me-2"></i>
+                        Рецепты
+                    </h3>
+                    <div id="post-recipes"></div>
+                </div>
+
+                <section class="comments-section" aria-labelledby="comments-heading">
+                    <h2 id="comments-heading" class="fw-bold mb-4 h3">
+                        <i class="bi bi-chat-dots me-2" aria-hidden="true"></i>
+                        Комментарии (<span id="comment-count">0</span>)
+                    </h2>
+
+                    <div class="mb-4">
+                        <form class="comment-form" id="comment-form" aria-label="Форма добавления комментария">
+                            <label for="post-comment-textarea" class="visually-hidden">Текст комментария</label>
+                            <textarea id="post-comment-textarea" class="form-control mb-3" rows="3" placeholder="Напишите комментарий..." required aria-required="true"></textarea>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send me-2" aria-hidden="true"></i>
+                                Отправить
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="comments-list" role="list" aria-label="Список комментариев"></div>
+                </section>
+            </div>
+        </article>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/mocks.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        async function loadPost() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const postId = parseInt(urlParams.get('id')) || 1;
+
+                let post, users, recipes, comments;
+                try {
+                    post = await api.getPost(postId);
+                    users = await api.getUsers();
+                    recipes = await api.getRecipes();
+                    comments = await api.getComments('post', postId);
+                } catch (apiError) {
+                    console.log("API недоступно; используются моки:", apiError);
+                    const posts = await MockData.loadJSON('mocks/posts.json');
+                    users = await MockData.loadJSON('mocks/users.json');
+                    recipes = await MockData.loadJSON('mocks/recipes.json');
+                    const allComments = await MockData.loadJSON('mocks/comments.json');
+
+                    if (!posts || !users) {
+                        console.error('Failed to load data');
+                        return;
+                    }
+
+                    post = posts.find(p => p.id === postId);
+                    comments = allComments ? allComments.filter(c => c.commentableType === 'post' && c.commentableId === postId) : [];
+                }
+
+                if (!post || !users) {
+                    console.error('Failed to load data or post not found');
+                    return;
+                }
+
+                const author = users.find(u => u.id === post.authorId);
+
+                document.getElementById('post-title').textContent = post.title;
+                document.getElementById('author-avatar').src = author?.photoUrl || 'https://placehold.co/60x60/999/fff?text=?';
+                document.getElementById('author-name').textContent = `${author?.firstName || 'Пользователь'} ${author?.lastName || ''}`;
+                document.getElementById('post-date').textContent = MockData.formatDate(post.createdAt);
+                document.getElementById('like-count').textContent = Math.floor(Math.random() * 200 + 50);
+
+                const contentDiv = document.getElementById('post-content-text');
+                contentDiv.innerHTML = MockData.parseMarkdown(post.content);
+
+                if (post.images && post.images.length > 0) {
+                    document.getElementById('post-images-section').style.display = 'block';
+                    const imagesContainer = document.getElementById('post-images');
+                    imagesContainer.innerHTML = post.images
+                        .sort((a, b) => a.displayOrder - b.displayOrder)
+                        .map(img => `
+                            <div class="post-image">
+                                <img src="${img.imageUrl}" alt="Post image ${img.displayOrder}">
+                            </div>
+                        `).join('');
+                }
+
+                if (post.recipes && post.recipes.length > 0 && recipes) {
+                    document.getElementById('post-recipes-section').style.display = 'block';
+                    const recipesContainer = document.getElementById('post-recipes');
+
+                    const postRecipes = post.recipes
+                        .sort((a, b) => a.displayOrder - b.displayOrder)
+                        .map(pr => recipes.find(r => r.id === pr.recipeId))
+                        .filter(r => r);
+
+                    recipesContainer.innerHTML = postRecipes.map(recipe => {
+                        const recipeAuthor = users.find(u => u.id === recipe.authorId);
+                        return MockData.renderRecipeCardMini(recipe, recipeAuthor);
+                    }).join('');
+                }
+
+                if (comments) {
+                    document.getElementById('comment-count').textContent = comments.length;
+
+                    if (comments.length > 0) {
+                        const commentsContainer = document.getElementById('comments-list');
+                        commentsContainer.innerHTML = MockData.renderCommentsTree(comments, users);
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error loading post:', error);
+            }
+        }
+
+        async function handleCommentSubmit(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const form = event.target;
+            const textarea = form.querySelector('textarea');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const content = textarea.value.trim();
+
+            if (!content) {
+                showToast('Пожалуйста, введите текст комментария', 'error');
+                return;
+            }
+
+            if (!api.isLoggedIn()) {
+                showToast('Необходимо войти в систему для добавления комментариев', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+
+            if (submitBtn.disabled) {
+                return;
+            }
+
+            submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Отправка...';
+
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const postId = parseInt(urlParams.get('id')) || 1;
+
+                const currentUser = await api.getCurrentUser();
+                if (!currentUser) {
+                    throw new Error('Не удалось получить данные пользователя');
+                }
+
+                await api.createComment({
+                    commentableType: 'post',
+                    commentableId: postId,
+                    userId: currentUser.id,
+                    parentId: null,
+                    content: content
+                });
+
+                showToast('Комментарий успешно добавлен!', 'success');
+
+                textarea.value = '';
+                const comments = await api.getComments('post', postId);
+                const users = await api.getUsers();
+
+                document.getElementById('comment-count').textContent = comments.length;
+
+                if (comments.length > 0) {
+                    const commentsContainer = document.getElementById('comments-list');
+                    commentsContainer.innerHTML = MockData.renderCommentsTree(comments, users);
+                }
+
+            } catch (error) {
+                console.error('Error submitting comment:', error);
+                showToast(error.message || 'Ошибка при отправке комментария', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        loadPost();
+        updateAuthUI();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', handleCommentSubmit);
+            }
+        });
+    </script>
+</body>
+</html>
