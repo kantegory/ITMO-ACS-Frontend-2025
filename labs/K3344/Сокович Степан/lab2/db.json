@@ -20,6 +20,13 @@
       "username": "sokovichstepan@gmail.com",
       "phone": "",
       "id": 3
+    },
+    {
+      "email": "sokovichstepan@gmail.ru",
+      "password": "123456",
+      "username": "sokovichstepan@gmail.ru",
+      "phone": "",
+      "id": 4
     }
   ],
   "listings": [
@@ -90,6 +97,12 @@
       "token": "token_1764887127888_1kf7yzut7",
       "createdAt": "2025-12-04T22:25:27.888Z",
       "id": 2
+    },
+    {
+      "userId": 4,
+      "token": "token_1764964544549_b1mc8tdbu",
+      "createdAt": "2025-12-05T19:55:44.549Z",
+      "id": 3
     }
   ]
 }

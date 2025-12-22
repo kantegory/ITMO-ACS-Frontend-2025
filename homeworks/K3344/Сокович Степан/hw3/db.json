@@ -27,6 +27,20 @@
       "username": "sokovichstepan@gmail.ru",
       "phone": "",
       "id": 4
+    },
+    {
+      "email": "sokovichstepan@gmail.minner",
+      "password": "7rTL72gZ9wb@FUV",
+      "username": "sokovichstepan@gmail.minner",
+      "phone": "",
+      "id": 5
+    },
+    {
+      "email": "sokovichstepan@gmail.commmm",
+      "password": "nggerwrqewr",
+      "username": "sokovichstepan@gmail.commmm",
+      "phone": "",
+      "id": 6
     }
   ],
   "listings": [
@@ -103,6 +117,18 @@
       "token": "token_1764964544549_b1mc8tdbu",
       "createdAt": "2025-12-05T19:55:44.549Z",
       "id": 3
+    },
+    {
+      "userId": 5,
+      "token": "token_1765744488812_ts8kes3ht",
+      "createdAt": "2025-12-14T20:34:48.813Z",
+      "id": 4
+    },
+    {
+      "userId": 6,
+      "token": "token_1765744607642_wmp0yysnl",
+      "createdAt": "2025-12-14T20:36:47.642Z",
+      "id": 5
     }
   ]
 }
