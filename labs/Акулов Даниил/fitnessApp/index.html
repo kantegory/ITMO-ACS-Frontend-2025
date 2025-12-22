@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessApp - Платформа для тренировок</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom" aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">FitnessApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Тренировки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Блог</a></li>
+                </ul>
+                <ul class="navbar-nav" id="authLinks">
+                    <li class="nav-item"><a class="nav-link" href="login.html">Вход</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Регистрация</a></li>
+                </ul>
+                <ul class="navbar-nav d-none" id="userLinks">
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Кабинет (<span id="usernameDisplay"></span>)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Выход</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Твоё тело — твоё дело</h1>
+            <p class="lead">Найди идеальную тренировку и начни путь к лучшей версии себя</p>
+            <a href="#catalog" class="btn btn-primary btn-lg mt-3">Начать тренировку</a>
+        </div>
+    </header>
+
+    <section id="catalog" class="container mb-5">
+        <div class="row mb-4 p-4 bg-white rounded shadow-sm">
+            <div class="col-md-4 mb-3">
+                <label for="levelFilter" class="form-label">Уровень</label>
+                <select class="form-select" id="levelFilter">
+                    <option value="all">Все уровни</option>
+                    <option value="1">Новичок</option>
+                    <option value="2">Средний</option>
+                    <option value="3">Продвинутый</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="typeFilter" class="form-label">Тип тренировки</label>
+                <select class="form-select" id="typeFilter">
+                    <option value="all">Все типы</option>
+                    <option value="cardio">Кардио</option>
+                    <option value="strength">Силовые</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="workoutGrid">
+        </div>
+    </section>
+
+    <footer class="text-center mt-5">
+        <div class="container py-4">
+            <p>&copy; 2025 FitnessApp Platform. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const workoutGrid = document.getElementById('workoutGrid');
+            const workouts = await api.getWorkoutPlans();
+            
+            workouts.forEach(workout => {
+                const col = document.createElement('div');
+                col.className = 'col';
+                col.innerHTML = `
+                    <div class="card h-100 workout-card" data-level="${workout.level}" data-type="${workout.type}"">
+                        <img src="https://zelva-crb.by/images/news/2022/zaradka.jpg" class="card-img-top" alt="${workout.type}">
+                        <div class="card-body">
+                            <h5 class="card-title">${workout.title}</h5>
+                            <p class="card-text">${workout.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge ${getBadgeClass(workout.level)}">${getBadgeText(workout.level)}</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-top-0">
+                            <a href="workout.html?id=${workout.id}" class="btn btn-outline-primary w-100">Перейти</a>
+                        </div>
+                    </div>
+                `;
+                workoutGrid.appendChild(col);
+            });
+
+            const event = new Event("WorkoutCardsLoaded")
+            document.dispatchEvent(event)
+        });
+
+        function getBadgeClass(level) {
+            if (level === 1) return 'bg-success';
+            if (level === 2) return 'bg-warning text-dark';
+            return 'bg-danger';
+        }
+
+        function getBadgeText(level) {
+            if (level === 1) return 'Новичок';
+            if (level === 2) return 'Средний';
+            return 'Продвинутый';
+        }
+    </script>
+</body>
+</html>
