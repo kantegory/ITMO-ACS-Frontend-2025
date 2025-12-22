@@ -1,0 +1,99 @@
+:root {
+  /* --- Светлая тема --- */
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --card-bg: #ffffff;
+  --card-text-muted: #6c757d;
+
+  --nav-bg: #f8f9fa;
+  --nav-text: #111111;
+
+  --btn-primary-bg: #0d6efd;
+  --btn-primary-color: #ffffff;
+  --btn-primary-border: #0d6efd;
+
+  --btn-outline-bg: #ffffff;
+  --btn-outline-color: #0d6efd;
+  --btn-outline-border: #0d6efd;
+
+  --link-color: #0d6efd;
+  --link-hover: #0b5ed7;
+}
+
+/* --- Тёмная тема --- */
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --card-text-muted: #b0b0b0;
+
+  --nav-bg: #1a1a1a;
+  --nav-text: #e0e0e0;
+
+  --btn-primary-bg: #bb86fc;
+  --btn-primary-color: #121212;
+  --btn-primary-border: #bb86fc;
+
+  --btn-outline-bg: #121212;
+  --btn-outline-color: #bb86fc;
+  --btn-outline-border: #bb86fc;
+
+  --link-color: #bb86fc;
+  --link-hover: #ffffff;
+}
+
+/* --- Общие стили --- */
+body {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  font-family: Arial, sans-serif;
+}
+
+nav.navbar {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.card-text {
+  color: var(--card-text-muted);
+}
+
+/* --- Кнопки с темой --- */
+.themed-btn {
+  color: var(--btn-outline-color) !important;
+  background-color: var(--btn-outline-bg) !important;
+  border-color: var(--btn-outline-border) !important;
+}
+
+.themed-btn:hover {
+  color: var(--btn-outline-bg) !important;
+  background-color: var(--btn-outline-color) !important;
+  border-color: var(--btn-outline-border) !important;
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-color) !important;
+  border-color: var(--btn-primary-border) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-border) !important;
+  color: var(--btn-primary-color) !important;
+}
+
+/* --- Ссылки --- */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
