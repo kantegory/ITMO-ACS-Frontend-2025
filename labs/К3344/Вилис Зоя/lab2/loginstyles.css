@@ -1,0 +1,34 @@
+body {
+    font-family: Montserrat Alternates;
+    background-color: #E6D8C3;
+}
+
+.form {
+    width: 40vw;
+}
+
+.iconholder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    font-family: Montserrat Alternates;
+    background-color: #2a3c31;
+    color: #C2A68C;
+}
+
+.btn:hover {
+    background-color: #2a3c314b;
+    color: #38302a;
+}
+
+.row.g-5 {
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: #2a3c31;
+}
