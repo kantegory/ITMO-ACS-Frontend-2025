@@ -1,0 +1,13 @@
+{
+  "name": "restaurant-booking-api",
+  "version": "1.0.0",
+  "description": "Restaurant booking application with JSON Server API",
+  "scripts": {
+    "server": "json-server --watch db.json --port 3000 --middlewares ./middleware.js",
+    "server:auth": "json-server --watch db.json --port 3000 --middlewares ./middleware.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}
+
