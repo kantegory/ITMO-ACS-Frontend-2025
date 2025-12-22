@@ -1,15 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     updateAuthUI();
-    
-    const levelFilter = document.getElementById('levelFilter');
-    const typeFilter = document.getElementById('typeFilter');
-    const durationFilter = document.getElementById('durationFilter');
-    
-    if (levelFilter && typeFilter && durationFilter) {
-        levelFilter.addEventListener('change', filterWorkouts);
-        typeFilter.addEventListener('change', filterWorkouts);
-        durationFilter.addEventListener('change', filterWorkouts);
-    }
 
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
@@ -20,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
 function updateAuthUI() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const authLinks = document.getElementById('authLinks');
@@ -37,29 +26,29 @@ function updateAuthUI() {
     }
 }
 
+document.addEventListener('WorkoutCardsLoaded', function() {
+    const levelFilter = document.getElementById('levelFilter');
+    const typeFilter = document.getElementById('typeFilter');
+
+    if (levelFilter && typeFilter) {
+        levelFilter.addEventListener('change', filterWorkouts);
+        typeFilter.addEventListener('change', filterWorkouts);
+    }
+})
 function filterWorkouts() {
     const level = document.getElementById('levelFilter').value;
     const type = document.getElementById('typeFilter').value;
-    const duration = document.getElementById('durationFilter').value;
 
     const cards = document.querySelectorAll('.workout-card');
 
     cards.forEach(card => {
         const cardLevel = card.dataset.level;
         const cardType = card.dataset.type;
-        const cardDuration = parseInt(card.dataset.duration);
 
         let isLevelMatch = (level === 'all' || cardLevel === level);
         let isTypeMatch = (type === 'all' || cardType === type);
-        let isDurationMatch = true;
 
-        if (duration !== 'all') {
-            if (duration === 'short') isDurationMatch = cardDuration < 30;
-            if (duration === 'medium') isDurationMatch = cardDuration >= 30 && cardDuration <= 60;
-            if (duration === 'long') isDurationMatch = cardDuration > 60;
-        }
-
-        if (isLevelMatch && isTypeMatch && isDurationMatch) {
+        if (isLevelMatch && isTypeMatch) {
             card.parentElement.style.display = 'block';
         } else {
             card.parentElement.style.display = 'none';
@@ -67,14 +56,8 @@ function filterWorkouts() {
     });
 }
 
-function login(email, password) {
-    if (email && password) {
-        const user = {
-            name: email.split('@')[0],
-            email: email
-        };
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        return true;
-    }
-    return false;
+function getPrettyDate(iso){
+    const date = new Date(iso);
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
