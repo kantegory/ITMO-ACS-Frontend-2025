@@ -167,3 +167,19 @@ footer {
 .bg-light {
     background-color: var(--bg-body) !important;
 }
+
+.icon {
+    stroke: currentColor;
+    width: 24px;
+    height: 24px;
+    fill: none;
+}
+
+.icon--rotate {
+    transform: rotate(90deg);
+}
+
+.icon--fill {
+    fill: currentColor;
+    stroke: none;
+}
