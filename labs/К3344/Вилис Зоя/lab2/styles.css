@@ -8,9 +8,6 @@ body {
 .heading {
     color: #2a3c31;
     background-color: #C2A68C;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     display: grid;
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 4rem;
