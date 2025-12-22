@@ -1,0 +1,100 @@
+body {
+    font-family: Montserrat Alternates;
+    background-color: #E6D8C3;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    color: #2a3c31;
+    background-color: #C2A68C;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 4rem;
+    width: 100%;
+}
+
+.heading > .btn, h1 {
+    grid-row: 1;
+    align-self: center;
+}
+
+.heading > h1 {
+    font-size: 1.5em;
+    font-weight: 800;
+}
+
+
+.home-outer {
+    font-family: Montserrat Alternates;
+    background-color: #E6D8C3;
+    margin-top: 15px;
+}
+
+.latest {
+    font-size: 1em;
+    margin-left: 20px;
+    color: #2a3c31;
+}
+
+.home-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.card {
+    background-color: #F5F5F0;
+    font-size: 0.75em;
+    text-wrap: wrap;
+    width: 25rem;
+    margin: 15px;
+    border-radius: 20px;
+    border-color: #5D866C;
+}
+
+.card-title {
+    font-size: 1.5em;
+}
+
+.card > img {
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.offcanvas-top {
+    background-color: #e3ded7;
+    font-family: Montserrat Alternates;
+    color: #2a3c31;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.offcanvas-header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+}
+
+.offcanvas-title {
+    padding-left: 51.5%;
+    font-size: 1.5em;
+}
+
+.offcanvas-body {
+    font-size: 0.91em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    gap: 5px
+}
+
+a {
+    text-decoration: none;
+    color: #2a3c31;
+}
