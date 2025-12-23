@@ -1,0 +1,249 @@
+{
+  "users": [
+    {
+      "email": "example@gmail.com",
+      "password": "$2a$10$4BfG2bCDCIUc4fxaX2.0xeWjNYPhPNRSlgq3jTp17AG6SK7PZyBd.",
+      "firstName": "Андрей",
+      "lastName": "Котовщиков",
+      "id": 1
+    }
+  ],
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "La Bella Italia",
+      "description": "Аутентичная итальянская кухня в уютной атмосфере",
+      "city": "Москва",
+      "cuisines": [
+        "Итальянская",
+        "Средиземноморская"
+      ],
+      "priceFrom": 1200,
+      "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop"
+    },
+    {
+      "id": 2,
+      "name": "Tokio Street",
+      "description": "Современная японская кухня от шеф-повара из Токио",
+      "city": "Санкт-Петербург",
+      "cuisines": [
+        "Японская",
+        "Азиатская"
+      ],
+      "priceFrom": 1800,
+      "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop"
+    },
+    {
+      "id": 3,
+      "name": "Грузия навсегда",
+      "description": "Настоящая грузинская кухня с живой музыкой",
+      "city": "Москва",
+      "cuisines": [
+        "Грузинская",
+        "Кавказская"
+      ],
+      "priceFrom": 900,
+      "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&auto=format&fit=crop"
+    },
+    {
+      "id": 4,
+      "name": "Burger Revolution",
+      "description": "Авторские бургеры и крафтовое пиво",
+      "city": "Екатеринбург",
+      "cuisines": [
+        "Американская",
+        "Фастфуд"
+      ],
+      "priceFrom": 700,
+      "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop"
+    },
+    {
+      "id": 5,
+      "name": "Le Petit Paris",
+      "description": "Французская кухня в элегантной обстановке",
+      "city": "Москва",
+      "cuisines": [
+        "Французская",
+        "Европейская"
+      ],
+      "priceFrom": 2500,
+      "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop"
+    },
+    {
+      "id": 6,
+      "name": "Уральские пельмени",
+      "description": "Традиционная русская кухня с уральским колоритом",
+      "city": "Екатеринбург",
+      "cuisines": [
+        "Русская",
+        "Уральская"
+      ],
+      "priceFrom": 600,
+      "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=800&auto=format&fit=crop"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "userId": 1,
+      "restaurantName": "La Bella Italia",
+      "date": "2024-03-15T19:00:00",
+      "totalAmount": 5400,
+      "restaurantId": 1
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "restaurantName": "Tokio Street",
+      "date": "2024-02-28T20:30:00",
+      "totalAmount": 8900,
+      "restaurantId": 2
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "restaurantName": "Грузия навсегда",
+      "date": "2024-01-10T18:00:00",
+      "totalAmount": 3200,
+      "restaurantId": 3
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "restaurantName": "Le Petit Paris",
+      "date": "2023-12-05T21:00:00",
+      "totalAmount": 12500,
+      "restaurantId": 5
+    },
+    {
+      "id": 5,
+      "userId": 2,
+      "restaurantName": "Burger Revolution",
+      "date": "2024-03-10T20:00:00",
+      "totalAmount": 2100,
+      "restaurantId": 4
+    },
+    {
+      "id": 6,
+      "userId": 3,
+      "restaurantName": "Уральские пельмени",
+      "date": "2024-02-14T19:30:00",
+      "totalAmount": 1800,
+      "restaurantId": 6
+    }
+  ],
+ "menus": [
+    {
+      "id": 1,
+      "restaurantId": 1,
+      "dishName": "Карпаччо из говядины",
+      "description": "Тонкие ломтики маринованной говядины",
+      "price": 890,
+      "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 2,
+      "restaurantId": 1,
+      "dishName": "Паста Карбонара",
+      "description": "Спагетти с беконом, яйцом и сыром",
+      "price": 1200,
+      "image": "https://images.unsplash.com/photo-1600803907087-f56d462fd26b?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 3,
+      "restaurantId": 1,
+      "dishName": "Тирамису",
+      "description": "Итальянский десерт с кофе и маскарпоне",
+      "price": 650,
+      "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 4,
+      "restaurantId": 2,
+      "dishName": "Суши сет Премиум",
+      "description": "Ассорти из 24 штук: лосось, тунец",
+      "price": 2200,
+      "image": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 5,
+      "restaurantId": 2,
+      "dishName": "Рамен с говядиной",
+      "description": "Пикантный бульон с лапшой и говядиной",
+      "price": 1500,
+      "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 6,
+      "restaurantId": 3,
+      "dishName": "Хачапури по-аджарски",
+      "description": "Лодочка из теста с сыром сулугуни",
+      "price": 750,
+      "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 7,
+      "restaurantId": 3,
+      "dishName": "Хинкали",
+      "description": "6 штук, с мясом и зеленью",
+      "price": 850,
+      "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 8,
+      "restaurantId": 4,
+      "dishName": "Бургер Black Angus",
+      "description": "Котлета из говядины, чеддер, бекон",
+      "price": 890,
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 9,
+      "restaurantId": 4,
+      "dishName": "Картофель фри с трюфелем",
+      "description": "С трюфельным маслом и пармезаном",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 10,
+      "restaurantId": 5,
+      "dishName": "Фуа-гра",
+      "description": "С печеным яблоком и бальзамиком",
+      "price": 3200,
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 11,
+      "restaurantId": 5,
+      "dishName": "Утиная грудка",
+      "description": "С апельсиновым соусом и картофелем",
+      "price": 2800,
+      "image": "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 12,
+      "restaurantId": 6,
+      "dishName": "Пельмени уральские",
+      "description": "Домашние пельмени с говядиной и свининой",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1555072956-7758afc20e5f?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 13,
+      "restaurantId": 6,
+      "dishName": "Борщ по-уральски",
+      "description": "С говядиной, сметаной и пампушками",
+      "price": 380,
+      "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop"
+    },
+    {
+      "id": 14,
+      "restaurantId": 6,
+      "dishName": "Оливье",
+      "description": "Классический салат по советскому рецепту",
+      "price": 320,
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format&fit=crop"
+    }
+  ]
+}
