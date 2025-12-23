@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>FRESH — Платформа фитнеса</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --sidebar-w: 280px;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif
+        }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #111827;
+            color: #fff;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, .12);
+            z-index: 1000;
+        }
+
+        .sidebar .nav-link {
+            color: #fff;
+            opacity: .9;
+            border-radius: .5rem;
+            padding: .75rem 1rem
+        }
+
+        .sidebar .nav-link.active {
+            background: var(--primary)
+        }
+
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, .1)
+        }
+
+        .main {
+            margin-left: var(--sidebar-w);
+            padding: 1.5rem
+        }
+
+        .page {
+            display: none
+        }
+
+        .page.active {
+            display: block
+        }
+
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08)
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 3rem;
+            border-radius: 1rem
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="p-3 text-center">
+        <div class="h4 fw-bold">FRESH</div>
+        <div class="small text-white-50">Fitness & Health</div>
+    </div>
+
+    <nav class="nav flex-column px-2" id="mainNav">
+        <a class="nav-link active" href="#" data-page="home" data-auth="any">Главная</a>
+        <a class="nav-link" href="#" data-page="search" data-auth="any">Поиск</a>
+        <a class="nav-link" href="#" data-page="dashboard" data-auth="auth">Кабинет</a>
+        <a class="nav-link" href="#" data-page="login" data-auth="guest">Вход</a>
+        <a class="btn btn-primary mt-3" href="#" data-page="register" data-auth="guest">Регистрация</a>
+        <button class="btn btn-outline-light mt-3" id="logoutBtn" data-auth="auth" type="button">Выход</button>
+    </nav>
+</aside>
+
+<main class="main">
+
+    <section id="home" class="page">
+        <div class="hero mb-4">
+            <h1 class="h3 fw-bold">Путь к здоровому образу жизни</h1>
+            <p class="text-white-50">Тренировки, прогресс и планирование.</p>
+            <a href="#" class="btn btn-light" data-page="search">Начать</a>
+        </div>
+    </section>
+
+    <section id="login" class="page">
+        <div class="card p-4" style="max-width:420px">
+            <h2 class="h5 mb-3">Вход</h2>
+            <form id="loginForm">
+                <input id="loginEmail" type="email" class="form-control mb-2" placeholder="email@example.com" required>
+                <input id="loginPassword" type="password" class="form-control mb-3" placeholder="Пароль" required>
+                <button class="btn btn-primary w-100" type="submit">Войти</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="register" class="page">
+        <div class="card p-4" style="max-width:480px">
+            <h2 class="h5 mb-3">Регистрация</h2>
+            <form id="registrationForm">
+                <input id="regName" type="text" class="form-control mb-2" placeholder="Имя" required>
+                <input id="regEmail" type="email" class="form-control mb-2" placeholder="Email" required>
+                <input id="regPassword" type="password" class="form-control mb-2" placeholder="Пароль" required>
+                <input id="regPasswordConfirm" type="password" class="form-control mb-3" placeholder="Повторите пароль"
+                       required>
+                <button class="btn btn-primary w-100" type="submit">Создать аккаунт</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="dashboard" class="page">
+        <h2 class="h5">Личный кабинет — <span id="userNameDisplay">Пользователь</span></h2>
+        <p class="text-muted">Добро пожаловать в личный кабинет.</p>
+    </section>
+
+    <section id="search" class="page">
+        <h2 class="h5 mb-3">Тренировки</h2>
+
+        <div class="row g-4">
+            <aside class="col-md-4">
+                <div class="card p-3">
+                    <h3 class="h6">Фильтр</h3>
+                    <div class="mb-2">
+                        <label class="form-label small">Уровень</label>
+                        <select id="filterLevel" class="form-select form-select-sm">
+                            <option value="">Все</option>
+                            <option value="beginner">Начинающий</option>
+                            <option value="advanced">Продвинутый</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small">Тип</label>
+                        <select id="filterType" class="form-select form-select-sm">
+                            <option value="">Все</option>
+                            <option value="cardio">Кардио</option>
+                            <option value="strength">Силовая</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label small">Длительность ≤ <span id="durationValue">30</span> мин</label>
+                        <input id="filterDuration" type="range" min="10" max="120" step="5" value="30"
+                               class="form-range">
+                    </div>
+                    <button id="applyFiltersBtn" class="btn btn-sm btn-primary w-100" type="button">Применить</button>
+                </div>
+            </aside>
+
+            <div class="col-md-8" id="trainingResults">
+                <div class="training-card mb-3" data-level="beginner" data-type="cardio" data-duration="30">
+                    <div class="card p-3">
+                        <strong>Morning Cardio — 30 мин</strong>
+                        <div class="small text-muted">Уровень: начальный · Тип: кардио</div>
+                        <button class="btn btn-sm btn-primary mt-2 details-btn" data-title="Morning Cardio">Подробнее
+                        </button>
+                    </div>
+                </div>
+
+                <div class="training-card mb-3" data-level="beginner" data-type="strength" data-duration="45">
+                    <div class="card p-3">
+                        <strong>Home Strength — 45 мин</strong>
+                        <div class="small text-muted">Уровень: начальный · Тип: силовая</div>
+                        <button class="btn btn-sm btn-primary mt-2 details-btn" data-title="Home Strength">Подробнее
+                        </button>
+                    </div>
+                </div>
+
+                <div class="training-card mb-3" data-level="advanced" data-type="cardio" data-duration="60">
+                    <div class="card p-3">
+                        <strong>HIIT Pro — 60 мин</strong>
+                        <div class="small text-muted">Уровень: продвинутый · Тип: кардио</div>
+                        <button class="btn btn-sm btn-primary mt-2 details-btn" data-title="HIIT Pro">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div class="modal fade" id="trainingDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTrainingTitle">Тренировка</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe id="trainingVideo" src="" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const QS = (s, r = document) => r.querySelector(s);
+    const QSA = (s, r = document) => Array.from(r.querySelectorAll(s));
+    const LS_KEY = 'fresh_user';
+
+    function updateNav(isAuth) {
+        QSA('[data-auth]').forEach(el => {
+            const m = el.dataset.auth;
+            el.style.display = (m === 'any' || (m === 'auth' && isAuth) || (m === 'guest' && !isAuth)) ? '' : 'none';
+        });
+    }
+
+    function showPage(id) {
+        QSA('.page').forEach(p => p.classList.remove('active'));
+        QS('#' + id)?.classList.add('active');
+        QSA('[data-page]').forEach(l => l.classList.toggle('active', l.dataset.page === id));
+    }
+
+    document.addEventListener('click', e => {
+        const link = e.target.closest('[data-page]');
+        if (!link) return;
+        e.preventDefault();
+        showPage(link.dataset.page);
+    });
+
+    QS('#loginForm')?.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = QS('#loginEmail').value;
+        const name = email.split('@')[0] || 'Пользователь';
+        localStorage.setItem(LS_KEY, name);
+        QS('#userNameDisplay').textContent = name;
+        updateNav(true);
+        showPage('dashboard');
+    });
+
+    QS('#registrationForm')?.addEventListener('submit', e => {
+        e.preventDefault();
+        if (QS('#regPassword').value !== QS('#regPasswordConfirm').value) {
+            alert('Пароли не совпадают');
+            return;
+        }
+        const name = QS('#regName').value || 'Пользователь';
+        localStorage.setItem(LS_KEY, name);
+        updateNav(false);
+        showPage('login');
+    });
+
+    QS('#logoutBtn')?.addEventListener('click', () => {
+        localStorage.removeItem(LS_KEY);
+        updateNav(false);
+        showPage('home');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const stored = localStorage.getItem(LS_KEY);
+        updateNav(!!stored);
+        if (stored) QS('#userNameDisplay').textContent = stored;
+        showPage('home');
+
+        const range = QS('#filterDuration');
+        const out = QS('#durationValue');
+        if (range && out) {
+            out.textContent = range.value;
+            range.addEventListener('input', () => out.textContent = range.value);
+        }
+
+        QS('#applyFiltersBtn')?.addEventListener('click', () => {
+            const lvl = QS('#filterLevel').value;
+            const type = QS('#filterType').value;
+            const max = +range.value;
+            let visibleCount = 0;
+
+            QSA('.training-card').forEach(c => {
+                const ok = (!lvl || c.dataset.level === lvl)
+                    && (!type || c.dataset.type === type)
+                    && (+c.dataset.duration <= max);
+                c.style.display = ok ? '' : 'none';
+                if (ok) visibleCount++;
+            });
+
+            QS('#filterResultInfo')?.remove();
+            const info = document.createElement('div');
+            info.id = 'filterResultInfo';
+            info.className = 'small text-muted mt-2';
+            info.textContent = `Найдено тренировок: ${visibleCount}`;
+            QS('#trainingResults').prepend(info);
+        });
+
+        QS('#trainingResults')?.addEventListener('click', e => {
+            const btn = e.target.closest('.details-btn');
+            if (!btn) return;
+            QS('#modalTrainingTitle').textContent = btn.dataset.title;
+            QS('#trainingVideo').src = 'https://yandex.ru/video/preview/11843531504909666715';
+            new bootstrap.Modal('#trainingDetailModal').show();
+        });
+    });
+</script>
+</body>
+</html>
