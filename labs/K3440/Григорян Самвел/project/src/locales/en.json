@@ -1,0 +1,290 @@
+{
+  "yes": "Yes",
+  "no": "No",
+  "add": "Add",
+  "edit": "Edit",
+  "view": "Watch",
+  "save": "Save",
+  "delete": "Delete",
+  "back": "Back",
+  "backToList": "Back to list",
+  "of": "of",
+  "search": "Search",
+  "reset": "Clear",
+  "sorting": "Sorting",
+  "default": "Default",
+  "info": "Information",
+  "noRecordsForFilters": "No records were found for the specified filters",
+  "noRecords": "No records found",
+  "chooseValue": "Choose value",
+  "title": "Title",
+  "description": "Description",
+  "gallery": "Photogallery",
+  "image": "Image",
+  "color": "Color",
+  "rating": "Rating",
+  "price": "Price",
+  "status": "Status",
+  "id": "ID",
+  "auth": {
+    "title": "Authorization",
+    "login": "Login",
+    "logout": "Logout",
+    "confirmLogout": "Are you sure you want to log out?",
+    "errors": {
+      "emptyFields": "Enter your email and password",
+      "invalidEmail": "Email entered incorrectly",
+      "userNotFound": "The user with the entered mail does not exist",
+      "wrongPassword": "Wrong password",
+      "noAccess": "Access denied",
+      "authError": "Login error"
+    }
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "popups": {
+    "confirmation": {
+      "title": "Confirmation",
+      "ok": "Yes",
+      "cancel": "Cancel"
+    }
+  },
+  "alerts": {
+    "imageTypeError": "The image is in the wrong format. Choose png, jpg or gif."
+  },
+  "dashboard": {
+    "nav": "Dashboard",
+    "title": "Dashboard",
+    "stat": {
+      "sales": {
+        "title": "Sales",
+        "turnover": "Turnover"
+      },
+      "roomTypes": {
+        "title": "Booked rooms"
+      },
+      "bookings": {
+        "all": "Total bookings",
+        "booked": "Rooms booked",
+        "active": "Active bookings"
+      },
+      "services": {
+        "title": "Ordered services"
+      }
+    }
+  },
+  "user": {
+    "nav": "Users",
+    "title": "User",
+    "add": "Add a user",
+    "delete": "Delete the user",
+    "fields": {
+      "name": "Full name",
+      "role": "Role",
+      "phone": "Phone",
+      "email": "Email",
+      "password": "Password"
+    },
+    "edit": {
+      "nav": {
+        "visits": "Visits",
+        "goToChat": "Go to chat"
+      },
+      "noVisits": "The user has no visits"
+    },
+    "form": {
+      "info": "Personal information",
+      "contact": "Contact details",
+      "chooseRole": "Choose role",
+      "repeatPassword": "Repeat the password"
+    },
+    "alerts": {
+      "added": "User successfully added",
+      "deleted": "User successfully deleted",
+      "updated": "User successfully updated",
+      "notFound": "User not found",
+      "needPhoneOrEmail": "Enter user phone or gmail address",
+      "incorrectGmail": "The email address is entered incorrectly",
+      "incorrectPhone": "Phone number entered incorrectly"
+    }
+  },
+  "role": {
+    "nav": "Roles",
+    "add": "Add a role",
+    "edit": "Edit the role",
+    "delete": "Delete the role",
+    "fields": {
+      "staff": "Staff",
+      "permissions": "Permissions"
+    },
+    "alerts": {
+      "added": "Role successfully added",
+      "deleted": "Role successfully deleted",
+      "updated": "Role successfully updated",
+      "requiredFields": "ID and title are required",
+      "alreadyExists": "The role with the entered ID already exists",
+      "cannotBeDeleted": "The selected role is not available for deletion",
+      "usersExist": "There are users with the selected role. Before deleting, change their role or delete them."
+    } 
+  },
+  "room": {
+    "nav": "Rooms",
+    "title": "Room",
+    "add": "Add a room",
+    "delete": "Delete the room",
+    "fields": {
+      "numbers": "Numbers",
+      "type": "Type",
+      "name": "Name",
+      "bedsCount": "Beds count",
+      "basicPrice": "Basic price",
+      "salePrice": "Sale price",
+      "checkIn": "Check in",
+      "eviction": "Eviction",
+      "tags": "Tags"
+    },
+    "form": {
+      "chooseType": "Choose class",
+      "tagSearch": "Search tag",
+      "noTags": "Tags not found"
+    },
+    "edit": {
+      "noVisits": "The room had no visits"
+    },
+    "alerts": {
+      "added": "Room successfully added",
+      "deleted": "Room successfully deleted",
+      "updated": "Room successfully updated",
+      "notFound": "Room not found",
+      "requiredFields": "The name, class and price of the room are mandatory",
+      "requiredImage": "Add at least one image of the number",
+      "numberExists": "The entered number has already been used"
+    }
+  },
+  "roomType": {
+    "nav": "Types",
+    "add": "Add a type",
+    "edit": "Edit the type",
+    "delete": "Delete the type",
+    "alerts": {
+      "added": "Type successfully added",
+      "deleted": "Type successfully deleted",
+      "updated": "Type successfully updated",
+      "requiredFields": "ID and title are required",
+      "alreadyExists": "The type with the entered ID already exists",
+      "roomsExist": "There are rooms with the selected type. Before deleting, change their type or delete them."
+    }
+  },
+  "roomTag": {
+    "nav": "Tags",
+    "add": "Add a tag",
+    "edit": "Edit the tag",
+    "delete": "Delete the tag",
+    "alerts": {
+      "added": "Tag successfully added",
+      "deleted": "Tag successfully deleted",
+      "updated": "Tag successfully updated",
+      "requiredFields": "Title is required",
+      "roomsExist": "There are numbers with the selected tag. Before deleting, delete this tag from them."
+    }
+  },
+  "booking": {
+    "nav": "Bookings",
+    "add": "Add a booking",
+    "delete": "Delete the booking",
+    "fields": {
+      "dates": "Dates",
+      "dateStart": "Start date",
+      "dateEnd": "End date",
+      "number": "Room",
+      "roomType": "Room type",
+      "totalPrice": "Total price"
+    },
+    "form": {
+      "chooseStatus": "Shoose the status",
+      "chooseUser": "Shoose the user",
+      "chooseRoom": "Shoose the room",
+      "chooseNumber": "Choose a room number"
+    },
+    "edit": {
+      "nav": {
+        "services": "Services",
+        "goToAddBooking": "Create a booking"
+      },
+      "noServices": "The reservation does not contain used services"
+    },
+    "alerts": {
+      "added": "Booking successfully added",
+      "deleted": "Booking successfully deleted",
+      "updated": "Booking successfully updated",
+      "notFound": "Booking not found",
+      "requiredFields": "User and number are required",
+      "requiredRoomNumber": "The room number is required"
+    }
+  },
+  "bookingStatus": {
+    "nav": "Statuses",
+    "add": "Add a status",
+    "edit": "Edit the status",
+    "delete": "Delete the status",
+    "alerts": {
+      "added": "Status successfully added",
+      "deleted": "Status successfully deleted",
+      "updated": "Status successfully updated",
+      "requiredFields": "ID and title are required",
+      "alreadyExists": "The status with the entered ID already exists",
+      "cannotBeDeleted": "The selected status is not available for deletion",
+      "usersExist": "There are bookings with the selected status. Before deleting, change their status or delete them."
+    } 
+  },
+  "chat": {
+    "nav": "Messages",
+    "send": "Send",
+    "placeholder": "Enter a message...",
+    "open": "Open",
+    "complete": "Complete",
+    "join": "Join",
+    "noRecords": "Chats not found",
+    "status": {
+      "default": "Inactive",
+      "active": "Active",
+      "processing": "In processing"
+    },
+    "tab": {
+      "all": "All",
+      "active": "Active",
+      "processing": "In processing"
+    }
+  },
+  "faq": {
+    "nav": "FAQ",
+    "title": "Frequently asked questions",
+    "add": "Add a question",
+    "edit": "Edit the question",
+    "delete": "Delete the question",
+    "alerts": {
+      "added": "Question successfully added",
+      "deleted": "Question successfully deleted",
+      "updated": "Question successfully updated",
+      "requiredFields": "Title and description are required"
+    }
+  },
+  "rent": {
+    "nav": "Services",
+    "add": "Add a service",
+    "delete": "Delete the service",
+    "fields": {
+      "category": "Category"
+    }
+  },
+  "event": {
+    "nav": "Events",
+    "add": "Add an event",
+    "delete": "Delete the event",
+    "fields": {
+      "type": "Category"
+    }
+  }
+}
