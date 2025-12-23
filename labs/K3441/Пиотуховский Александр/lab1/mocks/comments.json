@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "commentableType": "recipe",
+    "commentableId": 1,
+    "userId": 2,
+    "parentId": null,
+    "content": "Отличный рецепт! Блины получились очень нежными и вкусными.",
+    "createdAt": "2024-11-15T10:30:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 2,
+    "commentableType": "recipe",
+    "commentableId": 1,
+    "userId": 3,
+    "parentId": null,
+    "content": "Пробовала делать по этому рецепту - получилось с первого раза!",
+    "createdAt": "2024-11-15T14:20:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 3,
+    "commentableType": "recipe",
+    "commentableId": 1,
+    "userId": 1,
+    "parentId": 2,
+    "content": "Рада, что вам понравилось!",
+    "createdAt": "2024-11-15T15:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 4,
+    "commentableType": "post",
+    "commentableId": 1,
+    "userId": 2,
+    "parentId": null,
+    "content": "Спасибо за такой подробный пост! Теперь я понимаю, почему мои блины всегда получались комом 😅",
+    "createdAt": "2024-11-15T11:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 5,
+    "commentableType": "post",
+    "commentableId": 1,
+    "userId": 3,
+    "parentId": null,
+    "content": "Очень полезные советы! Особенно про температуру сковороды - никогда не обращала на это внимание.",
+    "createdAt": "2024-11-15T12:30:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 6,
+    "commentableType": "post",
+    "commentableId": 1,
+    "userId": 1,
+    "parentId": 4,
+    "content": "Пожалуйста! Рада, что помогла 😊",
+    "createdAt": "2024-11-15T13:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 7,
+    "commentableType": "post",
+    "commentableId": 2,
+    "userId": 2,
+    "parentId": null,
+    "content": "Обожаю тыквенный суп! Ваш рецепт выглядит очень аппетитно.",
+    "createdAt": "2024-11-16T15:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 8,
+    "commentableType": "post",
+    "commentableId": 3,
+    "userId": 3,
+    "parentId": null,
+    "content": "Согласна! Правильный завтрак - это так важно. Обязательно попробую ваши рецепты.",
+    "createdAt": "2024-11-17T09:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": 9,
+    "commentableType": "post",
+    "commentableId": 4,
+    "userId": 1,
+    "parentId": null,
+    "content": "Отличные советы! Mis en place действительно очень помогает, когда готовишь сложное блюдо.",
+    "createdAt": "2024-11-18T17:30:00Z",
+    "updatedAt": null
+  }
+]
