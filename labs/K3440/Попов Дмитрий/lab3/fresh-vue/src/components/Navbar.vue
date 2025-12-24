@@ -7,6 +7,7 @@
     <nav class="nav flex-column">
       <RouterLink class="nav-link" to="/">Главная</RouterLink>
       <RouterLink class="nav-link" to="/search">Поиск</RouterLink>
+      <RouterLink class="nav-link" to="/blog">Блог</RouterLink>
       <RouterLink v-if="user" class="nav-link" to="/dashboard">Кабинет</RouterLink>
       <RouterLink v-if="!user" class="nav-link" to="/login">Вход</RouterLink>
       <RouterLink v-if="!user" class="btn btn-primary mt-3" to="/register">Регистрация</RouterLink>

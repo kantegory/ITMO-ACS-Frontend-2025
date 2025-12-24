@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "email": "test@mail.com",
+      "email": "test@test.com",
       "password": "123456",
       "name": "TestUser"
     }
@@ -13,24 +13,51 @@
       "title": "Morning Cardio",
       "level": "beginner",
       "type": "cardio",
-      "duration": 30,
-      "description": "Start your day with a quick and easy cardio workout."
+      "duration": 30
     },
     {
       "id": 2,
       "title": "Home Strength",
       "level": "beginner",
       "type": "strength",
-      "duration": 45,
-      "description": "Build muscle with home exercises."
+      "duration": 45
     },
     {
       "id": 3,
       "title": "HIIT Pro",
       "level": "advanced",
       "type": "cardio",
-      "duration": 60,
-      "description": "High-intensity interval training for maximum results."
+      "duration": 60
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": 1,
+      "title": "Топ-5 продуктов для энергии",
+      "category": "nutrition",
+      "content": "Правильное питание — основа успешных тренировок. В этой статье мы расскажем о пяти продуктах, которые обеспечат вас энергией на весь день: бананы, овсянка, орехи, яйца и зеленые овощи.",
+      "date": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "title": "Идеальный план кардио на 30 дней",
+      "category": "training",
+      "content": "30-дневный план кардио-тренировок для начинающих и продвинутых спортсменов. Улучшите свою выносливость с помощью прогрессивных нагрузок.",
+      "date": "2024-01-20"
+    },
+    {
+      "id": 3,
+      "title": "Важность сна для восстановления мышц",
+      "category": "recovery",
+      "content": "Сон играет критическую роль в восстановлении после тренировок. Узнайте, как улучшить качество сна и ускорить восстановление мышц.",
+      "date": "2024-01-25"
+    },
+    {
+      "id": 4,
+      "title": "Как правильно выбрать протеин",
+      "category": "nutrition",
+      "content": "Разбираемся в видах протеина: сывороточный, казеиновый, растительный. Какой выбрать для ваших целей?",
+      "date": "2024-02-01"
     }
   ]
 }

@@ -1,21 +1,20 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
-
 const Home = () => import('./views/HomeView.vue')
 const Search = () => import('./views/SearchView.vue')
 const Login = () => import('./views/LoginView.vue')
 const Register = () => import('./views/RegisterView.vue')
 const Dashboard = () => import('./views/DashboardView.vue')
-
+const Blog = () => import('./views/BlogView.vue')
 
 const routes = [
     {path: '/', component: Home},
     {path: '/search', component: Search},
+    {path: '/blog', component: Blog},
     {path: '/login', component: Login},
     {path: '/register', component: Register},
     {path: '/dashboard', component: Dashboard, meta: {requiresAuth: true}},
 ]
-
 
 export const router = createRouter({
     history: createWebHistory(),
