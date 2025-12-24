@@ -77,6 +77,10 @@
             padding: 3rem;
             border-radius: 1rem
         }
+
+        .small-muted {
+            color: #6b7280
+        }
     </style>
 </head>
 <body>
@@ -98,8 +102,7 @@
 </aside>
 
 <main class="main">
-
-    <section id="home" class="page">
+    <section id="home" class="page active">
         <div class="hero mb-4">
             <h1 class="h3 fw-bold">Путь к здоровому образу жизни</h1>
             <p class="text-white-50">Тренировки, прогресс и планирование.</p>
@@ -133,13 +136,13 @@
     </section>
 
     <section id="dashboard" class="page">
-        <h2 class="h5">Личный кабинет — <span id="userNameDisplay">Пользователь</span></h2>
-        <p class="text-muted">Добро пожаловать в личный кабинет.</p>
+        <h2 class="h5">Личный кабинет — <span id="userNameDisplay"></span></h2>
+        <p class="small-muted">Доступно только авторизованным пользователям</p>
+        <div class="mt-3" id="dashboardContent"></div>
     </section>
 
     <section id="search" class="page">
         <h2 class="h5 mb-3">Тренировки</h2>
-
         <div class="row g-4">
             <aside class="col-md-4">
                 <div class="card p-3">
@@ -160,159 +163,123 @@
                             <option value="strength">Силовая</option>
                         </select>
                     </div>
-                    <div class="mb-2">
-                        <label class="form-label small">Длительность ≤ <span id="durationValue">30</span> мин</label>
-                        <input id="filterDuration" type="range" min="10" max="120" step="5" value="30"
-                               class="form-range">
-                    </div>
                     <button id="applyFiltersBtn" class="btn btn-sm btn-primary w-100" type="button">Применить</button>
                 </div>
             </aside>
-
-            <div class="col-md-8" id="trainingResults">
-                <div class="training-card mb-3" data-level="beginner" data-type="cardio" data-duration="30">
-                    <div class="card p-3">
-                        <strong>Morning Cardio — 30 мин</strong>
-                        <div class="small text-muted">Уровень: начальный · Тип: кардио</div>
-                        <button class="btn btn-sm btn-primary mt-2 details-btn" data-title="Morning Cardio">Подробнее
-                        </button>
-                    </div>
-                </div>
-
-                <div class="training-card mb-3" data-level="beginner" data-type="strength" data-duration="45">
-                    <div class="card p-3">
-                        <strong>Home Strength — 45 мин</strong>
-                        <div class="small text-muted">Уровень: начальный · Тип: силовая</div>
-                        <button class="btn btn-sm btn-primary mt-2 details-btn" data-title="Home Strength">Подробнее
-                        </button>
-                    </div>
-                </div>
-
-                <div class="training-card mb-3" data-level="advanced" data-type="cardio" data-duration="60">
-                    <div class="card p-3">
-                        <strong>HIIT Pro — 60 мин</strong>
-                        <div class="small text-muted">Уровень: продвинутый · Тип: кардио</div>
-                        <button class="btn btn-sm btn-primary mt-2 details-btn" data-title="HIIT Pro">Подробнее</button>
-                    </div>
-                </div>
+            <div class="col-md-8">
+                <div id="trainingResults"></div>
             </div>
         </div>
     </section>
-
 </main>
 
-<div class="modal fade" id="trainingDetailModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTrainingTitle">Тренировка</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="ratio ratio-16x9">
-                    <iframe id="trainingVideo" src="" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    const API_BASE = 'http://localhost:3000';
     const QS = (s, r = document) => r.querySelector(s);
-    const QSA = (s, r = document) => Array.from(r.querySelectorAll(s));
-    const LS_KEY = 'fresh_user';
+    const QSA = (s, r = document) => [...r.querySelectorAll(s)];
 
-    function updateNav(isAuth) {
+    function getToken() {
+        return localStorage.getItem('token')
+    }
+
+    function getUser() {
+        try {
+            return JSON.parse(localStorage.getItem('user'))
+        } catch {
+            return null
+        }
+    }
+
+    function setAuth(token, user) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user))
+    }
+
+    function clearAuth() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user')
+    }
+
+    async function apiFetch(path, options = {}) {
+        const res = await fetch(API_BASE + path, options);
+        if (!res.ok) throw new Error('API error');
+        return res.json();
+    }
+
+    function updateNav() {
+        const isAuth = !!getToken();
         QSA('[data-auth]').forEach(el => {
-            const m = el.dataset.auth;
-            el.style.display = (m === 'any' || (m === 'auth' && isAuth) || (m === 'guest' && !isAuth)) ? '' : 'none';
+            if (el.dataset.auth === 'any') el.style.display = '';
+            if (el.dataset.auth === 'auth') el.style.display = isAuth ? '' : 'none';
+            if (el.dataset.auth === 'guest') el.style.display = !isAuth ? '' : 'none';
         });
     }
 
     function showPage(id) {
         QSA('.page').forEach(p => p.classList.remove('active'));
         QS('#' + id)?.classList.add('active');
-        QSA('[data-page]').forEach(l => l.classList.toggle('active', l.dataset.page === id));
+        QSA('[data-page]').forEach(a => a.classList.toggle('active', a.dataset.page === id));
     }
 
-    document.addEventListener('click', e => {
-        const link = e.target.closest('[data-page]');
-        if (!link) return;
-        e.preventDefault();
-        showPage(link.dataset.page);
-    });
-
-    QS('#loginForm')?.addEventListener('submit', e => {
-        e.preventDefault();
-        const email = QS('#loginEmail').value;
-        const name = email.split('@')[0] || 'Пользователь';
-        localStorage.setItem(LS_KEY, name);
-        QS('#userNameDisplay').textContent = name;
-        updateNav(true);
-        showPage('dashboard');
-    });
-
-    QS('#registrationForm')?.addEventListener('submit', e => {
-        e.preventDefault();
-        if (QS('#regPassword').value !== QS('#regPasswordConfirm').value) {
-            alert('Пароли не совпадают');
-            return;
+    async function loadTrainings() {
+        try {
+            let data = await apiFetch('/trainings');
+            const lvl = QS('#filterLevel').value;
+            const type = QS('#filterType').value;
+            if (lvl) data = data.filter(t => t.level === lvl);
+            if (type) data = data.filter(t => t.type === type);
+            const root = QS('#trainingResults');
+            root.innerHTML = '';
+            data.forEach(t => {
+                root.innerHTML += `<div class="card p-3 mb-2"><strong>${t.title}</strong><div class="small text-muted">${t.level} · ${t.type} · ${t.duration} мин</div></div>`;
+            });
+        } catch (e) {
+            QS('#trainingResults').innerHTML = '<div class="text-danger">Сервер недоступен</div>';
         }
-        const name = QS('#regName').value || 'Пользователь';
-        localStorage.setItem(LS_KEY, name);
-        updateNav(false);
-        showPage('login');
-    });
+    }
 
-    QS('#logoutBtn')?.addEventListener('click', () => {
-        localStorage.removeItem(LS_KEY);
-        updateNav(false);
-        showPage('home');
+    QS('#applyFiltersBtn').onclick = loadTrainings;
+
+    QS('#loginForm').onsubmit = async e => {
+        e.preventDefault();
+        try {
+            const email = QS('#loginEmail').value;
+            const pass = QS('#loginPassword').value;
+            const users = await apiFetch('/users?email=' + encodeURIComponent(email));
+            const user = users[0];
+            if (!user || user.password !== pass) return alert('Неверный email или пароль');
+            setAuth('mock-token', user);
+            QS('#userNameDisplay').textContent = user.name;
+            updateNav();
+            showPage('dashboard');
+        } catch {
+            alert('Сервер недоступен')
+        }
+    };
+
+    QS('#registrationForm').onsubmit = e => {
+        e.preventDefault();
+        alert('Регистрация через API (mock)')
+    };
+    QS('#logoutBtn').onclick = () => {
+        clearAuth();
+        updateNav();
+        showPage('home')
+    };
+
+    document.addEventListener('click', e => {
+        const a = e.target.closest('[data-page]');
+        if (a) {
+            e.preventDefault();
+            showPage(a.dataset.page)
+        }
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        const stored = localStorage.getItem(LS_KEY);
-        updateNav(!!stored);
-        if (stored) QS('#userNameDisplay').textContent = stored;
-        showPage('home');
-
-        const range = QS('#filterDuration');
-        const out = QS('#durationValue');
-        if (range && out) {
-            out.textContent = range.value;
-            range.addEventListener('input', () => out.textContent = range.value);
-        }
-
-        QS('#applyFiltersBtn')?.addEventListener('click', () => {
-            const lvl = QS('#filterLevel').value;
-            const type = QS('#filterType').value;
-            const max = +range.value;
-            let visibleCount = 0;
-
-            QSA('.training-card').forEach(c => {
-                const ok = (!lvl || c.dataset.level === lvl)
-                    && (!type || c.dataset.type === type)
-                    && (+c.dataset.duration <= max);
-                c.style.display = ok ? '' : 'none';
-                if (ok) visibleCount++;
-            });
-
-            QS('#filterResultInfo')?.remove();
-            const info = document.createElement('div');
-            info.id = 'filterResultInfo';
-            info.className = 'small text-muted mt-2';
-            info.textContent = `Найдено тренировок: ${visibleCount}`;
-            QS('#trainingResults').prepend(info);
-        });
-
-        QS('#trainingResults')?.addEventListener('click', e => {
-            const btn = e.target.closest('.details-btn');
-            if (!btn) return;
-            QS('#modalTrainingTitle').textContent = btn.dataset.title;
-            QS('#trainingVideo').src = 'https://yandex.ru/video/preview/11843531504909666715';
-            new bootstrap.Modal('#trainingDetailModal').show();
-        });
+        const u = getUser();
+        if (u) QS('#userNameDisplay').textContent = u.name;
+        updateNav();
+        loadTrainings();
     });
 </script>
 </body>
