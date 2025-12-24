@@ -68,7 +68,12 @@
         .card {
             border: none;
             border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .08)
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
         }
 
         .hero {
@@ -77,33 +82,58 @@
             padding: 3rem;
             border-radius: 1rem
         }
+
+        .blog-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .badge-category {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
-
 <aside class="sidebar" id="sidebar">
     <div class="p-3 text-center">
         <div class="h4 fw-bold">FRESH</div>
         <div class="small text-white-50">Fitness & Health</div>
     </div>
-
     <nav class="nav flex-column px-2" id="mainNav">
-        <a class="nav-link active" href="#" data-page="home" data-auth="any">Главная</a>
-        <a class="nav-link" href="#" data-page="search" data-auth="any">Поиск</a>
-        <a class="nav-link" href="#" data-page="dashboard" data-auth="auth">Кабинет</a>
-        <a class="nav-link" href="#" data-page="login" data-auth="guest">Вход</a>
-        <a class="btn btn-primary mt-3" href="#" data-page="register" data-auth="guest">Регистрация</a>
-        <button class="btn btn-outline-light mt-3" id="logoutBtn" data-auth="auth" type="button">Выход</button>
+        <a class="nav-link active" href="#" data-page="home" data-auth="any">
+            <i class="bi bi-house-door me-2"></i>Главная
+        </a>
+        <a class="nav-link" href="#" data-page="search" data-auth="any">
+            <i class="bi bi-search me-2"></i>Поиск
+        </a>
+        <a class="nav-link" href="#" data-page="blog" data-auth="any">
+            <i class="bi bi-newspaper me-2"></i>Блог
+        </a>
+        <a class="nav-link" href="#" data-page="dashboard" data-auth="auth">
+            <i class="bi bi-speedometer2 me-2"></i>Кабинет
+        </a>
+        <a class="nav-link" href="#" data-page="login" data-auth="guest">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Вход
+        </a>
+        <button class="btn btn-primary mt-3 w-100" data-page="register" data-auth="guest" type="button">
+            Регистрация
+        </button>
+        <button class="btn btn-outline-light mt-3 w-100" id="logoutBtn" data-auth="auth" type="button">
+            <i class="bi bi-box-arrow-right me-2"></i>Выход
+        </button>
     </nav>
 </aside>
 
 <main class="main">
-
     <section id="home" class="page">
         <div class="hero mb-4">
             <h1 class="h3 fw-bold">Путь к здоровому образу жизни</h1>
             <p class="text-white-50">Тренировки, прогресс и планирование.</p>
-            <a href="#" class="btn btn-light" data-page="search">Начать</a>
+            <a href="#" class="btn btn-light me-2" data-page="search">Начать</a>
+            <a href="#" class="btn btn-outline-light" data-page="blog">Читать блог</a>
         </div>
     </section>
 
@@ -111,13 +141,14 @@
         <div class="card p-4" style="max-width:420px">
             <h2 class="h5 mb-3">Вход</h2>
             <form id="loginForm">
-                <input id="loginEmail" type="email" class="form-control mb-2" placeholder="email@example.com" required>
+                <input id="loginEmail" type="email" class="form-control mb-2" placeholder="Email" required>
                 <input id="loginPassword" type="password" class="form-control mb-3" placeholder="Пароль" required>
                 <button class="btn btn-primary w-100" type="submit">Войти</button>
             </form>
         </div>
     </section>
 
+    <!-- Страница регистрации -->
     <section id="register" class="page">
         <div class="card p-4" style="max-width:480px">
             <h2 class="h5 mb-3">Регистрация</h2>
@@ -133,13 +164,68 @@
     </section>
 
     <section id="dashboard" class="page">
-        <h2 class="h5">Личный кабинет — <span id="userNameDisplay">Пользователь</span></h2>
-        <p class="text-muted">Добро пожаловать в личный кабинет.</p>
+        <div class="mb-4">
+            <h2 class="h3 fw-bold mb-1">
+                <i class="bi bi-person-circle text-primary me-2"></i>Личный Кабинет
+            </h2>
+            <p class="text-muted">Добро пожаловать, <span id="userNameDisplay" class="fw-semibold">Пользователь</span></p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card p-4 h-100">
+                    <h4 class="fw-bold mb-3"><i class="bi bi-graph-up me-2 text-success"></i>Трекинг Прогресса</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Вес: 75 кг <span class="badge bg-success">↓ -1.5 кг</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Тренировок за неделю: 4 <span class="badge bg-primary">+1</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Цель: 50 отжиманий <span class="badge bg-warning text-dark">35/50</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-outline-success mt-3">Обновить данные</button>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card p-4 h-100">
+                    <h4 class="fw-bold mb-3"><i class="bi bi-calendar-check me-2 text-primary"></i>Твой План Тренировок</h4>
+                    <div class="accordion" id="trainingPlanAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Понедельник: Силовая (Грудь/Спина)
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#trainingPlanAccordion">
+                                <div class="accordion-body">
+                                    Жим лежа (3x10), Тяга блока (3x12), Отжимания (до отказа).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Среда: Кардио (Бег 5 км)
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#trainingPlanAccordion">
+                                <div class="accordion-body">
+                                    Разминка 10 мин, Бег 5 км в среднем темпе, Заминка 5 мин.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary mt-3">Изменить план</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="search" class="page">
         <h2 class="h5 mb-3">Тренировки</h2>
-
         <div class="row g-4">
             <aside class="col-md-4">
                 <div class="card p-3">
@@ -168,7 +254,6 @@
                     <button id="applyFiltersBtn" class="btn btn-sm btn-primary w-100" type="button">Применить</button>
                 </div>
             </aside>
-
             <div class="col-md-8" id="trainingResults">
                 <div class="training-card mb-3" data-level="beginner" data-type="cardio" data-duration="30">
                     <div class="card p-3">
@@ -178,7 +263,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="training-card mb-3" data-level="beginner" data-type="strength" data-duration="45">
                     <div class="card p-3">
                         <strong>Home Strength — 45 мин</strong>
@@ -187,7 +271,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="training-card mb-3" data-level="advanced" data-type="cardio" data-duration="60">
                     <div class="card p-3">
                         <strong>HIIT Pro — 60 мин</strong>
@@ -199,6 +282,179 @@
         </div>
     </section>
 
+    <section id="blog" class="page">
+        <div class="mb-4">
+            <h2 class="h3 fw-bold mb-2">
+                <i class="bi bi-newspaper text-primary me-2"></i>Блог о Здоровье и Питании
+            </h2>
+            <p class="text-muted">Полезные статьи, советы и исследования для вашего фитнес-путешествия</p>
+        </div>
+
+        <div class="card p-3 mb-4">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label small mb-1">Категория</label>
+                    <select id="blogCategoryFilter" class="form-select form-select-sm">
+                        <option value="">Все категории</option>
+                        <option value="nutrition">Питание</option>
+                        <option value="training">Тренировки</option>
+                        <option value="health">Здоровье</option>
+                        <option value="recovery">Восстановление</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small mb-1">Поиск</label>
+                    <input type="text" id="blogSearchInput" class="form-control form-control-sm"
+                           placeholder="Введите ключевое слово...">
+                </div>
+                <div class="col-md-4">
+                    <button id="applyBlogFilters" class="btn btn-sm btn-primary w-100" type="button">
+                        <i class="bi bi-funnel me-1"></i>Применить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="blogPostsContainer">
+            <div class="col blog-post" data-category="nutrition">
+                <div class="card h-100 blog-card position-relative">
+                    <span class="badge bg-success badge-category">Питание</span>
+                    <img src="https://placehold.co/600x400/1abc9c/ffffff?text=Питание" class="card-img-top"
+                         alt="Питание">
+                    <div class="card-body">
+                        <h5 class="card-title">Топ-5 продуктов для энергии</h5>
+                        <p class="card-text text-muted small">Узнайте, какие продукты помогут вам восстановиться после
+                            интенсивных тренировок и обеспечат энергией на весь день.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>15 янв 2024
+                            </small>
+                            <a href="#" class="btn btn-sm btn-outline-primary blog-read-btn"
+                               data-title="Топ-5 продуктов для энергии"
+                               data-content="Правильное питание — основа успешных тренировок. В этой статье мы расскажем о пяти продуктах, которые обеспечат вас энергией...">
+                                Читать <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col blog-post" data-category="training">
+                <div class="card h-100 blog-card position-relative">
+                    <span class="badge bg-primary badge-category">Тренировки</span>
+                    <img src="https://placehold.co/600x400/3498db/ffffff?text=Тренировка" class="card-img-top"
+                         alt="Тренировка">
+                    <div class="card-body">
+                        <h5 class="card-title">Идеальный план кардио на 30 дней</h5>
+                        <p class="card-text text-muted small">Пошаговое руководство для улучшения выносливости и
+                            сжигания жира с помощью эффективных кардио-тренировок.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>12 янв 2024
+                            </small>
+                            <a href="#" class="btn btn-sm btn-outline-primary blog-read-btn"
+                               data-title="Идеальный план кардио на 30 дней"
+                               data-content="30-дневный план кардио-тренировок для начинающих и продвинутых спортсменов. Улучшите свою выносливость...">
+                                Читать <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col blog-post" data-category="recovery">
+                <div class="card h-100 blog-card position-relative">
+                    <span class="badge bg-info badge-category">Восстановление</span>
+                    <img src="https://placehold.co/600x400/9b59b6/ffffff?text=Здоровье" class="card-img-top"
+                         alt="Здоровье">
+                    <div class="card-body">
+                        <h5 class="card-title">Важность сна для восстановления мышц</h5>
+                        <p class="card-text text-muted small">Почему качественный сон — ключ к фитнес-успеху и как
+                            оптимизировать режим отдыха.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>10 янв 2024
+                            </small>
+                            <a href="#" class="btn btn-sm btn-outline-primary blog-read-btn"
+                               data-title="Важность сна для восстановления мышц"
+                               data-content="Сон играет критическую роль в восстановлении после тренировок. Узнайте, как улучшить качество сна...">
+                                Читать <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col blog-post" data-category="health">
+                <div class="card h-100 blog-card position-relative">
+                    <span class="badge bg-warning text-dark badge-category">Здоровье</span>
+                    <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Здоровье" class="card-img-top"
+                         alt="Здоровье">
+                    <div class="card-body">
+                        <h5 class="card-title">7 привычек для здорового позвоночника</h5>
+                        <p class="card-text text-muted small">Простые упражнения и рекомендации для поддержания здоровья
+                            спины в повседневной жизни.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>08 янв 2024
+                            </small>
+                            <a href="#" class="btn btn-sm btn-outline-primary blog-read-btn"
+                               data-title="7 привычек для здорового позвоночника"
+                               data-content="Здоровье позвоночника важно для общего самочувствия. Эти семь привычек помогут вам избежать проблем...">
+                                Читать <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col blog-post" data-category="nutrition">
+                <div class="card h-100 blog-card position-relative">
+                    <span class="badge bg-success badge-category">Питание</span>
+                    <img src="https://placehold.co/600x400/16a085/ffffff?text=Питание" class="card-img-top"
+                         alt="Питание">
+                    <div class="card-body">
+                        <h5 class="card-title">Гидратация: сколько воды нужно пить</h5>
+                        <p class="card-text text-muted small">Разбираем мифы о потреблении воды и даём научно
+                            обоснованные рекомендации.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>05 янв 2024
+                            </small>
+                            <a href="#" class="btn btn-sm btn-outline-primary blog-read-btn"
+                               data-title="Гидратация: сколько воды нужно пить"
+                               data-content="Вода — основа жизни. Узнайте, сколько воды действительно нужно вашему организму...">
+                                Читать <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col blog-post" data-category="training">
+                <div class="card h-100 blog-card position-relative">
+                    <span class="badge bg-primary badge-category">Тренировки</span>
+                    <img src="https://placehold.co/600x400/2980b9/ffffff?text=Тренировка" class="card-img-top"
+                         alt="Тренировка">
+                    <div class="card-body">
+                        <h5 class="card-title">Силовые тренировки для женщин</h5>
+                        <p class="card-text text-muted small">Развенчиваем мифы и показываем преимущества силового
+                            тренинга для женского здоровья.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>02 янв 2024
+                            </small>
+                            <a href="#" class="btn btn-sm btn-outline-primary blog-read-btn"
+                               data-title="Силовые тренировки для женщин"
+                               data-content="Силовые тренировки полезны не только мужчинам. Узнайте о преимуществах для женщин...">
+                                Читать <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <div class="modal fade" id="trainingDetailModal" tabindex="-1">
@@ -212,6 +468,25 @@
                 <div class="ratio ratio-16x9">
                     <iframe id="trainingVideo" src="" allowfullscreen></iframe>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="blogPostModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="blogPostTitle">Статья</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="blogPostContent" class="lead"></p>
+                <hr>
+                <p class="text-muted">Тренируйся!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
@@ -289,7 +564,6 @@
             const type = QS('#filterType').value;
             const max = +range.value;
             let visibleCount = 0;
-
             QSA('.training-card').forEach(c => {
                 const ok = (!lvl || c.dataset.level === lvl)
                     && (!type || c.dataset.type === type)
@@ -297,7 +571,6 @@
                 c.style.display = ok ? '' : 'none';
                 if (ok) visibleCount++;
             });
-
             QS('#filterResultInfo')?.remove();
             const info = document.createElement('div');
             info.id = 'filterResultInfo';
@@ -310,8 +583,33 @@
             const btn = e.target.closest('.details-btn');
             if (!btn) return;
             QS('#modalTrainingTitle').textContent = btn.dataset.title;
-            QS('#trainingVideo').src = 'https://yandex.ru/video/preview/11843531504909666715';
+            QS('#trainingVideo').src = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
             new bootstrap.Modal('#trainingDetailModal').show();
+        });
+
+        QS('#applyBlogFilters')?.addEventListener('click', () => {
+            const category = QS('#blogCategoryFilter').value;
+            const searchTerm = QS('#blogSearchInput').value.toLowerCase();
+
+            QSA('.blog-post').forEach(post => {
+                const postCategory = post.dataset.category;
+                const postText = post.textContent.toLowerCase();
+
+                const categoryMatch = !category || postCategory === category;
+                const searchMatch = !searchTerm || postText.includes(searchTerm);
+
+                post.style.display = (categoryMatch && searchMatch) ? '' : 'none';
+            });
+        });
+
+        QS('#blogPostsContainer')?.addEventListener('click', e => {
+            const btn = e.target.closest('.blog-read-btn');
+            if (!btn) return;
+            e.preventDefault();
+
+            QS('#blogPostTitle').textContent = btn.dataset.title;
+            QS('#blogPostContent').textContent = btn.dataset.content;
+            new bootstrap.Modal('#blogPostModal').show();
         });
     });
 </script>
