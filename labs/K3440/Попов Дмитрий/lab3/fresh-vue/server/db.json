@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "test@mail.com",
+      "password": "123456",
+      "name": "TestUser"
+    }
+  ],
+  "trainings": [
+    {
+      "id": 1,
+      "title": "Morning Cardio",
+      "level": "beginner",
+      "type": "cardio",
+      "duration": 30,
+      "description": "Start your day with a quick and easy cardio workout."
+    },
+    {
+      "id": 2,
+      "title": "Home Strength",
+      "level": "beginner",
+      "type": "strength",
+      "duration": 45,
+      "description": "Build muscle with home exercises."
+    },
+    {
+      "id": 3,
+      "title": "HIIT Pro",
+      "level": "advanced",
+      "type": "cardio",
+      "duration": 60,
+      "description": "High-intensity interval training for maximum results."
+    }
+  ]
+}
