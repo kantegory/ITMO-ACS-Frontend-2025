@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "email": "test@mail.com",
+      "email": "test@example.com",
       "password": "123456",
       "name": "TestUser"
     }
@@ -28,6 +28,29 @@
       "level": "advanced",
       "type": "cardio",
       "duration": 60
+    },
+    {
+      "id": 4,
+      "title": "Yoga Flow",
+      "level": "beginner",
+      "type": "cardio",
+      "duration": 40
+    },
+    {
+      "id": 5,
+      "title": "Power Lifting",
+      "level": "advanced",
+      "type": "strength",
+      "duration": 90
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": 1,
+      "title": "Топ-5 продуктов для энергии",
+      "category": "nutrition",
+      "content": "Правильное питание — основа успешных тренировок...",
+      "date": "2024-12-15"
     }
   ]
 }
