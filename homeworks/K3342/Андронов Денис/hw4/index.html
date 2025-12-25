@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>RestOrator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">RestOrator</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item" id="loginLink"><a class="nav-link" href="login.html">Вход</a></li>
+                <li class="nav-item" id="registerLink"><a class="nav-link" href="register.html">Регистрация</a></li>
+                <li class="nav-item" id="profileLink"><a class="nav-link" href="profile.html">Личный кабинет</a></li>
+            </ul>
+            <button id="themeToggle" class="btn btn-outline-light btn-sm ms-3">🌙</button>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4">
+    <h1 class="mb-4">Поиск ресторанов</h1>
+
+    <!-- Фильтры -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label for="searchInput" class="form-label">Название или кухня</label>
+            <input id="searchInput" type="text" class="form-control" placeholder="Название/кухня">
+        </div>
+
+        <div class="col-md-4">
+            <label for="districtSelect" class="form-label">Район</label>
+            <select id="districtSelect" class="form-select">
+                <option value="">Все районы</option>
+                <option>Центральный</option>
+                <option>Петроградский</option>
+                <option>Адмиралтейский</option>
+                <option>Василеостровский</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="priceSelect" class="form-label">Цена</label>
+            <select id="priceSelect" class="form-select">
+                <option value="">Любая цена</option>
+                <option>₽ Дёшево</option>
+                <option>₽₽ Средне</option>
+                <option>₽₽₽ Дорого</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Список ресторанов (щас достаем из json)-->
+    <div class="row" id="restaurants-list"></div>
+</main>
+
+<footer class="footer">
+    <p>Наши контакты:</p>
+    <svg class="social-icon" viewBox="0 0 16 16" width="24" height="24">
+        <use href="sprite.svg#social-instagram"></use>
+    </svg>
+
+    <svg class="social-icon" viewBox="0 0 16 16" width="24" height="24">
+        <use href="sprite.svg#social-youtube"></use>
+    </svg>
+
+    <svg class="social-icon" viewBox="0 0 16 16" width="24" height="24">
+        <use href="sprite.svg#social-telegram"></use>   
+    </svg>
+</footer>
+
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/authNav.js"></script>
+</body>
+</html>
