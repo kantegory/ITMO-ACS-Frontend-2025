@@ -1,0 +1,50 @@
+/* базовый фон страницы */
+body {
+    background-color: #f1f3f5; /* чуть темнее, чем было */
+    color: #212529; /* стандартный тёмный текст bootstrap */
+}
+
+/* Карточки */
+.card {
+    background-color: #ffffff;
+    color: #212529;
+}
+
+/* заголовки чуть контрастнее */
+h1, h2, h3, h4, h5, h6 {
+    color: #111;
+}
+
+/* текст внутри карточек */
+.card-text,
+.card p {
+    color: #212529;
+}
+
+/* placeholder должен быть читаемым */
+.form-control::placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+/* select */
+.form-select {
+    color: #212529;
+}
+
+/* кнопка выхода (outline) - слабое место по контрасту */
+.btn-outline-secondary {
+    color: #212529;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+/* изображения карточек */
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
