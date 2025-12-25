@@ -92,3 +92,15 @@ h1, h2, h3, h4, h5, h6 {
     height: 200px;
     object-fit: cover;
 }
+
+.footer {
+  padding: 16px 0;
+  background-color: #212529; /* как navbar bg-dark */
+  text-align: center;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
+}
