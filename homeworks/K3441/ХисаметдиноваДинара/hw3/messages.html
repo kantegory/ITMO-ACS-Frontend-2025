@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages & Transactions - RentAparts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+    <style>
+        .messages-container {
+            height: 70vh;
+            overflow-y: auto;
+        }
+        .chat-list {
+            border-right: 1px solid #dee2e6;
+            height: 70vh;
+            overflow-y: auto;
+        }
+        .chat-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .chat-item:hover {
+            background-color: #f8f9fa;
+        }
+        .chat-item.active {
+            background-color: #e7f3ff;
+            border-left: 3px solid #007bff;
+        }
+        .message-bubble {
+            max-width: 70%;
+            border-radius: 18px;
+            padding: 10px 16px;
+        }
+        .message-sent {
+            background-color: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+        .message-received {
+            background-color: #f1f3f4;
+            color: #333;
+        }
+        .chat-input {
+            border-top: 1px solid #dee2e6;
+        }
+        .transaction-card {
+            transition: all 0.3s ease;
+        }
+        .transaction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">RentAparts</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="messages.html">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Dashboard</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown">
+                        <img src="https://ui-avatars.com/api/?name=User&background=007bff&color=fff&size=32"
+                             alt="Profile" class="rounded-circle me-2" width="32" height="32" id="userAvatar">
+                        <span id="userDisplayName">Loading...</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-light py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-1">Messages & Transactions</h1>
+                    <p class="text-muted mb-0">Manage your communications and booking history</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="viewMode" id="messagesView" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="messagesView">Messages</label>
+
+                        <input type="radio" class="btn-check" name="viewMode" id="transactionsView" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="transactionsView">Transactions</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4">
+        <div class="container">
+            <div id="messagesSection">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Conversations</h5>
+                                    <button class="btn btn-primary btn-sm" onclick="startNewConversation()">
+                                        <i class="fas fa-plus me-1"></i>New
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chat-list" id="chatList">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-bottom" id="chatHeader">
+                                <div class="text-center text-muted py-4">
+                                    <i class="fas fa-comments fa-3x mb-3"></i>
+                                    <p>Select a conversation to start messaging</p>
+                                </div>
+                            </div>
+
+                            <div class="messages-container p-3" id="messagesContainer">
+                                <div class="text-center text-muted py-5">
+                                    <i class="fas fa-comments fa-3x mb-3"></i>
+                                    <p>Select a conversation to view messages</p>
+                                </div>
+                            </div>
+
+                            <div class="chat-input p-3" id="chatInput" style="display: none;">
+                                <form id="messageForm">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="messageInput"
+                                               placeholder="Type a message..." autocomplete="off">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="transactionsSection" style="display: none;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body">
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Date Range</label>
+                                        <select class="form-select" id="dateFilter">
+                                            <option value="all">All Time</option>
+                                            <option value="30">Last 30 Days</option>
+                                            <option value="90">Last 3 Months</option>
+                                            <option value="365">Last Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Transaction Type</label>
+                                        <select class="form-select" id="typeFilter">
+                                            <option value="all">All Types</option>
+                                            <option value="booking">Bookings</option>
+                                            <option value="refund">Refunds</option>
+                                            <option value="payment">Payments</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-select" id="statusFilter">
+                                            <option value="all">All Status</option>
+                                            <option value="completed">Completed</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="cancelled">Cancelled</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary w-100" onclick="applyTransactionFilters()">
+                                            <i class="fas fa-filter me-2"></i>Apply Filters
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-primary text-white">
+                                    <div class="card-body text-center">
+                                        <h4 class="mb-1" id="totalTransactions">0</h4>
+                                        <small>Total Transactions</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <h4 class="mb-1" id="totalSpent">$0</h4>
+                                        <small>Total Spent</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-warning text-white">
+                                    <div class="card-body text-center">
+                                        <h4 class="mb-1" id="pendingTransactions">0</h4>
+                                        <small>Pending</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card border-0 bg-info text-white">
+                                    <div class="card-body text-center">
+                                        <h4 class="mb-1" id="completedTransactions">0</h4>
+                                        <small>Completed</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-bottom">
+                                <h5 class="mb-0">Transaction History</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="transactionsList">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="newConversationModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Start New Conversation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newConversationForm">
+                        <div class="mb-3">
+                            <label for="recipientType" class="form-label">Contact Type</label>
+                            <select class="form-select" id="recipientType">
+                                <option value="host">Property Host</option>
+                                <option value="support">Customer Support</option>
+                                <option value="guest">Guest (if you're a host)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="hostSelectDiv">
+                            <label for="hostSelect" class="form-label">Select Host</label>
+                            <select class="form-select" id="hostSelect">
+                                <option value="">Choose a host...</option>
+                                <option value="alex">Alex (Belgrade Apartment)</option>
+                                <option value="maria">Maria (Krakow Loft)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="messageSubject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="messageSubject"
+                                   placeholder="Enter message subject">
+                        </div>
+                        <div class="mb-3">
+                            <label for="initialMessage" class="form-label">Message</label>
+                            <textarea class="form-control" id="initialMessage" rows="4"
+                                      placeholder="Type your message here..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="sendNewConversation()">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="transactionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Transaction Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="transactionDetails">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="downloadReceipt()">Download Receipt</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 RentAparts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/messages.js"></script>
+</body>
+</html>
