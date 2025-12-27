@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <title>Детали вакансии</title>
+
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c7cbcc">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#273a43">
+
+    <script>
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'login.html';
+            return;
+        }
+        if (matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
+            document.documentElement.style.display = 'none';
+            document.head.insertAdjacentHTML(
+                'beforeend',
+                '<link rel="stylesheet" href="styles/light.css" onload="document.documentElement.style.display=\'\'">'
+            );
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/light.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="search.html">
+            <svg class="icon logo"><use xlink:href="../imgs/sprite.svg#logo"></use></svg>
+            <span>JobFinder</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="search.html">Поиск</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Аккаунт</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logout" href="login.html">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="vacancy-container">
+    <div class="vacancy-header">
+        <h2>Front-end разработчик</h2>
+        <p><strong>Компания:</strong> IT-компания</p>
+        <p><strong>Зарплата:</strong> 100 000 – 150 000 RUB</p>
+        <p><strong>Опыт работы:</strong> 2–4 года</p>
+    </div>
+    <div>
+        <h5 class="section-title">Описание</h5>
+        <p>
+            Мы ищем талантливого Front-end разработчика, который будет создавать современные веб-приложения.
+            В команде вы будете работать над проектами различной сложности, участвовать в обсуждении архитектуры
+            и внедрять новые технологии.
+        </p>
+    </div>
+    <div>
+        <h5 class="section-title">Требования</h5>
+        <ul>
+            <li>Опыт работы с HTML, CSS, JavaScript не менее 2 лет</li>
+            <li>Знание React или Vue</li>
+            <li>Опыт работы с Git и системами контроля версий</li>
+            <li>Понимание адаптивной верстки и принципов UX/UI</li>
+        </ul>
+    </div>
+    <div>
+        <h5 class="section-title">Будет плюсом</h5>
+        <ul>
+            <li>Опыт работы с TypeScript</li>
+            <li>Знание тестирования и CI/CD</li>
+        </ul>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/index.js"></script>
+</body>
+</html>
