@@ -4,6 +4,7 @@ import { restaurantsApi } from "@/api";
 const useRestaurantsStore = defineStore("restaurants", {
   state: () => ({
     restaurants: [],
+    menus: {},
   }),
 
   actions: {
@@ -23,6 +24,11 @@ const useRestaurantsStore = defineStore("restaurants", {
 
       const response = await restaurantsApi.filter(filters);
       this.restaurants = response.data;
+    },
+
+    async fetchMenus({ restaurantId }) {
+      const response = await restaurantsApi.getMenus({ restaurantId });
+      this.menus[restaurantId] = response.data;
     },
   },
 });

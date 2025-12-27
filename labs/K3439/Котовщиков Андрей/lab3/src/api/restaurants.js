@@ -9,6 +9,13 @@ class RestaurantsApi {
       params: data,
     });
   }
+
+  async getMenus(data) {
+    return this.API({
+      url: "/menus",
+      params: data,
+    });
+  }
 }
 
 export default RestaurantsApi;

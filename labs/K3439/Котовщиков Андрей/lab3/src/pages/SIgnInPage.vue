@@ -29,8 +29,8 @@ export default {
 
       this.isLoading = true;
       try {
-        await this.signIn({ email: this.email, code: this.code });
-        this.$router.push("/");
+        await this.signIn({ email: this.email.trim(), code: this.code.trim() });
+        this.$router.push({ name: "restaurant-list" });
         this.closeAuthCodeModal();
       } catch (err) {
         this.code = "";
@@ -119,7 +119,9 @@ export default {
                 Запросить код
               </button>
 
-              <a href="sign-up.html" class="text-decoration-none">Зарегистрироваться</a>
+              <router-link :to="{ name: 'sign-up' }" class="text-decoration-none"
+                >Зарегистрироваться</router-link
+              >
               <spinner v-if="isLoading" />
             </div>
           </form>

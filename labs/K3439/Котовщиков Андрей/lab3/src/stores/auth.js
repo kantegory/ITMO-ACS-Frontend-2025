@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import { authApi } from "@/api";
 
-const useAuthStore = defineStore("notes", {
+const useAuthStore = defineStore("auth", {
   state: () => ({
     accessToken: null,
     authCode: null,
+    profile: null,
   }),
 
   getters: {
@@ -25,8 +26,37 @@ const useAuthStore = defineStore("notes", {
 
       const response = await authApi.login({ email, password: "password" });
       const { accessToken } = response.data;
+      await this.fetchProfile({ accessToken });
       this.accessToken = accessToken;
       this.authCode = null;
+    },
+
+    async signUp({ email, firstName, lastName }) {
+      const response = await authApi.register({ email, firstName, lastName, password: "password" });
+      const { accessToken } = response.data;
+      await this.fetchProfile({ accessToken });
+      this.accessToken = accessToken;
+    },
+
+    async fetchProfile({ accessToken }) {
+      const response = await authApi.getProfile({ accessToken });
+      this.profile = response.data;
+      await this.fetchBookings({ accessToken });
+    },
+
+    async fetchBookings({ accessToken }) {
+      const response = await authApi.getBookings({ accessToken });
+      this.profile.booking = response.data;
+    },
+
+    async editProfile({ firstName, lastName }) {
+      if (firstName) {
+        this.profile.firstName = firstName;
+      }
+
+      if (lastName) {
+        this.profile.lastName = lastName;
+      }
     },
   },
 });

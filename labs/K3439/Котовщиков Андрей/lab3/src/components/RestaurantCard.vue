@@ -1,6 +1,7 @@
 <script>
 export default {
   name: "RestaurantCard",
+
   props: {
     id: {
       type: Number,
@@ -48,7 +49,7 @@ export default {
         src="https://zefirka.club/uploads/posts/2023-01/1673355119_22-zefirka-club-p-znak-voprosa-na-chernom-fone-46.jpg"
         ,
         class="restaurant-image card-img-top"
-        alt="{{ name }}"
+        :alt="name"
       />
       <div class="card-body">
         <h3 class="restaurant-card-title card-title">{{ name }}</h3>
@@ -58,8 +59,10 @@ export default {
           <li class="card-bg list-group-item">Кухня: {{ cuisinesString }}</li>
           <li class="card-bg list-group-item">Цена: От {{ priceFrom }} рублей</li>
         </ul>
-        <a href="restaurant-detail.html?id=${id}&name=${name}" class="btn btn-primary text-white"
-          >Подробнее</a
+        <router-link
+          :to="{ name: 'restaurant', params: { id, name } }"
+          class="btn btn-primary text-white"
+          >Подробнее</router-link
         >
       </div>
     </div>

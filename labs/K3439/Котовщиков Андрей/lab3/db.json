@@ -6,6 +6,20 @@
       "firstName": "Андрей",
       "lastName": "Котовщиков",
       "id": 1
+    },
+    {
+      "email": "example2@gmail.com",
+      "password": "$2a$10$t4c//a2iNPIXZbIoh66Xl.N4W5gqUp4DJTwlFXaEX/eYlcrtH9UGK",
+      "firstName": "Andrew",
+      "lastName": "Temp",
+      "id": 2
+    },
+    {
+      "email": "example3@gmail.com",
+      "password": "$2a$10$uCYiR5hXyvnKbKbGER9W5O/st163qZLGgNg3SidUJABrSoC0JVUdq",
+      "firstName": "Andrew",
+      "lastName": "Temp",
+      "id": 3
     }
   ],
   "restaurants": [
@@ -132,7 +146,7 @@
       "restaurantId": 6
     }
   ],
- "menus": [
+  "menus": [
     {
       "id": 1,
       "restaurantId": 1,

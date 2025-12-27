@@ -7,7 +7,6 @@ import store from "@/stores";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "@/assets/main.css";
-import "@/assets/light.css";
 
 const app = createApp(App);
 

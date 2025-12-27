@@ -19,7 +19,6 @@ export default {
     ...mapActions(useRestaurantsStore, ["fetchRestaurants"]),
 
     async onFilterRestaurants() {
-      console.log(this.filters);
       this.isLoading = true;
       try {
         await this.fetchRestaurants(this.filters);
