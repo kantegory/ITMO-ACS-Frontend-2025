@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Детали объявления — FastRent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="property">
+  <nav class="navbar navbar-expand-lg py-3 container">
+    <a class="navbar-brand brand" href="index.html">FastRent</a>
+    <div id="nav-user" class="ms-auto"></div>
+  </nav>
+
+  <main class="container py-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <div id="propTitle" class="h4"></div>
+        <div class="text-muted mb-2" id="propLocation"></div>
+
+        <!-- carousel -->
+        <div id="propCarousel" class="carousel slide mb-3">
+          <div class="carousel-inner" id="carouselInner"></div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#propCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#propCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+
+        <h6>Описание</h6>
+        <p id="propDesc" class="text-muted"></p>
+
+        <h6>Условия аренды</h6>
+        <p id="propTerms" class="text-muted"></p>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card card-custom p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="text-muted small" id="propMeta"></div>
+              <h4 id="propPrice" class="mb-0"></h4>
+            </div>
+            <div>
+              <button id="contactBtn" class="btn btn-outline-secondary mb-2">Связаться с владельцем</button>
+              <button id="bookPropBtn" class="btn btn-primary d-block">Забронировать</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-custom mt-3 p-3">
+          <small class="text-muted">Данные владельца (демо)</small>
+            <div class="mt-2"><strong>Имя владельца</strong><div class="text-muted small">owner@example.com</div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Booking Modal reused -->
+  <div class="modal fade" id="bookModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="bookForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookModalLabel">Бронирование</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input id="bookPropertyId" name="propertyId" type="hidden">
+          <div class="mb-3">
+            <label class="form-label">Дата заселения</label>
+            <input type="date" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Сообщение</label>
+            <textarea class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Отмена</button>
+          <button class="btn btn-primary" type="submit">Отправить запрос</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer text-center">
+    <div class="container">
+      <small>© 2025 FastRent </small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
