@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4 flex-grow-1">
     <div class="row">
       <aside class="col-md-3 mb-3">
         <div class="list-group">

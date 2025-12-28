@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-4">
+  <div class="container my-4 flex-grow-1">
     <div class="row g-4">
       <FilterPanel @filter="handleFilter" />
       

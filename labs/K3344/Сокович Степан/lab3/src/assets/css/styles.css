@@ -14,12 +14,22 @@
     --border-radius: 15px;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: var(--bg-primary);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-primary);
-    margin: 0;
-    padding: 0;
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
