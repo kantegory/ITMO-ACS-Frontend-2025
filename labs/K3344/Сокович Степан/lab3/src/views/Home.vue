@@ -104,7 +104,7 @@ const handleBooking = async (bookingData) => {
     notificationMessage.value = 'Бронирование успешно создано!'
     showNotification.value = true
     setTimeout(() => {
-      router.push('/profile')
+      router.push({ name: 'Profile', query: { tab: 'bookings' } })
     }, 1500)
   } catch (err) {
     console.error('Booking error:', err)

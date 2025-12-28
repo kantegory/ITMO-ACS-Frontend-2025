@@ -109,6 +109,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
 import { useBookings } from '@/composables/useBookings'
 import { useListings } from '@/composables/useListings'
@@ -116,11 +117,12 @@ import DetailsModal from '@/components/DetailsModal.vue'
 import ConfirmationModal from '@/components/ConfirmationModal.vue'
 import NotificationModal from '@/components/NotificationModal.vue'
 
+const route = useRoute()
 const { currentUser } = useAuth()
 const { bookings, loading: bookingsLoading, error: bookingsError, fetchBookings, cancelBooking: cancelBookingApi } = useBookings()
 const { getListingById } = useListings()
 
-const activeTab = ref('profile')
+const activeTab = ref(route.query.tab === 'bookings' ? 'bookings' : 'profile')
 const showDetailsModal = ref(false)
 const selectedListing = ref(null)
 const showConfirmation = ref(false)
