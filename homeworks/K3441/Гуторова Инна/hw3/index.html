@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FitPlatform — Главная</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/main.js"></script>
+    <script defer src="js/theme.js"></script>
+
+</head>
+
+<body style="padding-top: 0;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm" role="navigation"
+        aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">FitPlatform</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
+                aria-controls="navMain" aria-expanded="false" aria-label="Открыть меню навигации">
+                <span class="navbar-toggler-icon" aria-hidden="true"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="workouts.html">Тренировки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Блог</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link auth-only" href="profile.html" aria-label="Перейти в личный кабинет">
+                            Личный кабинет
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        aria-label="Открыть окно входа">
+                        Вход
+                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal"
+                        aria-label="Открыть окно регистрации">
+                        Регистрация
+                </div>
+            </div>
+        </div>
+        <button id="themeToggle" class="btn btn-secondary me-2" aria-label="Переключить тему">
+            🌙
+        </button>
+    </nav>
+
+    <main class="hero text-center" role="main" aria-labelledby="hero-title">
+        <div class="container">
+            <h1 id="hero-title" class="display-6">
+                Платформа для фитнес-тренировок и здоровья
+            </h1>
+            <p class="lead">
+                Тренируйтесь дома или в зале — выбирайте подходящие программы.
+            </p>
+            <div class="mt-4">
+                <a href="workouts.html" class="btn btn-light btn-lg me-2" aria-label="Перейти к списку тренировок">
+                    Найти тренировку
+                </a>
+                <a href="blog.html" class="btn btn-outline-light btn-lg" aria-label="Перейти в блог">
+                    Читать блог
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="loginForm" class="needs-validation" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Вход</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Закрыть окно входа"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email</label>
+                            <input type="email" id="loginEmail" class="form-control" required aria-required="true">
+                            <div class="invalid-feedback">
+                                Введите корректный email.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Пароль</label>
+                            <input type="password" id="loginPassword" class="form-control" required
+                                aria-required="true">
+                            <div class="invalid-feedback">
+                                Введите пароль.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-link" data-bs-target="#registerModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Перейти к регистрации">
+                            Регистрация
+                        </button>
+                        <button type="submit" class="btn btn-primary" aria-label="Войти в аккаунт">
+                            Войти
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="registerForm" class="needs-validation" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Закрыть окно регистрации"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="regName" class="form-label">Имя</label>
+                            <input type="text" id="regName" class="form-control" required aria-required="true">
+                            <div class="invalid-feedback">Введите имя.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regEmail" class="form-label">Email</label>
+                            <input type="email" id="regEmail" class="form-control" required aria-required="true">
+                            <div class="invalid-feedback">Введите корректный email.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regPassword" class="form-label">Пароль</label>
+                            <input type="password" id="regPassword" class="form-control" required aria-required="true">
+                            <div class="invalid-feedback">Минимум 8 символов.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regConfirm" class="form-label">
+                                Подтверждение пароля
+                            </label>
+                            <input type="password" id="regConfirm" class="form-control" required aria-required="true">
+                            <div class="invalid-feedback">Пароли не совпадают.</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-link" data-bs-target="#loginModal" data-bs-toggle="modal"
+                            data-bs-dismiss="modal" aria-label="Перейти ко входу">
+                            Вход
+                        </button>
+                        <button type="submit" class="btn btn-primary" aria-label="Зарегистрироваться">
+                            Зарегистрироваться
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/authVisibility.js"></script>
+
+</body>
+
+</html>
