@@ -49,6 +49,14 @@
       @close="showBookingModal = false"
       @submit="handleBooking"
     />
+
+    <NotificationModal
+      :show="showNotification"
+      :type="notificationType"
+      :title="notificationTitle"
+      :message="notificationMessage"
+      @close="showNotification = false"
+    />
   </div>
 </template>
 
@@ -61,6 +69,7 @@ import FilterPanel from '@/components/FilterPanel.vue'
 import ListingCard from '@/components/ListingCard.vue'
 import DetailsModal from '@/components/DetailsModal.vue'
 import BookingModal from '@/components/BookingModal.vue'
+import NotificationModal from '@/components/NotificationModal.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -71,6 +80,10 @@ const { isAuthenticated } = useAuth()
 const showDetailsModal = ref(false)
 const showBookingModal = ref(false)
 const selectedListing = ref(null)
+const showNotification = ref(false)
+const notificationType = ref('success')
+const notificationTitle = ref('')
+const notificationMessage = ref('')
 
 const handleFilter = (filters) => {
   fetchListings(filters)
@@ -86,10 +99,20 @@ const handleBooking = async (bookingData) => {
       bookingData.endDate
     )
     showBookingModal.value = false
-    alert('Бронирование успешно создано!')
-    router.push('/profile')
+    notificationType.value = 'success'
+    notificationTitle.value = 'Успешно'
+    notificationMessage.value = 'Бронирование успешно создано!'
+    showNotification.value = true
+    setTimeout(() => {
+      router.push('/profile')
+    }, 1500)
   } catch (err) {
     console.error('Booking error:', err)
+    showBookingModal.value = false
+    notificationType.value = 'error'
+    notificationTitle.value = 'Ошибка'
+    notificationMessage.value = err.message || 'Не удалось создать бронирование'
+    showNotification.value = true
   }
 }
 

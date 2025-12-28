@@ -88,6 +88,22 @@
       :listing="selectedListing"
       @close="showDetailsModal = false"
     />
+
+    <ConfirmationModal
+      :show="showConfirmation"
+      title="Подтверждение отмены"
+      message="Вы уверены, что хотите отменить бронирование?"
+      @close="showConfirmation = false"
+      @confirm="handleConfirmCancel"
+    />
+
+    <NotificationModal
+      :show="showNotification"
+      :type="notificationType"
+      :title="notificationTitle"
+      :message="notificationMessage"
+      @close="showNotification = false"
+    />
   </div>
 </template>
 
@@ -97,6 +113,8 @@ import { useAuth } from '@/composables/useAuth'
 import { useBookings } from '@/composables/useBookings'
 import { useListings } from '@/composables/useListings'
 import DetailsModal from '@/components/DetailsModal.vue'
+import ConfirmationModal from '@/components/ConfirmationModal.vue'
+import NotificationModal from '@/components/NotificationModal.vue'
 
 const { currentUser } = useAuth()
 const { bookings, loading: bookingsLoading, error: bookingsError, fetchBookings, cancelBooking: cancelBookingApi } = useBookings()
@@ -105,6 +123,12 @@ const { getListingById } = useListings()
 const activeTab = ref('profile')
 const showDetailsModal = ref(false)
 const selectedListing = ref(null)
+const showConfirmation = ref(false)
+const showNotification = ref(false)
+const notificationType = ref('error')
+const notificationTitle = ref('')
+const notificationMessage = ref('')
+const bookingToCancel = ref(null)
 
 const listingsCache = ref({})
 const listingTitles = ref({})
@@ -138,14 +162,28 @@ const viewBooking = async (booking) => {
   }
 }
 
-const cancelBooking = async (bookingId) => {
-  if (confirm('Вы уверены, что хотите отменить бронирование?')) {
-    try {
-      await cancelBookingApi(bookingId)
-    } catch (err) {
-      console.error('Error canceling booking:', err)
-      alert('Ошибка при отмене бронирования')
-    }
+const cancelBooking = (bookingId) => {
+  bookingToCancel.value = bookingId
+  showConfirmation.value = true
+}
+
+const handleConfirmCancel = async () => {
+  if (!bookingToCancel.value) return
+  
+  try {
+    await cancelBookingApi(bookingToCancel.value)
+    notificationType.value = 'success'
+    notificationTitle.value = 'Успешно'
+    notificationMessage.value = 'Бронирование успешно отменено'
+    showNotification.value = true
+    bookingToCancel.value = null
+  } catch (err) {
+    console.error('Error canceling booking:', err)
+    notificationType.value = 'error'
+    notificationTitle.value = 'Ошибка'
+    notificationMessage.value = err.message || 'Ошибка при отмене бронирования'
+    showNotification.value = true
+    bookingToCancel.value = null
   }
 }
 
