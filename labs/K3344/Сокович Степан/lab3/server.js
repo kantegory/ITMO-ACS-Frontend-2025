@@ -1,13 +1,15 @@
-const jsonServer = require('json-server')
-const path = require('path')
-const fs = require('fs')
+import jsonServer from 'json-server'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import customMiddleware from './middleware.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const server = jsonServer.create()
-const dbPath = path.join(__dirname, 'db.json')
+const dbPath = join(__dirname, 'db.json')
 const router = jsonServer.router(dbPath)
 const middlewares = jsonServer.defaults()
-
-const customMiddleware = require('./middleware.js')
 
 server.use(middlewares)
 server.use(customMiddleware)
