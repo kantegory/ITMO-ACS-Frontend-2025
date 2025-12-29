@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Личный кабинет — FitPlatform</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <style>
+        body.loaded main {
+            opacity: 1;
+        }
+
+        main {
+            opacity: 0;
+            transition: opacity .2s ease-in-out;
+        }
+    </style>
+
+    <script defer src="js/profile.js"></script>
+    <script defer src="js/theme.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">FitPlatform</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="workouts.html">Тренировки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Блог</a></li>
+                    <li class="nav-item"><a class="nav-link" id="profileLink" href="profile.html">Личный кабинет</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button id="themeToggle" class="btn btn-secondary me-2" aria-label="Переключить тему">
+            🌙
+        </button>
+    </nav>
+
+    <main class="container my-4">
+
+        <h2 class="mb-4">Личный кабинет</h2>
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-4">
+                <div class="card text-center p-3">
+                    <h3>Прогресс</h3>
+                    <p class="h2" id="stat-progress">—</p>
+                    <small>Выполнение плана</small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center p-3">
+                    <h3>Тренировок</h3>
+                    <p class="h2" id="stat-workouts">—</p>
+                    <small>За месяц</small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center p-3">
+                    <h3>Общее время</h3>
+                    <p class="h2" id="stat-hours">—</p>
+                    <small>Тренировок</small>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <h4 class="section-title">История тренировок</h4>
+                <div id="history-list"></div>
+            </div>
+
+            <div class="col-md-6">
+                <h4 class="section-title">Запланированные тренировки</h4>
+                <div id="planned-list"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("loaded");
+        });
+    </script>
+
+</body>
+
+</html>
