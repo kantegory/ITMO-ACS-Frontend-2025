@@ -10,35 +10,38 @@
 <body class="bg-light">
     <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
-    <div>
-        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2">
+    <nav class="navbar border-bottom" style="background: var(--bg-navbar); border-color: var(--border-color);">
+        <div class="container py-2 d-flex align-items-center gap-2 flex-wrap">
+        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn">
             <svg class="icon" aria-hidden="true" focusable="false">
-                <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+            <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
             </svg>
             <span data-theme-text>Тёмная тема</span>
         </button>
 
-        <a href="search.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+        <a href="search.html" class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1">
             <svg class="icon" aria-hidden="true" focusable="false">
-                <use href="../assets/icons/sprite.svg#icon-search"></use>
+            <use href="../assets/icons/sprite.svg#icon-search"></use>
             </svg>
             Поиск
         </a>
 
-        <a href="profile.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
+        <a href="profile.html" class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1">
             <svg class="icon" aria-hidden="true" focusable="false">
-                <use href="../assets/icons/sprite.svg#icon-user"></use>
+            <use href="../assets/icons/sprite.svg#icon-user"></use>
             </svg>
             Профиль
         </a>
 
-        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
+        <a href="signin.html" id="logout-btn"
+            class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1 ms-auto">
             <svg class="icon" aria-hidden="true" focusable="false">
-                <use href="../assets/icons/sprite.svg#icon-logout"></use>
+            <use href="../assets/icons/sprite.svg#icon-logout"></use>
             </svg>
             Выйти
         </a>
-    </div>
+        </div>
+    </nav>
 
     <main id="main-content">
         <div class="container py-3">
