@@ -42,7 +42,13 @@ function renderRecipes(list) {
           <div class="card-body">
             <h1 class="h4 card-title">${r.name}</h1>
             <p class="card-text small text-muted">${r.text}</p>
-            <p><strong>Ингредиенты:</strong> ${r.ingredients.join(", ")}</p>
+            <div>
+              <strong>Ингредиенты:</strong>
+              <div class="ingredients-list collapsed">
+                ${r.ingredients.map(i => `<span>${i}</span>`).join("")}
+              </div>
+              ${r.ingredients.length > 10 ? `<div class="ingredients-toggle">Показать ещё</div>` : ""}
+            </div>
             <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][r.difficulty - 1]}</p>
             <p><strong>Тип:</strong> ${["Завтрак", "Обед", "Ужин", "Десерт", "Напиток"][r.type - 1]}</p>
             <p><strong>Автор:</strong> ${r.author}</p>
@@ -106,5 +112,42 @@ Array.from(ingredientsSet).sort().forEach(ingredient => {
   })
 
   ingredientsContainer.appendChild(label)
-})
 
+  ingredientsContainer.classList.add("ingredients-filter")
+
+  let ingredientsToggle = document.getElementById("ingredientsToggle")
+  if (!ingredientsToggle) {
+    ingredientsToggle = document.createElement("button")
+    ingredientsToggle.id = "ingredientsToggle"
+    ingredientsToggle.type = "button"
+    ingredientsToggle.className = "mt-2"
+    ingredientsContainer.insertAdjacentElement("afterend", ingredientsToggle)
+  }
+
+  const syncIngredientsToggle = () => {
+    const items = ingredientsContainer.querySelectorAll("label")
+    const shouldCollapse = items.length > 3
+    if (!shouldCollapse) {
+      ingredientsContainer.classList.remove("collapsed")
+      ingredientsToggle.classList.add("d-none")
+      return
+    }
+    ingredientsToggle.classList.remove("d-none")
+    if (!ingredientsContainer.classList.contains("collapsed")) ingredientsContainer.classList.add("collapsed")
+    ingredientsToggle.textContent = ingredientsContainer.classList.contains("collapsed") ? "Показать ещё" : "Скрыть"
+  }
+
+  console.log('asdasdf');
+  
+
+  if (!ingredientsToggle.dataset.bound) {
+    ingredientsToggle.dataset.bound = "1"
+    ingredientsToggle.addEventListener("click", () => {
+      ingredientsContainer.classList.toggle("collapsed")
+      ingredientsToggle.textContent = ingredientsContainer.classList.contains("collapsed") ? "Показать ещё" : "Скрыть"
+    })
+  }
+
+  syncIngredientsToggle()
+
+})

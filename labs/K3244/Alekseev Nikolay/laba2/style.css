@@ -126,3 +126,44 @@ label.form-check-inline {
 .btn-outline-danger{
   color: #dc3545 !important;
 }
+
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ingredients-list.collapsed > span:nth-child(n+11) {
+  display: none;
+}
+
+.ingredients-toggle {
+  cursor: pointer;
+  color: var(--link);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+#ingredientsContainer.ingredients-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+#ingredientsContainer.ingredients-filter label {
+  width: 100%;
+}
+
+#ingredientsContainer.ingredients-filter.collapsed > label:nth-child(n+2) {
+  display: none;
+}
+
+#ingredientsToggle {
+  cursor: pointer;
+  color: var(--link);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
+}
