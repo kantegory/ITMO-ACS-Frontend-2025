@@ -10,35 +10,38 @@
 <body class="bg-light">
     <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
-    <div>
-        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn me-2">
-            <svg class="icon" aria-hidden="true" focusable="false">
-                <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
-            </svg>
-            <span data-theme-text>Тёмная тема</span>
+    <nav class="navbar border-bottom" style="background: var(--bg-navbar); border-color: var(--border-color);">
+    <div class="container py-2 d-flex align-items-center gap-2 flex-wrap">
+        <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm theme-toggle-btn">
+        <svg class="icon" aria-hidden="true" focusable="false">
+            <use data-theme-icon href="../assets/icons/sprite.svg#icon-moon"></use>
+        </svg>
+        <span data-theme-text>Тёмная тема</span>
         </button>
 
-        <a href="search.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
-            <svg class="icon" aria-hidden="true" focusable="false">
-                <use href="../assets/icons/sprite.svg#icon-search"></use>
-            </svg>
-            Поиск
+        <a href="search.html" class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1">
+        <svg class="icon" aria-hidden="true" focusable="false">
+            <use href="../assets/icons/sprite.svg#icon-search"></use>
+        </svg>
+        Поиск
         </a>
 
-        <a href="my-properties.html" class="btn btn-outline-primary btn-sm me-2 d-inline-flex align-items-center gap-1">
-            <svg class="icon" aria-hidden="true" focusable="false">
-                <use href="../assets/icons/sprite.svg#icon-home"></use>
-            </svg>
-            Мои объявления
+        <a href="my-properties.html" class="btn btn-outline-primary btn-sm d-inline-flex align-items-center gap-1">
+        <svg class="icon" aria-hidden="true" focusable="false">
+            <use href="../assets/icons/sprite.svg#icon-home"></use>
+        </svg>
+        Мои объявления
         </a>
 
-        <a href="signin.html" id="logout-btn" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1">
-            <svg class="icon" aria-hidden="true" focusable="false">
-                <use href="../assets/icons/sprite.svg#icon-logout"></use>
-            </svg>
-            Выйти
+        <a href="signin.html" id="logout-btn"
+        class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1 ms-auto">
+        <svg class="icon" aria-hidden="true" focusable="false">
+            <use href="../assets/icons/sprite.svg#icon-logout"></use>
+        </svg>
+        Выйти
         </a>
     </div>
+    </nav>
 
     <main id="main-content" class="container-fluid px-4 py-4">
         <div class="alert alert-danger d-none mb-3" data-error role="alert" aria-live="assertive"></div>
