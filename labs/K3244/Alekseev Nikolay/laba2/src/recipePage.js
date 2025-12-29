@@ -1,5 +1,5 @@
-import { currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage } from "./data.js"
-import { getRecipe } from "./api.js"
+import { currentUser, saveUserToStorage, saveRecipeToStorage, saveCommentToStorage } from "./data.js"
+import { getRecipe, patchMe, toggleSubscription, getUser, patchRecipe } from "./api.js"
 import { applyTheme } from "./theme.js"
 applyTheme(JSON.parse(localStorage.getItem("currentUser") || "null")?.theme)
 
@@ -23,7 +23,7 @@ if (!recipe) {
       <div class="ratio ratio-16x9 mt-4">
         <iframe src="${recipe.video}" allowfullscreen></iframe>
       </div>` : ""}
-      <p><strong>Автор:</strong> ${recipe.author}</p>
+      <p id="authorLine"><strong>Автор:</strong> ${recipe.author}</p>
       <div class="d-flex align-items-center gap-3">
         <p class="d-inline mb-0"> ${recipe.likes} </p>
         <svg fill="#cc2424" width="30px" height="30px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg" stroke="#cc2424"><g id="SVGRepo_bgCarrier"
@@ -35,69 +35,122 @@ if (!recipe) {
     </div>
   `
 
+  const me = JSON.parse(localStorage.getItem("currentUser") || "null")
+
   const saveBtn = document.createElement("button")
-  saveBtn.classList.add("btn", currentUser.isRecipeSaved(recipe.id) ? "btn-success" : "btn-outline-success")
-  saveBtn.textContent = currentUser.isRecipeSaved(recipe.id) ? "Сохранено" : "Сохранить"
+  const savedIds = new Set(
+    (me?.savedRecipeIds || me?.savedRecipes || []).map(Number)
+  )
+  
+  saveBtn.classList.add("btn", savedIds.has(Number(recipe.id))
+    ? "btn-success"
+    : "btn-outline-success"
+  )
+  
+  saveBtn.textContent = savedIds.has(Number(recipe.id))
+    ? "Сохранено"
+    : "Сохранить"
   container.append(saveBtn)
-  saveBtn.addEventListener("click", () => {
-    if (currentUser.isRecipeSaved(recipe.id)) {
-      currentUser.unsaveRecipe(recipe.id)
+  saveBtn.addEventListener("click", async () => {
+    const me = JSON.parse(localStorage.getItem("currentUser") || "null")
+    const key = Array.isArray(me?.savedRecipeIds) ? "savedRecipeIds" : "savedRecipes"
+    const current = Array.isArray(me?.[key]) ? me[key] : []
+    const id = Number(recipe.id)
+  
+    const set = new Set(current.map(Number))
+  
+    if (set.has(id)) {
+      set.delete(id)
       saveBtn.textContent = "Сохранить"
       saveBtn.classList.remove("btn-success")
       saveBtn.classList.add("btn-outline-success")
     } else {
-      currentUser.saveRecipe(recipe.id)
+      set.add(id)
       saveBtn.textContent = "Сохранено"
       saveBtn.classList.remove("btn-outline-success")
       saveBtn.classList.add("btn-success")
     }
-    saveUserToStorage(currentUser)
+  
+    const updated = await patchMe({ [key]: Array.from(set) })
+    localStorage.setItem("currentUser", JSON.stringify(updated))
   })
 
+  const authorId = Number(recipe.authorId)
+
+  if (me && authorId && Number(me.id) !== authorId) {
+    const subBtn = document.createElement("button")
+    subBtn.type = "button"
+    subBtn.className = "btn btn-outline-primary ms-2"
+
+    const setBtn = () => {
+      const subs = new Set((me.subscriptions || []).map(Number))
+      subBtn.textContent = subs.has(authorId) ? "Отписаться" : "Подписаться"
+    }
+
+    setBtn()
+
+    subBtn.addEventListener("click", async () => {
+      const updated = await toggleSubscription(authorId)
+      me.subscriptions = updated.subscriptions || []
+      setBtn()
+    })
+
+    const authorLine = document.getElementById("authorLine")
+    if (authorLine) authorLine.appendChild(subBtn)
+  }
+
   const likeBtn = document.createElement("button")
-  likeBtn.classList.add("btn", currentUser.isRecipeLiked(recipe.id) ? "btn-danger" : "btn-outline-danger")
-  likeBtn.textContent = currentUser.isRecipeLiked(recipe.id) ? "Убрать лайк" : "Поставить лайк"
+  const likedIds = new Set(
+    (me?.likedRecipeIds || me?.likedRecipes || []).map(Number)
+  )
+  
+  likeBtn.classList.add("btn", likedIds.has(Number(recipe.id))
+    ? "btn-danger"
+    : "btn-outline-danger"
+  )
+  
+  likeBtn.textContent = likedIds.has(Number(recipe.id))
+    ? "Убрать лайк"
+    : "Поставить лайк"
+  
   container.append(likeBtn)
-  likeBtn.addEventListener("click", () => {
-    if (currentUser.isRecipeLiked(recipe.id)) {
-      currentUser.unlikeRecipe(recipe.id)
+  likeBtn.addEventListener("click", async () => {
+    const me = JSON.parse(localStorage.getItem("currentUser") || "null")
+    const key = Array.isArray(me?.likedRecipeIds) ? "likedRecipeIds" : "likedRecipes"
+    const current = Array.isArray(me?.[key]) ? me[key] : []
+    const rid = Number(recipe.id)
+  
+    const set = new Set(current.map(Number))
+  
+    let nextLikes = Number(recipe.likes) || 0
+  
+    if (set.has(rid)) {
+      set.delete(rid)
       likeBtn.textContent = "Поставить лайк"
       likeBtn.classList.remove("btn-danger")
       likeBtn.classList.add("btn-outline-danger")
-      recipe.likes--
+      nextLikes = Math.max(0, nextLikes - 1)
+      currentUser.unlikeRecipe(rid)
     } else {
-      currentUser.likeRecipe(recipe.id)
+      set.add(rid)
       likeBtn.textContent = "Убрать лайк"
       likeBtn.classList.remove("btn-outline-danger")
       likeBtn.classList.add("btn-danger")
-      recipe.likes++
+      nextLikes = nextLikes + 1
+      currentUser.likeRecipe(rid)
     }
-    saveRecipeToStorage(recipe)
-    saveUserToStorage(currentUser)
+  
+    const [updated] = await Promise.all([
+      patchMe({ [key]: Array.from(set) }),
+      patchRecipe(rid, { likes: nextLikes })
+    ])
+  
+    if (Array.isArray(updated?.likedRecipeIds)) currentUser.likedRecipeIds = updated.likedRecipeIds
+    if (Array.isArray(updated?.likedRecipes)) currentUser.likedRecipes = updated.likedRecipes
+  
+    recipe.likes = nextLikes
     container.querySelector("p.d-inline").textContent = recipe.likes
   })
-
-  const author = authors.find(a => a.id === recipe.authorId)
-  const subBtn = document.createElement("button")
-  const isSubscribed = author.isSubscribed(currentUser.id)
-  subBtn.classList.add("btn", isSubscribed ? "btn-primary" : "btn-outline-primary")
-  subBtn.textContent = isSubscribed ? "Отписаться" : "Подписаться"
-  container.append(subBtn)
-  subBtn.addEventListener("click", () => {
-    if (author.isSubscribed(currentUser.id)) {
-      author.removeSubscriber(currentUser.id)
-      subBtn.textContent = "Подписаться"
-      subBtn.classList.remove("btn-primary")
-      subBtn.classList.add("btn-outline-primary")
-    } else {
-      author.addSubscriber(currentUser.id)
-      subBtn.textContent = "Отписаться"
-      subBtn.classList.remove("btn-outline-primary")
-      subBtn.classList.add("btn-primary")
-    }
-    saveAuthorToStorage(author)
-  })
-
   const commentsSection = document.createElement("div")
   commentsSection.classList.add("mt-4")
   const commentsTitle = document.createElement("h3")

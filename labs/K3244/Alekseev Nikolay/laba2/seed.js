@@ -54,6 +54,7 @@ async function main() {
       ingredients,
       difficulty: mapDifficulty(ingredients.length),
       type: mapType(m.strCategory),
+      authorId: 1000,
       author: "TheMealDB",
       likes: 0
     }
@@ -64,6 +65,19 @@ async function main() {
 
   const raw = await fs.readFile("./db.json", "utf-8").catch(() => `{"users":[],"recipes":[]}`)
   const db = JSON.parse(raw)
+  if (!Array.isArray(db.users)) db.users = []
+  if (!db.users.some(u => Number(u.id) === 1000)) {
+    db.users.push({
+      id: 1000,
+      name: "TheMealDB",
+      email: "TheMealDB",
+      theme: "light",
+      subscriptions: [],
+      savedRecipeIds: [],
+      likedRecipeIds: []
+    })
+  }
+
   db.recipes = Array.from(unique.values())
   if (!Array.isArray(db.users)) db.users = []
 

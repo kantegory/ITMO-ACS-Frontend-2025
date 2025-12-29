@@ -1,4 +1,4 @@
-import { recipes, currentUser, saveUserToStorage } from "./data.js"
+import { getRecipes, patchMe } from "./api.js"
 import { applyTheme, setTheme } from "./theme.js"
 
 if (!localStorage.getItem("accessToken")) {
@@ -6,9 +6,11 @@ if (!localStorage.getItem("accessToken")) {
 }
 
 
+const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null")
 applyTheme(currentUser?.theme)
 
-document.getElementById("profileName").textContent = `Профиль: ${currentUser.name}`
+document.getElementById("profileName").textContent = `Профиль: ${currentUser?.name || ""}`
+
 
 const toolbar = document.createElement("div")
 toolbar.className = "d-flex gap-2 mb-4"
@@ -22,12 +24,15 @@ toolbar.appendChild(themeBtn)
 
 document.getElementById("profileName").insertAdjacentElement("beforebegin", toolbar)
 
-themeBtn.addEventListener("click", () => {
-  currentUser.theme = currentUser.theme === "dark" ? "light" : "dark"
-  saveUserToStorage(currentUser)
-  setTheme(currentUser.theme)
-  themeBtn.textContent = currentUser.theme === "dark" ? "Тема: тёмная" : "Тема: светлая"
+themeBtn.addEventListener("click", async () => {
+  const next = currentUser.theme === "dark" ? "light" : "dark"
+  currentUser.theme = next
+  const updated = await patchMe({ theme: next })
+  localStorage.setItem("currentUser", JSON.stringify(updated))
+  setTheme(next)
+  themeBtn.textContent = next === "dark" ? "Тема: тёмная" : "Тема: светлая"
 })
+
 
 function renderRecipeCard(recipe) {
   const card = document.createElement("div")
@@ -56,6 +61,12 @@ document.getElementById("logoutBtn").addEventListener("click", e => {
 const myRecipesContainer = document.getElementById("myRecipes")
 const savedContainer = document.getElementById("savedRecipes")
 
-currentUser.getMyRecipes(recipes).forEach(r => myRecipesContainer.appendChild(renderRecipeCard(r)))
+const recipes = await getRecipes()
 
-currentUser.getSavedRecipes(recipes).forEach(r => savedContainer.appendChild(renderRecipeCard(r)))
+const my = recipes.filter(r => Number(r.authorId) === Number(currentUser.id))
+
+const savedIds = new Set((currentUser.savedRecipeIds || currentUser.savedRecipes || []).map(Number))
+const saved = recipes.filter(r => savedIds.has(Number(r.id)))
+
+my.forEach(r => myRecipesContainer.appendChild(renderRecipeCard(r)))
+saved.forEach(r => savedContainer.appendChild(renderRecipeCard(r)))
