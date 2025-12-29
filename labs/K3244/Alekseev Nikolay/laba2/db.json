@@ -1,5 +1,15 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "dd@gmail.com",
+      "password": "$2a$10$4.Mo170gKTtm524FeWl7YeNamxWkT6qVW1h64xnK3wN7uUy9r5Qli",
+      "name": "dd@gmail.com",
+      "savedRecipeIds": [],
+      "likedRecipeIds": [],
+      "theme": "light",
+      "id": 1
+    }
+  ],
   "recipes": [
     {
       "id": 53262,

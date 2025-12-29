@@ -1,8 +1,8 @@
-import { recipes } from "./src/data.js"
+import { getRecipes } from "./src/api.js"
 import { applyTheme } from "./src/theme.js"
 applyTheme()
 
-if (!localStorage.getItem("currentUser")) {
+if (!localStorage.getItem("accessToken")) {
   window.location.href = "login.html"
 }
 
@@ -10,8 +10,13 @@ const searchInput = document.getElementById("searchInput")
 const typeSelect = document.getElementById("typeSelect")
 const difficultySelect = document.getElementById("difficultySelect")
 
+applyTheme()
+
+let recipes = []
 const ingredientsSet = new Set()
-recipes.forEach(r => r.ingredients.forEach(i => ingredientsSet.add(i)))
+
+recipes = await getRecipes()
+recipes.forEach(r => (r.ingredients || []).forEach(i => ingredientsSet.add(i)))
 
 const resultsContainer = document.createElement("div")
 resultsContainer.classList.add("container", "mt-4")

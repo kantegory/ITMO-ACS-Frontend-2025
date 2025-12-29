@@ -1,6 +1,11 @@
 import { recipes, currentUser, saveUserToStorage } from "./data.js"
 import { applyTheme, setTheme } from "./theme.js"
 
+if (!localStorage.getItem("accessToken")) {
+  window.location.href = "login.html"
+}
+
+
 applyTheme(currentUser?.theme)
 
 document.getElementById("profileName").textContent = `Профиль: ${currentUser.name}`
@@ -41,7 +46,9 @@ function renderRecipeCard(recipe) {
   return card
 }
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
+document.getElementById("logoutBtn").addEventListener("click", e => {
+  e.preventDefault()
+  localStorage.removeItem("accessToken")
   localStorage.removeItem("currentUser")
   window.location.href = "login.html"
 })

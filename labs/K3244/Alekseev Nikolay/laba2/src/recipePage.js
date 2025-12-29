@@ -1,10 +1,11 @@
-import { recipes, currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage } from "./data.js"
+import { currentUser, saveUserToStorage, saveRecipeToStorage, authors, saveAuthorToStorage, saveCommentToStorage } from "./data.js"
+import { getRecipe } from "./api.js"
 import { applyTheme } from "./theme.js"
-applyTheme(currentUser?.theme)
+applyTheme(JSON.parse(localStorage.getItem("currentUser") || "null")?.theme)
 
 const params = new URLSearchParams(window.location.search)
-const id = parseInt(params.get("id"))
-const recipe = recipes.find(r => r.id === id)
+const id = params.get("id")
+const recipe = await getRecipe(id)
 const container = document.getElementById("recipeContent")
 
 if (!recipe) {

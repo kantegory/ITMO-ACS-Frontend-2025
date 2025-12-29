@@ -1,21 +1,18 @@
-import { users, saveUserToStorage } from "./data.js"
-import { applyTheme, setTheme, getInitialTheme } from "./theme.js"
+import { applyTheme } from "./theme.js"
+import { loginByName } from "./api.js"
 
 applyTheme()
 
-const savedUser = localStorage.getItem("currentUser")
+const savedUser = localStorage.getItem("accessToken")
 if (savedUser) window.location.href = "index.html"
 
-document.getElementById("loginBtn").addEventListener("click", () => {
+document.getElementById("loginBtn").addEventListener("click", async () => {
   const name = document.getElementById("loginName").value.trim()
   if (!name) return
-  let user = users.find(u => u.name === name)
-  if (!user) {
+  try {
+    await loginByName(name)
+    window.location.href = "index.html"
+  } catch (e) {
     alert("Пользователь не найден. Зарегистрируйтесь.")
-    return
   }
-  if (user.theme !== "light" && user.theme !== "dark") user.theme = getInitialTheme()
-  saveUserToStorage(user)
-  setTheme(user.theme)
-  window.location.href = "index.html"
 })
