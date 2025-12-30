@@ -1,0 +1,24 @@
+[
+  {
+    "id": "rental-1",
+    "propertyId": "prop-1",
+    "tenantId": "user-2",
+    "ownerId": "user-1",
+    "startDate": "2025-02-01",
+    "endDate": "2025-08-01",
+    "monthlyPrice": 45000,
+    "status": "active",
+    "createdAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "id": "rental-2",
+    "propertyId": "prop-5",
+    "tenantId": "user-1",
+    "ownerId": "user-4",
+    "startDate": "2025-02-15",
+    "endDate": "2025-05-15",
+    "monthlyPrice": 15000,
+    "status": "active",
+    "createdAt": "2025-01-28T18:00:00Z"
+  }
+]
