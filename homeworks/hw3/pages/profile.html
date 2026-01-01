@@ -1,510 +1,297 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Profile - Fitness Platform</title>
-    <meta name="description" content="View your fitness profile, progress, and completed workouts">
-    <meta name="color-scheme" content="light dark">
-   
+    <meta name="description" content="Your Fitness Platform Profile - Track your workouts, progress, and achievements">
+    <title>Profile - Fitness Platform</title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     <style>
-        /* Уменьшенные стили для профиля */
-        .profile-compact {
-            margin-top: 1.5rem;
-        }
-       
-        /* Уменьшенная карточка профиля */
-        .compact-profile-card {
-            max-height: 380px;
-            display: flex;
-            flex-direction: column;
-        }
-       
-        .compact-profile-card .card-body {
-            padding: 1.25rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-       
-        /* Аватар пользователя - центрированный и компактный */
-        .user-avatar-compact {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 1rem auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-       
-        .avatar-placeholder-compact {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #2c5282, #4299e1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.8rem;
-            border: 4px solid white;
-            box-shadow: 0 3px 15px rgba(44, 82, 130, 0.2);
-        }
-       
-        /* Уменьшенная статистика */
-        .user-stats-compact .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2c5282;
-            margin-bottom: 0.2rem;
-        }
-       
-        .user-stats-compact .stat-label {
-            font-size: 0.75rem;
-            color: #4a5568;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-        }
-       
-        /* Компактная информация пользователя */
-        .profile-info-compact h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
-        }
-       
-        .profile-info-compact p {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-       
-        /* Уменьшенная кнопка */
-        .profile-actions-compact .btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            min-width: 150px;
-            margin-top: 0.5rem;
-        }
-       
-        /* Прогресс бары */
         .progress {
             height: 8px;
             background-color: #e9ecef;
-            border-radius: 4px;
         }
-
 
         .progress-bar {
-            background: linear-gradient(135deg, #2c5282, #4299e1);
-            border-radius: 4px;
+            background-color: var(--primary-blue);
         }
 
-
-        .progress-bar.bg-success {
-            background: linear-gradient(135deg, #10b981, #34d399);
-        }
-       
-        /* Ачивки - компактные */
-        .achievement-item-compact {
-            padding: 12px;
+        .achievement-item {
+            padding: 10px;
             border-radius: 10px;
-            background: rgba(44, 82, 130, 0.08);
-            transition: all 0.2s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            background: rgba(79, 134, 247, 0.1);
         }
 
-
-        .achievement-item-compact:hover {
-            background: rgba(44, 82, 130, 0.12);
-            transform: translateY(-2px);
+        .plan-item {
+            border-left: 4px solid var(--primary-blue);
+            transition: all 0.3s ease;
         }
 
+        .plan-item:hover {
+            transform: translateX(5px);
+        }
 
-        .achievement-item-compact i {
-            font-size: 2rem;
+        .plan-item.completed {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.05) !important;
+        }
+
+        .completed-workout-item {
+            background: rgba(79, 134, 247, 0.05);
+            border-radius: 8px;
+            padding: 10px;
             margin-bottom: 8px;
-            color: #2c5282;
-        }
-       
-        .achievement-item-compact small {
-            font-size: 0.8rem;
-        }
-       
-        /* План тренировок - компактный */
-        .plan-item-compact {
-            border-left: 3px solid #2c5282;
-            transition: all 0.2s ease;
-            background: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--primary-blue);
         }
 
-
-        .plan-item-compact .card-body {
-            padding: 0.75rem;
-        }
-       
-        .plan-item-compact strong {
+        .completed-workout-item h6 {
+            margin-bottom: 3px;
             font-size: 0.95rem;
         }
-       
-        .plan-item-compact small {
+
+        .completed-workout-item small {
+            color: #5a6268;
             font-size: 0.8rem;
         }
-       
-        /* Завершенные тренировки - компактные */
-        .completed-workout-item-compact {
-            background: rgba(44, 82, 130, 0.05);
-            border-radius: 8px;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-            border-left: 2px solid #2c5282;
-            transition: all 0.2s ease;
-        }
 
-
-        .completed-workout-item-compact:hover {
-            background: rgba(44, 82, 130, 0.08);
-        }
-
-
-        .completed-workout-item-compact h6 {
-            margin-bottom: 3px;
-            font-size: 0.9rem;
-            color: #1a202c;
-        }
-
-
-        .completed-workout-item-compact small {
-            color: #4a5568;
-            font-size: 0.75rem;
-        }
-
-
-        .level-badge-compact {
+        .level-badge {
             padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 0.65rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .level-beginner {
+            background: #10b981;
+            color: white;
+        }
+
+        .level-intermediate {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .level-advanced {
+            background: #ef4444;
+            color: white;
+        }
+
+        #emptyCompletedWorkouts {
+            text-align: center;
+            padding: 20px;
+            color: #5a6268;
+        }
+
+        #emptyCompletedWorkouts i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #dee2e6;
+        }
+        
+        .user-avatar {
+            position: relative;
+        }
+        
+        .user-avatar .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .user-stats .col-4 {
+            border-right: 1px solid var(--border-light);
+        }
+        
+        .user-stats .col-4:last-child {
+            border-right: none;
+        }
+
+        .day-header {
             font-weight: 600;
-            display: inline-block;
-            margin-right: 6px;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
         }
 
-
-        .level-beginner-compact {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
+        .day-section {
+            margin-bottom: 1rem;
         }
 
-
-        .level-intermediate-compact {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: #1a202c;
+        .workout-type-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 10px;
         }
 
-
-        .level-advanced-compact {
-            background: linear-gradient(135deg, #ef4444, #f87171);
-            color: white;
-        }
-       
-        /* Общие компактные стили */
-        .uniform-grid-compact {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-       
-        .form-title-compact {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-        }
-       
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .user-avatar-compact {
-                width: 80px;
-                height: 80px;
-            }
-           
-            .avatar-placeholder-compact {
-                font-size: 2.4rem;
-            }
-           
-            .user-stats-compact .stat-value {
-                font-size: 1.3rem;
-            }
-           
-            .profile-info-compact h3 {
-                font-size: 1.2rem;
-            }
-           
-            .uniform-grid-compact {
-                grid-template-columns: 1fr;
-            }
-        }
-       
-        @media (max-width: 576px) {
-            .compact-profile-card {
-                max-height: none;
-            }
-           
-            .user-avatar-compact {
-                width: 70px;
-                height: 70px;
-            }
-           
-            .avatar-placeholder-compact {
-                font-size: 2rem;
-                border-width: 3px;
-            }
-           
-            .user-stats-compact .stat-value {
-                font-size: 1.2rem;
-            }
-           
-            .user-stats-compact .stat-label {
-                font-size: 0.7rem;
-            }
-        }
-       
-        /* Убираем лишние отступы */
-        .container {
-            margin-top: 1.5rem;
-        }
-       
-        .mb-4 {
-            margin-bottom: 1rem !important;
-        }
-       
-        /* Стили для режима уменьшения движения */
-        @media (prefers-reduced-motion: reduce) {
-            .achievement-item-compact,
-            .plan-item-compact,
-            .completed-workout-item-compact {
-                transition: none;
-            }
-           
-            .achievement-item-compact:hover,
-            .plan-item-compact:hover,
-            .completed-workout-item-compact:hover {
-                transform: none;
-            }
-        }
+        .type-cardio { background: #fecaca; color: #dc2626; }
+        .type-strength { background: #bfdbfe; color: #2563eb; }
+        .type-yoga { background: #d9f99d; color: #65a30d; }
+        .type-hiit { background: #fcd34d; color: #d97706; }
+        .type-stretching { background: #c4b5fd; color: #7c3aed; }
+        .type-power-lifting { background: #fda4af; color: #e11d48; }
     </style>
 </head>
 <body>
-    <div class="container profile-compact">
+    <div class="container mt-5">
         <div class="mb-3">
-            <a href="../index.html" class="btn btn-back light-blue-text" aria-label="Return to homepage">
-                <i class="fas fa-arrow-left me-2" aria-hidden="true"></i>Back to Home
-            </a>
+            <a href="../index.html" class="btn btn-back" aria-label="Go back to home page">← Back to Home</a>
         </div>
-       
-        <main id="main-content" tabindex="-1">
-            <!-- H1 ЗАГОЛОВОК ДОБАВЛЕН -->
-            <h1 class="visually-hidden">Your Fitness Profile - Track Your Progress and Achievements</h1>
-           
-            <h2 class="form-title form-title-compact" id="profile-heading">Your Profile</h2>
-           
+        
+        <main id="main-content" role="main">
+            <header class="mb-4">
+                <h1 class="form-title">Your Profile</h1>
+                <p class="text-muted" id="profile-description">
+                    Track your fitness progress, completed workouts, and achievements
+                </p>
+            </header>
+            
             <div class="row">
-                <!-- Профиль пользователя - УМЕНЬШЕННЫЙ -->
-                <div class="col-lg-4 col-md-12 mb-3">
-                    <section class="uniform-card" aria-labelledby="user-profile-heading">
-                        <div class="card glass-card compact-profile-card">
-                            <div class="card-body text-center d-flex flex-column">
-                                <h3 id="user-profile-heading" class="visually-hidden">User Information</h3>
-                               
-                                <!-- Центрированная иконка профиля -->
-                                <div class="user-avatar-compact" role="img" aria-label="User avatar">
-                                    <div class="avatar-placeholder-compact">
-                                        <i class="fas fa-user" aria-hidden="true"></i>
-                                        <span class="visually-hidden">User profile icon</span>
+                <!-- Профиль пользователя -->
+                <div class="col-md-4">
+                    <section aria-labelledby="user-info-heading">
+                        <div class="card glass-card mb-4">
+                            <div class="card-body text-center">
+                                <div class="user-avatar mb-3" role="img" aria-label="User avatar">
+                                    <div class="avatar-placeholder">
+                                        <span style="font-size: 3rem; color: white;" aria-hidden="true">👤</span>
                                     </div>
                                 </div>
-                               
-                                <!-- Информация пользователя -->
-                                <div class="profile-info-compact mb-2">
-                                    <h3 class="light-blue-text mb-1" id="userName">Loading...</h3>
-                                    <p class="text-muted" id="userRole">Fitness Enthusiast</p>
-                                </div>
-                               
-                                <!-- Статистика -->
-                                <div class="user-stats-compact mb-3">
+                                <h2 id="user-info-heading" class="light-blue-text" id="userName">Atanova Sophie</h2>
+                                <p class="text-muted" id="userRole">Fitness Enthusiast</p>
+                                <div class="user-stats">
                                     <div class="row text-center">
                                         <div class="col-4">
-                                            <div class="stat-value" id="workoutsCount">0</div>
-                                            <div class="stat-label">Workouts</div>
+                                            <div class="h5 light-blue-text" id="workoutsCount">0</div>
+                                            <small class="text-muted">Workouts</small>
                                         </div>
                                         <div class="col-4">
-                                            <div class="stat-value" id="weeksCount">8</div>
-                                            <div class="stat-label">Weeks</div>
+                                            <div class="h5 light-blue-text" id="weeksCount">8</div>
+                                            <small class="text-muted">Weeks</small>
                                         </div>
                                         <div class="col-4">
-                                            <div class="stat-value" id="consistencyRate">0%</div>
-                                            <div class="stat-label">Consistency</div>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                <!-- Кнопка редактирования -->
-                                <div class="profile-actions-compact mt-auto">
-                                    <button id="editProfileBtn" class="btn btn-form-primary"
-                                            aria-label="Edit your profile information">
-                                        <i class="fas fa-edit me-1" aria-hidden="true"></i>Edit Profile
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
-
-                <!-- Прогресс и планы тренировок -->
-                <div class="col-lg-8 col-md-12 mb-3">
-                    <section class="uniform-card" aria-labelledby="progress-heading">
-                        <div class="card glass-card h-100">
-                            <div class="card-body">
-                                <h3 id="progress-heading" class="light-blue-text mb-3">Progress Tracking</h3>
-                               
-                                <!-- Статистика прогресса -->
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-2">
-                                        <div class="progress-item">
-                                            <h4 class="h6 mb-1">Workouts Completed</h4>
-                                            <div class="progress mb-1" role="progressbar"
-                                                 aria-label="Workouts completed progress"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="10">
-                                                <div id="workoutsProgressBar" class="progress-bar" style="width: 0%">
-                                                    <span class="visually-hidden">0% complete</span>
-                                                </div>
-                                            </div>
-                                            <small id="workoutsProgressText" class="text-muted">0/10 workouts</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <div class="progress-item">
-                                            <h4 class="h6 mb-1">Calories Burned</h4>
-                                            <div class="progress mb-1" role="progressbar"
-                                                 aria-label="Calories burned progress"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="7500">
-                                                <div id="caloriesProgressBar" class="progress-bar bg-success" style="width: 0%">
-                                                    <span class="visually-hidden">0% complete</span>
-                                                </div>
-                                            </div>
-                                            <small id="caloriesProgressText" class="text-muted">0/7,500 calories</small>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <!-- Текущий план тренировок -->
-                                <h4 class="light-blue-text mb-2">Current Workout Plan</h4>
-                                <div class="workout-plan mb-3">
-                                    <div class="plan-item-compact card mb-1" role="listitem">
-                                        <div class="card-body py-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <strong>Monday</strong> - Strength Training
-                                                    <br>
-                                                    <small class="text-muted">Compound exercises</small>
-                                                </div>
-                                                <span id="mondayStatus" class="badge bg-success badge-sm" aria-label="Monday workout status: Completed">Completed</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="plan-item-compact card mb-1" role="listitem">
-                                        <div class="card-body py-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <strong>Wednesday</strong> - Cardio
-                                                    <br>
-                                                    <small class="text-muted">30 min HIIT</small>
-                                                </div>
-                                                <span id="wednesdayStatus" class="badge bg-warning text-dark badge-sm" aria-label="Wednesday workout status: Pending">Pending</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="plan-item-compact card mb-1" role="listitem">
-                                        <div class="card-body py-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <strong>Friday</strong> - Yoga & Stretching
-                                                    <br>
-                                                    <small class="text-muted">Recovery session</small>
-                                                </div>
-                                                <span id="fridayStatus" class="badge bg-secondary badge-sm" aria-label="Friday workout status: Upcoming">Upcoming</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <!-- Достижения -->
-                                <h4 class="light-blue-text mb-2">Achievements</h4>
-                                <div class="uniform-grid-compact achievements">
-                                    <div class="achievement-item-compact" role="listitem">
-                                        <i class="fas fa-running" aria-hidden="true"></i>
-                                        <div>
-                                            <strong>First 5K</strong>
-                                            <br>
-                                            <small class="text-muted">Run 5 kilometers</small>
-                                            <br>
-                                            <span class="badge bg-success badge-sm mt-1">Unlocked</span>
-                                        </div>
-                                    </div>
-                                    <div class="achievement-item-compact" role="listitem">
-                                        <i class="fas fa-dumbbell" aria-hidden="true"></i>
-                                        <div>
-                                            <strong>Strength Master</strong>
-                                            <br>
-                                            <small class="text-muted">10 strength workouts</small>
-                                            <br>
-                                            <span class="badge bg-warning text-dark badge-sm mt-1" id="strengthBadge">0/10</span>
-                                        </div>
-                                    </div>
-                                    <div class="achievement-item-compact" role="listitem">
-                                        <i class="fas fa-trophy" aria-hidden="true"></i>
-                                        <div>
-                                            <strong>Workout Warrior</strong>
-                                            <br>
-                                            <small class="text-muted" id="workoutAchievementText">0 workouts</small>
-                                            <br>
-                                            <span class="badge bg-secondary badge-sm mt-1" id="workoutAchievement">0</span>
+                                            <div class="h5 light-blue-text" id="consistencyRate">0%</div>
+                                            <small class="text-muted">Consistency</small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                </div>
-
-
-                <!-- Выполненные тренировки -->
-                <div class="col-12 mt-2">
-                    <section class="uniform-card" aria-labelledby="completed-workouts-heading">
+                    
+                    <!-- Выполненные тренировки -->
+                    <section aria-labelledby="completed-workouts-heading">
                         <div class="card glass-card">
                             <div class="card-body">
-                                <h3 id="completed-workouts-heading" class="light-blue-text mb-2">
-                                    <i class="fas fa-check-circle me-2" aria-hidden="true"></i>Completed Workouts
-                                </h3>
+                                <h3 id="completed-workouts-heading" class="light-blue-text mb-3">Completed Workouts</h3>
                                 <div id="completedWorkoutsList">
-                                    <div class="text-center py-4" role="status" aria-live="polite">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="visually-hidden">Loading completed workouts...</span>
-                                        </div>
-                                        <p class="mt-2 small">Loading completed workouts...</p>
+                                    <div id="emptyCompletedWorkouts">
+                                        <i class="fas fa-dumbbell" aria-hidden="true"></i>
+                                        <p class="text-muted">No completed workouts yet.</p>
+                                        <a href="workouts.html" class="btn btn-sm btn-form-primary">Browse Workouts</a>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Прогресс и планы тренировок -->
+                <div class="col-md-8">
+                    <section aria-labelledby="progress-heading">
+                        <div class="card glass-card mb-4">
+                            <div class="card-body">
+                                <h2 id="progress-heading" class="light-blue-text mb-4">Progress Tracking</h2>
+                                
+                                <!-- Статистика прогресса -->
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <div class="progress-item">
+                                            <h3 class="h6">Workouts Completed</h3>
+                                            <div class="progress mb-2" role="progressbar" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="10" 
+                                                 aria-valuenow="0" 
+                                                 aria-label="Workouts completed progress">
+                                                <div id="workoutsProgressBar" class="progress-bar" style="width: 0%">0/10</div>
+                                            </div>
+                                            <small id="workoutsProgressText" class="text-muted">0 workouts completed</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="progress-item">
+                                            <h3 class="h6">Calories Burned</h3>
+                                            <div class="progress mb-2" role="progressbar" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="7500" 
+                                                 aria-valuenow="0" 
+                                                 aria-label="Calories burned progress">
+                                                <div id="caloriesProgressBar" class="progress-bar bg-success" style="width: 0%">0/7500</div>
+                                            </div>
+                                            <small class="text-muted">Weekly goal: 7500 calories</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Достижения -->
+                                <h3 class="h6 mb-3">Recent Achievements</h3>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="achievement-item text-center">
+                                            <div class="h4 mb-1" aria-hidden="true">🏃</div>
+                                            <small class="text-muted">First Workout</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="achievement-item text-center">
+                                            <div class="h4 mb-1" aria-hidden="true">💪</div>
+                                            <small class="text-muted">5 Workouts</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="achievement-item text-center">
+                                            <div class="h4 mb-1" aria-hidden="true">🔥</div>
+                                            <small class="text-muted">Week Streak</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Weekly Plan -->
+                    <section aria-labelledby="plan-heading">
+                        <div class="card glass-card">
+                            <div class="card-body">
+                                <h2 id="plan-heading" class="light-blue-text mb-4">
+                                    <i class="fas fa-calendar-week me-2" aria-hidden="true"></i>Weekly Plan
+                                </h2>
+                                <div id="weeklyPlanContainer">
+                                    <!-- Заполняется через JavaScript -->
+                                    <div class="text-center py-3">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <a href="workouts.html" class="btn btn-form-primary">
+                                        <i class="fas fa-dumbbell me-2" aria-hidden="true"></i>Browse All Workouts
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -513,372 +300,316 @@
             </div>
         </main>
     </div>
-
-
-    <!-- Модальное окно для редактирования профиля -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content glass-card">
-                <div class="modal-header border-0 pb-0">
-                    <h2 class="modal-title elegant-heading h5" id="editProfileModalLabel">Edit Profile</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close edit profile modal"></button>
-                </div>
-                <div class="modal-body pt-0">
-                    <form id="editProfileForm" aria-label="Edit profile form">
-                        <div class="mb-3">
-                            <label for="editFirstName" class="form-label small">First Name</label>
-                            <input type="text" class="form-control form-control-sm" id="editFirstName"
-                                   aria-label="Enter your first name"
-                                   placeholder="First name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editLastName" class="form-label small">Last Name</label>
-                            <input type="text" class="form-control form-control-sm" id="editLastName"
-                                   aria-label="Enter your last name"
-                                   placeholder="Last name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editFitnessGoal" class="form-label small">Fitness Goal</label>
-                            <select class="form-select form-select-sm" id="editFitnessGoal" aria-label="Select your fitness goal">
-                                <option value="weight-loss">Weight Loss</option>
-                                <option value="muscle-gain">Muscle Gain</option>
-                                <option value="endurance">Endurance</option>
-                                <option value="flexibility">Flexibility</option>
-                                <option value="general-fitness">General Fitness</option>
-                            </select>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-form-primary btn-sm" aria-label="Save profile changes">
-                                <i class="fas fa-save me-1" aria-hidden="true"></i>Save Changes
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal" aria-label="Cancel editing">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    
     <script>
-    // Глобальное состояние
-    const AppState = {
-        currentUser: JSON.parse(localStorage.getItem('current_user')) || {
-            firstName: 'Sophie',
-            lastName: 'Atanova',
-            email: 'sophie@example.com',
-            role: 'Fitness Enthusiast',
-            fitnessGoal: 'general-fitness'
-        },
-        completedWorkouts: JSON.parse(localStorage.getItem('completedWorkouts')) || [],
-        workoutPlan: [
-            { day: 'Monday', type: 'Strength Training', description: 'Compound exercises for full body strength' },
-            { day: 'Wednesday', type: 'Cardio', description: '30 minutes of HIIT cardio' },
-            { day: 'Friday', type: 'Yoga & Stretching', description: 'Flexibility and recovery session' }
-        ]
-    };
-
-
-    // Загрузка данных профиля
-    function loadProfileData() {
-        // Обновляем информацию о пользователе
-        updateUserInfo();
-       
-        // Загружаем выполненные тренировки
-        loadCompletedWorkouts();
-       
-        // Обновляем статистику прогресса
-        updateProgressStats();
-       
-        // Инициализируем кнопку редактирования
-        initEditProfileButton();
-    }
-
-
-    // Обновление информации о пользователе
-    function updateUserInfo() {
-        const userName = document.getElementById('userName');
-        const userRole = document.getElementById('userRole');
-       
-        if (AppState.currentUser) {
-            const fullName = `${AppState.currentUser.firstName || 'Sophie'} ${AppState.currentUser.lastName || 'Atanova'}`;
-            userName.textContent = fullName;
-            userName.setAttribute('aria-label', `User: ${fullName}`);
-           
-            const role = AppState.currentUser.role || 'Fitness Enthusiast';
-            userRole.textContent = role;
-            userRole.setAttribute('aria-label', `Role: ${role}`);
-        } else {
-            userName.textContent = 'Sophie Atanova';
-            userRole.textContent = 'Fitness Enthusiast';
-        }
-    }
-
-
-    // Загрузка выполненных тренировок
-    function loadCompletedWorkouts() {
-        const container = document.getElementById('completedWorkoutsList');
-       
-        if (!AppState.completedWorkouts || AppState.completedWorkouts.length === 0) {
-            container.innerHTML = `
-                <div id="emptyCompletedWorkouts" class="text-center py-4" role="status" aria-live="polite">
-                    <i class="fas fa-dumbbell fa-3x text-muted mb-2" aria-hidden="true"></i>
-                    <h4 class="light-blue-text h5 mb-1">No workouts completed yet</h4>
-                    <p class="text-muted small mb-3">Complete workouts to see them here!</p>
-                    <a href="workouts.html" class="btn btn-form-primary btn-sm" aria-label="Browse available workouts">
-                        <i class="fas fa-dumbbell me-1" aria-hidden="true"></i>Browse Workouts
-                    </a>
-                </div>
-            `;
-            return;
-        }
-       
-        // Сортируем по дате (новые сверху)
-        const sortedWorkouts = [...AppState.completedWorkouts].sort((a, b) => {
-            return new Date(b.date || b.completedDate) - new Date(a.date || a.completedDate);
-        });
-       
-        let html = '<div class="row g-2" role="list" aria-label="List of completed workouts">';
-       
-        // Показываем последние 4 тренировки
-        const recentWorkouts = sortedWorkouts.slice(0, 4);
-       
-        recentWorkouts.forEach((workout, index) => {
-            const date = new Date(workout.date || workout.completedDate);
-            const formattedDate = date.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric'
-            });
-           
-            // Определяем уровень тренировки
-            let levelClass = 'level-beginner-compact';
-            let levelText = 'Beginner';
-           
-            if (workout.level === 'intermediate') {
-                levelClass = 'level-intermediate-compact';
-                levelText = 'Intermediate';
-            } else if (workout.level === 'advanced') {
-                levelClass = 'level-advanced-compact';
-                levelText = 'Advanced';
-            }
-           
-            // Определяем иконку по типу тренировки
-            let workoutIcon = 'fa-dumbbell';
-            if (workout.type === 'cardio') workoutIcon = 'fa-running';
-            else if (workout.type === 'yoga') workoutIcon = 'fa-spa';
-            else if (workout.type === 'stretching') workoutIcon = 'fa-child';
-            else if (workout.type === 'hiit') workoutIcon = 'fa-bolt';
-            else if (workout.type === 'power-lifting') workoutIcon = 'fa-weight-hanging';
-           
-            html += `
-                <div class="col-md-6" role="listitem">
-                    <div class="completed-workout-item-compact" aria-label="Completed workout: ${workout.name}, Type: ${workout.type}, Date: ${formattedDate}">
-                        <div class="d-flex align-items-start">
-                            <i class="fas ${workoutIcon} me-2 mt-1" aria-hidden="true" style="color: #2c5282;"></i>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-1">${workout.name || `Workout ${index + 1}`}</h6>
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <span class="${levelClass} level-badge-compact" aria-label="Difficulty: ${levelText}">${levelText}</span>
-                                    <small class="text-muted">
-                                        <i class="far fa-calendar me-1" aria-hidden="true"></i>${formattedDate}
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-       
-        html += '</div>';
-       
-        // Если есть больше 4 тренировок, показываем сообщение
-        if (sortedWorkouts.length > 4) {
-            html += `
-                <div class="text-center mt-3">
-                    <p class="text-muted small mb-0">
-                        <i class="fas fa-chart-line me-1" aria-hidden="true"></i>
-                        ${sortedWorkouts.length} total workouts completed
-                    </p>
-                </div>
-            `;
-        }
-       
-        container.innerHTML = html;
-    }
-
-
-    // Обновление статистики прогресса
-    function updateProgressStats() {
-        const completedCount = AppState.completedWorkouts.length;
-       
-        // Обновляем счетчик тренировок
-        document.getElementById('workoutsCount').textContent = completedCount;
-        document.getElementById('consistencyRate').textContent = calculateConsistencyRate(completedCount);
-       
-        // Обновляем прогресс-бар тренировок
-        const workoutsGoal = 10;
-        const workoutsProgress = Math.min(100, Math.round((completedCount / workoutsGoal) * 100));
-        const workoutsProgressBar = document.getElementById('workoutsProgressBar');
-        const workoutsProgressText = document.getElementById('workoutsProgressText');
-       
-        workoutsProgressBar.style.width = `${workoutsProgress}%`;
-        workoutsProgressBar.setAttribute('aria-valuenow', workoutsProgress);
-        workoutsProgressText.textContent = `${completedCount}/${workoutsGoal} workouts`;
-       
-        // Обновляем прогресс-бар калорий
-        const totalCalories = calculateTotalCalories();
-        const caloriesGoal = 7500;
-        const caloriesProgress = Math.min(100, Math.round((totalCalories / caloriesGoal) * 100));
-        const caloriesProgressBar = document.getElementById('caloriesProgressBar');
-        const caloriesProgressText = document.getElementById('caloriesProgressText');
-       
-        caloriesProgressBar.style.width = `${caloriesProgress}%`;
-        caloriesProgressBar.setAttribute('aria-valuenow', caloriesProgress);
-        caloriesProgressText.textContent = `${totalCalories.toLocaleString()}/7,500 calories`;
-       
-        // Обновляем достижение
-        const workoutAchievement = document.getElementById('workoutAchievement');
-        const workoutAchievementText = document.getElementById('workoutAchievementText');
-        const strengthBadge = document.getElementById('strengthBadge');
-       
-        workoutAchievement.textContent = completedCount;
-        workoutAchievementText.textContent = `${completedCount} workout${completedCount !== 1 ? 's' : ''} completed`;
-       
-        // Считаем strength тренировки
-        const strengthWorkouts = AppState.completedWorkouts.filter(w =>
-            w.type === 'strength' || w.type === 'power-lifting'
-        ).length;
-        strengthBadge.textContent = `${strengthWorkouts}/10`;
-       
-        if (strengthWorkouts >= 10) {
-            strengthBadge.className = 'badge bg-success badge-sm mt-1';
-            strengthBadge.textContent = 'Unlocked';
-        }
-       
-        // Обновляем статусы тренировок
-        updateWorkoutPlanStatus();
-    }
-
-
-    // Вспомогательные функции
-    function calculateTotalCalories() {
-        let total = 0;
-       
-        AppState.completedWorkouts.forEach(workout => {
-            const caloriesText = workout.calories || '300-400';
-           
-            if (caloriesText.includes('-')) {
-                const parts = caloriesText.split('-').map(part => parseInt(part.trim()) || 0);
-                const average = parts.length > 0 ? parts.reduce((a, b) => a + b, 0) / parts.length : 350;
-                total += average;
-            } else {
-                total += parseInt(caloriesText) || 350;
-            }
-        });
-       
-        return Math.round(total);
-    }
-
-
-    function calculateConsistencyRate(completedWorkouts) {
-        if (completedWorkouts >= 20) return '95%';
-        if (completedWorkouts >= 15) return '90%';
-        if (completedWorkouts >= 10) return '85%';
-        if (completedWorkouts >= 5) return '75%';
-        if (completedWorkouts >= 1) return '50%';
-        return '0%';
-    }
-
-
-    function updateWorkoutPlanStatus() {
-        const today = new Date();
-        const dayOfWeek = today.getDay();
-       
-        const mondayStatus = document.getElementById('mondayStatus');
-        const wednesdayStatus = document.getElementById('wednesdayStatus');
-        const fridayStatus = document.getElementById('fridayStatus');
-       
-        // Простая логика для демонстрации
-        if (dayOfWeek === 1) { // Monday
-            mondayStatus.className = 'badge bg-warning text-dark badge-sm';
-            mondayStatus.textContent = 'Today';
-        } else if (dayOfWeek === 3) { // Wednesday
-            wednesdayStatus.className = 'badge bg-warning text-dark badge-sm';
-            wednesdayStatus.textContent = 'Today';
-        } else if (dayOfWeek === 5) { // Friday
-            fridayStatus.className = 'badge bg-warning text-dark badge-sm';
-            fridayStatus.textContent = 'Today';
-        }
-    }
-
-
-    // Инициализация кнопки редактирования профиля
-    function initEditProfileButton() {
-        const editProfileBtn = document.getElementById('editProfileBtn');
-        const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
-        const editProfileForm = document.getElementById('editProfileForm');
-       
-        if (editProfileBtn) {
-            editProfileBtn.addEventListener('click', function() {
-                document.getElementById('editFirstName').value = AppState.currentUser.firstName || 'Sophie';
-                document.getElementById('editLastName').value = AppState.currentUser.lastName || 'Atanova';
-                document.getElementById('editFitnessGoal').value = AppState.currentUser.fitnessGoal || 'general-fitness';
-                editProfileModal.show();
-            });
-        }
-       
-        if (editProfileForm) {
-            editProfileForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-               
-                AppState.currentUser.firstName = document.getElementById('editFirstName').value;
-                AppState.currentUser.lastName = document.getElementById('editLastName').value;
-                AppState.currentUser.fitnessGoal = document.getElementById('editFitnessGoal').value;
-               
-                localStorage.setItem('current_user', JSON.stringify(AppState.currentUser));
-                updateUserInfo();
-               
-                editProfileModal.hide();
-               
-                // Простое уведомление
-                const notification = document.createElement('div');
-                notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
-                notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 250px;';
-                notification.innerHTML = `
-                    <i class="fas fa-check-circle me-2" aria-hidden="true"></i>
-                    Profile updated
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
-                document.body.appendChild(notification);
-               
-                setTimeout(() => notification.remove(), 3000);
-            });
-        }
-    }
-
-
-    // Инициализация при загрузке страницы
-    document.addEventListener('DOMContentLoaded', function() {
-        loadProfileData();
-    });
-
-
-    // Функция для обновления данных
-    function refreshProfileData() {
-        AppState.completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || [];
-        AppState.currentUser = JSON.parse(localStorage.getItem('current_user')) || AppState.currentUser;
-        loadProfileData();
-    }
-
-
-    window.refreshProfileData = refreshProfileData;
+        var API_URL = 'http://localhost:3000/api';
     </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script.js"></script>
+    <script>
+    (function() {
+        'use strict';
+        
+        // Дни недели
+        var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var SHORT_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
+        // План на неделю (распределение тренировок по дням)
+        var WEEKLY_PLAN = {
+            1: { workoutId: 1, time: '07:00 AM' },  // Monday - Cardio
+            2: { workoutId: 2, time: '06:00 PM' },  // Tuesday - Strength
+            3: { workoutId: 3, time: '07:30 AM' },  // Wednesday - Yoga
+            4: { workoutId: 5, time: '06:00 PM' },  // Thursday - HIIT
+            5: { workoutId: 4, time: '07:00 AM' },  // Friday - Stretching
+            6: { workoutId: 6, time: '10:00 AM' },  // Saturday - Power Lifting
+            0: null  // Sunday - Rest day
+        };
+        
+        // Иконки для типов тренировок
+        var TYPE_ICONS = {
+            'cardio': 'fa-heart-pulse',
+            'strength': 'fa-dumbbell',
+            'yoga': 'fa-spa',
+            'hiit': 'fa-fire',
+            'stretching': 'fa-child-reaching',
+            'power-lifting': 'fa-weight-hanging',
+            'default': 'fa-dumbbell'
+        };
+        
+        // Статистика калорий по типам тренировок (средние значения)
+        var CALORIES_BY_TYPE = {
+            'cardio': 350,
+            'strength': 450,
+            'yoga': 250,
+            'stretching': 175,
+            'hiit': 425,
+            'power-lifting': 550,
+            'default': 300
+        };
+        
+        var allWorkouts = [];
+        var completedWorkouts = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfileData();
+        });
+        
+        async function loadProfileData() {
+            try {
+                // Загружаем тренировки
+                var response = await fetch(API_URL + '/workouts');
+                if (response.ok) {
+                    allWorkouts = await response.json();
+                }
+                
+                // Загружаем выполненные тренировки из localStorage
+                completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || [];
+                
+                // Обновляем UI
+                updateStats();
+                renderWeeklyPlan();
+                renderCompletedWorkouts();
+                
+            } catch (error) {
+                console.error('Error loading profile data:', error);
+                document.getElementById('weeklyPlanContainer').innerHTML = 
+                    '<div class="alert alert-warning">Could not load workout plan. Please try again later.</div>';
+            }
+        }
+        
+        function updateStats() {
+            var count = completedWorkouts.length;
+            
+            // Обновляем счётчик тренировок
+            var workoutsCountEl = document.getElementById('workoutsCount');
+            if (workoutsCountEl) workoutsCountEl.textContent = count;
+            
+            // Обновляем прогресс-бар тренировок
+            var goal = 10;
+            var percentage = Math.min(100, Math.round((count / goal) * 100));
+            
+            var progressBar = document.getElementById('workoutsProgressBar');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+                progressBar.textContent = count + '/' + goal;
+            }
+            
+            var progressText = document.getElementById('workoutsProgressText');
+            if (progressText) {
+                progressText.textContent = count + ' workouts completed';
+            }
+            
+            // Рассчитываем общие калории
+            var totalCalories = calculateTotalCalories();
+            var caloriesGoal = 7500;
+            var caloriesPercentage = Math.min(100, Math.round((totalCalories / caloriesGoal) * 100));
+            
+            // Обновляем прогресс-бар калорий
+            var caloriesProgressBar = document.getElementById('caloriesProgressBar');
+            if (caloriesProgressBar) {
+                caloriesProgressBar.style.width = caloriesPercentage + '%';
+                caloriesProgressBar.textContent = totalCalories + '/' + caloriesGoal;
+            }
+            
+            // Обновляем consistency
+            var consistencyEl = document.getElementById('consistencyRate');
+            if (consistencyEl) {
+                consistencyEl.textContent = percentage + '%';
+            }
+        }
+        
+        function calculateTotalCalories() {
+            var total = 0;
+            
+            completedWorkouts.forEach(function(workout) {
+                // Проверяем, есть ли сохранённые калории в объекте тренировки
+                if (workout.calories) {
+                    // Если калории уже сохранены (число), используем их
+                    total += parseInt(workout.calories) || 0;
+                } else {
+                    // Если калорий нет, вычисляем по типу тренировки
+                    var workoutType = workout.type ? workout.type.toLowerCase() : 'default';
+                    
+                    // Ищем тренировку в общем списке для получения типа
+                    var baseWorkout = allWorkouts.find(function(w) { return w.id == workout.id; });
+                    if (baseWorkout && baseWorkout.type) {
+                        workoutType = baseWorkout.type.toLowerCase();
+                    }
+                    
+                    // Получаем калории по типу
+                    var calories = CALORIES_BY_TYPE[workoutType] || CALORIES_BY_TYPE['default'];
+                    total += calories;
+                    
+                    // Сохраняем калории в объекте тренировки
+                    workout.calories = calories;
+                }
+            });
+            
+            // Сохраняем обновлённые тренировки с калориями
+            localStorage.setItem('completedWorkouts', JSON.stringify(completedWorkouts));
+            
+            return total;
+        }
+        
+        function renderWeeklyPlan() {
+            var container = document.getElementById('weeklyPlanContainer');
+            if (!container) return;
+            
+            var today = new Date();
+            var currentDay = today.getDay();
+            
+            var html = '';
+            
+            // Показываем план на 7 дней начиная с сегодня
+            for (var i = 0; i < 7; i++) {
+                var dayIndex = (currentDay + i) % 7;
+                var date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                var plan = WEEKLY_PLAN[dayIndex];
+                var dayLabel = i === 0 ? 'Today' : (i === 1 ? 'Tomorrow' : DAYS[dayIndex]);
+                var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                
+                html += '<div class="day-section">';
+                html += '<div class="day-header">' + dayLabel + ' <small class="text-muted">(' + dateStr + ')</small></div>';
+                
+                if (plan) {
+                    var workout = allWorkouts.find(function(w) { return w.id == plan.workoutId; });
+                    
+                    if (workout) {
+                        var isCompleted = isWorkoutCompletedOnDate(workout.id, date);
+                        var typeClass = 'type-' + (workout.type || 'default').toLowerCase().replace(' ', '-');
+                        var icon = TYPE_ICONS[workout.type] || TYPE_ICONS['default'];
+                        
+                        // Получаем калории для этой тренировки
+                        var calories = workout.calories || CALORIES_BY_TYPE[workout.type?.toLowerCase()] || CALORIES_BY_TYPE['default'];
+                        
+                        html += '<div class="plan-item p-3 bg-light rounded ' + (isCompleted ? 'completed' : '') + '">';
+                        html += '<div class="d-flex justify-content-between align-items-center">';
+                        html += '<div class="d-flex align-items-center">';
+                        html += '<div class="workout-type-icon ' + typeClass + '"><i class="fas ' + icon + '" aria-hidden="true"></i></div>';
+                        html += '<div>';
+                        html += '<h4 class="h6 mb-1">' + workout.name + '</h4>';
+                        html += '<small class="text-muted"><i class="far fa-clock me-1"></i>' + plan.time + '</small>';
+                        html += ' <small class="text-muted">• ' + (workout.duration === 'short' ? '20 min' : workout.duration === 'long' ? '45 min' : '30 min') + '</small>';
+                        html += ' <small class="text-muted">• 🔥 ' + calories + ' cal</small>';
+                        html += '</div>';
+                        html += '</div>';
+                        
+                        if (isCompleted) {
+                            html += '<span class="badge bg-success"><i class="fas fa-check me-1"></i>Done</span>';
+                        } else {
+                            html += '<a href="workout-details.html?id=' + workout.id + '" class="btn btn-sm btn-outline-primary">Start</a>';
+                        }
+                        
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                } else {
+                    html += '<div class="plan-item p-3 bg-light rounded">';
+                    html += '<div class="d-flex align-items-center">';
+                    html += '<div class="workout-type-icon" style="background: #e5e7eb; color: #6b7280;"><i class="fas fa-bed" aria-hidden="true"></i></div>';
+                    html += '<div>';
+                    html += '<h4 class="h6 mb-1 text-muted">Rest Day</h4>';
+                    html += '<small class="text-muted">Take time to recover</small>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                }
+                
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function isWorkoutCompletedOnDate(workoutId, date) {
+            var dateStr = date.toDateString();
+            
+            return completedWorkouts.some(function(cw) {
+                if (cw.id != workoutId) return false;
+                var cwDate = new Date(cw.date);
+                return cwDate.toDateString() === dateStr;
+            });
+        }
+        
+        function renderCompletedWorkouts() {
+            var container = document.getElementById('completedWorkoutsList');
+            if (!container) return;
+            
+            if (completedWorkouts.length === 0) {
+                container.innerHTML = 
+                    '<div id="emptyCompletedWorkouts">' +
+                    '<i class="fas fa-dumbbell" aria-hidden="true"></i>' +
+                    '<p class="text-muted">No completed workouts yet.</p>' +
+                    '<a href="workouts.html" class="btn btn-sm btn-form-primary">Browse Workouts</a>' +
+                    '</div>';
+                return;
+            }
+            
+            // Сортируем по дате (новые сверху)
+            var sorted = completedWorkouts.slice().sort(function(a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
+            
+            // Показываем максимум 10 последних
+            var toShow = sorted.slice(0, 10);
+            
+            var html = '';
+            
+            toShow.forEach(function(item) {
+                var date = new Date(item.date);
+                
+                // Форматируем дату
+                var now = new Date();
+                var diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+                
+                var dateLabel;
+                if (diffDays === 0) {
+                    dateLabel = 'Today';
+                } else if (diffDays === 1) {
+                    dateLabel = 'Yesterday';
+                } else if (diffDays < 7) {
+                    dateLabel = diffDays + ' days ago';
+                } else {
+                    dateLabel = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                }
+                
+                var timeStr = date.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                });
+                
+                // Определяем класс для бейджа уровня
+                var levelClass = 'level-beginner';
+                if (item.level === 'intermediate') levelClass = 'level-intermediate';
+                if (item.level === 'advanced') levelClass = 'level-advanced';
+                
+                // Получаем калории
+                var calories = item.calories || 
+                    CALORIES_BY_TYPE[item.type?.toLowerCase()] || 
+                    CALORIES_BY_TYPE['default'];
+                
+                html += '<div class="completed-workout-item">';
+                html += '<div class="d-flex justify-content-between align-items-start">';
+                html += '<div>';
+                html += '<h6>' + (item.name || 'Workout') + ' <small class="text-muted">🔥 ' + calories + ' cal</small></h6>';
+                html += '<small><i class="far fa-calendar me-1"></i>' + dateLabel + ' at ' + timeStr + '</small>';
+                html += '</div>';
+                html += '<span class="level-badge ' + levelClass + '">' + (item.level || 'beginner') + '</span>';
+                html += '</div>';
+                html += '</div>';
+            });
+            
+            if (completedWorkouts.length > 10) {
+                html += '<div class="text-center mt-2">';
+                html += '<small class="text-muted">Showing 10 of ' + completedWorkouts.length + ' workouts</small>';
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+    })();
+    </script>
 </body>
 </html>
