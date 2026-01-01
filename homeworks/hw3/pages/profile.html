@@ -186,6 +186,30 @@
                                         <div class="col-4">
                                             <div class="h5 light-blue-text" id="consistencyRate">0%</div>
                                             <small class="text-muted">Consistency</small>
+                                            <!-- темы -->
+<div class="theme-switcher-profile mt-3">
+    <small class="text-muted d-block mb-1">Theme:</small>
+    <div class="btn-group btn-group-sm" role="group" aria-label="Theme selection">
+        <button type="button" 
+                class="theme-btn btn btn-outline-primary" 
+                data-theme="light"
+                aria-label="Switch to light theme">
+            <i class="fas fa-sun" aria-hidden="true"></i>
+        </button>
+        <button type="button" 
+                class="theme-btn btn btn-outline-primary" 
+                data-theme="dark"
+                aria-label="Switch to dark theme">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+        <button type="button" 
+                class="theme-btn btn btn-outline-primary" 
+                data-theme="blue"
+                aria-label="Switch to blue theme">
+            <i class="fas fa-palette" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
                                         </div>
                                     </div>
                                 </div>
@@ -610,6 +634,65 @@
             container.innerHTML = html;
         }
     })();
+    // === ТЕМИЗАЦИЯ ДЛЯ ПРОФИЛЯ ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализируем переключатель тем
+    initProfileThemeSwitcher();
+});
+
+function initProfileThemeSwitcher() {
+    // Загружаем сохраненную тему
+    const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+    applyTheme(savedTheme);
+    updateThemeButtons(savedTheme);
+    
+    // Обработчики для кнопок переключения тем в профиле
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const theme = this.getAttribute('data-theme');
+            applyTheme(theme);
+            updateThemeButtons(theme);
+            saveTheme(theme);
+            
+            // Показываем уведомление
+            const themeNames = {
+                'light': 'Light',
+                'dark': 'Dark',
+                'blue': 'Blue'
+            };
+            showNotificationLocal(`Theme changed to ${themeNames[theme]}`);
+        });
+    });
+    
+    function updateThemeButtons(activeTheme) {
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            const theme = btn.getAttribute('data-theme');
+            if (theme === activeTheme) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+    
+    function applyTheme(themeName) {
+        document.body.setAttribute('data-theme', themeName);
+    }
+    
+    function saveTheme(themeName) {
+        localStorage.setItem('preferredTheme', themeName);
+    }
+    
+    function showNotificationLocal(message) {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-info alert-dismissible fade show position-fixed';
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
+        notification.innerHTML = '<i class="fas fa-palette me-2"></i>' + message +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+    }
+}
     </script>
 </body>
 </html>
