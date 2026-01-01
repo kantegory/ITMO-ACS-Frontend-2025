@@ -8,6 +8,358 @@ const AppState = {
     completedWorkouts: []
 };
 
+// === ФУНКЦИИ ДЛЯ УВЕДОМЛЕНИЙ О СМЕНЕ ТЕМЫ ===
+
+// Показать уведомление о смене темы
+function showThemeNotification(themeName) {
+    // Удаляем старые уведомления о смене темы
+    const oldNotifications = document.querySelectorAll('.theme-notification');
+    oldNotifications.forEach(notification => notification.remove());
+    
+    const themeNames = {
+        'light': { name: 'Light Theme', icon: 'fa-sun', color: '#fbbf24' },
+        'dark': { name: 'Dark Theme', icon: 'fa-moon', color: '#60a5fa' },
+        'pink': { name: 'Pink Theme', icon: 'fa-heart', color: '#ec4899' }
+    };
+    
+    const themeInfo = themeNames[themeName] || themeNames.light;
+    
+    const notification = document.createElement('div');
+    notification.className = 'theme-notification';
+    notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 25px;
+        z-index: 9998;
+        min-width: 250px;
+        background: var(--theme-card-bg);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        animation: themeNotificationSlideDown 0.3s ease-out;
+        border: 1px solid var(--theme-border);
+    `;
+    
+    notification.innerHTML = `
+        <div class="notification-content" style="
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--theme-text);
+            background: var(--theme-card-bg);
+        ">
+            <div class="notification-icon" style="
+                font-size: 1.5rem;
+                color: ${themeInfo.color};
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(var(--theme-primary), 0.1);
+                border-radius: 50%;
+            ">
+                <i class="fas ${themeInfo.icon}"></i>
+            </div>
+            <div class="notification-text" style="
+                flex: 1;
+                font-weight: 600;
+                font-size: 0.95rem;
+            ">
+                Changed to <strong style="color: ${themeInfo.color};">${themeInfo.name}</strong>
+            </div>
+            <button class="notification-close" aria-label="Close notification" style="
+                background: none;
+                border: none;
+                color: var(--theme-text-light);
+                font-size: 1rem;
+                cursor: pointer;
+                padding: 5px;
+                border-radius: 50%;
+                transition: all 0.2s ease;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            ">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Добавляем CSS для анимации и стилей темной темы
+    if (!document.querySelector('#theme-notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'theme-notification-styles';
+        style.textContent = `
+            @keyframes themeNotificationSlideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes themeNotificationSlideUp {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
+            
+            /* Стили для кнопки темной темы - акцентные и заметные */
+            .theme-switcher {
+                z-index: 10000;
+            }
+            
+            /* Акцентная кнопка темной темы */
+            .theme-switcher .theme-btn[data-theme="dark"] {
+                background: linear-gradient(135deg, #1e293b, #334155) !important;
+                color: #e2e8f0 !important;
+                border: 1px solid #475569 !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                transition: all 0.3s ease;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="dark"]:not(.active) {
+                background: linear-gradient(135deg, #334155, #475569) !important;
+                color: #cbd5e1 !important;
+                opacity: 0.9 !important;
+                box-shadow: 0 2px 8px rgba(30, 41, 59, 0.3) !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="dark"].active {
+                background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+                color: #f1f5f9 !important;
+                border-color: #60a5fa !important;
+                box-shadow: 0 4px 12px rgba(30, 41, 59, 0.5), 0 0 0 1px rgba(96, 165, 250, 0.3) !important;
+                transform: scale(1.05);
+            }
+            
+            .theme-switcher .theme-btn[data-theme="dark"]:hover:not(.active) {
+                background: linear-gradient(135deg, #475569, #64748b) !important;
+                color: #ffffff !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(30, 41, 59, 0.4) !important;
+            }
+            
+            /* Иконка луны для темной темы */
+            .theme-switcher .theme-btn[data-theme="dark"] i {
+                color: #93c5fd !important;
+                filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+            }
+            
+            .theme-switcher .theme-btn[data-theme="dark"].active i {
+                color: #60a5fa !important;
+                filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.5));
+            }
+            
+            .theme-switcher .theme-btn[data-theme="dark"]:hover:not(.active) i {
+                color: #dbeafe !important;
+            }
+            
+            /* Кнопка светлой темы */
+            .theme-switcher .theme-btn[data-theme="light"] {
+                background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+                color: #92400e !important;
+                border: 1px solid #fbbf24 !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="light"].active {
+                background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+                color: #78350f !important;
+                border-color: #d97706 !important;
+                box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3) !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="light"] i {
+                color: #f59e0b !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="light"].active i {
+                color: #d97706 !important;
+            }
+            
+            /* Кнопка розовой темы */
+            .theme-switcher .theme-btn[data-theme="pink"] {
+                background: linear-gradient(135deg, #fce7f3, #fbcfe8) !important;
+                color: #831843 !important;
+                border: 1px solid #f472b6 !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="pink"].active {
+                background: linear-gradient(135deg, #f472b6, #ec4899) !important;
+                color: #500724 !important;
+                border-color: #db2777 !important;
+                box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3) !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="pink"] i {
+                color: #ec4899 !important;
+            }
+            
+            .theme-switcher .theme-btn[data-theme="pink"].active i {
+                color: #db2777 !important;
+            }
+            
+            /* Общие стили для всех кнопок */
+            .theme-switcher .theme-btn {
+                border-radius: 20px;
+                padding: 8px 16px;
+                font-size: 0.85rem;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                min-width: 90px;
+                justify-content: center;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+            }
+            
+            .theme-switcher .theme-btn.active {
+                transform: scale(1.05);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            }
+            
+            .theme-switcher .theme-btn:hover:not(.active) {
+                transform: translateY(-2px);
+            }
+            
+            .theme-switcher .theme-btn i {
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Обработчик закрытия уведомления
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+        notification.style.animation = 'themeNotificationSlideUp 0.3s ease-out';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
+    });
+    
+    // Автоматическое скрытие через 3 секунды
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.style.animation = 'themeNotificationSlideUp 0.3s ease-out';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+    }, 3000);
+}
+
+// Сохранение выбранной темы в localStorage
+function saveTheme(themeName) {
+    localStorage.setItem('preferredTheme', themeName);
+}
+
+// Загрузка сохраненной темы из localStorage
+function loadTheme() {
+    const savedTheme = localStorage.getItem('preferredTheme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+        updateThemeButtons(savedTheme);
+        return savedTheme;
+    }
+    
+    // Если тема не сохранена, проверяем системные настройки
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+        return 'dark';
+    }
+    
+    applyTheme('light');
+    return 'light';
+}
+
+// Применение темы к документу
+function applyTheme(themeName) {
+    document.body.setAttribute('data-theme', themeName);
+    saveTheme(themeName);
+}
+
+// Обновление активной кнопки темы
+function updateThemeButtons(activeTheme) {
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        const theme = btn.getAttribute('data-theme');
+        if (theme === activeTheme) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
+            
+            // Обновляем иконки
+            const icon = btn.querySelector('i');
+            if (icon) {
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-moon me-1';
+                    icon.style.color = '#60a5fa';
+                }
+            }
+        } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
+        }
+    });
+}
+
+// Инициализация переключателя тем
+function initThemeSwitcher() {
+    // Загружаем сохраненную тему
+    const currentTheme = loadTheme();
+    
+    // Обработчики для кнопок переключения тем
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const theme = this.getAttribute('data-theme');
+            applyTheme(theme);
+            updateThemeButtons(theme);
+            
+            // Показываем уведомление о смене темы
+            showThemeNotification(theme);
+        });
+    });
+    
+    // Слушаем изменения системной темы
+    if (window.matchMedia) {
+        const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        colorSchemeQuery.addEventListener('change', (e) => {
+            // Меняем тему только если пользователь не выбрал ее вручную
+            const savedTheme = localStorage.getItem('preferredTheme');
+            if (!savedTheme) {
+                const theme = e.matches ? 'dark' : 'light';
+                applyTheme(theme);
+                updateThemeButtons(theme);
+                showThemeNotification(theme);
+            }
+        });
+    }
+    
+    return currentTheme;
+}
+
+// === ОСНОВНЫЕ ФУНКЦИИ ПРИЛОЖЕНИЯ ===
+
 // Вспомогательные функции для уведомлений
 function showNotification(message, type = 'info') {
     // Удаляем старые уведомления
@@ -34,7 +386,6 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(alertDiv);
     
-   
     setTimeout(() => {
         if (alertDiv.parentNode) {
             alertDiv.remove();
@@ -47,7 +398,7 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-
+// Загрузка тренировок
 async function fetchWorkouts(filters = {}) {
     try {
         const response = await fetch(`${API_URL}/workouts`);
@@ -303,7 +654,6 @@ function updateAuthUI() {
     }
 }
 
-
 function initModals() {
     // Регистрация обработчиков для кнопок в навигации
     const loginBtn = document.getElementById('navLoginBtn');
@@ -342,7 +692,7 @@ function initModals() {
     }
 }
 
-
+// Загрузка всех тренировок
 async function loadAllWorkouts() {
     try {
         const workouts = await fetchWorkouts();
@@ -354,7 +704,7 @@ async function loadAllWorkouts() {
     }
 }
 
-// Отображение тренировок на странице workouts.html
+// Отображение тренировок
 function displayWorkouts(workouts, containerId = 'workoutContainer') {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -437,7 +787,7 @@ function filterWorkouts(workouts, filters) {
     return filtered;
 }
 
-
+// Загрузка профиля
 async function loadProfile() {
     try {
         await fetchWorkouts();
@@ -548,33 +898,6 @@ function displayCompletedWorkoutsList() {
     container.innerHTML = html;
 }
 
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('App initialized, current user:', AppState.currentUser);
-    
-    // Обновляем UI авторизации
-    updateAuthUI();
-    
-    // Определяем текущую страницу и загружаем соответствующие данные
-    const path = window.location.pathname;
-    
-    if (path.includes('index.html') || path === '/' || path.endsWith('/')) {
-        // Главная страница
-        initModals();
-        
-    } else if (path.includes('workouts.html') && !path.includes('workout-details')) {
-        // Страница всех тренировок - не инициализируем здесь, т.к. есть свой скрипт
-        
-    } else if (path.includes('profile.html')) {
-        // Страница профиля
-        loadProfile();
-        
-    } else if (path.includes('workout-details.html')) {
-        // Страница деталей тренировки - не инициализируем здесь
-    }
-});
-
 // Инициализация страницы тренировок
 async function initWorkoutsPage() {
     try {
@@ -614,10 +937,38 @@ async function initWorkoutsPage() {
         console.error('Error initializing workouts page:', error);
         showNotification('Failed to load workouts', 'danger');
     }
-    
 }
 
+// === ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ ===
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('App initialized, current user:', AppState.currentUser);
+    
+    // Обновляем UI авторизации
+    updateAuthUI();
+    
+    // Инициализируем переключатель тем (ДОБАВЛЕНО)
+    initThemeSwitcher();
+    
+    // Определяем текущую страницу и загружаем соответствующие данные
+    const path = window.location.pathname;
+    
+    if (path.includes('index.html') || path === '/' || path.endsWith('/')) {
+        // Главная страница
+        initModals();
+        
+    } else if (path.includes('workouts.html') && !path.includes('workout-details')) {
+        // Страница всех тренировок - не инициализируем здесь, т.к. есть свой скрипт
+        
+    } else if (path.includes('profile.html')) {
+        // Страница профиля
+        loadProfile();
+        
+    } else if (path.includes('workout-details.html')) {
+        // Страница деталей тренировки - не инициализируем здесь
+    }
+});
 
+// Экспортируем функции для глобального использования
 window.handleRegistration = handleRegistration;
 window.handleLogin = handleLogin;
 window.handleLogout = handleLogout;
