@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Frontend разработчик (React) — JobFinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">JobFinder</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Поиск вакансий</a>
+            </li>
+          </ul>
+          <div class="d-flex gap-2">
+            <a href="login.html" class="btn btn-outline-light btn-sm">Войти</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Регистрация</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container pb-5" style="margin-top: 5rem;">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <section class="card shadow-sm mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h1 class="h3 mb-1">Frontend разработчик (React)</h1>
+                  <div class="text-muted mb-2">
+                    ООО «ТехСофт» • Москва • Полная занятость
+                  </div>
+                  <div class="d-flex flex-wrap gap-2 job-header-badge">
+                    <span class="badge text-bg-primary">IT</span>
+                    <span class="badge text-bg-secondary">0–1 год опыта</span>
+                    <span class="badge text-bg-light text-dark">Офис / удалённо</span>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <div class="h4 mb-1">от 90 000 ₽</div>
+                  <small class="text-muted">Опубликовано: сегодня</small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Тип занятости</div>
+                  <div>Полная</div>
+                </div>
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Формат</div>
+                  <div>Гибрид (офис + удалённо)</div>
+                </div>
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Опыт работы</div>
+                  <div>0–1 год</div>
+                </div>
+              </div>
+
+              <h5 class="mt-4 mb-2">Описание</h5>
+              <p>
+                Мы ищем Frontend разработчика, который поможет нам развивать веб‑сервисы для тысяч пользователей.
+                Вас ждёт работа в команде, современный стек и возможность профессионального роста.
+              </p>
+
+              <h5 class="mt-4 mb-2">Обязанности</h5>
+              <ul>
+                <li>Разработка интерфейсов на React и Bootstrap.</li>
+                <li>Участие в проектировании пользовательских сценариев.</li>
+                <li>Работа с REST API и интеграция с backend‑сервисами.</li>
+                <li>Поддержка и улучшение существующего кода.</li>
+              </ul>
+
+              <h5 class="mt-4 mb-2">Требования</h5>
+              <ul>
+                <li>Знание JavaScript, HTML, CSS.</li>
+                <li>Базовый опыт работы с React или другим фреймворком.</li>
+                <li>Понимание принципов адаптивной вёрстки.</li>
+                <li>Желание учиться и развиваться.</li>
+              </ul>
+
+              <h5 class="mt-4 mb-2">Условия</h5>
+              <ul>
+                <li>Оформление по ТК.</li>
+                <li>Гибкий график, возможность частичной удалённой работы.</li>
+                <li>Корпоративное обучение и система наставничества.</li>
+              </ul>
+            </div>
+          </section>
+
+          <a href="index.html" class="btn btn-outline-secondary btn-sm">&larr; Назад к списку вакансий</a>
+        </div>
+
+        <aside class="col-lg-4">
+          <section class="card shadow-sm mb-3">
+            <div class="card-body">
+              <h6 class="card-title mb-3">Отклик на вакансию</h6>
+              <button
+                class="btn btn-primary w-100 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#applyModal"
+              >
+                Откликнуться
+              </button>
+              <button class="btn btn-outline-primary w-100 btn-sm">Сохранить в избранное</button>
+              <p class="small text-muted mt-2 mb-0">
+                Для отклика требуется вход в личный кабинет соискателя.
+              </p>
+            </div>
+          </section>
+
+          <section class="card shadow-sm">
+            <div class="card-body">
+              <h6 class="card-title mb-2">О компании</h6>
+              <p class="mb-1 fw-semibold">ООО «ТехСофт»</p>
+              <p class="small text-muted mb-2">IT‑компания, занимающаяся разработкой веб‑сервисов.</p>
+              <p class="small mb-1">
+                В команде более 50 специалистов, гибкий график, современный стек технологий.
+              </p>
+              <a href="#" class="small text-decoration-none">Все вакансии компании</a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Modal: отклик на вакансию -->
+    <div class="modal fade" id="applyModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Отклик на вакансию</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+          </div>
+          <div class="modal-body">
+            <p class="small text-muted">
+              Чтобы откликнуться, войдите в личный кабинет соискателя или зарегистрируйтесь.
+            </p>
+            <div class="d-flex gap-2">
+              <a href="login.html" class="btn btn-primary flex-grow-1">Войти</a>
+              <a href="register.html" class="btn btn-outline-secondary flex-grow-1">Регистрация</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
+
+

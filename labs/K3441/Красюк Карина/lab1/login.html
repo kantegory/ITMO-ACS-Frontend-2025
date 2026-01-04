@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Вход — JobFinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body class="auth-body">
+    <div class="auth-wrapper">
+      <div class="auth-card card shadow-lg border-0">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0">Вход</h3>
+            <a href="index.html" class="link-secondary text-decoration-none">На главную</a>
+          </div>
+
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="candidate-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#candidate"
+                type="button"
+                role="tab"
+                aria-controls="candidate"
+                aria-selected="true"
+              >
+                Соискатель
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="employer-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#employer"
+                type="button"
+                role="tab"
+                aria-controls="employer"
+                aria-selected="false"
+              >
+                Работодатель
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="candidate"
+              role="tabpanel"
+              aria-labelledby="candidate-tab"
+            >
+              <form class="needs-validation" novalidate data-role="candidate-login">
+                <div class="mb-3">
+                  <label class="form-label">E-mail</label>
+                  <input type="email" class="form-control" required>
+                  <div class="invalid-feedback">Введите корректный e-mail.</div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Пароль</label>
+                  <input type="password" class="form-control" required minlength="6">
+                  <div class="invalid-feedback">Введите пароль (минимум 6 символов).</div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberCandidate">
+                    <label class="form-check-label" for="rememberCandidate">Запомнить меня</label>
+                  </div>
+                  <a href="#" class="small link-secondary text-decoration-none" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+                    Забыли пароль?
+                  </a>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">Войти в личный кабинет</button>
+              </form>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="employer"
+              role="tabpanel"
+              aria-labelledby="employer-tab"
+            >
+              <form class="needs-validation" novalidate data-role="employer-login">
+                <div class="mb-3">
+                  <label class="form-label">E-mail компании</label>
+                  <input type="email" class="form-control" required>
+                  <div class="invalid-feedback">Введите корректный e-mail.</div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Пароль</label>
+                  <input type="password" class="form-control" required minlength="6">
+                  <div class="invalid-feedback">Введите пароль (минимум 6 символов).</div>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mb-3">Войти как работодатель</button>
+              </form>
+            </div>
+          </div>
+
+          <p class="mb-0 small text-muted text-center mt-3">
+            Нет аккаунта?
+            <a href="register.html" class="text-decoration-none">Зарегистрироваться</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset password modal -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Восстановление пароля</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+          </div>
+          <div class="modal-body">
+            <form id="resetPasswordForm">
+              <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Отправить ссылку для восстановления</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
+
+
