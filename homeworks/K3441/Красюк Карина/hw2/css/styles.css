@@ -1,0 +1,103 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Navbar offset */
+body {
+  padding-top: 70px;
+}
+
+.hero-section {
+  min-height: 70vh;
+  background: radial-gradient(circle at top left, #0d6efd 0, #0d6efd 15%, #0b5ed7 30%, #020617 100%);
+  color: #fff;
+}
+
+.hero-section .lead {
+  max-width: 32rem;
+}
+
+.hero-card {
+  border-radius: 1.5rem;
+}
+
+/* Auth pages */
+.auth-body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d6efd 0, #6f42c1 50%, #020617 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-wrapper {
+  width: 100%;
+  max-width: 460px;
+  padding: 1.5rem;
+}
+
+.auth-card {
+  border-radius: 1.5rem;
+}
+
+/* Dashboards */
+.dashboard-header {
+  background: linear-gradient(135deg, #0d6efd 0, #20c997 40%, #0b5ed7 100%);
+  color: #fff;
+}
+
+.dashboard-header .avatar-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.resume-block-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6c757d;
+}
+
+/* Job detail */
+.job-header-badge {
+  font-size: 0.8rem;
+}
+
+.job-meta-item {
+  font-size: 0.95rem;
+}
+
+/* Employer dashboard */
+.status-badge {
+  font-size: 0.75rem;
+}
+
+/* Small tweaks */
+.form-control::placeholder {
+  color: #adb5bd;
+}
+
+.badge + .badge {
+  margin-left: 0.25rem;
+}
+
+@media (max-width: 767.98px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .hero-section {
+    min-height: 0;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+}
+
+
