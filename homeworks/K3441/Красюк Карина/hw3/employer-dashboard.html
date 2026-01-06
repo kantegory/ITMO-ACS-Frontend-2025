@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Личный кабинет работодателя — JobFinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm" role="navigation" aria-label="Основная навигация">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html" aria-label="JobFinder - главная страница">JobFinder</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Поиск кандидатов</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3 text-light small">
+            <button class="btn btn-outline-light btn-sm theme-toggle" data-theme-toggle aria-label="Переключить тему">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+            <span aria-label="Текущий пользователь">Работодатель: ООО «ТехСофт»</span>
+            <a href="login.html" class="btn btn-outline-light btn-sm" aria-label="Выйти из личного кабинета">Выйти</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <header class="dashboard-header py-4 mb-4 mt-5">
+      <div class="container d-flex flex-wrap align-items-center gap-3">
+        <div class="avatar-circle me-2" aria-hidden="true">
+          <span>ТС</span>
+        </div>
+        <div>
+          <h1 class="h4 mb-1">ООО «ТехСофт»</h1>
+          <div class="small">IT‑компания • Москва</div>
+        </div>
+        <nav class="ms-auto d-flex flex-wrap gap-2" aria-label="Действия в личном кабинете">
+          <button
+            class="btn btn-light btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#newVacancyModal"
+            aria-label="Разместить новую вакансию"
+          >
+            Разместить вакансию
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container pb-5">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <section class="card shadow-sm mb-4" aria-labelledby="my-vacancies-heading">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 card-title mb-0" id="my-vacancies-heading">Мои вакансии</h2>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#newVacancyModal"
+                  aria-label="Создать новую вакансию"
+                >
+                  + Новая вакансия
+                </button>
+              </div>
+
+              <div class="list-group list-group-flush" role="list" aria-label="Список вакансий">
+                <a href="job-detail.html" class="list-group-item list-group-item-action" role="listitem">
+                  <div class="d-flex w-100 justify-content-between">
+                    <div>
+                      <h3 class="h6 mb-1">Frontend разработчик (React)</h3>
+                      <small class="text-muted">Москва • от 90 000 ₽</small>
+                    </div>
+                    <div class="text-end">
+                      <span class="badge text-bg-success status-badge mb-1" aria-label="Статус: Активна">Активна</span>
+                      <div class="small text-muted">Откликов: 5</div>
+                    </div>
+                  </div>
+                </a>
+                <a href="job-detail.html" class="list-group-item list-group-item-action" role="listitem">
+                  <div class="d-flex w-100 justify-content-between">
+                    <div>
+                      <h3 class="h6 mb-1">Финансовый аналитик</h3>
+                      <small class="text-muted">Москва • от 150 000 ₽</small>
+                    </div>
+                    <div class="text-end">
+                      <span class="badge text-bg-secondary status-badge mb-1" aria-label="Статус: На паузе">На паузе</span>
+                      <div class="small text-muted">Откликов: 2</div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section class="card shadow-sm" aria-labelledby="applications-heading">
+            <div class="card-body">
+              <h2 class="h5 card-title mb-3" id="applications-heading">Последние отклики</h2>
+              <div class="table-responsive">
+                <table class="table align-middle mb-0" role="table" aria-label="Таблица откликов на вакансии">
+                  <thead>
+                    <tr role="row">
+                      <th scope="col" role="columnheader">Кандидат</th>
+                      <th scope="col" role="columnheader">Вакансия</th>
+                      <th scope="col" role="columnheader">Статус</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr role="row">
+                      <td>Иван Петров</td>
+                      <td>Frontend разработчик (React)</td>
+                      <td><span class="badge text-bg-warning status-badge" aria-label="Статус: Новый">Новый</span></td>
+                    </tr>
+                    <tr role="row">
+                      <td>Анна Смирнова</td>
+                      <td>Маркетолог digital</td>
+                      <td><span class="badge text-bg-success status-badge" aria-label="Статус: Приглашён">Приглашён</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="col-lg-4" aria-label="Дополнительная информация">
+          <section class="card shadow-sm mb-4" aria-labelledby="balance-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2" id="balance-heading">Баланс и тариф</h2>
+              <p class="mb-1">Текущий тариф: <strong>Старт</strong></p>
+              <p class="small text-muted mb-2">Осталось размещений: 8 из 10</p>
+              <button class="btn btn-outline-secondary btn-sm" aria-label="Изменить тарифный план">Изменить тариф</button>
+            </div>
+          </section>
+
+          <section class="card shadow-sm" aria-labelledby="tips-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2" id="tips-heading">Советы по вакансиям</h2>
+              <ul class="small mb-0" role="list">
+                <li role="listitem">Уточните требования, чтобы получать более релевантные отклики.</li>
+                <li role="listitem">Добавьте описание компании для повышения доверия соискателей.</li>
+              </ul>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <div class="modal fade" id="newVacancyModal" tabindex="-1" role="dialog" aria-labelledby="newVacancyModalLabel" aria-describedby="newVacancyModalDescription" aria-modal="true" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newVacancyModalLabel">Новая вакансия</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть окно создания вакансии"></button>
+          </div>
+          <div class="modal-body">
+            <p id="newVacancyModalDescription" class="visually-hidden">Форма для создания новой вакансии</p>
+            <form class="needs-validation" novalidate aria-label="Форма создания новой вакансии">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="newVacancyTitle" class="form-label">Название вакансии</label>
+                  <input type="text" id="newVacancyTitle" class="form-control" required placeholder="Например, Backend разработчик" aria-required="true" aria-describedby="newVacancyTitle-error">
+                  <div class="invalid-feedback" id="newVacancyTitle-error">Введите название вакансии</div>
+                </div>
+                <div class="col-md-3">
+                  <label for="newVacancySalary" class="form-label">Зарплата от, ₽</label>
+                  <input type="number" id="newVacancySalary" class="form-control" min="0" step="1000" aria-label="Минимальная зарплата в рублях">
+                </div>
+                <div class="col-md-3">
+                  <label for="newVacancyCity" class="form-label">Город</label>
+                  <input type="text" id="newVacancyCity" class="form-control" placeholder="Москва" aria-label="Город работы">
+                </div>
+                <div class="col-md-6">
+                  <label for="newVacancyIndustry" class="form-label">Отрасль</label>
+                  <select id="newVacancyIndustry" class="form-select" aria-label="Выберите отрасль">
+                    <option>IT</option>
+                    <option>Маркетинг</option>
+                    <option>Финансы</option>
+                    <option>Продажи</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="newVacancyExperience" class="form-label">Опыт</label>
+                  <select id="newVacancyExperience" class="form-select" aria-label="Выберите требуемый опыт работы">
+                    <option>0–1 год</option>
+                    <option>1–3 года</option>
+                    <option>3+ года</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label for="newVacancyDescription" class="form-label">Описание</label>
+                  <textarea id="newVacancyDescription" class="form-control" rows="3" aria-label="Описание вакансии"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">Сохранить вакансию</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module">
+      import { themeManager } from './js/theme.js';
+    </script>
+  </body>
+</html>
+
+
