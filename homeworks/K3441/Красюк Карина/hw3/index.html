@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>JobFinder — Поиск работы</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm" role="navigation" aria-label="Основная навигация">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html" aria-label="JobFinder - главная страница">JobFinder</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Поиск вакансий</a>
+            </li>
+          </ul>
+          <div class="d-flex gap-2 align-items-center">
+            <button class="btn btn-outline-light btn-sm theme-toggle" data-theme-toggle aria-label="Переключить тему">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+            <a href="login.html" class="btn btn-outline-light btn-sm">Вход</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Регистрация</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section d-flex align-items-center" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold mb-3" id="hero-heading">Найдите работу мечты с JobFinder</h1>
+            <p class="lead mb-4">
+              Поиск вакансий по отрасли, зарплате и опыту. Удобные личные кабинеты для соискателей и работодателей.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="#search-block" class="btn btn-primary btn-lg">Найти вакансии</a>
+              <a href="employer-dashboard.html" class="btn btn-outline-light btn-lg">Разместить вакансию</a>
+            </div>
+          </div>
+          <div class="col-lg-5 offset-lg-1 d-none d-lg-block">
+            <div class="hero-card p-4 rounded-4 shadow-lg bg-white">
+              <h2 class="h5 mb-3">Быстрый поиск</h2>
+              <form id="hero-search-form" aria-label="Форма быстрого поиска вакансий">
+                <div class="mb-3">
+                  <label for="heroKeyword" class="form-label">Ключевое слово</label>
+                  <input type="text" class="form-control" id="heroKeyword" placeholder="Должность, компания..." aria-describedby="heroKeyword-help">
+                  <div id="heroKeyword-help" class="visually-hidden">Введите название должности или компании для поиска</div>
+                </div>
+                <div class="mb-3">
+                  <label for="heroLocation" class="form-label">Город</label>
+                  <input type="text" class="form-control" id="heroLocation" placeholder="Москва, Санкт-Петербург..." aria-describedby="heroLocation-help">
+                  <div id="heroLocation-help" class="visually-hidden">Введите название города для поиска</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Искать</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main id="search-block" class="py-5 bg-light border-top">
+      <div class="container">
+        <div class="row g-4">
+          <aside class="col-lg-3" aria-label="Фильтры поиска">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h2 class="h5 card-title mb-3">Фильтры</h2>
+                <form aria-label="Форма фильтров поиска вакансий">
+                  <div class="mb-3">
+                    <label for="filterIndustry" class="form-label">Отрасль</label>
+                    <select id="filterIndustry" class="form-select" aria-label="Выберите отрасль">
+                      <option value="">Все</option>
+                      <option value="it">IT</option>
+                      <option value="marketing">Маркетинг</option>
+                      <option value="finance">Финансы</option>
+                      <option value="sales">Продажи</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="filterExperience" class="form-label">Опыт</label>
+                    <select id="filterExperience" class="form-select" aria-label="Выберите требуемый опыт работы">
+                      <option value="">Любой</option>
+                      <option value="junior">0–1 год</option>
+                      <option value="middle">1–3 года</option>
+                      <option value="senior">3+ года</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="filterSalary" class="form-label">Зарплата от, ₽</label>
+                    <input type="number" id="filterSalary" class="form-control" min="0" step="1000" placeholder="50000" aria-label="Минимальная зарплата в рублях">
+                  </div>
+                  <button id="resetFilters" type="button" class="btn btn-outline-secondary w-100 btn-sm" aria-label="Сбросить все фильтры">Сбросить</button>
+                </form>
+              </div>
+            </div>
+          </aside>
+
+          <div class="col-lg-9">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+              <form class="d-flex flex-grow-1 gap-2" id="mainSearchForm" aria-label="Поиск вакансий">
+                <label for="searchKeyword" class="visually-hidden">Поиск по названию вакансии или компании</label>
+                <input
+                  type="text"
+                  id="searchKeyword"
+                  class="form-control"
+                  placeholder="Поиск по названию вакансии или компании"
+                  aria-label="Поиск по названию вакансии или компании"
+                >
+                <button class="btn btn-primary" type="submit" aria-label="Выполнить поиск">Найти</button>
+              </form>
+              <div class="text-muted" id="resultsCount" role="status" aria-live="polite" aria-atomic="true">Найдено: 0 вакансий</div>
+            </div>
+
+            <section aria-label="Список вакансий">
+              <div class="list-group" id="jobsList" role="list">
+                <div class="list-group-item text-center text-muted" role="listitem">
+                  <div class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true">
+                    <span class="visually-hidden">Загрузка...</span>
+                  </div>
+                  <span aria-live="polite">Загрузка вакансий...</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="py-4 bg-dark text-light" role="contentinfo">
+      <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <span>&copy; 2025 JobFinder. Все права защищены.</span>
+        <nav aria-label="Дополнительная навигация">
+          <div class="d-flex gap-3 small">
+            <a href="#" class="link-light text-decoration-none">О сервисе</a>
+            <a href="#" class="link-light text-decoration-none">Поддержка</a>
+            <a href="#" class="link-light text-decoration-none" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+              Обратная связь
+            </a>
+          </div>
+        </nav>
+      </div>
+    </footer>
+
+    <div
+      class="modal fade"
+      id="feedbackModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="feedbackModalLabel"
+      aria-describedby="feedbackModalDescription"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLabel">Обратная связь</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть окно обратной связи"></button>
+          </div>
+          <div class="modal-body">
+            <p id="feedbackModalDescription" class="visually-hidden">Форма для отправки обратной связи о работе сервиса</p>
+            <form id="feedbackForm" aria-label="Форма обратной связи">
+              <div class="mb-3">
+                <label for="feedbackEmail" class="form-label">Ваш e-mail</label>
+                <input type="email" id="feedbackEmail" class="form-control" required aria-required="true" aria-describedby="feedbackEmail-error">
+                <div class="invalid-feedback" id="feedbackEmail-error">Введите корректный e-mail адрес</div>
+              </div>
+              <div class="mb-3">
+                <label for="feedbackMessage" class="form-label">Сообщение</label>
+                <textarea id="feedbackMessage" class="form-control" rows="4" required aria-required="true" aria-describedby="feedbackMessage-error"></textarea>
+                <div class="invalid-feedback" id="feedbackMessage-error">Введите текст сообщения</div>
+              </div>
+              <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module">
+      import { themeManager } from './js/theme.js';
+    </script>
+  </body>
+</html>
+
+

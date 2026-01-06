@@ -1,0 +1,152 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "candidate@example.com",
+      "password": "123456",
+      "role": "candidate",
+      "name": "Иван Петров",
+      "position": "Frontend разработчик",
+      "city": "Москва"
+    },
+    {
+      "id": 2,
+      "email": "employer@example.com",
+      "password": "123456",
+      "role": "employer",
+      "companyName": "ООО «ТехСофт»",
+      "industry": "IT",
+      "city": "Москва"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "title": "Frontend разработчик (React)",
+      "company": "ООО «ТехСофт»",
+      "location": "Москва",
+      "salary": 90000,
+      "industry": "it",
+      "experience": "junior",
+      "employmentType": "Полная занятость",
+      "workFormat": "Гибрид (офис + удалённо)",
+      "description": "Мы ищем Frontend разработчика, который поможет нам развивать веб‑сервисы для тысяч пользователей. Вас ждёт работа в команде, современный стек и возможность профессионального роста.",
+      "responsibilities": [
+        "Разработка интерфейсов на React и Bootstrap.",
+        "Участие в проектировании пользовательских сценариев.",
+        "Работа с REST API и интеграция с backend‑сервисами.",
+        "Поддержка и улучшение существующего кода."
+      ],
+      "requirements": [
+        "Знание JavaScript, HTML, CSS.",
+        "Базовый опыт работы с React или другим фреймворком.",
+        "Понимание принципов адаптивной вёрстки.",
+        "Желание учиться и развиваться."
+      ],
+      "conditions": [
+        "Оформление по ТК.",
+        "Гибкий график, возможность частичной удалённой работы.",
+        "Корпоративное обучение и система наставничества."
+      ],
+      "employerId": 2,
+      "status": "active",
+      "publishedAt": "2025-01-15",
+      "applicationsCount": 5
+    },
+    {
+      "id": 2,
+      "title": "Маркетолог digital",
+      "company": "Агентство «MediaStorm»",
+      "location": "Санкт-Петербург",
+      "salary": 60000,
+      "industry": "marketing",
+      "experience": "middle",
+      "employmentType": "Гибрид",
+      "workFormat": "Гибрид",
+      "description": "Ищем опытного digital-маркетолога для работы над крупными проектами.",
+      "responsibilities": [
+        "Разработка и реализация digital-стратегий.",
+        "Работа с рекламными кампаниями."
+      ],
+      "requirements": [
+        "Опыт работы в digital-маркетинге от 1 года.",
+        "Знание инструментов аналитики."
+      ],
+      "conditions": [
+        "Гибкий график.",
+        "Удалённая работа."
+      ],
+      "employerId": 2,
+      "status": "active",
+      "publishedAt": "2025-01-14",
+      "applicationsCount": 2
+    },
+    {
+      "id": 3,
+      "title": "Финансовый аналитик",
+      "company": "Банк «Стабильность»",
+      "location": "Москва",
+      "salary": 150000,
+      "industry": "finance",
+      "experience": "senior",
+      "employmentType": "Полная занятость",
+      "workFormat": "Офис/удалённо",
+      "description": "Требуется опытный финансовый аналитик для работы в крупном банке.",
+      "responsibilities": [
+        "Финансовый анализ и прогнозирование.",
+        "Подготовка отчётов."
+      ],
+      "requirements": [
+        "Опыт работы от 3 лет.",
+        "Высшее экономическое образование."
+      ],
+      "conditions": [
+        "Оформление по ТК.",
+        "Корпоративные льготы."
+      ],
+      "employerId": 2,
+      "status": "paused",
+      "publishedAt": "2025-01-12",
+      "applicationsCount": 2
+    }
+  ],
+  "resumes": [
+    {
+      "id": 1,
+      "userId": 1,
+      "position": "Frontend разработчик (React)",
+      "salary": 90000,
+      "city": "Москва",
+      "employmentType": "Полная, удалённо",
+      "skills": ["JavaScript", "React", "HTML/CSS", "Git"],
+      "experience": [
+        {
+          "position": "Junior Frontend разработчик",
+          "company": "ООО «ТехСофт»",
+          "period": "2023 — н.в.",
+          "description": "Разработка интерфейсов на React, работа с REST API."
+        }
+      ],
+      "education": "БГУИР, Программная инженерия, 2019–2023",
+      "about": "",
+      "isVisible": true
+    }
+  ],
+  "applications": [
+    {
+      "id": 1,
+      "jobId": 1,
+      "userId": 1,
+      "status": "pending",
+      "createdAt": "2025-01-15"
+    },
+    {
+      "id": 2,
+      "jobId": 2,
+      "userId": 1,
+      "status": "invited",
+      "createdAt": "2025-01-14"
+    }
+  ]
+}
+

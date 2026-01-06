@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Личный кабинет соискателя — JobFinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm" role="navigation" aria-label="Основная навигация">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html" aria-label="JobFinder - главная страница">JobFinder</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Поиск вакансий</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3 text-light small">
+            <button class="btn btn-outline-light btn-sm theme-toggle" data-theme-toggle aria-label="Переключить тему">
+              <i class="bi bi-moon-fill"></i>
+            </button>
+            <span aria-label="Текущий пользователь">Соискатель: Иван Петров</span>
+            <a href="login.html" class="btn btn-outline-light btn-sm" aria-label="Выйти из личного кабинета">Выйти</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <header class="dashboard-header py-4 mb-4 mt-5">
+      <div class="container d-flex flex-wrap align-items-center gap-3">
+        <div class="avatar-circle me-2" aria-hidden="true">
+          <span>ИП</span>
+        </div>
+        <div>
+          <h1 class="h4 mb-1">Иван Петров</h1>
+          <div class="small">Frontend разработчик • Москва</div>
+        </div>
+        <nav class="ms-auto d-flex flex-wrap gap-2" aria-label="Действия в личном кабинете">
+          <a href="#resume" class="btn btn-light btn-sm">Редактировать резюме</a>
+          <a href="index.html" class="btn btn-outline-light btn-sm">Найти вакансии</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container pb-5">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <section id="resume" class="card shadow-sm mb-4" aria-labelledby="resume-heading">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="h5 card-title mb-0" id="resume-heading">Резюме</h2>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editResumeModal"
+                  aria-label="Редактировать резюме"
+                >
+                  Редактировать
+                </button>
+              </div>
+
+              <div class="mb-3">
+                <div class="resume-block-title mb-1">Желаемая должность</div>
+                <div>Frontend разработчик (React)</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="resume-block-title mb-1">Уровень дохода</div>
+                  <div>от 90 000 ₽</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="resume-block-title mb-1">Занятость</div>
+                  <div>Полная, удалённо</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="resume-block-title mb-1">Навыки</div>
+                <span class="badge bg-primary me-1">JavaScript</span>
+                <span class="badge bg-primary me-1">React</span>
+                <span class="badge bg-primary me-1">HTML/CSS</span>
+                <span class="badge bg-secondary me-1">Git</span>
+              </div>
+
+              <div class="mb-3">
+                <div class="resume-block-title mb-1">Опыт работы</div>
+                <p class="mb-1 fw-semibold">Junior Frontend разработчик — ООО «ТехСофт»</p>
+                <p class="mb-0 text-muted small">2023 — н.в. • Разработка интерфейсов на React, работа с REST API.</p>
+              </div>
+
+              <div>
+                <div class="resume-block-title mb-1">Образование</div>
+                <p class="mb-0">БГУИР, Программная инженерия, 2019–2023</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card shadow-sm" aria-labelledby="applications-heading">
+            <div class="card-body">
+              <h2 class="h5 card-title mb-3" id="applications-heading">Отклики</h2>
+              <div class="list-group list-group-flush" role="list" aria-label="Список откликов на вакансии">
+                <a href="job-detail.html" class="list-group-item list-group-item-action" role="listitem">
+                  <div class="d-flex w-100 justify-content-between">
+                    <div>
+                      <h3 class="h6 mb-1">Frontend разработчик (React)</h3>
+                      <small class="text-muted">ООО «ТехСофт» • Москва</small>
+                    </div>
+                    <span class="badge rounded-pill text-bg-warning align-self-start" aria-label="Статус: Рассматривается">Рассматривается</span>
+                  </div>
+                </a>
+                <a href="job-detail.html" class="list-group-item list-group-item-action" role="listitem">
+                  <div class="d-flex w-100 justify-content-between">
+                    <div>
+                      <h3 class="h6 mb-1">Маркетолог digital</h3>
+                      <small class="text-muted">Агентство «MediaStorm»</small>
+                    </div>
+                    <span class="badge rounded-pill text-bg-success align-self-start" aria-label="Статус: Приглашение на собеседование">Приглашение на собеседование</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="col-lg-4" aria-label="Дополнительная информация">
+          <section class="card shadow-sm mb-4" aria-labelledby="resume-status-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2" id="resume-status-heading">Статус резюме</h2>
+              <p class="mb-1 small text-muted">Ваше резюме видно работодателям.</p>
+              <button class="btn btn-outline-secondary btn-sm" aria-label="Сделать резюме невидимым для работодателей">Сделать невидимым</button>
+            </div>
+          </section>
+
+          <section class="card shadow-sm" aria-labelledby="recommended-jobs-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2" id="recommended-jobs-heading">Рекомендованные вакансии</h2>
+              <ul class="list-unstyled mb-0 small" role="list">
+                <li class="mb-2" role="listitem">
+                  <a href="job-detail.html" class="text-decoration-none">Frontend разработчик (React)</a>
+                  <div class="text-muted">от 90 000 ₽ • Москва</div>
+                </li>
+                <li role="listitem">
+                  <a href="job-detail.html" class="text-decoration-none">Финансовый аналитик</a>
+                  <div class="text-muted">от 150 000 ₽ • Москва</div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <div class="modal fade" id="editResumeModal" tabindex="-1" role="dialog" aria-labelledby="editResumeModalLabel" aria-describedby="editResumeModalDescription" aria-modal="true" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editResumeModalLabel">Редактирование резюме</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть окно редактирования резюме"></button>
+          </div>
+          <div class="modal-body">
+            <p id="editResumeModalDescription" class="visually-hidden">Форма для редактирования информации в резюме</p>
+            <form class="needs-validation" novalidate aria-label="Форма редактирования резюме">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="editResumePosition" class="form-label">Желаемая должность</label>
+                  <input type="text" id="editResumePosition" class="form-control" required value="Frontend разработчик (React)" aria-required="true" aria-describedby="editResumePosition-error">
+                  <div class="invalid-feedback" id="editResumePosition-error">Введите желаемую должность</div>
+                </div>
+                <div class="col-md-3">
+                  <label for="editResumeSalary" class="form-label">Зарплата от, ₽</label>
+                  <input type="number" id="editResumeSalary" class="form-control" value="90000" min="0" step="1000" aria-label="Минимальная зарплата в рублях">
+                </div>
+                <div class="col-md-3">
+                  <label for="editResumeCity" class="form-label">Город</label>
+                  <input type="text" id="editResumeCity" class="form-control" value="Москва" aria-label="Город работы">
+                </div>
+                <div class="col-12">
+                  <label for="editResumeSkills" class="form-label">Ключевые навыки</label>
+                  <input
+                    type="text"
+                    id="editResumeSkills"
+                    class="form-control"
+                    placeholder="JavaScript, React, HTML/CSS, Git"
+                    aria-describedby="editResumeSkills-help"
+                  >
+                  <div id="editResumeSkills-help" class="visually-hidden">Введите навыки через запятую</div>
+                </div>
+                <div class="col-12">
+                  <label for="editResumeAbout" class="form-label">О себе</label>
+                  <textarea id="editResumeAbout" class="form-control" rows="3" aria-label="Дополнительная информация о себе"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module">
+      import { themeManager } from './js/theme.js';
+    </script>
+  </body>
+</html>
+
+
