@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - FitnessApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">FitnessApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Тренировки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Блог</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="login.html">Вход</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Регистрация</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="auth-container">
+            <h2 class="text-center mb-4">Вход в систему</h2>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email адрес</label>
+                    <input type="email" class="form-control" id="email" required placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="remember">
+                    <label class="form-check-label" for="remember">Запомнить меня</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Войти</button>
+                <div class="text-center mt-3">
+                    <a href="register.html">Нет аккаунта? Зарегистрироваться</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const result = await api.login(email, password);
+            
+            if (result.success) {
+                localStorage.setItem('currentUser', JSON.stringify(result.user));
+                localStorage.setItem('token', JSON.stringify(result.token));
+                alert('Успешный вход!');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert(result.message);
+            }
+        });
+    </script>
+</body>
+</html>

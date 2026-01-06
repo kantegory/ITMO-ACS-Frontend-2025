@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как правильно питаться до и после тренировки - FitnessApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Основная навигация">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">FitnessApp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Тренировки</a></li>
+                <li class="nav-item"><a class="nav-link active" href="blog.html">Блог</a></li>
+            </ul>
+            <ul class="navbar-nav" id="authLinks">
+                <li class="nav-item"><a class="nav-link" href="login.html">Вход</a></li>
+                <li class="nav-item"><a class="nav-link" href="register.html">Регистрация</a></li>
+            </ul>
+            <ul class="navbar-nav d-none" id="userLinks">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Кабинет (<span id="usernameDisplay"></span>)</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Выход</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 content">
+    <div class="hero mb-4">
+        <h1 class="text-center mb-2">Название</h1>
+        <div class="text-end text-muted" style="font-size:.85rem">
+            Обновлено: 22 декабря 2025
+        </div>
+    </div>
+
+    <section>
+        <h2 class="h5">Текст</h2>
+        <p class="lead-compact">Правильное питание до и после тренировки важно для повышения эффективности занятий, ускорения восстановления и снижения риска травм. Питание перед тренировкой обеспечивает энергией, а после — восстанавливает запасы гликогена и способствует восстановлению мышц.</p>
+    </section>
+</div>
+
+<footer class="text-center mt-5">
+    <div class="container py-4">
+        <p>&copy; 2025 FitnessApp Platform. Все права защищены.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/scripts.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        
+        if (id) {
+            const post = await api.getPost(id);
+            if (post) {
+                document.querySelector('h1').textContent = post.title;
+                document.title = post.title + ' - FitnessApp';
+                document.querySelector('.text-end.text-muted').textContent = 'Обновлено: ' + getPrettyDate(post.createdAt);
+                
+                const lead = document.querySelector('.lead-compact');
+                if (lead) lead.textContent = post.content;
+            }
+        }
+    });
+</script>
+</body>
+</html>
