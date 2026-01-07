@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Frontend разработчик (React) — JobFinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </symbol>
+      <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </symbol>
+      <symbol id="icon-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+        <path d="M6 12h12"></path>
+        <path d="M6 8h12"></path>
+        <path d="M6 16h12"></path>
+        <path d="M10 2v4"></path>
+        <path d="M14 2v4"></path>
+      </symbol>
+      <symbol id="icon-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </symbol>
+      <symbol id="icon-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </symbol>
+      <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="6" x2="20" y2="6"></line>
+        <line x1="4" y1="18" x2="20" y2="18"></line>
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+      </symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="m4.93 4.93 1.41 1.41"></path>
+        <path d="m17.66 17.66 1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="m6.34 17.66-1.41 1.41"></path>
+        <path d="m19.07 4.93-1.41 1.41"></path>
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+      </symbol>
+    </svg>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm" role="navigation" aria-label="Основная навигация">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html" aria-label="JobFinder - главная страница">JobFinder</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Поиск вакансий</a>
+            </li>
+          </ul>
+          <div class="d-flex gap-2 align-items-center">
+            <button class="btn btn-outline-light btn-sm theme-toggle" data-theme-toggle aria-label="Переключить тему">
+              <span class="icon icon-sm">
+                <svg><use href="#icon-moon"></use></svg>
+              </span>
+            </button>
+            <a href="login.html" class="btn btn-outline-light btn-sm">Войти</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Регистрация</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container pb-5" style="margin-top: 5rem;">
+      <div class="row g-4">
+        <article class="col-lg-8">
+          <section class="card shadow-sm mb-3" aria-labelledby="job-title">
+            <div class="card-body">
+              <header class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h1 class="h3 mb-1" id="job-title">Frontend разработчик (React)</h1>
+                  <div class="text-muted mb-2">
+                    <span class="icon icon-sm me-1">
+                      <svg><use href="#icon-building"></use></svg>
+                    </span>
+                    ООО «ТехСофт» • 
+                    <span class="icon icon-sm me-1">
+                      <svg><use href="#icon-location"></use></svg>
+                    </span>
+                    Москва • Полная занятость
+                  </div>
+                  <div class="d-flex flex-wrap gap-2 job-header-badge" role="list" aria-label="Теги вакансии">
+                    <span class="badge text-bg-primary" role="listitem">IT</span>
+                    <span class="badge text-bg-secondary" role="listitem">0–1 год опыта</span>
+                    <span class="badge text-bg-light text-dark" role="listitem">Офис / удалённо</span>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <div class="h4 mb-1" aria-label="Зарплата от 90000 рублей">от 90 000 ₽</div>
+                  <small class="text-muted">Опубликовано: сегодня</small>
+                </div>
+              </header>
+
+              <div class="row mb-3">
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Тип занятости</div>
+                  <div>Полная</div>
+                </div>
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Формат</div>
+                  <div>Гибрид (офис + удалённо)</div>
+                </div>
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Опыт работы</div>
+                  <div>0–1 год</div>
+                </div>
+              </div>
+
+              <h2 class="h5 mt-4 mb-2">Описание</h2>
+              <p>
+                Мы ищем Frontend разработчика, который поможет нам развивать веб‑сервисы для тысяч пользователей.
+                Вас ждёт работа в команде, современный стек и возможность профессионального роста.
+              </p>
+
+              <h2 class="h5 mt-4 mb-2">Обязанности</h2>
+              <ul role="list">
+                <li role="listitem">Разработка интерфейсов на React и Bootstrap.</li>
+                <li role="listitem">Участие в проектировании пользовательских сценариев.</li>
+                <li role="listitem">Работа с REST API и интеграция с backend‑сервисами.</li>
+                <li role="listitem">Поддержка и улучшение существующего кода.</li>
+              </ul>
+
+              <h2 class="h5 mt-4 mb-2">Требования</h2>
+              <ul role="list">
+                <li role="listitem">Знание JavaScript, HTML, CSS.</li>
+                <li role="listitem">Базовый опыт работы с React или другим фреймворком.</li>
+                <li role="listitem">Понимание принципов адаптивной вёрстки.</li>
+                <li role="listitem">Желание учиться и развиваться.</li>
+              </ul>
+
+              <h2 class="h5 mt-4 mb-2">Условия</h2>
+              <ul role="list">
+                <li role="listitem">Оформление по ТК.</li>
+                <li role="listitem">Гибкий график, возможность частичной удалённой работы.</li>
+                <li role="listitem">Корпоративное обучение и система наставничества.</li>
+              </ul>
+            </div>
+          </section>
+
+          <nav aria-label="Навигация">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm">&larr; Назад к списку вакансий</a>
+          </nav>
+        </article>
+
+        <aside class="col-lg-4" aria-label="Дополнительная информация">
+          <section class="card shadow-sm mb-3" aria-labelledby="apply-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-3" id="apply-heading">Отклик на вакансию</h2>
+              <button
+                class="btn btn-primary w-100 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#applyModal"
+                aria-label="Откликнуться на вакансию"
+              >
+                Откликнуться
+              </button>
+              <button class="btn btn-outline-primary w-100 btn-sm" aria-label="Сохранить вакансию в избранное">
+                <span class="icon icon-sm me-1">
+                  <svg><use href="#icon-bookmark"></use></svg>
+                </span>
+                Сохранить в избранное
+              </button>
+              <p class="small text-muted mt-2 mb-0">
+                Для отклика требуется вход в личный кабинет соискателя.
+              </p>
+            </div>
+          </section>
+
+          <section class="card shadow-sm" aria-labelledby="company-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2" id="company-heading">О компании</h2>
+              <p class="mb-1 fw-semibold">ООО «ТехСофт»</p>
+              <p class="small text-muted mb-2">IT‑компания, занимающаяся разработкой веб‑сервисов.</p>
+              <p class="small mb-1">
+                В команде более 50 специалистов, гибкий график, современный стек технологий.
+              </p>
+              <a href="#" class="small text-decoration-none">Все вакансии компании</a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-describedby="applyModalDescription" aria-modal="true" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="applyModalLabel">Отклик на вакансию</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть окно отклика на вакансию">
+              <span class="icon" style="width: 1rem; height: 1rem;">
+                <svg><use href="#icon-close"></use></svg>
+              </span>
+            </button>
+          </div>
+          <div class="modal-body" id="applyModalBody">
+            <p id="applyModalDescription" class="small text-muted">
+              Чтобы откликнуться, войдите в личный кабинет соискателя или зарегистрируйтесь.
+            </p>
+            <div class="d-flex gap-2">
+              <a href="login.html" class="btn btn-primary flex-grow-1">Войти</a>
+              <a href="register.html" class="btn btn-outline-secondary flex-grow-1">Регистрация</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module">
+      import { themeManager } from './js/theme.js';
+    </script>
+  </body>
+</html>
+
+
