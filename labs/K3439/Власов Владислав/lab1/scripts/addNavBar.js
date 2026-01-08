@@ -1,5 +1,5 @@
 document.querySelector('header').insertAdjacentHTML('afterbegin', 
-    `<nav class="navbar navbar-expand-lg navbar-light mb-5 mx-auto", style="background-color: #D4C17F;">
+    `<nav class="navbar navbar-expand-lg navbar-light mb-5 mx-auto" aria-label="Основная навигация" style="background-color: #D4C17F;">
         <form class="container-fluid justify-content-start">
             <button id="navbar-btn-characters" class="btn btn-outline-dark me-2" type="button">Персонажи</button>
             <button id="navbar-btn-skills" class="btn btn-outline-dark me-2" type="button">Навыки</button>

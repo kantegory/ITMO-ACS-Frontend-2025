@@ -47,21 +47,32 @@ async function setSkills() {
     skills.forEach(skills => {
         container.insertAdjacentHTML('beforeend',
             `
-            <li class="skill list-group-item">${skills.name}</li>
+            <li class="skill list-group-item" tabindex="0">${skills.name}</li>
             `)
     });
     container.insertAdjacentHTML('beforeend',
         `
-        <li class="skill-create list-group-item">Создать новый</li>
+        <li class="skill-create list-group-item" tabindex="0">Создать новый</li>
         `)
 
     console.log(getSkillsArray())
 
     document.querySelectorAll('.skill').forEach((skill) => {
         skill.onclick = () => {showDescription(skill.textContent)}
+        skill.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.keyCode === 32 || e.key === 'Enter' || e.keyCode === 13) {
+                this.click();
+            }
+        })
     })
 
-    document.querySelector('.skill-create').onclick = () => {showCreator()}
+    skillCreate = document.querySelector('.skill-create')
+    skillCreate.onclick = () => {showCreator()}
+    skillCreate.addEventListener('keydown', function(e) {
+        if (e.key === ' ' || e.keyCode === 32 || e.key === 'Enter' || e.keyCode === 13) {
+            this.click();
+        }
+    })
 }
 
 setSkills()
