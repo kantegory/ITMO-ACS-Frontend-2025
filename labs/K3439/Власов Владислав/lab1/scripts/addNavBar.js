@@ -7,6 +7,7 @@ document.querySelector('header').insertAdjacentHTML('afterbegin',
             <button id="navbar-btn-items" class="btn disabled btn-outline-dark me-2" type="button">Предметы</button>
         </form>
         <form class="container-fluid justify-content-end">
+            <button id="navbar-btn-changeTheme" class="btn btn-outline-dark me-2" type="button">Сменить тему</button>
             <a class="nav-link" aria-current="page" href="profile.html">Профиль</a>
             <a class="nav-link" aria-current="page" href="sign-in.html">Выйти</a>
         </form>
