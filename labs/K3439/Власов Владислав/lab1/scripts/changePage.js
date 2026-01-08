@@ -2,11 +2,10 @@ function changePage(url) {
     window.location.href = url
 }
 
-var button = document.getElementById("navbar-btn-characters")
-button.onclick = (button) => {
+document.getElementById("navbar-btn-characters").onclick = (button) => {
     changePage('characters.html')
 }
-var button = document.getElementById("navbar-btn-skills")
-button.onclick = () => {
+
+document.getElementById("navbar-btn-skills").onclick = () => {
     changePage('skills.html')
 }

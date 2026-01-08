@@ -1,24 +1,25 @@
-function getSkillDesc() {
-    return 'Это тектс из БД' 
-}
+// const panelDetail = document.getElementById('detailPanel')
+// const panelCreate = document.getElementById('createPanel')
 
-function showDescription(name) {
-    console.log(name)
-    const panel = document.getElementById('detailPanel')
-    panel.classList.remove('d-none')
+// function getSkillDesc() {
+//     return 'Это тектс из БД' 
+// }
 
-    document.getElementById('detailTitle').textContent = name
-    document.getElementById('detailDescription').textContent = getSkillDesc()
-}
+// function showDescription(name) {
+//     console.log(name)
+//     panelDetail.classList.remove('d-none')
+//     panelCreate.classList.add('d-none')
 
-function hideDescription() {
-    const panel = document.getElementById('detailPanel')
-    panel.classList.add('d-none')
-}
+//     document.getElementById('detailTitle').textContent = name
+//     document.getElementById('detailDescription').textContent = getSkillDesc()
+// }
+
+// function hideDescription() {
+//     panelDetail.classList.add('d-none')
+// }
 
 
-document.querySelectorAll('.skill').forEach((skill) => {
-    skill.onclick = () => {showDescription(skill.textContent)}
-})
-
-document.getElementById('closePanel').onclick = () => {hideDescription()}
+// document.querySelectorAll('.skill').forEach((skill) => {
+//     console.log('hi')
+//     skill.onclick = () => {showDescription(skill.textContent)}
+// })
