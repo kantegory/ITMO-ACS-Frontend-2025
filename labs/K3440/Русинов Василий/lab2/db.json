@@ -1,0 +1,129 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Иван",
+      "email": "test@test.ru",
+      "password": "12345",
+      "token": "token-ivan"
+    },
+    {
+      "id": "2c3d",
+      "name": "ya",
+      "email": "ya@mail.ru",
+      "password": "ya@mail.ru",
+      "token": "1765923741846"
+    },
+    {
+      "id": "6790",
+      "name": "ya@mail.ru",
+      "email": "ya@mail.ru",
+      "password": "ya@mail.ru",
+      "token": "1765992338192"
+    },
+    {
+      "id": "3652",
+      "name": "ya",
+      "email": "ya@mail.ru",
+      "password": "ya@mail.ru",
+      "token": "1765992353518"
+    },
+    {
+      "id": "2599",
+      "name": "ya",
+      "email": "ya@mail.ru",
+      "password": "ya@mail.ru",
+      "token": "1765992425255"
+    },
+    {
+      "id": "8f70",
+      "name": "test",
+      "email": "test@mail.ru",
+      "password": "test",
+      "token": "1765992463506"
+    },
+    {
+      "id": "455e",
+      "name": "new",
+      "email": "new@mail.ru",
+      "password": "new",
+      "token": "1765992798462"
+    },
+    {
+      "id": "3a73",
+      "name": "test1@mail.ru",
+      "email": "test1@mail.ru",
+      "password": "test1@mail.ru",
+      "token": "1765994138680"
+    },
+    {
+      "id": "553f",
+      "name": "test2",
+      "email": "test2@mail.ru",
+      "password": "test2",
+      "token": "1765998034417"
+    }
+  ],
+  "properties": [
+    {
+      "id": "1",
+      "title": "Квартира в Москве",
+      "price": 45000,
+      "type": "Квартира",
+      "location": "Москва",
+      "image": "img/house1.jpg"
+    },
+    {
+      "id": "2",
+      "title": "Комната в центре",
+      "price": 30000,
+      "type": "Комната",
+      "location": "Питер",
+      "image": "img/house2.jpg"
+    }
+  ],
+  "rentals": [
+    {
+      "id": "ed25",
+      "userId": "455e",
+      "title": "Квартира в Москве",
+      "price": 45000,
+      "img": "http://localhost:5500/img/house1.jpg"
+    },
+    {
+      "id": "06ec",
+      "userId": "455e",
+      "title": "Комната в центре",
+      "price": 30000,
+      "img": "http://localhost:5500/img/house2.jpg"
+    },
+    {
+      "id": "c3b4",
+      "userId": "455e",
+      "title": "Комната в центре",
+      "price": 30000,
+      "img": "http://localhost:5500/img/house2.jpg"
+    },
+    {
+      "id": "bdee",
+      "userId": "3a73",
+      "title": "Квартира в Москве",
+      "price": 45000,
+      "img": "http://localhost:5500/img/house1.jpg"
+    },
+    {
+      "id": "7f27",
+      "userId": "553f",
+      "title": "Квартира в Москве",
+      "price": 45000,
+      "img": "http://localhost:5500/img/house1.jpg"
+    },
+    {
+      "id": "bcc7",
+      "userId": "455e",
+      "title": "Комната в центре",
+      "price": 30000,
+      "img": "http://localhost:5500/img/house2.jpg"
+    }
+  ]
+}
