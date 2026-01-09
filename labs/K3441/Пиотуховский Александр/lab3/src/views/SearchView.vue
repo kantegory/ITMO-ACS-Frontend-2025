@@ -92,13 +92,13 @@
               {{ error }}
             </div>
 
-            <div v-else-if="filteredRecipes.length === 0" class="text-center py-5">
+            <div v-else-if="recipes.length === 0" class="text-center py-5">
               <p class="text-muted">Рецепты не найдены</p>
             </div>
 
             <div v-else class="recipes-grid">
               <RecipeCard
-                v-for="recipe in filteredRecipes"
+                v-for="recipe in recipes"
                 :key="recipe.id"
                 :recipe="recipe"
                 :author="getAuthor(recipe.authorId)"
@@ -112,7 +112,7 @@
 </template>
 
 <script setup>
-import {ref, computed, onMounted} from 'vue'
+import {ref, watch, onMounted} from 'vue'
 import RecipeCard from '@/components/recipes/RecipeCard.vue'
 import {useApi} from '@/composables/useApi'
 
@@ -134,39 +134,50 @@ const getAuthor = (authorId) => {
   return users.value.find((u) => u.id === authorId)
 }
 
-const filteredRecipes = computed(() => {
-  let filtered = recipes.value
+const loadRecipes = async () => {
+  loading.value = true
+  error.value = null
 
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter((r) =>
-      r.title.toLowerCase().includes(query)
-    )
+  try {
+    const filters = {}
+
+    if (searchQuery.value) {
+      filters.title = searchQuery.value
+    }
+
+    if (selectedDishType.value) {
+      filters.dishtype = selectedDishType.value
+    }
+
+    if (selectedDifficulty.value) {
+      filters.difficulty = parseInt(selectedDifficulty.value)
+    }
+
+    if (selectedIngredients.value.length > 0) {
+      filters.ingredients = selectedIngredients.value
+    }
+
+    const recipesRes = await api.getRecipes(filters)
+    recipes.value = recipesRes.data
+  } catch (err) {
+    error.value = 'Не удалось загрузить рецепты'
+    console.error('Error loading recipes:', err)
+  } finally {
+    loading.value = false
   }
+}
 
-  if (selectedDishType.value) {
-    filtered = filtered.filter(
-      (r) => r.dishType?.id === selectedDishType.value
-    )
-  }
-
-  if (selectedDifficulty.value) {
-    filtered = filtered.filter(
-      (r) => r.difficulty === parseInt(selectedDifficulty.value)
-    )
-  }
-
-  if (selectedIngredients.value.length > 0) {
-    filtered = filtered.filter((r) => {
-      if (!r.ingredients || r.ingredients.length === 0) return false
-      return selectedIngredients.value.every((ingredientId) =>
-        r.ingredients.some((ing) => ing.ingredientId === ingredientId)
-      )
-    })
-  }
-
-  return filtered
+let searchTimeout = null
+watch(searchQuery, () => {
+  clearTimeout(searchTimeout)
+  searchTimeout = setTimeout(() => {
+    loadRecipes()
+  }, 500)
 })
+
+watch([selectedDishType, selectedDifficulty, selectedIngredients], () => {
+  loadRecipes()
+}, {deep: true})
 
 const resetFilters = () => {
   searchQuery.value = ''
@@ -177,32 +188,22 @@ const resetFilters = () => {
 
 onMounted(async () => {
   try {
-    const [recipesRes, usersRes, dishTypesRes, ingredientsRes] = await Promise.all([
-      api.getRecipes().catch(() => ({data: []})),
+    const [usersRes, dishTypesRes, ingredientsRes] = await Promise.all([
       api.getUsers().catch(() => ({data: []})),
       api.getDishTypes().catch(() => ({data: []})),
       api.getIngredients().catch(() => ({data: []}))
     ])
 
-    recipes.value = recipesRes.data
     users.value = usersRes.data
     ingredients.value = ingredientsRes.data
 
     if (dishTypesRes.data && dishTypesRes.data.length > 0) {
       dishTypes.value = dishTypesRes.data
-    } else {
-      const uniqueTypes = new Map()
-      recipes.value.forEach(recipe => {
-        if (recipe.dishType) {
-          uniqueTypes.set(recipe.dishType.id, recipe.dishType)
-        }
-      })
-      dishTypes.value = Array.from(uniqueTypes.values())
     }
+
+    await loadRecipes()
   } catch (err) {
     error.value = 'Не удалось загрузить данные'
-  } finally {
-    loading.value = false
   }
 })
 </script>

@@ -1,9 +1,29 @@
 import apiInstance from './instance'
 
-export const getRecipes = (authorId) => {
-  return apiInstance.get('/recipe', {
-    params: authorId ? {authorId} : {}
-  })
+export const getRecipes = (filters = {}) => {
+  const params = {}
+
+  if (filters.authorId) {
+    params.authorId = filters.authorId
+  }
+
+  if (filters.title) {
+    params.title = filters.title
+  }
+
+  if (filters.dishtype) {
+    params.dishtype = filters.dishtype
+  }
+
+  if (filters.difficulty) {
+    params.difficulty = filters.difficulty
+  }
+
+  if (filters.ingredients && filters.ingredients.length > 0) {
+    params.ingredients = filters.ingredients
+  }
+
+  return apiInstance.get('/recipe', {params})
 }
 
 export const getRecipe = (id) => {
