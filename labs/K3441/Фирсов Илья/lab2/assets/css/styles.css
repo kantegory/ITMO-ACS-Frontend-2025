@@ -1,0 +1,333 @@
+:root {
+  --bg-main: #0f1729;
+  --bg-alt: #101828;
+  --card: rgba(255, 255, 255, 0.06);
+  --stroke: rgba(255, 255, 255, 0.12);
+  --accent: #00f2c3;
+  --accent-2: #ffb703;
+  --text: #e9ecf4;
+  --muted: #9ea7be;
+  --radius: 18px;
+  --shadow: 0 20px 60px rgba(9, 12, 26, 0.45);
+  font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(0, 242, 195, 0.08), transparent 25%),
+    radial-gradient(circle at 80% 0%, rgba(255, 183, 3, 0.1), transparent 28%),
+    var(--bg-main);
+  color: var(--text);
+  line-height: 1.6;
+  padding-top: 74px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  background: rgba(10, 15, 30, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: none;
+  padding: 10px 0;
+  box-shadow: none;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #0c1220;
+  background: var(--accent);
+}
+
+.user-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e9ecf4;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.user-badge.success {
+  background: rgba(52, 199, 89, 0.16);
+  border-color: rgba(52, 199, 89, 0.4);
+  color: #c5ffd8;
+}
+
+.user-badge.error {
+  background: rgba(255, 99, 132, 0.16);
+  border-color: rgba(255, 99, 132, 0.45);
+  color: #ffd7e0;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0b1224 0%, #0e1a2f 50%, #111f36 100%);
+  padding: 60px 0 32px;
+  margin-top: -16px;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 242, 195, 0.25), transparent 60%);
+  top: -120px;
+  right: -120px;
+  filter: blur(50px);
+  opacity: 0.7;
+}
+
+.eyebrow {
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.text-white-75 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.text-muted {
+  color: #cfd6ea !important;
+}
+
+.btn-primary {
+  background: linear-gradient(120deg, #00f2c3, #00c0ff);
+  border: none;
+  color: #0b1224;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-contrast {
+  background: #fff;
+  color: #0c1220;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-panel {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(18px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.resume-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resume-card .header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.resume-summary {
+  font-size: 15px;
+  color: #d9dfef !important;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(0, 242, 195, 0.16);
+  border: 1px solid rgba(0, 242, 195, 0.35);
+  color: #bdf9ee;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+.section-padding {
+  padding: 80px 0;
+}
+
+.alt-bg {
+  background: #0b1324;
+}
+
+.vacancy-card {
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  min-height: 100%;
+}
+
+.vacancy-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 242, 195, 0.4);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  color: #dce3f2;
+  gap: 6px;
+}
+
+.tag i {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  background: rgba(0, 242, 195, 0.16);
+  border: 1px solid rgba(0, 242, 195, 0.3);
+  color: #bdf9ee;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.pill.buttonish {
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+.pill.buttonish:hover {
+  transform: translateY(-1px);
+  border-color: rgba(0, 242, 195, 0.6);
+}
+
+.application-card {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.application-card .title {
+  margin: 0;
+  font-weight: 600;
+  color: #e9ecf4;
+}
+
+.application-card .meta {
+  margin: 0;
+  color: #cfd6ea;
+  font-size: 13px;
+}
+
+.live {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.16);
+}
+
+footer {
+  border-top: 1px solid var(--stroke);
+  background: #0a0f1e;
+}
+
+.modal-content {
+  color: var(--text);
+}
+
+.form-control,
+.form-select,
+.form-check-label {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+}
+
+.form-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.25rem rgba(0, 242, 195, 0.25);
+}
+
+.form-range::-webkit-slider-thumb {
+  background: #00f2c3;
+}
+
+@media (max-width: 992px) {
+  .section-padding {
+    padding: 60px 0;
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .topbar .container {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
