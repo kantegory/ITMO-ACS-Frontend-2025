@@ -1,0 +1,196 @@
+:root {
+    /* Светлая тема (по умолчанию) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-header: #212529;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-header: #ffffff;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --modal-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-border: #ced4da;
+}
+
+[data-theme="dark"] {
+    /* Тёмная тема */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-header: #0d1117;
+    --text-primary: #e1e4e8;
+    --text-secondary: #8b949e;
+    --text-header: #ffffff;
+    --border-color: #30363d;
+    --card-bg: #2d2d2d;
+    --modal-bg: #2d2d2d;
+    --input-bg: #1a1a1a;
+    --input-border: #30363d;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.visually-hidden-focusable {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.visually-hidden-focusable:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    z-index: 9999;
+}
+
+header {
+    background-color: var(--bg-header) !important;
+    color: var(--text-header) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--text-header) !important;
+}
+
+header * {
+    color: var(--text-header) !important;
+}
+
+header .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: var(--text-header) !important;
+}
+
+header .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+    color: var(--text-header) !important;
+}
+
+header .btn-secondary {
+    color: var(--text-header) !important;
+}
+
+header .theme-toggle {
+    color: var(--text-header) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid currentColor;
+    color: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.theme-toggle:hover {
+    opacity: 0.8;
+}
+
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.card img, .carousel-inner img {
+    height: 150px;
+    object-fit: cover;
+}
+
+#restaurantCarousel .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* Стили для карточек */
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Стили для модальных окон */
+.modal-content {
+    background-color: var(--modal-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+.modal-footer {
+    border-top-color: var(--border-color);
+}
+
+/* Стили для форм */
+.form-control, .form-select {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-primary);
+}
+
+.form-label {
+    color: var(--text-primary);
+}
+
+/* Стили для списков */
+.list-group-item {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Стили для кнопок */
+.btn-outline-light {
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+
+/* Стили для карусели */
+.carousel {
+    background-color: var(--bg-secondary);
+}
+
+/* Общие переходы */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
