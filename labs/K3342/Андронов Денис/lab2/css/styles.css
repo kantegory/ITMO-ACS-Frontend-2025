@@ -1,0 +1,23 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card.h-100 {
+  display: flex;
+  flex-direction: column;
+}
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
