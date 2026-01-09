@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Регистрация — RentalSite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="d-flex align-items-center min-vh-100">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="icon-login" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+    <polyline points="10 17 15 12 10 7"></polyline>
+    <line x1="15" y1="12" x2="3" y2="12"></line>
+  </symbol>
+  <symbol id="icon-register" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+    <circle cx="8.5" cy="7" r="4"></circle>
+    <line x1="20" y1="8" x2="20" y2="14"></line>
+    <line x1="23" y1="11" x2="17" y2="11"></line>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </symbol>
+</svg>
+<a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+<main id="main-content" class="container" role="main">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card p-4">
+                <h1 class="card-title mb-3"><svg class="icon icon-register" aria-hidden="true"><use href="#icon-register"></use></svg> Регистрация</h1>
+                <form id="registerForm" novalidate aria-label="Форма регистрации">
+                    <div class="mb-3">
+                        <label for="regEmail" class="form-label">Email</label>
+                        <input id="regEmail" type="email" class="form-control" required aria-required="true" aria-describedby="regEmailError" autocomplete="email">
+                        <div class="invalid-feedback" id="regEmailError" role="alert">Введите корректный email</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regPassword" class="form-label">Пароль</label>
+                        <input id="regPassword" type="password" class="form-control" required minlength="6" aria-required="true" aria-describedby="regPasswordError" autocomplete="new-password">
+                        <div class="invalid-feedback" id="regPasswordError" role="alert">Пароль минимум 6 символов</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" aria-label="Зарегистрироваться"><svg class="icon icon-register" aria-hidden="true"><use href="#icon-register"></use></svg> Зарегистрироваться</button>
+                    <div class="text-center mt-3">
+                        <a href="login.html" aria-label="Перейти на страницу входа"><svg class="icon icon-login" aria-hidden="true"><use href="#icon-login"></use></svg> Вход</a>
+                    </div>
+                    <div id="errorMessage" role="alert" aria-live="assertive"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel" aria-describedby="registerSuccessModalBody" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="registerSuccessModalLabel">Успешная регистрация</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть модальное окно">
+                    <svg class="icon icon-close" aria-hidden="true"><use href="#icon-close"></use></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="registerSuccessModalBody">
+                Вы успешно зарегистрированы. Сейчас вы будете перенаправлены в личный кабинет.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/theme.js"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e){
+        e.preventDefault();
+        const form = e.target;
+
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+        }
+
+        const emailInput = document.getElementById('regEmail');
+        const passwordInput = document.getElementById('regPassword');
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        const errorDiv = document.getElementById('errorMessage');
+        if (errorDiv) {
+            errorDiv.textContent = '';
+            errorDiv.className = '';
+        }
+
+        try {
+            await registerUser(email, password);
+            
+            const registerModal = new bootstrap.Modal(document.getElementById('registerSuccessModal'));
+            registerModal.show();
+
+            setTimeout(() => {
+                window.location = 'profile.html';
+            }, 2000);
+        } catch (error) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.className = 'alert alert-danger mt-3';
+            errorDiv.textContent = error.message || 'Ошибка регистрации. Попробуйте еще раз.';
+        }
+    });
+</script>
+
+</body>
+</html>
