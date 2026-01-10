@@ -1,0 +1,254 @@
+{
+  "users": [
+    {
+      "email": "test_veronika@gmail.com",
+      "password": "$2a$10$5LLd9gmDOe5FsYh5h0n4HOQx9xv4azj.4FCEKr687KRaeMuGTc77K",
+      "name": "testtest",
+      "phone": "999999999",
+      "id": 1
+    },
+    {
+      "email": "test2_veronika@gmail.com",
+      "password": "$2a$10$q1qzVv.5XUrNqCrhBKsv8.MIY6G/.9h3GJFKOenFtbxARgppI0P/G",
+      "name": "пупуня",
+      "phone": "999999999",
+      "id": 2
+    }
+  ],
+  "bookings": [
+    {
+      "restaurantId": 3,
+      "restaurantName": "Le Gourmet",
+      "date": "2025-12-19",
+      "time": "18:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:18:03.644Z",
+      "id": 1
+    },
+    {
+      "restaurantId": 2,
+      "restaurantName": "Кои",
+      "date": "2026-01-03",
+      "time": "18:00",
+      "guests": "3",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:18:29.728Z",
+      "id": 2
+    },
+    {
+      "restaurantId": 2,
+      "restaurantName": "Кои",
+      "date": "2025-12-06",
+      "time": "13:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:20:13.458Z",
+      "id": 3
+    },
+    {
+      "restaurantId": 1,
+      "restaurantName": "Caffe Italia",
+      "date": "2025-12-19",
+      "time": "14:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:21:07.079Z",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "restaurantId": 5,
+      "restaurantName": "Хачапури и Вино",
+      "date": "2026-01-11",
+      "time": "12:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:23:15.751Z",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "restaurantId": 1,
+      "restaurantName": "Caffe Italia",
+      "date": "2025-12-09",
+      "time": "21:00",
+      "guests": "2",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:26:11.250Z",
+      "id": 6
+    },
+    {
+      "userId": 2,
+      "restaurantId": 3,
+      "restaurantName": "Le Gourmet",
+      "date": "2025-12-26",
+      "time": "15:00",
+      "guests": "6",
+      "comment": "",
+      "status": "confirmed",
+      "createdAt": "2025-12-05T17:42:53.283Z",
+      "id": 7
+    },
+    {
+      "userId": 2,
+      "restaurantId": 1,
+      "restaurantName": "Caffe Italia",
+      "date": "2025-12-20",
+      "time": "19:00",
+      "guests": "6",
+      "comment": "балблабла",
+      "status": "confirmed",
+      "createdAt": "2025-12-06T14:50:52.559Z",
+      "id": 8
+    }
+  ],
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "Caffe Italia",
+      "cuisine": "Итальянская",
+      "location": "Центр",
+      "price": "₽₽₽",
+      "rating": 4.8,
+      "reviews": 156,
+      "description": "Аутентичная итальянская кухня в сердце города. Свежая паста, пицца из дровяной печи и изысканные вина.",
+      "image": "images/caffe_italia.png",
+      "menu": [
+        {
+          "name": "Паста Карбонара",
+          "price": "850₽",
+          "description": "Классическая римская паста с беконом и пармезаном"
+        },
+        {
+          "name": "Пицца Маргарита",
+          "price": "750₽",
+          "description": "Томатный соус, моцарелла и свежий базилик"
+        },
+        {
+          "name": "Тирамису",
+          "price": "450₽",
+          "description": "Традиционный итальянский десерт"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Кои",
+      "cuisine": "Японская",
+      "location": "Север",
+      "price": "₽₽",
+      "rating": 4.6,
+      "reviews": 203,
+      "description": "Традиционная японская кухня. Свежайшие суши, роллы и горячие блюда.",
+      "image": "images/koi.png",
+      "menu": [
+        {
+          "name": "Филадельфия",
+          "price": "650₽",
+          "description": "Классический ролл с лососем и сливочным сыром"
+        },
+        {
+          "name": "Рамен",
+          "price": "550₽",
+          "description": "Японский суп с лапшой и свининой"
+        },
+        {
+          "name": "Темпура",
+          "price": "750₽",
+          "description": "Креветки и овощи в хрустящем кляре"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Le Gourmet",
+      "cuisine": "Французская",
+      "location": "Центр",
+      "price": "₽₽₽",
+      "rating": 4.9,
+      "reviews": 89,
+      "description": "Изысканная французская кухня от шеф-повара с мишленовским опытом.",
+      "image": "images/gourmet.png",
+      "menu": [
+        {
+          "name": "Фуа-гра",
+          "price": "1850₽",
+          "description": "Деликатес из гусиной печени"
+        },
+        {
+          "name": "Буйабес",
+          "price": "1250₽",
+          "description": "Марсельский рыбный суп"
+        },
+        {
+          "name": "Крем-брюле",
+          "price": "550₽",
+          "description": "Классический французский десерт"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Русская рыбалка",
+      "cuisine": "Русская",
+      "location": "Запад",
+      "price": "₽",
+      "rating": 4.5,
+      "reviews": 178,
+      "description": "Традиционная русская кухня в уютной домашней атмосфере.",
+      "image": "images/russian_fishing.png",
+      "menu": [
+        {
+          "name": "Борщ",
+          "price": "350₽",
+          "description": "Традиционный русский суп"
+        },
+        {
+          "name": "Пельмени",
+          "price": "450₽",
+          "description": "Домашние пельмени с мясом"
+        },
+        {
+          "name": "Медовик",
+          "price": "280₽",
+          "description": "Классический медовый торт"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Хачапури и Вино",
+      "cuisine": "Грузинская",
+      "location": "Юг",
+      "price": "₽₽",
+      "rating": 4.7,
+      "reviews": 145,
+      "description": "Настоящая грузинская кухня. Хинкали, хачапури и грузинские вина.",
+      "image": "images/khachapuri_wine.png",
+      "menu": [
+        {
+          "name": "Хинкали",
+          "price": "80₽/шт",
+          "description": "Грузинские пельмени с мясом и бульоном"
+        },
+        {
+          "name": "Хачапури по-аджарски",
+          "price": "550₽",
+          "description": "Лодочка с сыром, маслом и яйцом"
+        },
+        {
+          "name": "Шашлык",
+          "price": "750₽",
+          "description": "Свинина на мангале"
+        }
+      ]
+    }
+  ]
+}
