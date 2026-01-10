@@ -6,49 +6,31 @@ const Icons = {
     }
 };
 
-const Storage = {
-    keys: {
-        currentUser: 'currentUser',
-        authToken: 'authToken',
-        users: 'users',
-        apartments: 'apartments',
-        rentedApartments: 'rentedApartments'
-    },
-
-    set: function(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-        } catch (e) {
-            console.error('Ошибка сохранения в localStorage:', e);
+// Утилита для форматирования дат
+const DateUtils = {
+    /**
+     * Форматирует дату в читаемый формат (1 дек 2025)
+     * @param {string|Date} date - Дата в формате строки (YYYY-MM-DD) или объект Date
+     * @returns {string} - Отформатированная дата
+     */
+    formatDate: function(date) {
+        if (!date) return '';
+        
+        const dateObj = typeof date === 'string' ? new Date(date + 'T00:00:00') : date;
+        
+        if (isNaN(dateObj.getTime())) {
+            return date; // Возвращаем исходную строку, если дата невалидна
         }
-    },
-
-    get: function(key) {
-        try {
-            const item = localStorage.getItem(key);
-            return item ? JSON.parse(item) : null;
-        } catch (e) {
-            console.error('Ошибка чтения из localStorage:', e);
-            return null;
-        }
-    },
-
-    remove: function(key) {
-        try {
-            localStorage.removeItem(key);
-        } catch (e) {
-            console.error('Ошибка удаления из localStorage:', e);
-        }
-    },
-
-    clear: function() {
-        try {
-            localStorage.clear();
-        } catch (e) {
-            console.error('Ошибка очистки localStorage:', e);
-        }
+        
+        const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+        const day = dateObj.getDate();
+        const month = months[dateObj.getMonth()];
+        const year = dateObj.getFullYear();
+        
+        return `${day} ${month} ${year}`;
     }
 };
+
 
 
 const UserService = {
@@ -60,12 +42,22 @@ const UserService = {
         try {
             const users = await UserAPI.getUsers();
             // Сохраняем в localStorage для кэширования
-            Storage.set(Storage.keys.users, users);
+            try {
+                localStorage.setItem('users', JSON.stringify(users));
+            } catch (e) {
+                console.error('Ошибка сохранения в localStorage:', e);
+            }
             return users;
         } catch (e) {
             console.error('Ошибка загрузки пользователей:', e);
             // Пытаемся загрузить из localStorage
-            return Storage.get(Storage.keys.users) || [];
+            try {
+                const item = localStorage.getItem('users');
+                return item ? JSON.parse(item) : [];
+            } catch (err) {
+                console.error('Ошибка чтения из localStorage:', err);
+                return [];
+            }
         }
     },
 
@@ -74,7 +66,13 @@ const UserService = {
      * @returns {Array}
      */
     getUsers: function() {
-        return Storage.get(Storage.keys.users) || [];
+        try {
+            const item = localStorage.getItem('users');
+            return item ? JSON.parse(item) : [];
+        } catch (e) {
+            console.error('Ошибка чтения из localStorage:', e);
+            return [];
+        }
     },
 
     /**
@@ -82,7 +80,13 @@ const UserService = {
      * @returns {Object|null}
      */
     getCurrentUser: function() {
-        return Storage.get(Storage.keys.currentUser);
+        try {
+            const item = localStorage.getItem('currentUser');
+            return item ? JSON.parse(item) : null;
+        } catch (e) {
+            console.error('Ошибка чтения из localStorage:', e);
+            return null;
+        }
     },
 
     /**
@@ -90,15 +94,23 @@ const UserService = {
      * @param {Object} user - Пользователь
      */
     setCurrentUser: function(user) {
-        Storage.set(Storage.keys.currentUser, user);
+        try {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        } catch (e) {
+            console.error('Ошибка сохранения в localStorage:', e);
+        }
     },
 
     /**
      * Выход из системы
      */
     logout: function() {
-        Storage.remove(Storage.keys.currentUser);
-        Storage.remove(Storage.keys.authToken);
+        try {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('authToken');
+        } catch (e) {
+            console.error('Ошибка удаления из localStorage:', e);
+        }
     },
 
     /**
@@ -106,9 +118,15 @@ const UserService = {
      * @returns {boolean}
      */
     isAuthenticated: function() {
-        const token = Storage.get(Storage.keys.authToken);
-        const user = this.getCurrentUser();
-        return token !== null && user !== null;
+        try {
+            const tokenItem = localStorage.getItem('authToken');
+            const token = tokenItem ? JSON.parse(tokenItem) : null;
+            const user = this.getCurrentUser();
+            return token !== null && user !== null;
+        } catch (e) {
+            console.error('Ошибка чтения из localStorage:', e);
+            return false;
+        }
     },
 
     /**
@@ -153,12 +171,22 @@ const ApartmentService = {
         try {
             const apartments = await ApartmentAPI.getApartments();
             // Сохраняем в localStorage для кэширования
-            Storage.set(Storage.keys.apartments, apartments);
+            try {
+                localStorage.setItem('apartments', JSON.stringify(apartments));
+            } catch (e) {
+                console.error('Ошибка сохранения в localStorage:', e);
+            }
             return apartments;
         } catch (e) {
             console.error('Ошибка загрузки недвижимости:', e);
             // Пытаемся загрузить из localStorage
-            return Storage.get(Storage.keys.apartments) || [];
+            try {
+                const item = localStorage.getItem('apartments');
+                return item ? JSON.parse(item) : [];
+            } catch (err) {
+                console.error('Ошибка чтения из localStorage:', err);
+                return [];
+            }
         }
     },
 
@@ -167,7 +195,13 @@ const ApartmentService = {
      * @returns {Array}
      */
     getApartments: function() {
-        return Storage.get(Storage.keys.apartments) || [];
+        try {
+            const item = localStorage.getItem('apartments');
+            return item ? JSON.parse(item) : [];
+        } catch (e) {
+            console.error('Ошибка чтения из localStorage:', e);
+            return [];
+        }
     },
 
     /**
@@ -213,8 +247,14 @@ const ApartmentService = {
         } catch (e) {
             console.error('Ошибка получения арендованной недвижимости:', e);
             // Пытаемся получить из кэша
-            const rented = Storage.get(Storage.keys.rentedApartments) || [];
-            return rented.filter(rent => rent.tenantId === userId);
+            try {
+                const item = localStorage.getItem('rentedApartments');
+                const rented = item ? JSON.parse(item) : [];
+                return rented.filter(rent => rent.tenantId === userId);
+            } catch (err) {
+                console.error('Ошибка чтения из localStorage:', err);
+                return [];
+            }
         }
     },
 
@@ -229,9 +269,14 @@ const ApartmentService = {
         try {
             const result = await ApartmentAPI.rentApartment(apartmentId, userId, rentData);
             // Обновляем кэш
-            const rented = Storage.get(Storage.keys.rentedApartments) || [];
-            rented.push(result);
-            Storage.set(Storage.keys.rentedApartments, rented);
+            try {
+                const item = localStorage.getItem('rentedApartments');
+                const rented = item ? JSON.parse(item) : [];
+                rented.push(result);
+                localStorage.setItem('rentedApartments', JSON.stringify(rented));
+            } catch (e) {
+                console.error('Ошибка сохранения в localStorage:', e);
+            }
             return result;
         } catch (error) {
             console.error('Ошибка аренды недвижимости:', error);
@@ -650,13 +695,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Экспорт для использования в других скриптах
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        Storage,
         UserService,
         ApartmentService,
         ModalUtils,
         FormValidation,
         SearchFilters,
-        PropertyData
+        PropertyData,
+        DateUtils
     };
 }
 

@@ -97,15 +97,20 @@ async function loadProfile() {
                 const image = apartment.images && apartment.images.length > 0 
                     ? apartment.images[0] 
                     : "https://via.placeholder.com/300x200?text=Нет+фото";
+                
+                // Форматируем даты
+                const formattedStartDate = DateUtils.formatDate(rent.startDate);
+                const formattedEndDate = DateUtils.formatDate(rent.endDate);
+                
                 col.innerHTML = `
                     <div class="card h-100">
-                        <img src="${image}" class="card-img-top" alt="Фотография арендованной недвижимости: ${apartment.title}, расположена по адресу ${apartment.location}, арендована с ${rent.startDate} по ${rent.endDate}" style="height: 200px; object-fit: cover;">
+                        <img src="${image}" class="card-img-top" alt="Фотография арендованной недвижимости: ${apartment.title}, расположена по адресу ${apartment.location}, арендована с ${formattedStartDate} по ${formattedEndDate}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">${apartment.title}</h5>
                             <p class="card-text text-muted">${apartment.location}</p>
                             <p class="card-text"><strong>${apartment.price.toLocaleString()} ₽/мес</strong></p>
                             <p class="card-text"><span class="badge bg-info">Арендована</span></p>
-                            <p class="card-text small text-muted">С ${rent.startDate} по ${rent.endDate}</p>
+                            <p class="card-text small text-muted">С ${formattedStartDate} по ${formattedEndDate}</p>
                             <a href="property.html?id=${apartment.id}" class="btn btn-primary btn-sm">Подробнее</a>
                         </div>
                     </div>

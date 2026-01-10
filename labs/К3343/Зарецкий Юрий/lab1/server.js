@@ -102,11 +102,49 @@ server.post('/rentedApartments', (req, res) => {
   }
   
   // Проверяем наличие обязательных полей
-  if (!req.body || !req.body.apartmentId || !req.body.tenantId) {
+  if (!req.body) {
+    return res.status(400).json({ error: 'Тело запроса пустое' });
+  }
+  
+  const { apartmentId, tenantId, startDate, endDate, guests } = req.body;
+  
+  if (!apartmentId || !tenantId) {
     return res.status(400).json({ error: 'Отсутствуют обязательные поля: apartmentId, tenantId' });
   }
   
+  if (!startDate || !endDate) {
+    return res.status(400).json({ error: 'Отсутствуют обязательные поля: startDate, endDate' });
+  }
+  
+  // Валидация дат
+  const startDateObj = new Date(startDate);
+  const endDateObj = new Date(endDate);
+  
+  if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
+    return res.status(400).json({ error: 'Некорректный формат даты' });
+  }
+  
+  if (endDateObj <= startDateObj) {
+    return res.status(400).json({ error: 'Дата окончания должна быть позже даты начала' });
+  }
+  
+  // Проверяем существование квартиры
   const db = router.db;
+  const apartments = db.get('apartments').value();
+  const apartment = apartments.find(apt => apt.id === parseInt(apartmentId));
+  
+  if (!apartment) {
+    return res.status(404).json({ error: 'Недвижимость не найдена' });
+  }
+  
+  // Проверяем существование пользователя
+  const users = db.get('users').value();
+  const user = users.find(u => u.id === parseInt(tenantId));
+  
+  if (!user) {
+    return res.status(404).json({ error: 'Пользователь не найден' });
+  }
+  
   let rentedApartments = db.get('rentedApartments').value();
   
   // Если rentedApartments не существует или не является массивом, инициализируем пустым массивом
@@ -123,18 +161,23 @@ server.post('/rentedApartments', (req, res) => {
   // Создаем новую запись об аренде
   const newRent = {
     id: newId,
-    apartmentId: parseInt(req.body.apartmentId),
-    tenantId: parseInt(req.body.tenantId),
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    guests: req.body.guests ? parseInt(req.body.guests) : undefined
+    apartmentId: parseInt(apartmentId),
+    tenantId: parseInt(tenantId),
+    startDate: startDate,
+    endDate: endDate,
+    guests: guests ? parseInt(guests) : undefined
   };
   
-  // Сохраняем в базу данных
-  db.get('rentedApartments').push(newRent).write();
-  
-  // Возвращаем созданную запись
-  res.status(201).json(newRent);
+  try {
+    // Сохраняем в базу данных
+    db.get('rentedApartments').push(newRent).write();
+    
+    // Возвращаем созданную запись
+    res.status(201).json(newRent);
+  } catch (error) {
+    console.error('Ошибка при сохранении аренды:', error);
+    res.status(500).json({ error: 'Внутренняя ошибка сервера при сохранении данных' });
+  }
 });
 
 // Middleware для авторизации (после кастомных эндпоинтов)
@@ -181,6 +224,64 @@ server.use((req, res, next) => {
   next();
 });
 
+// Middleware для обработки фильтрации GET /apartments
+server.get('/apartments', (req, res) => {
+  const db = router.db;
+  let apartments = db.get('apartments').value();
+  
+  // Применяем фильтры из query-параметров
+  const { search, type, location, minPrice, maxPrice, rooms, ownerId } = req.query;
+  
+  // Фильтр по ownerId (если указан)
+  if (ownerId) {
+    apartments = apartments.filter(apt => apt.ownerId === parseInt(ownerId));
+  }
+  
+  // Фильтр по текстовому поиску
+  if (search) {
+    const searchLower = search.toLowerCase();
+    apartments = apartments.filter(apt => 
+      apt.title.toLowerCase().includes(searchLower) ||
+      apt.location.toLowerCase().includes(searchLower) ||
+      (apt.description && apt.description.toLowerCase().includes(searchLower))
+    );
+  }
+  
+  // Фильтр по типу
+  if (type) {
+    apartments = apartments.filter(apt => apt.type === type);
+  }
+  
+  // Фильтр по локации
+  if (location) {
+    const locationLower = location.toLowerCase();
+    apartments = apartments.filter(apt => apt.location.toLowerCase().includes(locationLower));
+  }
+  
+  // Фильтр по цене
+  if (minPrice) {
+    const min = parseInt(minPrice);
+    apartments = apartments.filter(apt => apt.price >= min);
+  }
+  
+  if (maxPrice) {
+    const max = parseInt(maxPrice);
+    apartments = apartments.filter(apt => apt.price <= max);
+  }
+  
+  // Фильтр по количеству комнат
+  if (rooms) {
+    const roomsNum = parseInt(rooms);
+    if (rooms === '4+') {
+      apartments = apartments.filter(apt => apt.rooms >= 4);
+    } else {
+      apartments = apartments.filter(apt => apt.rooms === roomsNum);
+    }
+  }
+  
+  res.json(apartments);
+});
+
 // Middleware для пропуска POST запросов к /rentedApartments перед router
 server.use((req, res, next) => {
   // Если это POST запрос к /rentedApartments, не передаем его в router
@@ -193,6 +294,16 @@ server.use((req, res, next) => {
     // Если по какой-то причине ответ не был отправлен, отправляем ошибку
     return res.status(500).json({ error: 'Internal server error' });
   }
+  
+  // Если это GET запрос к /apartments, не передаем его в router
+  // (он уже обработан кастомным обработчиком выше)
+  if (req.method === 'GET' && req.path === '/apartments') {
+    if (res.headersSent) {
+      return;
+    }
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+  
   next();
 });
 

@@ -190,6 +190,22 @@ a:hover {
     transform: scale(1.05);
 }
 
+/* Фиксированная высота карточек на странице поиска */
+.property-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.property-card .card-text.property-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 0;
+    margin-bottom: 0.5rem;
+}
+
 .carousel-item img {
     border-radius: 10px;
 }

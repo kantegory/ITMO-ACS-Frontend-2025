@@ -1,15 +1,16 @@
-let allProperties = [];
-let filteredProperties = [];
-
 // Загрузка данных при инициализации
-async function loadProperties() {
-    await ApartmentService.loadApartments();
-    allProperties = ApartmentService.getApartments().map(apt => ({
-        ...apt,
-        image: apt.images && apt.images.length > 0 ? apt.images[0] : "https://via.placeholder.com/400x300?text=Нет+фото"
-    }));
-    filteredProperties = [...allProperties];
-    renderProperties(filteredProperties);
+async function loadProperties(filters = {}) {
+    try {
+        const apartments = await ApartmentAPI.getApartments(filters);
+        const properties = apartments.map(apt => ({
+            ...apt,
+            image: apt.images && apt.images.length > 0 ? apt.images[0] : "https://via.placeholder.com/400x300?text=Нет+фото"
+        }));
+        renderProperties(properties);
+    } catch (error) {
+        console.error('Ошибка загрузки недвижимости:', error);
+        renderProperties([]);
+    }
 }
 
 // Инициализация при загрузке страницы
@@ -42,9 +43,9 @@ function renderProperties(properties) {
                 <div class="card-body">
                     <h5 class="card-title">${property.title}</h5>
                     <p class="card-text text-muted">${property.location}</p>
-                    <p class="card-text">${property.description}</p>
+                    <p class="card-text property-description">${property.description || ''}</p>
                     <p class="card-text"><strong class="text-primary">${property.price.toLocaleString()} ₽/мес</strong></p>
-                    <a href="property.html?id=${property.id}" class="btn btn-primary btn-sm">Подробнее</a>
+                    <a href="property.html?id=${property.id}" class="btn btn-primary btn-sm mt-auto">Подробнее</a>
                 </div>
             </div>
         `;
@@ -52,37 +53,48 @@ function renderProperties(properties) {
     });
 }
 
-function applyFilters() {
-    const searchText = document.getElementById('searchInput').value.toLowerCase();
+async function applyFilters() {
+    const searchText = document.getElementById('searchInput').value.trim();
     const propertyType = document.getElementById('propertyType').value;
-    const location = document.getElementById('location').value.toLowerCase();
-    const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
-    const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+    const location = document.getElementById('location').value.trim();
+    const minPriceValue = document.getElementById('minPrice').value;
+    const maxPriceValue = document.getElementById('maxPrice').value;
     const rooms = document.getElementById('rooms').value;
 
-    filteredProperties = allProperties.filter(property => {
-        const matchesSearch = !searchText || 
-            property.title.toLowerCase().includes(searchText) ||
-            property.location.toLowerCase().includes(searchText);
-        const matchesType = !propertyType || property.type === propertyType;
-        const matchesLocation = !location || property.location.toLowerCase().includes(location);
-        const matchesPrice = property.price >= minPrice && property.price <= maxPrice;
-        const matchesRooms = !rooms || property.rooms.toString() === rooms;
+    // Формируем объект фильтров
+    const filters = {};
+    
+    if (searchText) {
+        filters.search = searchText;
+    }
+    if (propertyType) {
+        filters.type = propertyType;
+    }
+    if (location) {
+        filters.location = location;
+    }
+    if (minPriceValue) {
+        filters.minPrice = parseInt(minPriceValue);
+    }
+    if (maxPriceValue) {
+        filters.maxPrice = parseInt(maxPriceValue);
+    }
+    if (rooms) {
+        filters.rooms = rooms;
+    }
 
-        return matchesSearch && matchesType && matchesLocation && matchesPrice && matchesRooms;
-    });
-
-    renderProperties(filteredProperties);
+    // Загружаем данные с фильтрами через API
+    await loadProperties(filters);
 }
 
-function resetFilters() {
+async function resetFilters() {
     document.getElementById('searchInput').value = '';
     document.getElementById('propertyType').value = '';
     document.getElementById('location').value = '';
     document.getElementById('minPrice').value = '';
     document.getElementById('maxPrice').value = '';
     document.getElementById('rooms').value = '';
-    filteredProperties = [...allProperties];
-    renderProperties(filteredProperties);
+    // Загружаем все данные без фильтров
+    await loadProperties();
 }
 

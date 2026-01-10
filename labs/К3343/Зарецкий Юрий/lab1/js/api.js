@@ -11,9 +11,14 @@ const api = axios.create({
 // Interceptor для добавления токена авторизации к запросам
 api.interceptors.request.use(
     (config) => {
-        const token = Storage.get(Storage.keys.authToken);
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        try {
+            const tokenItem = localStorage.getItem('authToken');
+            const token = tokenItem ? JSON.parse(tokenItem) : null;
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+        } catch (e) {
+            console.error('Ошибка чтения из localStorage:', e);
         }
         return config;
     },
@@ -30,8 +35,12 @@ api.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             // Если получили 401, удаляем токен
-            Storage.remove(Storage.keys.authToken);
-            Storage.remove(Storage.keys.currentUser);
+            try {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('currentUser');
+            } catch (e) {
+                console.error('Ошибка удаления из localStorage:', e);
+            }
             
             // Перенаправляем на страницу входа только если мы не на публичных страницах
             const currentPath = window.location.pathname;
@@ -55,8 +64,12 @@ const UserAPI = {
             const { user, token } = response.data;
             
             // Сохраняем токен и пользователя
-            Storage.set(Storage.keys.authToken, token);
-            Storage.set(Storage.keys.currentUser, user);
+            try {
+                localStorage.setItem('authToken', JSON.stringify(token));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            } catch (e) {
+                console.error('Ошибка сохранения в localStorage:', e);
+            }
             
             return { user, token };
         } catch (error) {
@@ -71,8 +84,12 @@ const UserAPI = {
             const { user, token } = response.data;
             
             // Сохраняем токен и пользователя
-            Storage.set(Storage.keys.authToken, token);
-            Storage.set(Storage.keys.currentUser, user);
+            try {
+                localStorage.setItem('authToken', JSON.stringify(token));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            } catch (e) {
+                console.error('Ошибка сохранения в localStorage:', e);
+            }
             
             return { user, token };
         } catch (error) {
@@ -104,9 +121,35 @@ const UserAPI = {
 
 // API сервис для работы с недвижимостью
 const ApartmentAPI = {
-    getApartments: async function() {
+    getApartments: async function(filters = {}) {
         try {
-            const response = await api.get('/apartments');
+            const params = new URLSearchParams();
+            
+            if (filters.search) {
+                params.append('search', filters.search);
+            }
+            if (filters.type) {
+                params.append('type', filters.type);
+            }
+            if (filters.location) {
+                params.append('location', filters.location);
+            }
+            if (filters.minPrice) {
+                params.append('minPrice', filters.minPrice);
+            }
+            if (filters.maxPrice) {
+                params.append('maxPrice', filters.maxPrice);
+            }
+            if (filters.rooms) {
+                params.append('rooms', filters.rooms);
+            }
+            if (filters.ownerId) {
+                params.append('ownerId', filters.ownerId);
+            }
+            
+            const queryString = params.toString();
+            const url = queryString ? `/apartments?${queryString}` : '/apartments';
+            const response = await api.get(url);
             return response.data;
         } catch (error) {
             console.error('Ошибка получения недвижимости:', error);

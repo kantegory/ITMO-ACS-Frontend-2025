@@ -181,6 +181,14 @@
       "startDate": "2025-12-01",
       "endDate": "2025-12-31",
       "guests": 10
+    },
+    {
+      "id": 2,
+      "apartmentId": 2,
+      "tenantId": 1,
+      "startDate": "2026-02-01",
+      "endDate": "2026-02-28",
+      "guests": 2
     }
   ]
 }

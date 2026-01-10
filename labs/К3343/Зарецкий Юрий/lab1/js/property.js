@@ -78,39 +78,110 @@ async function submitRent() {
     const endDate = document.getElementById('rentEndDate').value;
     const guests = document.getElementById('rentGuests').value;
     
-    if (startDate && endDate && guests) {
-        const currentUser = UserService.getCurrentUser();
-        if (!currentUser) {
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        // Скрываем предыдущие ошибки
-        const errorElement = document.getElementById('rentError');
+    const errorElement = document.getElementById('rentError');
+    if (errorElement) {
+        errorElement.classList.add('d-none');
+    }
+    
+    // Валидация полей
+    if (!startDate || !endDate || !guests) {
         if (errorElement) {
-            errorElement.classList.add('d-none');
+            errorElement.textContent = 'Заполните все поля формы';
+            errorElement.classList.remove('d-none');
         }
+        return;
+    }
+    
+    // Валидация дат
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
+        if (errorElement) {
+            errorElement.textContent = 'Некорректный формат даты';
+            errorElement.classList.remove('d-none');
+        }
+        return;
+    }
+    
+    if (startDateObj < today) {
+        if (errorElement) {
+            errorElement.textContent = 'Дата начала аренды не может быть в прошлом';
+            errorElement.classList.remove('d-none');
+        }
+        return;
+    }
+    
+    if (endDateObj <= startDateObj) {
+        if (errorElement) {
+            errorElement.textContent = 'Дата окончания должна быть позже даты начала';
+            errorElement.classList.remove('d-none');
+        }
+        return;
+    }
+    
+    // Валидация количества гостей
+    const guestsNum = parseInt(guests);
+    if (isNaN(guestsNum) || guestsNum < 1) {
+        if (errorElement) {
+            errorElement.textContent = 'Количество гостей должно быть не менее 1';
+            errorElement.classList.remove('d-none');
+        }
+        return;
+    }
+    
+    const currentUser = UserService.getCurrentUser();
+    if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    if (!property || !property.id) {
+        if (errorElement) {
+            errorElement.textContent = 'Ошибка: недвижимость не найдена';
+            errorElement.classList.remove('d-none');
+        }
+        return;
+    }
+    
+    try {
+        await ApartmentService.rentApartment(property.id, currentUser.id, {
+            startDate,
+            endDate,
+            guests: guestsNum
+        });
         
-        try {
-            await ApartmentService.rentApartment(property.id, currentUser.id, {
-                startDate,
-                endDate,
-                guests: parseInt(guests)
-            });
-            
-            const modal = bootstrap.Modal.getInstance(document.getElementById('rentModal'));
+        const modal = bootstrap.Modal.getInstance(document.getElementById('rentModal'));
+        if (modal) {
             modal.hide();
-            document.getElementById('rentForm').reset();
-            // Перенаправляем на страницу профиля после успешной аренды
-            window.location.href = 'profile.html';
-        } catch (error) {
-            console.error('Ошибка аренды:', error);
-            // Показываем ошибку в форме
-            if (errorElement) {
-                const errorMessage = error.response?.data?.error || 'Ошибка при оформлении аренды. Попробуйте еще раз.';
-                errorElement.textContent = errorMessage;
-                errorElement.classList.remove('d-none');
+        }
+        const rentForm = document.getElementById('rentForm');
+        if (rentForm) {
+            rentForm.reset();
+        }
+        // Перенаправляем на страницу профиля после успешной аренды
+        window.location.href = 'profile.html';
+    } catch (error) {
+        console.error('Ошибка аренды:', error);
+        // Показываем ошибку в форме
+        if (errorElement) {
+            let errorMessage = 'Ошибка при оформлении аренды. Попробуйте еще раз.';
+            
+            if (error.response) {
+                // Сервер вернул ошибку
+                errorMessage = error.response.data?.error || error.response.data?.message || errorMessage;
+            } else if (error.request) {
+                // Запрос был отправлен, но ответа не получено
+                errorMessage = 'Не удалось подключиться к серверу. Проверьте подключение к интернету.';
+            } else {
+                // Ошибка при настройке запроса
+                errorMessage = error.message || errorMessage;
             }
+            
+            errorElement.textContent = errorMessage;
+            errorElement.classList.remove('d-none');
         }
     }
 }
