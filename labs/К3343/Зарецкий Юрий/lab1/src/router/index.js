@@ -4,6 +4,8 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
 import Property from '@/views/Property.vue'
+import Profile from '@/views/Profile.vue'
+import { useAuth } from '@/composables/useAuth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -33,8 +35,25 @@ const router = createRouter({
       name: 'Property',
       component: Property,
       props: true
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+      meta: { requiresAuth: true }
     }
   ]
+})
+
+// Route guard для защиты приватных страниц
+router.beforeEach((to, from, next) => {
+  const { isAuthenticated } = useAuth()
+  
+  if (to.meta.requiresAuth && !isAuthenticated.value) {
+    next({ name: 'Login', query: { redirect: to.fullPath } })
+  } else {
+    next()
+  }
 })
 
 export default router
