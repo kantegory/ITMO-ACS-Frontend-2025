@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
+import Property from '@/views/Property.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,12 @@ const router = createRouter({
       path: '/search',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/property/:id',
+      name: 'Property',
+      component: Property,
+      props: true
     }
   ]
 })
