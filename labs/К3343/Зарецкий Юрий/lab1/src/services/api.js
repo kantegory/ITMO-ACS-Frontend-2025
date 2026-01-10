@@ -1,6 +1,40 @@
-import { useApi } from '../composables/useApi'
+import axios from 'axios'
+import { useStorage } from '../composables/useStorage'
 
-const { api } = useApi()
+const API_BASE_URL = 'http://localhost:3001'
+
+// Создаем экземпляр axios
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+
+// Interceptor для добавления токена авторизации
+api.interceptors.request.use(
+  (config) => {
+    const { get } = useStorage()
+    try {
+      const token = get('authToken')
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+    } catch (e) {
+      console.error('Ошибка чтения токена:', e)
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+// Interceptor для обработки ошибок (401 будет обработан в useApi composable)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(error)
+)
 
 /**
  * API сервис для работы с пользователями
