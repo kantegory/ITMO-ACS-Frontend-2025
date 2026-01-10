@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.card img, .carousel-inner img {
+    height: 150px;
+    object-fit: cover;
+}
+
+#restaurantCarousel .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    width: 100%;
+}
