@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useStorage } from './useStorage'
 
 const API_BASE_URL = 'http://localhost:3001'
 
@@ -14,11 +13,11 @@ const api = axios.create({
 // Interceptor для добавления токена авторизации к запросам
 api.interceptors.request.use(
   (config) => {
-    const { get } = useStorage()
     try {
-      const tokenItem = get('authToken')
-      if (tokenItem) {
-        config.headers.Authorization = `Bearer ${tokenItem}`
+      const tokenItem = localStorage.getItem('authToken')
+      const token = tokenItem ? JSON.parse(tokenItem) : null
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
       }
     } catch (e) {
       console.error('Ошибка чтения токена:', e)
@@ -37,10 +36,13 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      const { remove } = useStorage()
       // Если получили 401, удаляем токен
-      remove('authToken')
-      remove('currentUser')
+      try {
+        localStorage.removeItem('authToken')
+        localStorage.removeItem('currentUser')
+      } catch (e) {
+        console.error('Ошибка удаления токена:', e)
+      }
       
       // Редирект будет обработан в компонентах через router
     }
