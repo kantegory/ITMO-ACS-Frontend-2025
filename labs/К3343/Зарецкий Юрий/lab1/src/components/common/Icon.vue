@@ -26,7 +26,7 @@ const props = defineProps({
   }
 })
 
-const iconHref = computed(() => `/src/assets/icons.svg#icon-${props.name}`)
+const iconHref = computed(() => `/assets/icons.svg#icon-${props.name}`)
 
 const iconClasses = computed(() => {
   const classes = ['icon', `icon-${props.size}`]
