@@ -189,6 +189,14 @@
       "startDate": "2026-02-01",
       "endDate": "2026-02-28",
       "guests": 2
+    },
+    {
+      "id": 3,
+      "apartmentId": 6,
+      "tenantId": 1,
+      "startDate": "2026-02-01",
+      "endDate": "2026-02-28",
+      "guests": 2
     }
   ]
 }
