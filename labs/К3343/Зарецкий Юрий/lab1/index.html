@@ -3,104 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная - Аренда недвижимости</title>
+    <title>Аренда недвижимости</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <script>
-        (() => {
-            try {
-                const savedTheme = localStorage.getItem('theme');
-                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-theme', theme);
-                document.documentElement.dataset.bsTheme = theme === 'dark' ? 'dark' : 'light';
-            } catch (e) {
-                console.warn('Не удалось применить сохраненную тему:', e);
-            }
-        })();
-    </script>
 </head>
 <body>
-    <a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation" aria-label="Основная навигация">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="Главная страница - Аренда недвижимости">
-                    <svg class="icon icon-md me-2" aria-hidden="true">
-                        <use href="assets/icons.svg#icon-home"></use>
-                    </svg>
-                    <span>Аренда недвижимости</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
-                    <span class="navbar-toggler-icon" aria-hidden="true"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main id="main-content" class="container mt-5">
-        <div class="row">
-            <div class="col-12 text-center mb-5">
-                <h1 class="display-4 mb-3">Найдите идеальную недвижимость для аренды</h1>
-                <p class="lead mb-4">Тысячи вариантов квартир, домов и офисов по всей России</p>
-                <a href="search.html" class="btn btn-primary btn-lg d-inline-flex align-items-center" aria-label="Перейти на страницу поиска недвижимости">
-                    <svg class="icon icon-md me-2 icon-inline" aria-hidden="true">
-                        <use href="assets/icons.svg#icon-search"></use>
-                    </svg>
-                    <span>Начать поиск</span>
-                </a>
-            </div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h3 class="card-title d-flex align-items-center justify-content-center gap-2">
-                            <svg class="icon icon-lg" aria-hidden="true">
-                                <use href="assets/icons.svg#icon-home"></use>
-                            </svg>
-                            <span>Квартиры</span>
-                        </h3>
-                        <p class="card-text">Широкий выбор квартир для аренды на любой срок</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h3 class="card-title d-flex align-items-center justify-content-center gap-2">
-                            <svg class="icon icon-lg" aria-hidden="true">
-                                <use href="assets/icons.svg#icon-building"></use>
-                            </svg>
-                            <span>Дома</span>
-                        </h3>
-                        <p class="card-text">Уютные дома для комфортного проживания</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h3 class="card-title d-flex align-items-center justify-content-center gap-2">
-                            <svg class="icon icon-lg" aria-hidden="true">
-                                <use href="assets/icons.svg#icon-building"></use>
-                            </svg>
-                            <span>Офисы</span>
-                        </h3>
-                        <p class="card-text">Помещения для бизнеса в удобных локациях</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/api.js"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
