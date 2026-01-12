@@ -13,7 +13,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
-    "server": "json-server --watch db.json --port 3000 --middlewares middleware.js"
+    "server": "json-server --watch db.json --port 3000 --middleware middleware.js"
   },
   "dependencies": {
     "axios": "^1.13.2",
