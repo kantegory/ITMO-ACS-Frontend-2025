@@ -33,7 +33,7 @@
         <div>
           <strong>{{ booking.restaurantName }}</strong>
           <br>
-          {{ booking.date }} {{ booking.time }}
+          {{ formatDate(booking.date) }} {{ booking.time }}
         </div>
         <button 
           class="btn btn-sm btn-danger" 
@@ -52,6 +52,7 @@ import { useAuth } from '@/composables/useAuth'
 import { useBookings } from '@/composables/useBookings'
 import { useToast } from '@/composables/useToast'
 import { useRouter } from 'vue-router'
+import { formatDate } from '@/utils/dateFormat'
 
 const { currentUser } = useAuth()
 const { bookings, loading, error, fetchBookingsByUserId, deleteBooking } = useBookings()

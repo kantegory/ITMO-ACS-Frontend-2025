@@ -52,6 +52,31 @@ module.exports = (req, res, next) => {
     });
   }
 
+  // Добавление отзыва к ресторану: POST /restaurants/:id/reviews
+  if (req.method === 'POST' && /^\/restaurants\/\d+\/reviews$/.test(req.path)) {
+    const fs = require('fs');
+    const db = JSON.parse(fs.readFileSync('./db.json', 'utf8'));
+
+    const restaurantId = req.path.split('/')[2]; // /restaurants/:id/reviews
+    const restaurant = db.restaurants.find(r => String(r.id) === String(restaurantId));
+
+    if (!restaurant) {
+      return res.status(404).json({ message: 'Ресторан не найден' });
+    }
+
+    const { name, text } = req.body || {};
+    if (!name || !text) {
+      return res.status(400).json({ message: 'Имя и текст отзыва обязательны' });
+    }
+
+    restaurant.reviews = restaurant.reviews || [];
+    restaurant.reviews.push({ name, text });
+
+    fs.writeFileSync('./db.json', JSON.stringify(db, null, 2));
+
+    return res.status(201).json(restaurant);
+  }
+
   next();
 };
 

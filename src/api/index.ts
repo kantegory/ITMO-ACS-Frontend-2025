@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { Restaurant, AuthResponse, Booking, SearchFilters } from '@/types'
+import type { Restaurant, AuthResponse, Booking, SearchFilters, Review } from '@/types'
 
 const API_BASE_URL = 'http://localhost:3000'
 
@@ -49,6 +49,20 @@ export const restaurantsAPI = {
     
     const query = params.toString()
     const response = await api.get<Restaurant[]>(`/restaurants${query ? `?${query}` : ''}`)
+    return response.data
+  },
+
+  async addReview(restaurantId: string, review: Review): Promise<Restaurant> {
+    // Получаем текущий ресторан
+    const current = await this.getById(restaurantId)
+    const reviews = current.reviews ?? []
+
+    const updatedRestaurant: Restaurant = {
+      ...current,
+      reviews: [...reviews, review]
+    }
+
+    const response = await api.put<Restaurant>(`/restaurants/${restaurantId}`, updatedRestaurant)
     return response.data
   }
 }

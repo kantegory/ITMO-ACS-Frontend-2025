@@ -5,8 +5,14 @@ export interface Restaurant {
   location: string
   price: string
   images: string[]
-  menu: string[]
+  menu: MenuItem[]
   reviews: Review[]
+}
+
+export interface MenuItem {
+  name: string
+  description: string
+  price: string
 }
 
 export interface Review {

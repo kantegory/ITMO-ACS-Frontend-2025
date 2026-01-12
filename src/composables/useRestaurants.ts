@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { restaurantsAPI } from '@/api'
-import type { Restaurant, SearchFilters } from '@/types'
+import type { Restaurant, SearchFilters, Review } from '@/types'
 
 export function useRestaurants() {
   const restaurants = ref<Restaurant[]>([])
@@ -38,12 +38,33 @@ export function useRestaurants() {
     }
   }
 
+  const addReview = async (id: string, review: Review) => {
+    loading.value = true
+    error.value = null
+    try {
+      const updated = await restaurantsAPI.addReview(id, review)
+      // Обновим ресторан в списке, если он уже загружен
+      const idx = restaurants.value.findIndex((r) => r.id === id)
+      if (idx !== -1) {
+        restaurants.value[idx] = updated
+      }
+      return updated
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Ошибка добавления отзыва'
+      console.error(err)
+      return null
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     restaurants,
     loading,
     error,
     fetchRestaurants,
-    fetchRestaurantById
+    fetchRestaurantById,
+    addReview
   }
 }
 

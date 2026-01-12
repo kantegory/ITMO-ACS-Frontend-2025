@@ -23,15 +23,14 @@
 
 <script setup lang="ts">
 import type { Restaurant } from '@/types'
+import { resolveImage } from '@/assets/imageMap'
 
 defineProps<{
   restaurant: Restaurant
 }>()
 
 const getImageUrl = (path: string) => {
-  // Remove 'assets/' prefix if present
-  const cleanPath = path.replace(/^assets\//, '')
-  return new URL(`../assets/${cleanPath}`, import.meta.url).href
+  return resolveImage(path) || ''
 }
 </script>
 
