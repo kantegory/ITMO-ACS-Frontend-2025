@@ -17,26 +17,29 @@
 </header>
 
 <main>
-    <section class="login-card">
-        <h1 class="text-center mb-4">Вход в аккаунт</h1>
+    <section class="login-card" aria-labelledby="login-title">
+        <h1 id="login-title" class="text-center mb-4">Вход в аккаунт</h1>
         <form id="loginForm">
             <div class="mb-3">
-                <label class="form-label">Email</label>
+                <label class="form-label" for="email">Email</label>
                 <input id="email" type="email" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label class="form-label">Пароль</label>
+                <label class="form-label" for="password">Пароль</label>
                 <input id="password" type="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Войти</button>
         </form>
-        <div class="text-center mt-3">
+        <nav class="text-center mt-3" aria-label="Навигация восстановления и регистрации">
             <a href="password_recovery.html">Забыли пароль?</a>
-        </div>
-        <div class="text-center mt-2">
             <a href="auth.html">Создать аккаунт</a>
-        </div>
+        </nav>
     </section>
+    <div id="form-status">
+        <div id="errorMsg" class="text-danger mb-3" role="alert" aria-live="assertive" style="display:none;">
+            Неверный email или пароль
+        </div>
+    </div>
 </main>
 
 <footer class="text-center mt-4 mb-4">

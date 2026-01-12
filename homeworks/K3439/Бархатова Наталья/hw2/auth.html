@@ -9,7 +9,7 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-dark">
+    <nav class="navbar navbar-dark" aria-label="Основная навигация">
         <div class="container">
             <a class="navbar-brand" href="index.html">Вечер под контролем</a>
         </div>
@@ -21,39 +21,43 @@
         <section class="login-card" aria-labelledby="auth-title">
             <h1 id="auth-title" class="text-center mb-4">Регистрация</h1>
 
-            <form id="registerForm">
+            <form id="registerForm" aria-describedby="form-status">
                 <div class="mb-3">
-                    <label class="form-label">Имя</label>
-                    <input id="name" type="text" class="form-control">
+                    <label class="form-label" for="name">Имя</label>
+                    <input id="name" type="text" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="email">Email</label>
-                    <input id="email" type="email" class="form-control" id="email" required />
+                    <input id="email" type="email" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="password">Пароль</label>
-                    <input id="password" type="password" class="form-control" id="password" required />
+                    <input id="password" type="password" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="password-repeat">Повторите пароль</label>
-                    <input id="password-repeat" type="password" class="form-control" id="password-repeat" required />
+                    <input id="password-repeat" type="password" class="form-control" required />
                 </div>
 
-                <div id="errorMsg" class="text-danger mb-3" style="display: none;">
-                    Пароли не совпадают!
+                <div id="form-status">
+                    <div id="errorMsg" class="text-danger mb-3" role="alert" aria-live="assertive" style="display: none;">
+                        Пароли не совпадают!
+                    </div>
+
+                    <div id="successMsg" class="text-success mb-3" role="status" aria-live="polite" style="display: none;">
+                        Регистрация успешна! Перенаправление…
+                    </div>
                 </div>
 
-                <div id="successMsg" class="text-success mb-3" style="display: none;">
-                    Регистрация успешна! Перенаправление…
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                <button type="submit" class="btn btn-primary w-100">
+                    Зарегистрироваться
+                </button>
             </form>
 
-            <nav class="text-center mt-3">
+            <nav class="text-center mt-3" aria-label="Навигация входа">
                 Уже зарегистрированы? <a href="login.html">Войти</a>
             </nav>
         </section>

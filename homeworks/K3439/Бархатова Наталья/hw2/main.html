@@ -9,7 +9,7 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-dark">
+    <nav class="navbar navbar-dark" aria-label="Главная навигация">
         <div class="container d-flex align-items-center">
             <a class="navbar-brand" href="index.html">Вечер под контролем — сервис бронирования столов</a>
             <a class="navbar-brand" href="profile.html">Профиль</a>
@@ -18,8 +18,8 @@
 </header>
 
 <main class="container mt-4">
-    <section class="filter-section">
-        <h1 class="mb-3 fs-4">Поиск ресторанов</h1>
+    <section class="filter-section" aria-labelledby="filter-title">
+        <h1 id="filter-title" class="mb-3 fs-4">Поиск ресторанов</h1>
         <form id="filterForm">
             <div class="row g-2">
                 <div class="col-md-4">
@@ -57,7 +57,9 @@
         </form>
     </section>
 
-    <section id="restaurantsList" class="mt-4" aria-label="Список ресторанов"></section>
+    <section id="restaurantsList" class="mt-4" aria-label="Список ресторанов">
+        <p id="restaurantsMessage" class="visually-hidden" aria-live="polite"></p>
+    </section>
 </main>
 
 <footer class="text-center mt-4 mb-4">

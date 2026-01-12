@@ -10,30 +10,32 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-dark">
+    <nav class="navbar navbar-dark" aria-label="Навигация профиля">
         <div class="container d-flex justify-content-between">
             <a href="profile.html" class="text-white">
-                <i class="bi bi-arrow-left-circle"></i> Назад к профилю
+                <i class="bi bi-arrow-left-circle" aria-hidden="true"></i>
+                <span>Назад к профилю</span>
             </a>
-            <span class="navbar-text">Редактирование профиля</span>
         </div>
     </nav>
 </header>
 
 <main class="profile-container">
-    <section class="info-card">
+    <section class="info-card" aria-labelledby="edit-profile-title">
+        <h2 id="edit-profile-title" class="visually-hidden">Редактирование профиля</h2>
         <form>
             <div class="mb-3">
-                <label class="form-label">Имя</label>
-                <input type="text" class="form-control" value="Иван">
+                <label class="form-label" for="nameInput">Имя</label>
+                <input type="text" id="nameInput" class="form-control" value="Иван">
             </div>
             <div class="mb-3">
-                <label class="form-label">Электронная почта</label>
-                <input type="email" class="form-control" value="ivan@example.com">
+                <label class="form-label" for="emailInput">Электронная почта</label>
+                <input type="email" id="emailInput" class="form-control" value="ivan@example.com">
             </div>
             <div class="mb-3">
-                <label class="form-label">Фото профиля</label>
-                <input id="avatarInput" type="file" class="form-control">
+                <label class="form-label" for="avatarInput">Фото профиля</label>
+                <input id="avatarInput" type="file" class="form-control" aria-describedby="avatarHelp">
+                <div id="avatarHelp" class="form-text">Выберите изображение для аватара (необязательно)</div>
             </div>
             <button type="submit" class="btn btn-primary me-2">Сохранить изменения</button>
             <a href="profile.html" class="btn btn-secondary">Отмена</a>

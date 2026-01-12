@@ -1,5 +1,6 @@
 :root {
     --emerald: #046D55;
+    --emerald-link: #09493A;
     --mint: #A7D7C5;
     --charcoal: #2B2B2B;
     --ivory: #F8F6F0;
@@ -18,7 +19,8 @@ body {
 
 a {
     color: var(--emerald);
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 a:hover {
     color: var(--gold);
