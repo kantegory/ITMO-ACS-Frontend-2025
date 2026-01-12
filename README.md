@@ -1,48 +1,128 @@
-# restaurant-booking-vue
+# Restaurant Booking Vue.js Application
 
-This template should help get you started developing with Vue 3 in Vite.
+Приложение для бронирования столиков в ресторанах, разработанное на Vue.js с использованием TypeScript.
 
-## Recommended IDE Setup
+## Технологии
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Vue 3** - прогрессивный JavaScript-фреймворк
+- **TypeScript** - типизированный JavaScript
+- **Vue Router** - официальный роутер для Vue.js
+- **Axios** - HTTP-клиент для работы с API
+- **Bootstrap 5** - CSS-фреймворк для стилизации
+- **JSON Server** - полнофункциональный REST API для разработки
 
-## Recommended Browser Setup
+## Архитектура приложения
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Composables (Переиспользуемая логика)
 
-## Type Support for `.vue` Imports in TS
+- `useAuth` - аутентификация пользователей
+- `useRestaurants` - работа с ресторанами
+- `useBookings` - управление бронированиями
+- `useToast` - уведомления пользователя
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### Компоненты
 
-## Customize configuration
+- `AppHeader` - шапка приложения с навигацией
+- `RestaurantCard` - карточка ресторана
+- `LoginModal` - модальное окно входа
+- `RegisterModal` - модальное окно регистрации
+- `BookingModal` - модальное окно бронирования
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Страницы (Views)
 
-## Project Setup
+- `HomeView` - главная страница со списком ресторанов и фильтрами
+- `RestaurantView` - детальная страница ресторана
+- `ProfileView` - личный кабинет пользователя
 
-```sh
+## Установка и запуск
+
+### Установка зависимостей
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Запуск приложения
 
-```sh
+Для запуска приложения требуется два терминала:
+
+**Терминал 1 - JSON Server (Backend):**
+```bash
+npm run server
+```
+
+**Терминал 2 - Vue приложение (Frontend):**
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Доступ к приложению
 
-```sh
+После запуска приложение будет доступно по адресу: `http://localhost:5173`
+
+API сервер работает на: `http://localhost:3000`
+
+## Функциональность
+
+### Аутентификация
+- Регистрация новых пользователей
+- Вход в систему
+- Выход из системы
+
+### Рестораны
+- Просмотр списка ресторанов
+- Фильтрация по кухне, расположению и цене
+- Детальная информация о ресторане (меню, отзывы, фото)
+
+### Бронирование
+- Создание бронирования (только для авторизованных пользователей)
+- Просмотр истории бронирований
+- Отмена бронирований
+
+## Тестовые пользователи
+
+В базе данных есть тестовые пользователи:
+
+- **Логин:** admin, **Пароль:** admin123
+- **Логин:** login, **Пароль:** 1234
+
+## Сборка для продакшена
+
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Собранное приложение будет находиться в папке `dist/`.
 
-```sh
+## Разработка
+
+### Проверка типов
+
+```bash
+npm run type-check
+```
+
+### Линтинг
+
+```bash
 npm run lint
 ```
+
+## Структура проекта
+
+```
+src/
+├── api/              # API запросы (axios)
+├── assets/           # Статические файлы (изображения, стили)
+├── components/       # Переиспользуемые компоненты
+├── composables/      # Composables (переиспользуемая логика)
+├── router/           # Конфигурация Vue Router
+├── types/            # TypeScript типы
+├── views/            # Страницы приложения
+├── App.vue           # Главный компонент
+└── main.ts           # Точка входа
+```
+
+## Автор
+
+Попов Никита, K3344
