@@ -1,0 +1,22 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "name": "First note",
+      "text": "Hello from mock API",
+      "userId": 1
+    },
+    {
+      "name": "test",
+      "text": "lalala",
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "name": "новая заметка",
+      "text": "новая заметка",
+      "userId": 1,
+      "id": 3
+    }
+  ]
+}
