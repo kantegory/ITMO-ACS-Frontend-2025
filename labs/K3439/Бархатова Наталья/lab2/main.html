@@ -63,18 +63,24 @@
 <footer class="text-center mt-4 mb-4">
     <p>© 2025 Вечер под контролем</p>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    if (!localStorage.getItem("token")) {
+        window.location.href = "login.html";
+    }
     const cuisineMap = { Italian: "Итальянская", Asian: "Азиатская", French: "Французская", North: "Северная" };
     const locationMap = { Centre: "Центральный", Primorsky: "Приморский", Autozavodsky: "Автозаводский" };
 
-    const restaurants = [
-        { name: "Mama roma", location: "Autozavodsky", cuisine: "Italian", price: 1, img: "https://avatars.mds.yandex.net/get-altay/15344916/2a00000196cd63f64c3d5cb46eaf96404f35/XXXL" },
-        { name: "Koreana Light", location: "Autozavodsky", cuisine: "Asian", price: 1, img: "https://avatars.mds.yandex.net/get-altay/13458328/2a0000018ee259c510e698d1662db48f63b9/XXXL" },
-        { name: "Sampo", location: "Primorsky", cuisine: "North", price: 3, img: "https://avatars.mds.yandex.net/get-altay/14540779/2a00000195421789ef5019519c7680acbf81/XXXL" },
-        { name: "Рамен Шифу 拉面師傅", location: "Centre", cuisine: "Asian", price: 2, img: "https://avatars.mds.yandex.net/get-altay/15249330/2a00000194883b58c99629d76bdb80154cff/XXXL" },
-        { name: "Asiatiq", location: "Centre", cuisine: "Asian", price: 2, img: "https://avatars.mds.yandex.net/get-altay/1363250/2a000001854640663f2e555597f144bfb5da/XXXL" }
-    ];
+    async function loadRestaurants() {
+        try {
+            const response = await fetch('http://localhost:3000/restaurants');
+            restaurants = await response.json();
+            renderRestaurants(restaurants);
+        } catch (err) {
+            console.error(err);
+            document.getElementById("restaurantsList").innerHTML = "<p>Не удалось загрузить рестораны.</p>";
+        }
+    }
 
     function renderRestaurants(items) {
         const listContainer = document.getElementById("restaurantsList");
@@ -89,7 +95,7 @@
             article.innerHTML = `
             <figure><img class="restaurant-img" src="${r.img}" alt="${r.name}"></figure>
             <div>
-                <h2 class="restaurant-name fs-5"><a href="restaurant.html" class="text-decoration-none text-dark">${r.name}</a></h2>
+                <h2 class="restaurant-name fs-5"><a href="restaurant.html?id=${r.id}" class="text-decoration-none text-dark">${r.name}</a></h2>
                 <p class="m-0">Кухня: ${cuisineMap[r.cuisine]}</p>
                 <p class="m-0">Район: ${locationMap[r.location]}</p>
                 <p class="m-0">Цена: ${'$'.repeat(r.price)}</p>
@@ -111,9 +117,7 @@
         renderRestaurants(filtered);
     });
 
-    renderRestaurants(restaurants);
+    loadRestaurants();
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

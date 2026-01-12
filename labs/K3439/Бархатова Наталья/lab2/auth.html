@@ -24,22 +24,22 @@
             <form id="registerForm">
                 <div class="mb-3">
                     <label class="form-label">Имя</label>
-                    <input type="text" class="form-control">
+                    <input id="name" type="text" class="form-control">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" required />
+                    <input id="email" type="email" class="form-control" id="email" required />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="password">Пароль</label>
-                    <input type="password" class="form-control" id="password" required />
+                    <input id="password" type="password" class="form-control" id="password" required />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="password-repeat">Повторите пароль</label>
-                    <input type="password" class="form-control" id="password-repeat" required />
+                    <input id="password-repeat" type="password" class="form-control" id="password-repeat" required />
                 </div>
 
                 <div id="errorMsg" class="text-danger mb-3" style="display: none;">
@@ -68,30 +68,65 @@
 <script>
     (function () {
         const form = document.getElementById('registerForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
         const pass1Element = document.getElementById('password');
         const pass2Element = document.getElementById('password-repeat');
         const error = document.getElementById('errorMsg');
         const success = document.getElementById('successMsg');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
-
-            const pass1 = pass1Element.value.trim();
-            const pass2 = pass2Element.value.trim();
 
             error.style.display = 'none';
             success.style.display = 'none';
 
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const pass1 = pass1Element.value.trim();
+            const pass2 = pass2Element.value.trim();
+
             if (pass1 !== pass2) {
+                error.textContent = "Пароли не совпадают";
                 error.style.display = 'block';
                 return;
             }
 
-            success.style.display = 'block';
+            try {
+                const res = await fetch('http://localhost:3000/users');
+                const users = await res.json();
 
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 800);
+                const exists = users.some(u => u.email === email);
+                if (exists) {
+                    error.textContent = "Пользователь с таким email уже существует";
+                    error.style.display = 'block';
+                    return;
+                }
+
+                const newUser = {
+                    name,
+                    email,
+                    password: pass1,
+                    token: "token-" + pass1
+                };
+
+                await fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUser)
+                });
+
+                success.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 800);
+
+            } catch (err) {
+                error.textContent = "Ошибка соединения с сервером";
+                error.style.display = 'block';
+                console.error(err);
+            }
         });
     })();
 </script>
