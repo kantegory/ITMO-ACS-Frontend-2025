@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .completion-badge {
+            background: linear-gradient(135deg, #38b2ac, #4f86f7);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1.5rem;
+        }
+        
+        .completion-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 178, 172, 0.4);
+        }
+        
+        .completion-badge.completed {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .completion-badge.completed:hover {
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .completion-badge i {
+            margin-right: 8px;
+        }
+        
+        .workout-stats {
+            background-color: rgba(79, 134, 247, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .workout-stats .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .workout-stats .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .workout-stats .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .workout-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .workout-image-detail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .workout-image-detail:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-container {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            padding: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .instructions-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .workout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="workouts.html" class="btn btn-back light-blue-text">
+            <i class="fas fa-arrow-left me-2"></i>Back to Workouts
+        </a>
+        <a href="../index.html" class="btn btn-back light-blue-text ms-2">
+            <i class="fas fa-home me-2"></i>Back to Home
+        </a>
+    </div>
+    
+    <div class="workout-header">
+        <h2 class="form-title mb-0">Workout Details</h2>
+        <button id="completeWorkoutBtn" class="btn completion-badge">
+            <i class="far fa-check-circle"></i> Mark as Completed
+        </button>
+    </div>
+    
+    <!-- Информация о загрузке -->
+    <div id="connectionStatus" style="display: none;"></div>
+    
+    <!-- Статистика тренировки -->
+    <div id="workoutStats" class="workout-stats">
+        <!-- Заполняется через JS -->
+    </div>
+    
+    <!-- Контент тренировки -->
+    <div id="workoutContent">
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading workout details...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// Определяем API_URL здесь
+var API_URL = 'http://localhost:3000/api';
+
+// Запасные данные
+var FALLBACK_WORKOUTS = [
+    {
+        id: 1,
+        name: "Cardio Training",
+        description: "Improve your endurance with our cardio exercises. Perfect for burning calories and strengthening your heart.",
+        type: "cardio",
+        level: "beginner",
+        duration: "medium",
+        calories: "300-400",
+        equipment: "Treadmill, Jump Rope",
+        image: "http://localhost:3000/images/cardio.jpeg"
+    },
+    {
+        id: 2,
+        name: "Strength Training",
+        description: "Build muscle and increase strength with our weight training programs. Suitable for all fitness levels.",
+        type: "strength",
+        level: "intermediate",
+        duration: "long",
+        calories: "400-500",
+        equipment: "Dumbbells, Barbell, Bench",
+        image: "http://localhost:3000/images/strength.jpeg"
+    },
+    {
+        id: 3,
+        name: "Yoga Flow",
+        description: "Improve flexibility and mindfulness with our yoga sessions. Perfect for stress relief.",
+        type: "yoga",
+        level: "beginner",
+        duration: "medium",
+        calories: "200-300",
+        equipment: "Yoga Mat",
+        image: "http://localhost:3000/images/yoga.jpeg"
+    },
+    {
+        id: 4,
+        name: "Stretching Routine",
+        description: "Increase flexibility and prevent injuries with our stretching exercises.",
+        type: "stretching",
+        level: "beginner",
+        duration: "short",
+        calories: "150-200",
+        equipment: "Yoga Mat",
+        image: "http://localhost:3000/images/stretching.jpeg"
+    },
+    {
+        id: 5,
+        name: "HIIT Workout",
+        description: "High Intensity Interval Training for maximum calorie burn in minimal time.",
+        type: "hiit",
+        level: "advanced",
+        duration: "short",
+        calories: "400-450",
+        equipment: "Timer, Mat",
+        image: "http://localhost:3000/images/hiit.jpeg"
+    },
+    {
+        id: 6,
+        name: "Power Lifting",
+        description: "Build maximum strength with power lifting techniques and heavy weights.",
+        type: "power-lifting",
+        level: "advanced",
+        duration: "long",
+        calories: "500-600",
+        equipment: "Barbell, Plates, Power Rack",
+        image: "http://localhost:3000/images/power-lifting.jpeg"
+    }
+];
+
+// Функция для получения изображения
+function getWorkoutImage(workout) {
+    if (workout.image && workout.image.startsWith('http')) {
+        return workout.image;
+    }
+    
+    if (workout.image && workout.image.startsWith('/')) {
+        return 'http://localhost:3000' + workout.image;
+    }
+    
+    if (workout.image && workout.image.startsWith('../images/')) {
+        var imageName = workout.image.replace('../images/', '');
+        return 'http://localhost:3000/images/' + imageName;
+    }
+    
+    var type = workout.type ? workout.type.toLowerCase() : 'default';
+    var imageMap = {
+        'cardio': 'http://localhost:3000/images/cardio.jpeg',
+        'strength': 'http://localhost:3000/images/strength.jpeg',
+        'yoga': 'http://localhost:3000/images/yoga.jpeg',
+        'stretching': 'http://localhost:3000/images/stretching.jpeg',
+        'hiit': 'http://localhost:3000/images/hiit.jpeg',
+        'hitt': 'http://localhost:3000/images/hiit.jpeg',
+        'powerlifting': 'http://localhost:3000/images/power-lifting.jpeg',
+        'power-lifting': 'http://localhost:3000/images/power-lifting.jpeg',
+        'power lifting': 'http://localhost:3000/images/power-lifting.jpeg',
+        'default': 'http://localhost:3000/images/workout.jpg'
+    };
+    
+    return imageMap[type] || imageMap['default'];
+}
+
+// Обработка ошибок изображений
+function handleImageError(imgElement) {
+    console.warn('Image failed to load:', imgElement.src);
+    imgElement.src = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=400&fit=crop&auto=format';
+    imgElement.onerror = null;
+}
+
+// Загрузка деталей тренировки
+async function loadWorkoutDetails() {
+    try {
+        var urlParams = new URLSearchParams(window.location.search);
+        var workoutId = urlParams.get('id');
+        
+        if (!workoutId) {
+            showError('Workout ID not found in URL');
+            return;
+        }
+        
+        console.log('Loading workout with ID:', workoutId);
+        
+        var workout;
+        
+        try {
+            var response = await fetch(API_URL + '/workouts/' + workoutId);
+            
+            if (response.ok) {
+                workout = await response.json();
+                console.log('Workout loaded from API:', workout);
+                workout.image = getWorkoutImage(workout);
+            } else {
+                throw new Error('API response not ok');
+            }
+        } catch (apiError) {
+            console.log('API недоступен, использую локальные данные:', apiError);
+            workout = FALLBACK_WORKOUTS.find(function(w) { return w.id == workoutId; }) || FALLBACK_WORKOUTS[0];
+            showConnectionWarning('Server unavailable. Using offline data.');
+        }
+        
+        if (!workout) {
+            showError('Workout not found');
+            return;
+        }
+        
+        updateWorkoutUI(workout);
+        
+    } catch (error) {
+        console.error('Error loading workout details:', error);
+        
+        var urlParams = new URLSearchParams(window.location.search);
+        var workoutId = urlParams.get('id') || '1';
+        var workout = FALLBACK_WORKOUTS.find(function(w) { return w.id == workoutId; }) || FALLBACK_WORKOUTS[0];
+        
+        showConnectionWarning('Error loading data. Using offline mode.');
+        updateWorkoutUI(workout);
+    }
+}
+
+// Обновление интерфейса тренировки
+function updateWorkoutUI(workout) {
+    document.title = workout.name + ' - Fitness Platform';
+    document.querySelector('.form-title').textContent = workout.name;
+    
+    updateWorkoutStats(workout);
+    updateWorkoutContent(workout);
+    initCompletionButtons(workout.id, workout.name, workout.level);
+}
+
+// Обновление статистики
+function updateWorkoutStats(workout) {
+    var statsContainer = document.getElementById('workoutStats');
+    
+    var durationMinutes = '30 min';
+    if (workout.duration === 'short') durationMinutes = '20 min';
+    if (workout.duration === 'medium') durationMinutes = '30 min';
+    if (workout.duration === 'long') durationMinutes = '45 min';
+    
+    var calories = workout.calories || '300-400';
+    
+    statsContainer.innerHTML = 
+        '<div class="row">' +
+        '<div class="col-md-3 col-6 stat-item">' +
+        '<div class="stat-value">' + durationMinutes + '</div>' +
+        '<div class="stat-label">Duration</div>' +
+        '</div>' +
+        '<div class="col-md-3 col-6 stat-item">' +
+        '<div class="stat-value">' + calories + '</div>' +
+        '<div class="stat-label">Calories Burned</div>' +
+        '</div>' +
+        '<div class="col-md-3 col-6 stat-item">' +
+        '<div class="stat-value">' + (workout.level || 'Intermediate') + '</div>' +
+        '<div class="stat-label">Difficulty Level</div>' +
+        '</div>' +
+        '<div class="col-md-3 col-6 stat-item">' +
+        '<div class="stat-value">' + (workout.type || 'General') + '</div>' +
+        '<div class="stat-label">Workout Type</div>' +
+        '</div>' +
+        '</div>';
+}
+
+// Обновление контента
+function updateWorkoutContent(workout) {
+    var contentContainer = document.getElementById('workoutContent');
+    
+    var equipmentList = workout.equipment ? 
+        workout.equipment.split(',').map(function(item) { return '<li>' + item.trim() + '</li>'; }).join('') : 
+        '<li>None required</li>';
+    
+    var targetAreas = getTargetAreas(workout.type);
+    var targetAreasList = targetAreas.map(function(area) { return '<li>' + area + '</li>'; }).join('');
+    
+    var instructions = getWorkoutInstructions(workout.type, workout.level);
+    
+    contentContainer.innerHTML = 
+        '<div class="card glass-card">' +
+        '<div class="card-body">' +
+        '<div class="d-flex justify-content-between align-items-start mb-4">' +
+        '<h5 class="card-title light-blue-text mb-0">' + workout.name + '</h5>' +
+        '<span class="badge bg-' + getLevelBadgeColor(workout.level) + ' fs-6">' + (workout.level || 'Intermediate') + '</span>' +
+        '</div>' +
+        '<p class="card-text fs-5 mb-4">' + (workout.description || 'No description available.') + '</p>' +
+        '<div class="mb-4">' +
+        '<div class="workout-image-container">' +
+        '<img src="' + workout.image + '" class="workout-image-detail" alt="' + workout.name + '" onerror="handleImageError(this)" loading="lazy">' +
+        '</div>' +
+        '</div>' +
+        '<div class="row mb-4">' +
+        '<div class="col-lg-6 mb-3">' +
+        '<div class="card h-100">' +
+        '<div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-dumbbell me-2"></i>Equipment Needed</h6></div>' +
+        '<div class="card-body"><ul class="mb-0">' + equipmentList + '</ul></div>' +
+        '</div></div>' +
+        '<div class="col-lg-6 mb-3">' +
+        '<div class="card h-100">' +
+        '<div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-bullseye me-2"></i>Target Areas</h6></div>' +
+        '<div class="card-body"><ul class="mb-0">' + targetAreasList + '</ul></div>' +
+        '</div></div></div>' +
+        '<div class="instructions-section">' +
+        '<h4 class="light-blue-text mb-4"><i class="fas fa-list-ol me-3"></i>Workout Instructions</h4>' +
+        instructions +
+        '</div>' +
+        '<div class="mt-5 pt-4 border-top">' +
+        '<div class="d-flex justify-content-between align-items-center">' +
+        '<div>' +
+        '<h5 class="light-blue-text mb-2"><i class="fas fa-chart-line me-2"></i>Track Your Progress</h5>' +
+        '<p class="text-muted mb-0">Mark this workout as completed to track your progress in your profile.</p>' +
+        '</div>' +
+        '<div class="text-end">' +
+        '<div id="completionStatus" class="mb-2" style="display: none;">' +
+        '<span class="badge bg-success fs-6"><i class="fas fa-check-circle"></i> Completed on <span id="completionDate"></span></span>' +
+        '</div>' +
+        '<button id="markCompleteBtn" class="btn btn-form-primary btn-lg">' +
+        '<i class="far fa-check-circle me-2"></i> Mark as Completed' +
+        '</button>' +
+        '</div></div></div>' +
+        '</div></div>';
+}
+
+// Вспомогательные функции
+function getLevelBadgeColor(level) {
+    if (!level) return 'primary';
+    
+    switch(level.toLowerCase()) {
+        case 'beginner': return 'success';
+        case 'intermediate': return 'warning';
+        case 'advanced': return 'danger';
+        default: return 'primary';
+    }
+}
+
+function getTargetAreas(type) {
+    if (!type) return ['General fitness'];
+    
+    var typeLower = type.toLowerCase();
+    
+    switch(typeLower) {
+        case 'cardio': return ['Cardiovascular system', 'Leg muscles', 'Core stability'];
+        case 'strength': return ['Full body muscles', 'Strength endurance', 'Joint stability'];
+        case 'yoga': return ['Flexibility', 'Balance', 'Mind-body connection'];
+        case 'stretching': return ['Mobility', 'Flexibility', 'Muscle recovery'];
+        case 'hiit':
+        case 'hitt': return ['Full body', 'Cardiovascular endurance', 'Metabolic rate'];
+        case 'powerlifting':
+        case 'power-lifting': return ['Strength', 'Muscle mass', 'Power'];
+        default: return ['General fitness'];
+    }
+}
+
+function getWorkoutInstructions(type, level) {
+    var typeLower = type ? type.toLowerCase() : 'general';
+    
+    var instructions = '';
+    
+    switch(typeLower) {
+        case 'cardio':
+            instructions = 
+                '<div class="row">' +
+                '<div class="col-md-4 mb-3"><div class="card h-100">' +
+                '<div class="card-header bg-light"><h6 class="mb-0">Warm-up (5 min)</h6></div>' +
+                '<div class="card-body"><ul class="mb-0">' +
+                '<li>Light jogging: 2 min</li><li>Dynamic stretching: 3 min</li>' +
+                '<li>Arm circles: 30 sec</li><li>Leg swings: 30 sec</li>' +
+                '</ul></div></div></div>' +
+                '<div class="col-md-4 mb-3"><div class="card h-100">' +
+                '<div class="card-header bg-light"><h6 class="mb-0">Main Circuit (15 min)</h6></div>' +
+                '<div class="card-body"><ol class="mb-0">' +
+                '<li>Jumping Jacks: 30 sec</li><li>High Knees: 30 sec</li>' +
+                '<li>Butt Kicks: 30 sec</li><li>Mountain Climbers: 30 sec</li>' +
+                '<li>Rest: 60 sec</li><li>Repeat 3x</li>' +
+                '</ol></div></div></div>' +
+                '<div class="col-md-4 mb-3"><div class="card h-100">' +
+                '<div class="card-header bg-light"><h6 class="mb-0">Cool Down (5 min)</h6></div>' +
+                '<div class="card-body"><ul class="mb-0">' +
+                '<li>Slow walking: 2 min</li><li>Static stretching: 3 min</li>' +
+                '<li>Quad stretch: 30 sec</li><li>Hamstring stretch: 30 sec</li>' +
+                '</ul></div></div></div></div>';
+            break;
+            
+        case 'strength':
+            instructions = 
+                '<div class="row">' +
+                '<div class="col-md-4 mb-3"><div class="card h-100">' +
+                '<div class="card-header bg-light"><h6 class="mb-0">Warm-up (5 min)</h6></div>' +
+                '<div class="card-body"><ul class="mb-0">' +
+                '<li>Dynamic stretches: 3 min</li><li>Light cardio: 2 min</li>' +
+                '<li>Joint mobilization</li>' +
+                '</ul></div></div></div>' +
+                '<div class="col-md-4 mb-3"><div class="card h-100">' +
+                '<div class="card-header bg-light"><h6 class="mb-0">Strength (25 min)</h6></div>' +
+                '<div class="card-body"><ol class="mb-0">' +
+                '<li>Squats: 3x12 reps</li><li>Push-ups: 3x10 reps</li>' +
+                '<li>Rows: 3x12 reps</li><li>Lunges: 3x10 each leg</li>' +
+                '<li>Plank: 3x30 sec</li>' +
+                '</ol></div></div></div>' +
+                '<div class="col-md-4 mb-3"><div class="card h-100">' +
+                '<div class="card-header bg-light"><h6 class="mb-0">Cool Down (5 min)</h6></div>' +
+                '<div class="card-body"><ul class="mb-0">' +
+                '<li>Full body stretch</li><li>Foam rolling</li>' +
+                '<li>Deep breathing</li>' +
+                '</ul></div></div></div></div>';
+            break;
+            
+        default:
+            instructions = 
+                '<div class="alert alert-info">' +
+                '<h5><i class="fas fa-info-circle me-2"></i>General Instructions</h5>' +
+                '<p class="mb-2">Follow these general guidelines for a safe and effective workout:</p>' +
+                '<ul class="mb-0">' +
+                '<li>Always start with a 5-10 minute warm-up</li>' +
+                '<li>Focus on proper form throughout each exercise</li>' +
+                '<li>Maintain steady breathing during exercises</li>' +
+                '<li>Finish with a 5-10 minute cool down</li>' +
+                '<li>Stay hydrated and listen to your body</li>' +
+                '</ul></div>';
+    }
+    
+    return instructions;
+}
+
+// Инициализация кнопок
+function initCompletionButtons(workoutId, workoutName, workoutLevel) {
+    var markCompleteBtn = document.getElementById('markCompleteBtn');
+    var completeWorkoutBtn = document.getElementById('completeWorkoutBtn');
+    var completionStatus = document.getElementById('completionStatus');
+    var completionDate = document.getElementById('completionDate');
+    
+    var completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || [];
+    var workoutCompleted = completedWorkouts.find(function(w) { return w.id == workoutId; });
+    
+    if (workoutCompleted) {
+        updateCompletionUI(true, workoutCompleted.date);
+    }
+    
+    markCompleteBtn.addEventListener('click', async function() {
+        if (!workoutCompleted) {
+            var success = await markWorkoutAsCompleted(workoutId, workoutName, workoutLevel);
+            if (success) {
+                updateCompletionUI(true, new Date().toISOString());
+                showNotificationLocal('Workout marked as completed!');
+            }
+        }
+    });
+    
+    completeWorkoutBtn.addEventListener('click', function() {
+        if (!workoutCompleted) {
+            markCompleteBtn.click();
+        }
+    });
+    
+    function updateCompletionUI(completed, dateString) {
+        if (completed) {
+            markCompleteBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            markCompleteBtn.classList.add('completed');
+            markCompleteBtn.disabled = true;
+            
+            completeWorkoutBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            completeWorkoutBtn.classList.add('completed');
+            completeWorkoutBtn.disabled = true;
+            
+            if (dateString) {
+                var date = new Date(dateString);
+                var formattedDate = date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                var time = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                completionDate.textContent = formattedDate + ' at ' + time;
+            }
+            completionStatus.style.display = 'block';
+        }
+    }
+}
+
+// Функция отметки тренировки
+async function markWorkoutAsCompleted(workoutId, workoutName, workoutLevel) {
+    try {
+        var completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || [];
+        
+        var alreadyCompleted = completedWorkouts.find(function(item) { return item.id == workoutId; });
+        
+        if (!alreadyCompleted) {
+            completedWorkouts.push({
+                id: workoutId,
+                name: workoutName,
+                level: workoutLevel,
+                date: new Date().toISOString()
+            });
+            
+            localStorage.setItem('completedWorkouts', JSON.stringify(completedWorkouts));
+            
+            return true;
+        } else {
+            showNotificationLocal('You have already completed this workout!');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error marking workout as completed:', error);
+        showNotificationLocal('Failed to mark workout as completed');
+        return false;
+    }
+}
+
+// Вспомогательные функции
+function showError(message) {
+    document.getElementById('workoutContent').innerHTML = 
+        '<div class="alert alert-danger">' +
+        '<h5><i class="fas fa-exclamation-triangle me-2"></i>Error</h5>' +
+        '<p>' + message + '</p>' +
+        '<a href="workouts.html" class="btn btn-sm btn-outline-danger">' +
+        '<i class="fas fa-arrow-left me-2"></i>Back to Workouts</a></div>';
+}
+
+function showNotificationLocal(message) {
+    var notification = document.createElement('div');
+    notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
+    notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
+    
+    notification.innerHTML = 
+        '<i class="fas fa-check-circle me-2"></i>' + message +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(function() {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+function showConnectionWarning(message) {
+    var statusDiv = document.getElementById('connectionStatus');
+    statusDiv.innerHTML = 
+        '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+        '<i class="fas fa-exclamation-triangle me-2"></i>' + message +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
+    statusDiv.style.display = 'block';
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', loadWorkoutDetails);
+</script>
+
+<script src="../script.js"></script>
+</body>
+</html>
