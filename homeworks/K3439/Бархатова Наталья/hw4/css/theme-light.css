@@ -1,0 +1,98 @@
+:root {
+    --emerald: #046D55;
+    --emerald-link: #09493A;
+    --mint: #A7D7C5;
+    --gold: #D4AF37;
+
+    --success-green: #2E7D32;
+    --error-red: #C62828;
+
+    --bg-main: #F8F6F0;
+    --bg-surface: #FFFFFF;
+
+    --text-main: #2B2B2B;
+    --text-muted: #6B6B6B;
+
+    --border-soft: #A7D7C5;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+a {
+    color: var(--emerald);
+}
+a:hover {
+    color: var(--gold);
+}
+
+.navbar {
+    background-color: var(--emerald) !important;
+}
+.navbar-brand {
+    color: #ffffff;
+}
+
+.login-card,
+.filter-section,
+.profile-container,
+.restaurant-card,
+.review,
+.info-card,
+.menu-item {
+    background: var(--bg-surface);
+    color: var(--text-main);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.restaurant-card,
+.menu-item {
+    border: 1px solid var(--border-soft);
+}
+
+.info-card {
+    border: 2px solid var(--emerald);
+}
+
+.profile-name,
+.restaurant-name,
+.section-title,
+.info-title {
+    color: var(--emerald);
+}
+
+.profile-status {
+    color: var(--gold);
+}
+
+.btn-primary {
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+    color: #ffffff;
+}
+.btn-primary:hover {
+    background-color: var(--mint);
+    border-color: var(--mint);
+    color: var(--text-main);
+}
+
+.btn-gold {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--text-main);
+}
+.btn-gold:hover {
+    background-color: #eacb59;
+    border-color: #eacb59;
+}
+
+.btn-danger-custom {
+    background: var(--error-red);
+    border-color: var(--error-red);
+}
+
+footer {
+    color: var(--text-main);
+}

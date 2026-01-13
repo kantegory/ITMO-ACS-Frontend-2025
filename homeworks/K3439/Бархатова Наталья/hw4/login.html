@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в аккаунт</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link id="theme-style" rel="stylesheet" href="/css/theme-light.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Вечер под контролем — сервис бронирования столов</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="login-card" aria-labelledby="login-title">
+        <h1 id="login-title" class="text-center mb-4">Вход в аккаунт</h1>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input id="email" type="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Пароль</label>
+                <input id="password" type="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Войти</button>
+        </form>
+        <nav class="text-center mt-3" aria-label="Навигация восстановления и регистрации">
+            <a href="password_recovery.html">Забыли пароль?</a>
+            <a href="auth.html">Создать аккаунт</a>
+        </nav>
+    </section>
+    <div id="form-status">
+        <div id="errorMsg" class="text-danger mb-3" role="alert" aria-live="assertive" style="display:none;">
+            Неверный email или пароль
+        </div>
+    </div>
+</main>
+
+<footer class="text-center mt-4 mb-4">
+    <p>© 2025 Вечер под контролем</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+            const response = await fetch("http://localhost:3000/users");
+            const users = await response.json();
+
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                alert("Неверный email или пароль");
+                return;
+            }
+
+            localStorage.setItem("token", user.token);
+            localStorage.setItem("userId", user.id);
+            window.location.href = "main.html";
+        } catch (error) {
+            alert("Ошибка соединения с сервером");
+            console.error(error);
+        }
+    });
+</script>
+</body>
+</html>
