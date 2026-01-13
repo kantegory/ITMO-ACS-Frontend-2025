@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск рецептов - SharCook</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-egg-fried fs-3 text-primary me-2"></i>
+                <span class="fw-bold">SharCook</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search.html">Поиск</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Профиль</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2" id="auth-buttons">
+                    <a href="login.html" class="btn btn-outline-secondary">Войти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="search-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <div class="filters-sidebar">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="fw-bold mb-0">
+                                <i class="bi bi-funnel me-2"></i>
+                                Фильтры
+                            </h4>
+                            <button class="btn btn-sm btn-outline-secondary btn-reset-filters" onclick="resetFilters()">
+                                Сбросить
+                            </button>
+                        </div>
+
+                        <form class="filter-form" onsubmit="return false;">
+                            <div class="filter-section mb-4">
+                                <label class="filter-label mb-2">
+                                    <i class="bi bi-search me-2"></i>
+                                    Поиск по названию
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control search-input"
+                                    placeholder="Введите название..."
+                                >
+                            </div>
+
+                            <div class="filter-section mb-4">
+                                <label class="filter-label mb-2">
+                                    <i class="bi bi-tag me-2"></i>
+                                    Тип блюда
+                                </label>
+                                <select class="form-select" name="dishType">
+                                    <option value="all">Все типы</option>
+                                    <option value="завтрак">Завтрак</option>
+                                    <option value="обед">Обед</option>
+                                    <option value="ужин">Ужин</option>
+                                    <option value="десерт">Десерт</option>
+                                    <option value="напиток">Напиток</option>
+                                    <option value="закуска">Закуска</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-section mb-4">
+                                <label class="filter-label mb-3">
+                                    <i class="bi bi-speedometer2 me-2"></i>
+                                    Сложность
+                                </label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="difficulty" id="diff-all" value="all" checked>
+                                    <label class="form-check-label" for="diff-all">
+                                        Любая
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="difficulty" id="diff-easy" value="легко">
+                                    <label class="form-check-label" for="diff-easy">
+                                        <span class="badge bg-success">Легко</span>
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="difficulty" id="diff-medium" value="средне">
+                                    <label class="form-check-label" for="diff-medium">
+                                        <span class="badge bg-warning text-dark">Средне</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="difficulty" id="diff-hard" value="сложно">
+                                    <label class="form-check-label" for="diff-hard">
+                                        <span class="badge bg-danger">Сложно</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="filter-section mb-4">
+                                <label class="filter-label mb-2">
+                                    <i class="bi bi-basket2 me-2"></i>
+                                    Ингредиенты
+                                </label>
+                                <div class="ingredients-filter">
+                                    <div class="input-group mb-2">
+                                        <input
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            id="ingredientInput"
+                                            placeholder="Добавить ингредиент..."
+                                        >
+                                        <button
+                                            class="btn btn-sm btn-primary"
+                                            type="button"
+                                            onclick="addIngredientTag()"
+                                        >
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="ingredients-tags" id="ingredientsTags">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100" onclick="applyFilters()">
+                                <i class="bi bi-search me-2"></i>
+                                Применить фильтры
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="fw-bold mb-1">Результаты поиска</h3>
+                            <p class="text-muted results-count">Найдено рецептов: 12</p>
+                        </div>
+                        <select class="form-select w-auto" name="sortBy">
+                            <option value="popular">Популярные</option>
+                            <option value="recent">Новые</option>
+                            <option value="rating">По рейтингу</option>
+                        </select>
+                    </div>
+
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                    </div>
+
+                    <div class="recipes-grid content-hidden">
+                    </div>
+
+                    <nav class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/mocks.js"></script>
+
+    <script>
+        async function loadSearchRecipes() {
+            const spinner = document.querySelector(".loading-spinner");
+            const grid = document.querySelector(".recipes-grid");
+
+            try {
+                let recipes, users;
+                try {
+                    recipes = await api.getRecipes();
+                    users = await api.getUsers();
+                } catch (apiError) {
+                    console.log("API unavailable, using local mocks");
+                    recipes = await MockData.loadJSON("mocks/recipes.json");
+                    users = await MockData.loadJSON("mocks/users.json");
+                }
+
+                if (!recipes || !users) {
+                    throw new Error("Failed to load data");
+                }
+
+                grid.innerHTML = recipes.map(recipe => {
+                    const author = users.find(u => u.id === recipe.authorId);
+                    return MockData.renderRecipeCard(recipe, author);
+                }).join("");
+
+                document.querySelector(".results-count").textContent = `Найдено рецептов: ${recipes.length}`;
+
+                spinner.style.display = "none";
+                grid.classList.remove("content-hidden");
+
+            } catch (error) {
+                console.error("Error:", error);
+                spinner.innerHTML = '<p class="text-danger">Ошибка загрузки данных</p>';
+            }
+        }
+        loadSearchRecipes();
+        updateAuthUI();
+    </script>
+    <script>
+        function addIngredientTag() {
+            const input = document.getElementById('ingredientInput');
+            const value = input.value.trim();
+
+            if (value) {
+                const tagsContainer = document.getElementById('ingredientsTags');
+                const tag = document.createElement('span');
+                tag.className = 'ingredient-tag';
+                tag.innerHTML = `
+                    ${value}
+                    <button type="button" onclick="this.parentElement.remove()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                `;
+                tagsContainer.appendChild(tag);
+                input.value = '';
+            }
+        }
+
+        document.getElementById('ingredientInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addIngredientTag();
+            }
+        });
+    </script>
+</body>
+</html>
