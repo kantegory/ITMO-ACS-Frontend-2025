@@ -36,12 +36,6 @@
         <note-card :name="note.name" :text="note.text" />
       </div>
     </div>
-
-    <div class="row row-cols-1 row-cols-md-2 g-4 mt-5" id="notes">
-      <div class="col" v-for="note in notes" :key="note.id">
-        <note-card :name="note.name" :text="note.text" />
-      </div>
-    </div>
   </base-layout>
  </template>
  
