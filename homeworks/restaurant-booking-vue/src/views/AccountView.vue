@@ -1,29 +1,34 @@
+<template>
+  <div class="container my-4">
+    <h2>Личный кабинет</h2>
+    <p v-if="currentUser">Добро пожаловать, {{ currentUser.name }}!</p>
+
+    <div class="d-flex gap-2 mt-3">
+      <RouterLink to="/history" class="btn btn-primary">История бронирований</RouterLink>
+      <button class="btn btn-outline-danger" @click="handleLogout">Выйти</button>
+    </div>
+  </div>
+</template>
+
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { currentUser, logout } from '../composables/useAuth'
+import { useRouter, RouterLink } from 'vue-router'
 
 const router = useRouter()
-const currentUser = ref(null)
 
-onMounted(() => {
-  const user = JSON.parse(localStorage.getItem('currentUser'))
-  if (!user) router.push('/login')
-  currentUser.value = user
-})
+// Редирект на логин, если не залогинен
+if (!currentUser.value) {
+  router.push('/login')
+}
 
-function logout() {
-  localStorage.removeItem('currentUser')
+function handleLogout() {
+  logout()
   router.push('/login')
 }
 </script>
 
-<template>
-  <div class="container mt-5" v-if="currentUser">
-    <h2>Личный кабинет</h2>
-    <p>Добро пожаловать, {{ currentUser.name }}!</p>
-    <div class="mt-3">
-      <button class="btn btn-primary me-2" @click="$router.push('/history')">История бронирований</button>
-      <button class="btn btn-outline-danger" @click="logout">Выйти</button>
-    </div>
-  </div>
-</template>
+<style scoped>
+h2 {
+  margin-bottom: 1rem;
+}
+</style>

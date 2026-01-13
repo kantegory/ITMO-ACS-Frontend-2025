@@ -13,7 +13,7 @@
       </div>
       <div class="col-md-3">
         <label class="form-label">Район / Город</label>
-        <input v-model="filters.location" type="text" class="form-control" placeholder="Например, Центр">
+        <input v-model="filters.location" type="text" class="form-control" placeholder="Например, центр">
       </div>
       <div class="col-md-3">
         <label class="form-label">Цена</label>
@@ -29,49 +29,36 @@
       </div>
     </form>
 
-    <hr>
+    <div v-if="loading" class="text-center my-3">Загрузка ресторанов...</div>
+    <div v-if="error" class="text-danger">{{ error }}</div>
 
-    <!-- Список ресторанов -->
     <div class="row row-cols-1 row-cols-md-2 g-3">
       <div v-for="r in filteredRestaurants" :key="r.id" class="col">
-        <div class="card h-100 themed-btn">
-          <img :src="r.img" class="card-img-top" :alt="r.name">
-          <div class="card-body">
-            <h3 class="card-title">{{ r.name }}</h3>
-            <p class="card-text text-muted">{{ r.cuisine }} · {{ r.location }} · {{ '₽'.repeat(r.price) }}</p>
-            <div class="d-flex gap-2">
-              <router-link :to="`/restaurant/${r.id}`" class="btn btn-outline-secondary">Подробнее</router-link>
-              <button class="btn btn-primary" @click="openBooking(r)">Забронировать</button>
-            </div>
-          </div>
-        </div>
+        <RestaurantCard :restaurant="r" @open-booking="openBooking" />
       </div>
     </div>
 
-    <!-- Модалка бронирования -->
     <BookingModal
+      v-if="showModal"
       :restaurant="selectedRestaurant"
-      v-model="isBookingModalOpen"
+      @close="showModal = false"
+      @booked="onBooked"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { api } from '../api'
+import { ref, computed, onMounted } from 'vue'
+import { useRestaurants } from '../composables/useRestaurants'
+import { useBookings } from '../composables/useBookings'
+import { currentUser } from '../composables/useAuth'
+import RestaurantCard from '../components/RestaurantCard.vue'
 import BookingModal from '../components/BookingModal.vue'
 
-const restaurants = ref([])
-const filters = ref({ cuisine: '', location: '', price: '' })
-const cuisines = ref([])
-const selectedRestaurant = ref({})
-const isBookingModalOpen = ref(false)
+const { restaurants, cuisines, loading, error, fetchRestaurants } = useRestaurants()
+const { createBooking } = useBookings()
 
-onMounted(async () => {
-  const res = await api.getRestaurants()
-  restaurants.value = res.data
-  cuisines.value = Array.from(new Set(res.data.map(r => r.cuisine)))
-})
+const filters = ref({ cuisine: '', location: '', price: '' })
 
 const filteredRestaurants = computed(() => {
   return restaurants.value.filter(r => {
@@ -86,12 +73,31 @@ const filteredRestaurants = computed(() => {
 
 const applyFilters = () => {}
 
-const openBooking = (restaurant) => {
-  selectedRestaurant.value = restaurant
-  isBookingModalOpen.value = true
-}
-</script>
+const showModal = ref(false)
+const selectedRestaurant = ref({})
 
-<style scoped>
-.card-title { font-size: 1.25rem; }
-</style>
+const openBooking = (restaurant) => {
+  if (!currentUser.value) return alert('Сначала войдите в аккаунт')
+  selectedRestaurant.value = restaurant
+  showModal.value = true
+}
+
+const onBooked = async ({ date, guests }) => {
+  const booking = {
+    email: currentUser.value.email,
+    restaurantId: selectedRestaurant.value.id,
+    name: selectedRestaurant.value.name,
+    date,
+    guests
+  }
+  const success = await createBooking(booking)
+  if (success) {
+    alert('Бронирование сохранено!')
+    showModal.value = false
+  } else {
+    alert('Ошибка при бронировании')
+  }
+}
+
+onMounted(fetchRestaurants)
+</script>

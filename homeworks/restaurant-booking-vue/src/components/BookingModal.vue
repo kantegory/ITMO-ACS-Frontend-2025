@@ -1,23 +1,19 @@
 <template>
-  <div v-if="visible" class="modal-backdrop" @click.self="close">
-    <div class="modal-content p-4">
-      <h5>Бронирование: {{ restaurant.name }}</h5>
+  <div class="modal-backdrop" @click.self="close">
+    <div class="modal-content p-4 themed-modal">
+      <h5><i class="fas fa-calendar-alt"></i> Бронирование: {{ restaurant.name }}</h5>
       <form @submit.prevent="submitBooking">
         <div class="mb-3">
-          <label>Имя</label>
-          <input type="text" v-model="guestName" class="form-control" required />
-        </div>
-        <div class="mb-3">
-          <label>Дата и время</label>
+          <label><i class="fas fa-clock"></i> Дата и время</label>
           <input type="datetime-local" v-model="date" class="form-control" required />
         </div>
         <div class="mb-3">
-          <label>Количество гостей</label>
+          <label><i class="fas fa-users"></i> Количество гостей</label>
           <input type="number" v-model.number="guests" min="1" class="form-control" required />
         </div>
-        <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-primary">Подтвердить</button>
-          <button type="button" class="btn btn-secondary" @click="close">Отмена</button>
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Подтвердить</button>
+          <button type="button" class="btn btn-secondary" @click="close"><i class="fas fa-times"></i> Отмена</button>
         </div>
       </form>
     </div>
@@ -25,49 +21,19 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { api } from '../api'
+import { ref } from 'vue'
+const props = defineProps({ restaurant: Object })
+const emit = defineEmits(['close', 'booked'])
 
-const props = defineProps({
-  restaurant: Object,
-  modelValue: Boolean
-})
-const emit = defineEmits(['update:modelValue'])
-
-const visible = ref(false)
-const guestName = ref('')
 const date = ref('')
 const guests = ref(2)
 
-// Слушаем props.modelValue
-watch(() => props.modelValue, (val) => {
-  visible.value = val
-  if (val) {
-    guestName.value = ''
-    date.value = ''
-    guests.value = 2
-  }
-})
-
 function close() {
-  emit('update:modelValue', false)
+  emit('close')
 }
 
-async function submitBooking() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-  if (!currentUser) return alert('Сначала войдите в аккаунт')
-
-  const booking = {
-    email: currentUser.email,
-    restaurantId: props.restaurant.id,
-    name: props.restaurant.name,
-    date: date.value,
-    guests: guests.value
-  }
-
-  await api.createBooking(booking)
-  alert('Бронирование сохранено!')
-  close()
+function submitBooking() {
+  emit('booked', { date: date.value, guests: guests.value })
 }
 </script>
 
@@ -82,9 +48,14 @@ async function submitBooking() {
   z-index: 999;
 }
 .modal-content {
-  background: white;
-  border-radius: 6px;
+  background: var(--bg-color, #fff);
+  color: var(--text-color, #222);
+  border-radius: 10px;
   max-width: 400px;
   width: 100%;
+}
+.themed-modal input {
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #222);
 }
 </style>

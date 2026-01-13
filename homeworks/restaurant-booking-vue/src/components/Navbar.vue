@@ -1,27 +1,60 @@
+<script setup>
+import { RouterLink, useRouter } from 'vue-router'
+import { Sun, Moon, User, LogOut } from 'lucide-vue-next'
+import { currentUser, logout } from '../composables/useAuth'
+
+const props = defineProps({
+  theme: String,
+  toggleTheme: Function
+})
+
+const router = useRouter()
+
+function handleLogout() {
+  logout()
+  router.push('/login')
+}
+</script>
+
 <template>
-  <nav class="navbar navbar-light">
+  <nav class="navbar themed-navbar p-3">
     <div class="container">
       <RouterLink class="navbar-brand" to="/">RestaurantBooking</RouterLink>
 
-      <button class="btn btn-secondary themed-btn" @click="toggleTheme">
-        {{ theme === 'dark' ? 'Светлая тема' : 'Тёмная тема' }}
+      <button class="btn btn-secondary me-2" @click="toggleTheme">
+        <component :is="props.theme === 'dark' ? Sun : Moon" width="20" height="20" />
       </button>
 
       <div class="d-flex gap-2">
-        <RouterLink to="/login" class="btn btn-outline-primary themed-btn">
-          Вход
-        </RouterLink>
-        <RouterLink to="/register" class="btn btn-primary themed-btn">
-          Регистрация
-        </RouterLink>
+        <template v-if="currentUser">
+          <RouterLink to="/account" class="btn btn-outline-primary">
+            <User width="16" height="16" /> Личный кабинет
+          </RouterLink>
+          <button class="btn btn-outline-danger" @click="handleLogout">
+            <LogOut width="16" height="16" /> Выйти
+          </button>
+        </template>
+
+        <template v-else>
+          <RouterLink class="btn btn-primary" to="/login">Вход</RouterLink>
+          <RouterLink class="btn btn-primary" to="/register">Регистрация</RouterLink>
+        </template>
       </div>
     </div>
   </nav>
 </template>
 
-<script setup>
-import { useTheme } from '../composables/useTheme'
-import { RouterLink } from 'vue-router'
+<style scoped>
+.themed-navbar {
+  background-color: var(--navbar-bg);
+  color: var(--navbar-text);
+  transition: background-color 0.3s, color 0.3s;
+}
 
-const { theme, toggleTheme } = useTheme()
-</script>
+.navbar a,
+.navbar span,
+.navbar button {
+  color: var(--navbar-text);
+}
+</style>
+
