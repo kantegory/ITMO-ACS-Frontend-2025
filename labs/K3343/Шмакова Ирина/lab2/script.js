@@ -1,140 +1,89 @@
-// Данные рецептов
-const recipes = [
-    {
-        id: 1,
-        title: "Тыквенный крем-суп",
-        description: "Нежный суп с нотками имбиря и сливками",
-        image: "images/pumpkin-soup.jpg",
-        type: "Обед",
-        difficulty: "Легко",
-        ingredients: ["Тыква 500г", "Лук 1 шт", "Имбирь 20г", "Сливки 100мл", "Овощной бульон 1л", "Соль, перец по вкусу"],
-        instructions: [
-            "Тыкву очистить и нарезать кубиками",
-            "Лук и имбирь мелко нарезать",
-            "Обжарить лук с имбирем до мягкости",
-            "Добавить тыкву и бульон, варить 20 минут",
-            "Измельчить блендером до кремообразной консистенции",
-            "Добавить сливки, прогреть 2 минуты"
-        ],
-        likes: 28,
-        comments: 15,
-        saved: false
-    },
-    {
-        id: 2,
-        title: "Рататуй",
-        description: "Французское овощное рагу с прованскими травами",
-        image: "images/ratatouille.jpg",
-        type: "Ужин",
-        difficulty: "Средне",
-        ingredients: ["Баклажаны 2 шт", "Кабачки 2 шт", "Помидоры 4 шт", "Болгарский перец 2 шт", "Лук 1 шт", "Чеснок 3 зубчика", "Прованские травы 1 ст.л.", "Оливковое масло"],
-        instructions: [
-            "Овощи нарезать кружочками одинаковой толщины",
-            "Лук и чеснок обжарить до золотистого цвета",
-            "Выложить овощи в форму спиралью",
-            "Посыпать прованскими травами",
-            "Запекать при 180°C 45 минут"
-        ],
-        likes: 34,
-        comments: 22,
-        saved: false
-    },
-    {
-        id: 3,
-        title: "Сырные лепешки",
-        description: "Мягкие лепешки с расплавленным сыром внутри",
-        image: "images/cheese-flatbread.jpg",
-        type: "Завтрак",
-        difficulty: "Легко",
-        ingredients: ["Мука 300г", "Кефир 200мл", "Сыр сулугуни 200г", "Сода 1 ч.л.", "Соль 1 ч.л.", "Растительное масло"],
-        instructions: [
-            "Смешать муку, соду и соль",
-            "Добавить кефир и замесить тесто",
-            "Дать тесту отдохнуть 15 минут",
-            "Сыр натереть на крупной терке",
-            "Разделить тесто на части, начинить сыром",
-            "Обжарить на сковороде с двух сторон до золотистой корочки"
-        ],
-        likes: 41,
-        comments: 18,
-        saved: false
-    },
-    {
-        id: 4,
-        title: "Яблочный штрудель",
-        description: "Тонкое тесто с яблочной начинкой и корицей",
-        image: "images/apple-strudel.jpg",
-        type: "Десерт",
-        difficulty: "Средне",
-        ingredients: ["Тесто фило 200г", "Яблоки 5 шт", "Изюм 100г", "Корица 1 ч.л.", "Сахар 100г", "Грецкие орехи 50г", "Сливочное масло 50г"],
-        instructions: [
-            "Яблоки очистить и нарезать тонкими дольками",
-            "Смешать яблоки с изюмом, орехами, сахаром и корицей",
-            "Раскатать тесто, выложить начинку",
-            "Аккуратно свернуть рулетом",
-            "Смазать растопленным маслом",
-            "Выпекать при 180°C 30 минут до золотистого цвета"
-        ],
-        likes: 45,
-        comments: 30,
-        saved: false
-    },
-    {
-        id: 5,
-        title: "Кимчи",
-        description: "Острая корейская квашеная капуста",
-        image: "images/kimchi.jpg",
-        type: "Закуска",
-        difficulty: "Сложно",
-        ingredients: ["Пекинская капуста 1 кг", "Рисовая мука 2 ст.л.", "Перец чили молотый 100г", "Чеснок 50г", "Имбирь 30г", "Рыбный соус 3 ст.л.", "Редис 1 шт", "Зеленый лук 3 стебля"],
-        instructions: [
-            "Капусту разрезать на четвертинки, посолить и оставить на 6 часов",
-            "Приготовить клейстер из рисовой муки и воды",
-            "Измельчить чеснок и имбирь, смешать с перцем чили",
-            "Добавить клейстер и рыбный соус - получится паста",
-            "Промыть капусту, намазать пастой каждый лист",
-            "Плотно уложить в банку, оставить для ферментации на 3 дня"
-        ],
-        likes: 52,
-        comments: 35,
-        saved: false
-    },
-    {
-        id: 6,
-        title: "Мохито безалкогольный",
-        description: "Освежающий напиток с лаймом и мятой",
-        image: "images/mojito.jpg",
-        type: "Напиток",
-        difficulty: "Легко",
-        ingredients: ["Лайм 2 шт", "Свежая мята 1 пучок", "Содовая 500мл", "Сахар 2 ст.л.", "Лед", "Минеральная вода"],
-        instructions: [
-            "Лайм нарезать дольками",
-            "В стакан положить мяту и лайм, размять",
-            "Добавить сахар и лед",
-            "Залить содовой и минеральной водой",
-            "Аккуратно перемешать",
-            "Украсить веточкой мяты"
-        ],
-        likes: 29,
-        comments: 12,
-        saved: false
+// URL API - 3000 порт базовый
+const API_URL = 'http://localhost:3000';
+
+// текущий пользователь
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+// ОБЩЕЕ
+
+// ф-я для fetch с обработкой ошибок
+async function fetchData(url, options = {}) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(`Ошибка ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Ошибка:', error);
+        throw error;
     }
-];
+}
 
+// обновление интерфейса навигации
+function updateNavbar() {
+    const navDiv = document.querySelector('.navbar div');
+    
+    if (currentUser) {
+        navDiv.innerHTML = `
+            <span class="navbar-text me-3">Привет, ${currentUser.name}!</span>
+            <button class="btn btn-outline-danger" onclick="logout()">Выйти</button>
+        `;
+    } else {
+        navDiv.innerHTML = `
+            <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Вход</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
+        `;
+    }
+}
 
-// Текущий пользователь
-let currentUser = null;
+// РАБОТА С РЕЦЕПТАМИ
 
-// Загрузка рецептов при старте
-document.addEventListener('DOMContentLoaded', function() {
-    loadRecipes(recipes);
-});
+// загрузка рецептов
+async function loadRecipes() {
+    try {
+        const recipes = await fetchData(`${API_URL}/recipes`);
+        displayRecipes(recipes);
+    } catch {
+        document.getElementById('recipesContainer').innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    Не удалось загрузить рецепты. Запустите JSON-server командой: json-server --watch db.json
+                </div>
+            </div>
+        `;
+    }
+}
 
-// Загрузка рецептов на страницу
-function loadRecipes(recipesToShow) {
+// фильтрация рецептов
+async function filterRecipes() {
+    const type = document.getElementById('typeFilter').value;
+    const difficulty = document.getElementById('difficultyFilter').value;
+    
+    let url = `${API_URL}/recipes`;
+    const params = [];
+    
+    if (type) params.push(`type=${type}`);
+    if (difficulty) params.push(`difficulty=${difficulty}`);
+    
+    if (params.length > 0) url += `?${params.join('&')}`;
+    
+    try {
+        const recipes = await fetchData(url);
+        displayRecipes(recipes);
+    } catch {
+        alert('Не удалось применить фильтры');
+    }
+}
+
+// отображение рецептов
+function displayRecipes(recipes) {
     const container = document.getElementById('recipesContainer');
     
-    container.innerHTML = recipesToShow.map(recipe => `
+    if (!recipes || recipes.length === 0) {
+        container.innerHTML = '<div class="col-12"><p class="text-center">Рецепты не найдены</p></div>';
+        return;
+    }
+    
+    container.innerHTML = recipes.map(recipe => `
         <div class="col-md-6 col-lg-4">
             <div class="recipe-card">
                 <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image w-100 mb-3">
@@ -149,75 +98,151 @@ function loadRecipes(recipesToShow) {
                 <button class="btn btn-outline-primary btn-sm mt-2 w-100" onclick="viewRecipe(${recipe.id})">
                     Смотреть рецепт
                 </button>
+                ${currentUser ? `
+                    <button class="btn btn-outline-success btn-sm mt-1 w-100" onclick="likeRecipe(${recipe.id})">
+                        ❤️ Лайк
+                    </button>
+                ` : ''}
             </div>
         </div>
     `).join('');
 }
 
-// Просмотр рецепта
-function viewRecipe(recipeId) {
-    const recipe = recipes.find(r => r.id === recipeId);
-    if (recipe) {
+// просмотреть рецепт
+async function viewRecipe(id) {
+    try {
+        const recipe = await fetchData(`${API_URL}/recipes/${id}`);
+        
         const ingredients = recipe.ingredients.map(ing => `• ${ing}`).join('\n');
         const instructions = recipe.instructions.map((step, i) => `${i + 1}. ${step}`).join('\n');
         
         alert(`🍳 ${recipe.title}\n\n📖 Описание: ${recipe.description}\n\n🛒 Ингредиенты:\n${ingredients}\n\n👩‍🍳 Приготовление:\n${instructions}\n\n⭐ Сложность: ${recipe.difficulty}\n🍽️ Тип: ${recipe.type}\n❤️ Лайков: ${recipe.likes}\n💬 Комментариев: ${recipe.comments}`);
+    } catch {
+        alert('Не удалось загрузить рецепт');
     }
 }
 
-// Фильтрация рецептов
-function filterRecipes() {
-    const typeFilter = document.getElementById('typeFilter').value;
-    const difficultyFilter = document.getElementById('difficultyFilter').value;
-    
-    let filteredRecipes = recipes;
-    
-    if (typeFilter) {
-        filteredRecipes = filteredRecipes.filter(recipe => recipe.type === typeFilter);
+// лайкнуть рецепт
+async function likeRecipe(id) {
+    if (!currentUser) {
+        alert('Для оценки рецептов необходимо войти в систему');
+        return;
     }
     
-    if (difficultyFilter) {
-        filteredRecipes = filteredRecipes.filter(recipe => recipe.difficulty === difficultyFilter);
+    try {
+        // получаем текущий рецепт
+        const recipe = await fetchData(`${API_URL}/recipes/${id}`);
+        
+        // обновляем количество лайков
+        const updatedRecipe = { ...recipe, likes: recipe.likes + 1 };
+        
+        await fetchData(`${API_URL}/recipes/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedRecipe)
+        });
+        
+        alert('Лайк добавлен!');
+        await loadRecipes();
+    } catch {
+        alert('Не удалось добавить лайк');
     }
-    
-    loadRecipes(filteredRecipes);
 }
 
-// Вход
-function login() {
+// АВТОРИЗАЦИЯ
+
+// вход
+async function login() {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     
-    if (email && password) {
-        currentUser = {
-            name: email.split('@')[0],
-            email: email
-        };
-        alert('Вход выполнен!');
-        // Закрываем модальное окно
-        const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-        modal.hide();
-    } else {
+    if (!email || !password) {
         alert('Заполните все поля');
+        return;
+    }
+    
+    try {
+        const users = await fetchData(`${API_URL}/users?email=${email}&password=${password}`);
+        
+        if (users.length === 0) {
+            alert('Неверный email или пароль');
+            return;
+        }
+        
+        currentUser = users[0];
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        
+        alert(`Добро пожаловать, ${currentUser.name}!`);
+        
+        // закрываем модальное окно
+        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+        
+        updateNavbar();
+        await loadRecipes();
+        
+    } catch {
+        alert('Ошибка при входе. Проверьте подключение к серверу.');
     }
 }
 
-// Регистрация
-function register() {
+// регистрация
+async function register() {
     const name = document.getElementById('regName').value;
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
     
-    if (name && email && password) {
-        currentUser = {
-            name: name,
-            email: email
-        };
-        alert('Вы успешно зарегистировались!');
-        // Закрываем модальное окно
-        const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-        modal.hide();
-    } else {
+    if (!name || !email || !password) {
         alert('Заполните все поля');
+        return;
+    }
+    
+    try {
+        // проверка, нет ли уже такого емайла
+        const existingUsers = await fetchData(`${API_URL}/users?email=${email}`);
+        
+        if (existingUsers.length > 0) {
+            alert('Пользователь с таким email уже существует');
+            return;
+        }
+        
+        // создание нового пользователя
+        const newUser = { name, email, password };
+        
+        const createdUser = await fetchData(`${API_URL}/users`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newUser)
+        });
+        
+        currentUser = createdUser;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        
+        alert('Регистрация успешна!');
+        
+        // закрытие модального окна
+        bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+        
+        updateNavbar();
+        await loadRecipes();
+        
+    } catch {
+        alert('Ошибка при регистрации');
     }
 }
+
+// выход 
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateNavbar();
+    loadRecipes();
+    alert('Вы вышли из системы');
+}
+
+// ИНИЦИАЛИЗАЦИЯ
+
+// загрузка страницы
+document.addEventListener('DOMContentLoaded', function() {
+    updateNavbar();
+    loadRecipes();
+});
