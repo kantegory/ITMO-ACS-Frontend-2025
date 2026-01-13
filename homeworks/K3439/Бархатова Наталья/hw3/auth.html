@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/base.css">
+    <link id="theme-style" rel="stylesheet" href="/css/theme-light.css">
+    <script src="/js/theme.js" defer></script></head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark" aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Вечер под контролем</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <section class="login-card" aria-labelledby="auth-title">
+            <h1 id="auth-title" class="text-center mb-4">Регистрация</h1>
+
+            <form id="registerForm" aria-describedby="form-status">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Имя</label>
+                    <input id="name" type="text" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input id="email" type="email" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password">Пароль</label>
+                    <input id="password" type="password" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="password-repeat">Повторите пароль</label>
+                    <input id="password-repeat" type="password" class="form-control" required />
+                </div>
+
+                <div id="form-status">
+                    <div id="errorMsg" class="text-danger mb-3" role="alert" aria-live="assertive" style="display: none;">
+                        Пароли не совпадают!
+                    </div>
+
+                    <div id="successMsg" class="text-success mb-3" role="status" aria-live="polite" style="display: none;">
+                        Регистрация успешна! Перенаправление…
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Зарегистрироваться
+                </button>
+            </form>
+
+            <nav class="text-center mt-3" aria-label="Навигация входа">
+                Уже зарегистрированы? <a href="login.html">Войти</a>
+            </nav>
+        </section>
+    </div>
+</main>
+
+<footer class="text-center mt-4 mb-4">
+    <p>© 2025 Вечер под контролем</p>
+</footer>
+
+
+<script>
+    (function () {
+        const form = document.getElementById('registerForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const pass1Element = document.getElementById('password');
+        const pass2Element = document.getElementById('password-repeat');
+        const error = document.getElementById('errorMsg');
+        const success = document.getElementById('successMsg');
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            error.style.display = 'none';
+            success.style.display = 'none';
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const pass1 = pass1Element.value.trim();
+            const pass2 = pass2Element.value.trim();
+
+            if (pass1 !== pass2) {
+                error.textContent = "Пароли не совпадают";
+                error.style.display = 'block';
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:3000/users');
+                const users = await res.json();
+
+                const exists = users.some(u => u.email === email);
+                if (exists) {
+                    error.textContent = "Пользователь с таким email уже существует";
+                    error.style.display = 'block';
+                    return;
+                }
+
+                const newUser = {
+                    name,
+                    email,
+                    password: pass1,
+                    token: "token-" + pass1
+                };
+
+                await fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUser)
+                });
+
+                success.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 800);
+
+            } catch (err) {
+                error.textContent = "Ошибка соединения с сервером";
+                error.style.display = 'block';
+                console.error(err);
+            }
+        });
+    })();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

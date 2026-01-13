@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>${restaurantName} — информация о ресторане</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link id="theme-style" rel="stylesheet" href="/css/theme-light.css">
+    <script src="/js/theme.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-dark" aria-label="Главная навигация">
+        <div class="container d-flex align-items-center">
+            <a href="main.html" class="navbar-brand">
+                <i class="bi bi-arrow-left-circle" aria-hidden="true"></i>
+                <span>Назад к списку ресторанов</span>
+            </a>
+            <a class="navbar-brand" href="profile.html">Профиль</a>
+        </div>
+    </nav>
+</header>
+
+<main class="container mt-4">
+    <img id="restaurantImage" class="header-img" alt="Фото ресторана" role="img">
+
+    <header>
+        <h1 id="restaurantName"></h1>
+    </header>
+
+    <section aria-labelledby="info-title">
+        <h2 id="info-title" class="section-title">Описание</h2>
+        <p><strong>Кухня:</strong> <span id="restaurantCuisine"></span></p>
+        <p><strong>Расположение:</strong> <span id="restaurantLocation"></span></p>
+        <p><strong>Адрес:</strong> <span id="restaurantAddress"></span></p>
+        <p><strong>Ценовая категория:</strong> <span id="restaurantPrice"></span></p>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">
+            Забронировать стол
+        </button>
+    </section>
+
+    <section aria-labelledby="availability-title" class="mt-3">
+        <h2 id="availability-title" class="section-title">Доступность столиков</h2>
+        <label class="form-label" for="checkDate">Дата</label>
+        <input type="date" id="checkDate" class="form-control mb-2">
+        <div id="tablesInfo" class="text-muted" role="status" aria-live="polite">
+            Выберите дату, чтобы узнать доступность
+        </div>
+    </section>
+
+    <section aria-labelledby="menu-title">
+        <h2 id="menu-title" class="section-title">Меню ресторана</h2>
+        <a href="#" class="btn btn-primary" download>Скачать меню (PDF)</a>
+    </section>
+
+    <section aria-labelledby="gallery-title">
+        <h2 id="gallery-title" class="section-title">Фотографии ресторана</h2>
+        <div class="row g-2" id="galleryContainer"></div>
+    </section>
+
+    <section aria-labelledby="reviews-title">
+        <h2 id="reviews-title" class="section-title">Отзывы посетителей</h2>
+        <div class="review">
+            <span aria-hidden="true">⭐⭐⭐⭐⭐</span>
+            <p><strong>Анна:</strong> Понравился ресторан интерьером, самобытностью, обслуживанием, подачей, кухня частично, бар отлично.</p>
+        </div>
+        <div class="review">
+            <span aria-hidden="true">⭐⭐⭐⭐</span>
+            <p><strong>Игорь:</strong> Если вы ищете место, где можно не просто поесть, а получить полный спектр гастрономического удовольствия — вам точно сюда. Мы в полном восторге!♥️♥️♥️</p>
+        </div>
+        <div class="review">
+            <span aria-hidden="true">⭐⭐⭐⭐⭐</span>
+            <p><strong>Мария:</strong> Прекрасный ресторан, продуманный до мелочей интерьер, хочется разглядывать каждый уголок. Мы заказывали дегустационный сет - это что-то невероятно вкусное. Так же брали их популярный десерт - выше всяких похвал. У нас была очень вежливая девушка официант, быстро обслуживала и рассказывала про каждое блюдо в деталях.</p>
+        </div>
+    </section>
+</main>
+
+<footer class="text-center mb-4">
+    © 2025 Вечер под контролем
+</footer>
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <img id="modalImage" src="" class="w-100 rounded" alt="Просмотр фото" role="img">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="bookModalLabel" class="modal-title">Бронирование столика</h3>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <form id="bookingForm">
+                <div class="modal-body">
+                    <label class="form-label" for="bookingName">На какое имя забронировать?</label>
+                    <input type="text" id="bookingName" class="form-control mb-2" required>
+                    <label class="form-label" for="bookingPhone">Телефон</label>
+                    <input type="text" id="bookingPhone" class="form-control mb-2" required>
+                    <label class="form-label" for="bookingDate">Дата</label>
+                    <input type="date" id="bookingDate" class="form-control mb-2" required>
+                    <label class="form-label" for="bookingTime">Время</label>
+                    <input type="time" id="bookingTime" class="form-control mb-2" required>
+                    <label class="form-label" for="bookingPeople">Количество человек</label>
+                    <input type="number" id="bookingPeople" class="form-control mb-2" min="1" value="2">
+                    <label class="form-label" for="bookingComment">Комментарий</label>
+                    <input type="text" id="bookingComment" class="form-control mb-2">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Подтвердить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const cuisineMap = { Italian: "Итальянская", Asian: "Азиатская", French: "Французская", North: "Северная" };
+    const locationMap = { Centre: "Центральный", Primorsky: "Приморский", Autozavodsky: "Автозаводский" };
+    const API_URL = "http://localhost:3000";
+    const params = new URLSearchParams(window.location.search);
+    const restaurantId = params.get("id");
+    const userId = localStorage.getItem("userId");
+
+    if (!restaurantId) {
+        alert("Ресторан не найден");
+        window.location.href = "main.html";
+    }
+
+    function openImageModal(src) {
+        document.getElementById('modalImage').src = src;
+        let modal = new bootstrap.Modal(document.getElementById('imageModal'));
+        modal.show();
+    }
+
+    async function checkTables(date) {
+        const restaurantRes = await fetch(`${API_URL}/restaurants/${restaurantId}`);
+        const restaurant = await restaurantRes.json();
+
+        const bookingsRes = await fetch(
+            `${API_URL}/bookings?restaurantId=${restaurantId}&date=${date}`
+        );
+        const bookings = await bookingsRes.json();
+
+        const freeTables = restaurant.tablesCount - bookings.length;
+        const info = document.getElementById("tablesInfo");
+
+        if (freeTables > 0) {
+            info.textContent = `Свободных столиков: ${freeTables}`;
+            info.className = "text-success";
+        } else {
+            info.textContent = "Свободных столиков нет";
+            info.className = "text-danger";
+        }
+    }
+
+    document.getElementById("checkDate").addEventListener("change", e => {
+        if (e.target.value) {
+            checkTables(e.target.value);
+        }
+    });
+
+    async function loadRestaurant() {
+        try {
+            const res =
+                await fetch(`${API_URL}/restaurants/${restaurantId}`);
+            if (!res.ok) throw new Error("Ресторан не найден");
+
+            const restaurant = await res.json();
+
+            document.getElementById("restaurantName").textContent = restaurant.name;
+            document.getElementById("restaurantCuisine").textContent =
+                cuisineMap[restaurant.cuisine] || restaurant.cuisine;
+            document.getElementById("restaurantLocation").textContent =
+                locationMap[restaurant.location] || restaurant.location;
+            document.getElementById("restaurantAddress").textContent = restaurant.address;
+            document.getElementById("restaurantPrice").textContent =
+                "$".repeat(restaurant.price);
+            document.getElementById("restaurantImage").src = restaurant.img;
+            document.getElementById("restaurantImage").alt = restaurant.name;
+
+            if (restaurant.gallery && restaurant.gallery.length) {
+                await loadGallery(restaurant.gallery);
+            }
+
+            document.title = `${restaurant.name} — информация о ресторане`;
+        } catch (e) {
+            alert("Ошибка загрузки ресторана");
+            window.location.href = "main.html";
+        }
+    }
+
+    async function loadGallery(gallery) {
+        const container = document.getElementById("galleryContainer");
+        container.innerHTML = "";
+
+        gallery.forEach(src => {
+            const col = document.createElement("div");
+            col.className = "col-md-4";
+            col.innerHTML = `<img src="${src}" class="gallery-img" onclick="openImageModal('${src}')" alt="Фото ресторана">`;
+            container.append(col);
+        });
+    }
+    async function createBooking(date, time) {
+        await fetch(`${API_URL}/bookings`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({restaurantId, userId, date, time, createdAt: new Date().toISOString()})
+        });
+    }
+
+    document.getElementById("bookingForm").addEventListener("submit", async e => {
+        e.preventDefault();
+        const date = bookingDate.value;
+        const time = bookingTime.value;
+        await createBooking(date, time);
+        await checkTables(date);
+        bootstrap.Modal.getInstance(document.getElementById("bookModal")).hide();
+        alert("Бронирование успешно");
+    });
+    loadRestaurant();
+</script>
+</body>
+</html>
