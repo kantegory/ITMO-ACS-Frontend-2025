@@ -76,8 +76,17 @@ export default {
 
 
   methods: {
-    ...mapActions(useNotesStore, ['loadNotes', 'createNote'])
-  },
+   ...mapActions(useNotesStore, ['loadNotes', 'createNote']),
+
+
+   async createCard() {
+     await this.createNote(this.form)
+     await this.loadNotes()
+
+
+     this.$refs.noteForm.reset()
+   }
+ },
 
   mounted() {
     this.loadNotes()
