@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   JoinColumn,
   Column,
+  Unique,
 } from "typeorm";
 import { User } from "./user.entity";
 
 @Entity("subscriptions")
+@Unique(["follower_id", "following_id"])
 export class Subscription {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,7 +26,7 @@ export class Subscription {
   follower: User;
 
   @ManyToOne(() => User, (user) => user.followers, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "followed_id" })
+  @JoinColumn({ name: "following_id" })
   followed: User;
 
   @CreateDateColumn()

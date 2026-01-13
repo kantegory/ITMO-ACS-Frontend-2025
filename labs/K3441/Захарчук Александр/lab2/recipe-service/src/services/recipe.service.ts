@@ -6,7 +6,18 @@ import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity
 export class RecipeService extends BaseService<Recipe> {
     constructor() { super(Recipe); }
 
-    async findAll(): Promise<Recipe[]> {
+    async findAllWithFilter(filter: String | null, userId: Number | null): Promise<Recipe[]> {
+        if (filter) {
+            return this.repository.createQueryBuilder("recipe")
+            .where("recipe.title LIKE :filter", { filter: `%${filter}%` })
+            .orWhere("recipe.description LIKE :filter", { filter: `%${filter}%` })
+            .getMany();
+        }
+        if (userId) {
+            return this.repository.createQueryBuilder("recipe")
+            .where("recipe.user_id = :userId", { userId })
+            .getMany();
+        }
         return super.findAll(["ingredients"]);
     }
 

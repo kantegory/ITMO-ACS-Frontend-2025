@@ -24,6 +24,6 @@ export class SubscriptionService extends BaseService<Subscription> {
   }
 
   async findForUser(userId: number): Promise<Subscription[]> {
-    return await this.repository.findBy({follower_id: userId});
+    return await this.repository.find({where: {follower_id: userId}, relations: {followed: true}});
   }
 }

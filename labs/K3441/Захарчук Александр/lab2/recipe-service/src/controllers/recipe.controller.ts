@@ -10,6 +10,7 @@ import {
   Patch,
   UseBefore,
   CurrentUser,
+  QueryParam,
 } from "routing-controllers";
 import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { RecipeCreateDto } from "../dto/recipe/recipe-create.dto";
@@ -31,8 +32,8 @@ export class RecipeController {
   @Get()
   @ResponseSchema(RecipeResponseDto, { isArray: true })
   @OpenAPI({ summary: "Get all recipes" })
-  async getAll(): Promise<RecipeResponseDto[]> {
-    const recipes = await this.recipeService.findAll();
+  async getAll(@QueryParam("filter") filter: string, @QueryParam("userId") userId: Number): Promise<RecipeResponseDto[]> {
+    const recipes = await this.recipeService.findAllWithFilter(filter, userId);
     return plainToInstance(RecipeResponseDto, recipes);
   }
 
