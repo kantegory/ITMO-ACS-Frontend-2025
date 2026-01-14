@@ -1,5 +1,38 @@
-# Vue 3 + Vite
+# AlbumRate — Лабораторная работа 3 (Vue)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+SPA-приложение для просмотра каталога музыкальных альбомов с фильтрами, страницей альбома, авторизацией, профилем, избранным и отзывами.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Технологии
+- Vue 3
+- Vue Router
+- Axios
+- Bootstrap 5
+- json-server + json-server-auth (локальный API)
+
+## Как запустить
+### 1) Запуск API
+В папке с `server.js` и `db.json`:
+
+```bash
+npm install
+npm run dev-api
+```
+API будет доступен на http://localhost:3000
+
+### 2) Запуск фронтенда
+В папке Vue-проекта:
+
+bash
+npm install
+npm run dev
+
+Приложение будет доступно по адресу, который покажет Vite (обычно http://localhost:5173)
+
+## Что реализовано (по заданию)
+Маршрутизация (страницы: каталог, альбом, логин, регистрация, профиль).
+Компонентный подход (карточка альбома, панель фильтров, шапка).
+Работа с внешним API через Axios (получение списка альбомов и альбома по id).
+Composable-функции (работа с альбомами, авторизацией, профилем, избранным, отзывами).
+Избранное хранится в localStorage (favorites_<userId>).
+Отзывы хранятся в localStorage (в albums).
+
