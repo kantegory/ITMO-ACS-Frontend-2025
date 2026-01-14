@@ -1,9 +1,7 @@
-// src/stores/index.js
-import { persist } from 'pinia-persists'  // Плагин для сохранения
-import { createPinia } from 'pinia'       // Импортируем Pinia
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-const pinia = createPinia()               // Создаём экземпляр Pinia
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
-pinia.use(persist())                      // Подключаем плагин
-
-export default pinia                      // Экспортируем настроенный Pinia
+export default pinia

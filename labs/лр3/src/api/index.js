@@ -1,11 +1,11 @@
-// import instance from './instance'
-// import NotesApi from './notes'
+import instance from './instance'
+import WorkoutsApi from './workouts'
+import AuthApi from './auth'
 
-import instance from "@/api/instance"
-import NotesApi from "@/api/notes"
-
-const notesApi = new NotesApi(instance)
+const workoutsApi = new WorkoutsApi(instance)
+const authApi = new AuthApi(instance)
 
 export {
-  notesApi
+  workoutsApi,
+  authApi
 }

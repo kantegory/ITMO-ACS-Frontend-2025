@@ -1,5 +1,11 @@
 <template>
-  <main class="container my-2">
+  <div class="container mt-5">
     <slot />
-  </main>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'BaseLayout'
+}
+</script>

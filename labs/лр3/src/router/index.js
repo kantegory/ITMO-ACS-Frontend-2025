@@ -5,8 +5,29 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'notes',
-      component: () => import('../views/NotesPage.vue')
+      name: 'home',
+      component: () => import('@/views/HomePage.vue')
+    },
+    {
+      path: '/workouts',
+      name: 'workouts',
+      component: () => import('@/views/WorkoutsPage.vue')
+    },
+    {
+      path: '/workouts/:id',
+      name: 'workout-details',
+      component: () => import('@/views/WorkoutDetailsPage.vue'),
+      props: true
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('@/views/ProfilePage.vue')
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('@/views/BlogPage.vue')
     }
   ]
 })
