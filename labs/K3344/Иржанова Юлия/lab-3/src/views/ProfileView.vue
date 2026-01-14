@@ -36,7 +36,16 @@
         <div class="card h-100">
           <div class="card-body">
             <h2 class="h5">Избранные альбомы</h2>
-            <div class="text-muted">Функционал добавим позже</div>
+
+            <div v-if="favoriteAlbums.length === 0" class="text-muted">
+              Нет избранных альбомов
+            </div>
+
+            <ul v-else class="list-group">
+              <li v-for="a in favoriteAlbums" :key="a.id" class="list-group-item">
+                {{ a.albumTitle }} — {{ a.artist }}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -88,8 +97,10 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, computed, onMounted } from "vue";
 import { useProfile } from "../composables/useProfile";
+import { useFavorites } from "../composables/useFavorites";
+import { useAlbums } from "../composables/useAlbums";
 
 const { user, loading, error, updateProfile } = useProfile();
 
@@ -110,4 +121,13 @@ async function save() {
   const ok = await updateProfile({ name: form.name, email: form.email });
   if (ok) closeEdit();
 }
+
+const { favorites } = useFavorites();
+const { albums, fetchAlbums } = useAlbums();
+
+const favoriteAlbums = computed(() =>
+  albums.value.filter((a) => favorites.value.includes(a.id))
+);
+
+onMounted(fetchAlbums);
 </script>

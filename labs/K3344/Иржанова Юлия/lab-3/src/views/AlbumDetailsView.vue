@@ -20,6 +20,16 @@
           <span class="badge text-bg-warning">★ {{ album.rating }}</span>
           <span class="badge text-bg-secondary ms-2">{{ album.genre }}</span>
         </div>
+        <button
+          class="btn"
+          :class="album && isFavorite(album.id) ? 'btn-danger' : 'btn-outline-danger'"
+          type="button"
+          @click="toggleFav"
+          :disabled="!isAuthenticated"
+        >
+          <span v-if="album && isFavorite(album.id)">Убрать из избранного</span>
+          <span v-else>Добавить в избранное</span>
+        </button>
 
         <p class="mb-4">{{ album.description }}</p>
 
@@ -35,18 +45,24 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from "vue";
-import { useRoute } from "vue-router";
-import { RouterLink } from "vue-router";
+import { watch } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 import { useAlbums } from "../composables/useAlbums";
+import { useFavorites } from "../composables/useFavorites";
 
 const route = useRoute();
 const { album, loading, error, fetchAlbumById } = useAlbums();
+const { isFavorite, toggle, isAuthenticated } = useFavorites();
 
 async function load() {
   await fetchAlbumById(Number(route.params.id));
 }
 
-onMounted(load);
-watch(() => route.params.id, load);
+function toggleFav() {
+  if (!album.value?.id) return;
+  if (!isAuthenticated.value) return;
+  toggle(album.value.id);
+}
+
+watch(() => route.params.id, load, { immediate: true });
 </script>

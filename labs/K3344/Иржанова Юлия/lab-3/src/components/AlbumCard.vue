@@ -16,9 +16,20 @@
           <h3 class="h6 card-title mb-1">{{ album.albumTitle }}</h3>
           <div class="text-muted mb-2">{{ album.artist }} • {{ album.year }}</div>
 
-          <div class="mt-auto">
+            <div class="mt-auto d-flex align-items-center justify-content-between gap-2">
             <span class="badge text-bg-warning">★ {{ album.rating }}</span>
-          </div>
+
+            <button
+                class="btn btn-sm"
+                :class="isFavorite(album.id) ? 'btn-danger' : 'btn-outline-danger'"
+                type="button"
+                @click="onFavClick"
+                :disabled="!isAuthenticated"
+            >
+                {{ isFavorite(album.id) ? "В избранном" : "В избранное" }}
+            </button>
+            </div>
+
         </div>
       </div>
     </RouterLink>
@@ -27,11 +38,18 @@
 
 <script setup>
 import { RouterLink } from "vue-router";
+import { useFavorites } from "../composables/useFavorites";
 
-defineProps({
-  album: {
-    type: Object,
-    required: true,
-  },
+const props = defineProps({
+  album: { type: Object, required: true },
 });
+
+const { isFavorite, toggle, isAuthenticated } = useFavorites();
+
+function onFavClick(e) {
+  e.preventDefault();
+  if (!isAuthenticated.value) return;
+  toggle(props.album.id);
+}
 </script>
+
