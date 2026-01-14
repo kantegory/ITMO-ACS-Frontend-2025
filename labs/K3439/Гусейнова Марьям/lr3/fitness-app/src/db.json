@@ -41,8 +41,8 @@
       "id": "101",
       "title": "Все тело за 45 минут",
       "description": "Эффективная силовая тренировка для всего тела, подходит для среднего уровня подготовки.",
-      "level": "intermediate",
-      "type": "strength",
+      "level": "средний",
+      "type": "силовые",
       "duration": 45,
       "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
       "instructions": [
@@ -55,8 +55,8 @@
       "id": "102",
       "title": "Утреннее кардио для начинающих",
       "description": "Легкая пробежка и разминка, идеальна для старта дня и повышения выносливости.",
-      "level": "beginner",
-      "type": "cardio",
+      "level": "начинающий",
+      "type": "кардио",
       "duration": 30,
       "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
       "instructions": [
@@ -69,8 +69,8 @@
       "id": "103",
       "title": "Продвинутая йога для гибкости",
       "description": "Комплекс сложных асан для опытных пользователей.",
-      "level": "advanced",
-      "type": "yoga",
+      "level": "продвинутый",
+      "type": "йога",
       "duration": 60,
       "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
       "instructions": [
