@@ -31,9 +31,9 @@
             </li>
 
             <li class="nav-item">
-              <button class="nav-link btn btn-link p-0" type="button" disabled>
-                Light
-              </button>
+            <button class="nav-link btn btn-link p-0" type="button" @click="toggleTheme">
+                {{ buttonText() }}
+            </button>
             </li>
 
             <li v-if="isAuthenticated" class="nav-item">
@@ -52,9 +52,11 @@
 <script setup>
 import { RouterLink, useRouter } from "vue-router";
 import { useAuth } from "../composables/useAuth";
+import { useTheme } from "../composables/useTheme";
 
 const router = useRouter();
 const { isAuthenticated, logout } = useAuth();
+const { toggleTheme, buttonText } = useTheme();
 
 function onLogout() {
   if (!isAuthenticated.value) return;
