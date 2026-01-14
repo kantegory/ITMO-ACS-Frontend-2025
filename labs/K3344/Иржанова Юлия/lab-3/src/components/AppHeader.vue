@@ -23,22 +23,24 @@
                 Каталог
               </RouterLink>
             </li>
+
             <li class="nav-item">
               <RouterLink class="nav-link" active-class="active" to="/profile">
                 Профиль
               </RouterLink>
             </li>
 
-            <!-- Пока кнопки-заглушки: логику перенесём в composable в следующих коммитах -->
             <li class="nav-item">
               <button class="nav-link btn btn-link p-0" type="button" disabled>
                 Light
               </button>
             </li>
-            <li class="nav-item">
-              <button class="nav-link btn btn-link p-0" type="button" disabled>
-                Выход
-              </button>
+
+            <li v-if="isAuthenticated" class="nav-item">
+            <button class="nav-link btn btn-link p-0" type="button" @click="onLogout">Выход</button>
+            </li>
+            <li v-else class="nav-item">
+            <RouterLink class="nav-link" active-class="active" to="/login">Вход</RouterLink>
             </li>
           </ul>
         </div>
@@ -48,5 +50,16 @@
 </template>
 
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
+import { useAuth } from "../composables/useAuth";
+
+const router = useRouter();
+const { isAuthenticated, logout } = useAuth();
+
+function onLogout() {
+  if (!isAuthenticated.value) return;
+  logout();
+  router.push("/login");
+}
 </script>
+
