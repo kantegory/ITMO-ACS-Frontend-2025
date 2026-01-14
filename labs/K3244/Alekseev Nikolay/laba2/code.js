@@ -25,7 +25,7 @@ document.body.appendChild(resultsContainer)
 function renderRecipes(list) {
   resultsContainer.innerHTML = ""
   if (list.length === 0) {
-    resultsContainer.innerHTML = `<p class="text-muted text-center">Ничего не найдено 😔</p>`
+    resultsContainer.innerHTML = `<p class="text-muted text-center">Ничего не найдено</p>`
     return
   }
 
