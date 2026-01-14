@@ -5,6 +5,7 @@ import CatalogView from "../views/CatalogView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import AlbumDetailsView from "../views/AlbumDetailsView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,6 +15,7 @@ const router = createRouter({
     { path: "/login", name: "login", component: LoginView },
     { path: "/register", name: "register", component: RegisterView },
     { path: "/profile", name: "profile", component: ProfileView },
+    { path: "/albums/:id", name: "album", component: AlbumDetailsView },
   ],
 });
 
