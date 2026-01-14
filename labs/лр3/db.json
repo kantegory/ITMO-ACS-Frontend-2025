@@ -13,7 +13,7 @@
     {
       "id": 2,
       "name": "Strength Training",
-      "description": "Build muscle and increase strength with our weight training programs. Suitable for all fitness levels.",
+      "description": "Build muscle and increase strength with our weight training programs. Suitable for all fitness levels.\n\n• Progressive overload for maximum muscle growth\n• Compound exercises: squats, deadlifts, bench press\n• Proper form and technique guidance\n• Builds lean muscle and boosts metabolism\n• Improves bone density and daily performance",
       "type": "strength",
       "level": "intermediate",
       "duration": "long",
@@ -23,7 +23,7 @@
     {
       "id": 3,
       "name": "Yoga Flow",
-      "description": "Improve flexibility and mindfulness with our yoga sessions. Perfect for stress relief.",
+      "description": " Improve flexibility and mindfulness with our yoga sessions. Perfect for stress relief. This flowing yoga practice seamlessly connects breath with movement, creating a moving meditation that calms the mind while strengthening the body. You'll move through traditional poses including sun salutations, standing balances, and gentle stretches. Each session promotes relaxation, reduces anxiety, and improves mental clarity. Suitable for all levels with modifications available. Experience the ancient practice that transforms both body and mind.",
       "type": "yoga",
       "level": "beginner",
       "duration": "medium",
