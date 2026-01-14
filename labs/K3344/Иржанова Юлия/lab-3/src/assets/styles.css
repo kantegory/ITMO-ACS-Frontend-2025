@@ -1,0 +1,1022 @@
+/* Тёмная тема */
+:root {
+  --primary-color: #1DB954;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --dark-color: #191414;
+  --light-color: #f8f9fa;
+  --spotify-dark: #121212;
+  --spotify-card: #282828;
+  --spotify-border: #404040;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+}
+
+/* Светлая тема */
+[data-theme="light"] {
+  --primary-color: #1DB954;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --dark-color: #f5f5f5;
+  --light-color: #ffffff;
+  --spotify-dark: #ffffff;
+  --spotify-card: #f9f9f9;
+  --spotify-border: #e0e0e0;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+}
+
+[data-theme="light"] body {
+  background-color: var(--spotify-dark);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .navbar {
+  background-color: #f5f5f5 !important;
+  border-bottom-color: #e0e0e0 !important;
+}
+
+[data-theme="light"] .card {
+  background-color: var(--spotify-card);
+  border-color: var(--spotify-border);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .form-control,
+[data-theme="light"] .form-select {
+  background-color: var(--spotify-card);
+  border-color: var(--spotify-border);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+[data-theme="light"] .btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: #000000;
+}
+
+[data-theme="light"] .modal-content {
+  background-color: var(--spotify-card);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .modal-header,
+[data-theme="light"] .modal-footer {
+  background-color: #f0f0f0;
+  border-color: var(--spotify-border);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--spotify-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* навбар */
+
+.navbar {
+    background-color: var(--dark-color) !important;
+    border-bottom: 1px solid var(--spotify-card);
+    padding: 0.75rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color) !important;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+    transition: color 0.3s ease;
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+/* карточки альбомов */
+.card.album-card {
+    transition: box-shadow 0.22s, transform 0.19s;
+}
+.card.album-card:hover {
+    box-shadow: 0 22px 48px #23e87827, 0 8px 32px #19191955;
+    transform: translateY(-8px) scale(1.04);
+    z-index: 2;
+}
+
+.card.album-card {
+    padding: 0;
+    background: #24292f;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px #19191933;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.album-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    display: block;
+}
+.album-info {
+    padding: 18px 22px 14px 22px;
+    background: #24292f;
+    border-radius: 0 0 18px 18px;
+    min-height: 115px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+}
+.album-rating {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+    background: #ffc107;
+    color:  #000000;
+    font-weight: 600;
+    font-size: 17px;
+    border-radius: 8px;
+    padding: 7px 13px 6px 13px;
+}
+
+.album-artist {
+    color: var(--text-secondary);
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-year {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+/* карточки и контейнеры */
+
+.card {
+    background: #24292f;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px #19191933;
+    border: none;
+    border-left: 4px solid #1DB954;
+}
+.card-body {
+    padding: 28px 20px 22px 20px;
+}
+.card-title {
+    color: #1DB954 !important;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 14px;
+    letter-spacing: .2px;
+}
+.card.album-card {
+  color: #ffffff;
+}
+
+.col-lg-3 {
+    min-width: 260px;
+    max-width: 330px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    background: #1DB954;
+}
+input[type="checkbox"] {
+    accent-color: #1DB954;
+    width: 18px;
+    height: 18px;
+}
+
+/* формы */
+
+.form-control,
+.form-select {
+    background-color: var(--spotify-card);
+    border: 1px solid var(--spotify-border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-label,
+.text-muted {
+    color: #b3b3b3 !important;
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--spotify-card);
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25);
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+}
+
+.form-label {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-text {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.form-control.error {
+    border-color: var(--danger-color);
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.text-danger.show {
+    display: block !important;
+    color: var(--danger-color);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.form-check {
+    padding-left: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-left: 0 !important;
+    margin-right: 14px;
+    width: 20px;
+    height: 20px;
+    position: static;
+}
+
+
+/* кнопки */
+
+.btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #000;
+}
+
+.btn-primary:hover {
+    background-color: #1ed760;
+    border-color: #1ed760;
+}
+
+.btn-primary:active {
+    background-color: #1aa34a;
+}
+
+.btn-secondary {
+    background-color: var(--spotify-border);
+    border-color: var(--spotify-border);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: #505050;
+    border-color: #505050;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #ffffff;  /* белый текст вместо стандартного */
+  font-weight: 600;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #218838;
+  color: #ffffff;
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+.btn-outline-danger {
+  color: #ff6b6b;  /* более яркий красный вместо var(--danger-color) */
+  border: 2px solid #ff6b6b;
+  background-color: transparent;
+  font-weight: 600;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ff6b6b;
+  color: #ffffff;  /* белый текст на красном фоне */
+}
+
+.btn-lg {
+    padding: 12px 28px;
+    font-size: 16px;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* табы */
+
+.nav-tabs {
+    border-bottom: 2px solid var(--spotify-border);
+    gap: 20px;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--primary-color);
+}
+
+.nav-link.active {
+  color: #054a1d !important;  
+  background-color: transparent;
+  border-bottom-color: #1DB954;
+  font-weight: 600;
+}
+
+.tab-content {
+    padding-top: 20px;
+}
+
+.tab-pane {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* отзывы */
+
+.review-item {
+    border-left: 4px solid var(--primary-color);
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background: var(--spotify-card);
+    border: 1px solid var(--spotify-border);
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.review-item:hover {
+    background: rgba(29, 185, 84, 0.05);
+    border-color: var(--primary-color);
+}
+
+.review-item:last-child {
+    margin-bottom: 0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.review-author-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #1aa34a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.review-author {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.review-rating {
+    background: var(--primary-color);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.review-date {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.review-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.review-text.empty {
+    color: #555;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* модальные окна */
+
+.modal-content {
+    background-color: var(--spotify-card);
+    border: 1px solid var(--spotify-border);
+    border-radius: 12px;
+}
+
+.modal-header {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--spotify-border);
+    color: var(--text-primary);
+}
+
+.modal-title {
+    font-weight: 700;
+}
+
+.btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-body {
+    color: var(--text-primary);
+}
+
+.modal-footer {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid var(--spotify-border);
+}
+
+/* фильтры */
+
+.form-check {
+    padding: 8px 0;
+}
+
+.form-check-input {
+    background-color: var(--spotify-border);
+    border: 1px solid var(--spotify-border);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25);
+}
+
+.form-check-label {
+    color: var(--text-primary);
+    margin-left: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+}
+
+.form-range {
+    height: 6px;
+}
+
+.form-range .form-range-track {
+    background-color: var(--spotify-border);
+}
+
+.form-range .form-range-thumb {
+    background-color: var(--primary-color);
+    border: none;
+    width: 18px;
+    height: 18px;
+}
+
+.form-range .form-range-thumb:active {
+    background-color: #1ed760;
+}
+
+/* страница альбома */
+
+.album-hero {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.album-cover-container {
+    flex-shrink: 0;
+}
+
+.album-cover-large {
+    width: 300px;
+    height: 300px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    background: linear-gradient(135deg, var(--primary-color), #1aa34a);
+    box-shadow: 0 8px 24px rgba(29, 185, 84, 0.3);
+}
+
+.album-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.album-title-large {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.album-meta {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.album-rating-large {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 24px;
+}
+
+.album-description {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin: 20px 0;
+    font-size: 15px;
+}
+
+.album-actions {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* список треков */
+
+.tracks-list {
+    background: var(--spotify-card);
+    border: 1px solid var(--spotify-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px 0;
+}
+
+.tracks-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.list-group {
+    background: transparent;
+    border: none;
+}
+
+.list-group-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--spotify-border);
+    color: var(--text-primary);
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.list-group-item:hover {
+    background: rgba(29, 185, 84, 0.1);
+    border-color: var(--primary-color);
+}
+
+.list-group-item:last-child {
+    margin-bottom: 0;
+}
+
+/* профиль */
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--primary-color), #1aa34a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 48px;
+    box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+}
+
+.profile-info {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.profile-email {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* контейнеры */
+
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.container-fluid {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+/* утилиты */
+
+.bg-dark {
+    background-color: var(--dark-color) !important;
+}
+
+.bg-light {
+    background-color: #2a2a2a !important;
+}
+
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+.text-danger {
+    color: var(--danger-color) !important;
+}
+
+.text-success {
+    color: var(--success-color) !important;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+    color: #000;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+    color: #000;
+}
+
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+    color: white;
+}
+
+/* Ссылка в тексте регистрации */
+a.text-decoration-none {
+  color: #1DB954;  /* яркий зелёный */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.text-decoration-none:hover {
+  color: #1ed760;  /* ещё ярче при наведении */
+  text-decoration: underline;
+}
+
+/* стили для иконок */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.icon-star {
+  color: #000000; 
+}
+
+.icon-comment {
+  color: #888;
+}
+
+.icon-filter {
+  color: #2b6032;
+  margin-right: 8px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 8px 0;
+}
+
+.reviews-count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* адаптивность */
+
+@media (min-width: 1000px) {
+    .col-lg-3 {
+        position: sticky;
+        top: 40px;
+    }
+}
+
+@media (max-width: 992px) {
+    .album-hero {
+        gap: 20px;
+    }
+
+    .album-cover-large {
+        width: 250px;
+        height: 250px;
+        font-size: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container,
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .album-cover {
+        height: 200px;
+        font-size: 60px;
+    }
+
+    .album-title-large {
+        font-size: 28px;
+    }
+
+    .album-cover-large {
+        width: 200px;
+        height: 200px;
+        font-size: 80px;
+    }
+
+    .album-hero {
+        flex-direction: column;
+    }
+
+    .album-details {
+        min-width: auto;
+    }
+
+    .album-actions {
+        flex-direction: column;
+    }
+
+    .album-actions .btn {
+        width: 100%;
+    }
+
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-tabs {
+        gap: 10px;
+    }
+
+    .nav-link {
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .album-title-large {
+        font-size: 24px;
+    }
+
+    .album-meta {
+        font-size: 14px;
+    }
+
+    .album-cover-large {
+        width: 150px;
+        height: 150px;
+        font-size: 60px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .review-item {
+        padding: 12px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .album-rating-large {
+        font-size: 20px;
+    }
+}
+
+/* АНИМАЦИИ */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+  background-color: var(--spotify-card);
+  border: 1px solid var(--spotify-border);
+  color: var(--text-primary);  /* белый текст */
+}
+
+/* СКРОЛБАР */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--spotify-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--spotify-border);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
