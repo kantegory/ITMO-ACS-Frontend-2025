@@ -24,10 +24,11 @@
               </RouterLink>
             </li>
 
-            <li class="nav-item">
-              <RouterLink class="nav-link" active-class="active" to="/profile">
-                Профиль
-              </RouterLink>
+            <li v-if="isAuthenticated" class="nav-item">
+            <RouterLink class="nav-link" active-class="active" to="/profile">Профиль</RouterLink>
+            </li>
+            <li v-else class="nav-item">
+            <RouterLink class="nav-link" active-class="active" to="/login">Профиль</RouterLink>
             </li>
 
             <li class="nav-item">

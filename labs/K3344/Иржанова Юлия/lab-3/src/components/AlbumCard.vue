@@ -6,7 +6,7 @@
     >
       <div class="card h-100">
         <img
-          :src="album.coverUrl"
+          :src="`/${album.coverUrl}`"
           class="card-img-top"
           :alt="`${album.albumTitle} cover`"
           loading="lazy"
