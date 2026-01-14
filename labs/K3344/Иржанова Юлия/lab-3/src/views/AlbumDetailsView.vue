@@ -9,7 +9,7 @@
 
     <div v-else-if="album" class="row g-4">
       <div class="col-md-4">
-        <img :src="album.coverUrl" class="img-fluid rounded" :alt="album.albumTitle" />
+        <img :src="`/${album.coverUrl}`" class="img-fluid rounded" :alt="album.albumTitle" />
       </div>
 
       <div class="col-md-8">
