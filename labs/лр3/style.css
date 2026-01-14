@@ -1,0 +1,906 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* === БАЗОВЫЕ ПЕРЕМЕННЫЕ ТЕМ === */
+:root {
+    /* Светлая тема (по умолчанию) */
+    --theme-bg: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    --theme-bg-light: #ffffff;
+    --theme-text: #2d3748;
+    --theme-text-light: #718096;
+    --theme-primary: #4f86f7;
+    --theme-primary-light: #6b9cff;
+    --theme-primary-dark: #3a75e6;
+    --theme-accent: #38b2ac;
+    --theme-accent-light: #4fd1c5;
+    --theme-border: #e2e8f0;
+    --theme-card-bg: rgba(255, 255, 255, 0.95);
+    --theme-card-bg-hover: rgba(255, 255, 255, 0.98);
+    --theme-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --theme-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.15);
+    --theme-input-bg: #ffffff;
+    --theme-input-text: #2d3748;
+    --theme-modal-bg: rgba(255, 255, 255, 0.98);
+    --theme-register-btn: linear-gradient(135deg, #38b2ac, #4fd1c5);
+    --theme-register-hover: linear-gradient(135deg, #319795, #38b2ac);
+    --theme-highlight: #4f86f7;
+}
+
+[data-theme="dark"] {
+    /* Тёмная тема - улучшенная контрастность */
+    --theme-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --theme-bg-light: #1e293b;
+    --theme-text: #f1f5f9;
+    --theme-text-light: #cbd5e1;
+    --theme-primary: #60a5fa;
+    --theme-primary-light: #93c5fd;
+    --theme-primary-dark: #3b82f6;
+    --theme-accent: #10b981;
+    --theme-accent-light: #34d399;
+    --theme-border: #475569;
+    --theme-card-bg: rgba(30, 41, 59, 0.95);
+    --theme-card-bg-hover: rgba(30, 41, 59, 0.98);
+    --theme-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --theme-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.4);
+    --theme-input-bg: #1e293b;
+    --theme-input-text: #f1f5f9;
+    --theme-modal-bg: rgba(30, 41, 59, 0.98);
+    --theme-register-btn: linear-gradient(135deg, #10b981, #34d399);
+    --theme-register-hover: linear-gradient(135deg, #0d966e, #10b981);
+    --theme-highlight: #60a5fa;
+}
+
+[data-theme="pink"] {
+    /* Розовая тема - яркая и контрастная */
+    --theme-bg: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+    --theme-bg-light: #ffffff;
+    --theme-text: #831843;
+    --theme-text-light: #be185d;
+    --theme-primary: #ec4899;
+    --theme-primary-light: #f472b6;
+    --theme-primary-dark: #db2777;
+    --theme-accent: #8b5cf6;
+    --theme-accent-light: #a78bfa;
+    --theme-border: #fbcfe8;
+    --theme-card-bg: rgba(255, 255, 255, 0.95);
+    --theme-card-bg-hover: rgba(255, 255, 255, 0.98);
+    --theme-shadow: 0 8px 32px rgba(236, 72, 153, 0.2);
+    --theme-shadow-hover: 0 16px 48px rgba(236, 72, 153, 0.3);
+    --theme-input-bg: #ffffff;
+    --theme-input-text: #831843;
+    --theme-modal-bg: rgba(255, 255, 255, 0.98);
+    --theme-register-btn: linear-gradient(135deg, #ec4899, #f472b6);
+    --theme-register-hover: linear-gradient(135deg, #db2777, #ec4899);
+    --theme-highlight: #ec4899;
+}
+
+/* === ОСНОВНЫЕ СТИЛИ === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* === КАРТОЧКИ И ФОРМЫ === */
+.form-container {
+    background: var(--theme-card-bg);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--theme-border);
+    border-radius: 24px;
+    box-shadow: var(--theme-shadow);
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    color: var(--theme-text);
+    transition: all 0.5s ease;
+}
+
+.glass-card {
+    background: var(--theme-card-bg);
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--theme-border);
+    border-radius: 20px;
+    box-shadow: var(--theme-shadow);
+    color: var(--theme-text);
+    transition: all 0.5s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--theme-shadow-hover);
+    background: var(--theme-card-bg-hover);
+}
+
+.modal-content.glass-card {
+    background: var(--theme-modal-bg);
+    color: var(--theme-text);
+    border: 2px solid var(--theme-border);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* === ФОРМЫ И ИНПУТЫ === */
+.form-control {
+    background: var(--theme-input-bg);
+    border: 2px solid var(--theme-border);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--theme-input-text);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.form-control:focus {
+    background: var(--theme-input-bg);
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 4px rgba(var(--theme-primary), 0.15);
+    color: var(--theme-input-text);
+    transform: translateY(-1px);
+}
+
+.form-label {
+    color: var(--theme-text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.form-text {
+    color: var(--theme-text-light) !important;
+    font-size: 0.85rem;
+}
+
+/* === КНОПКИ === */
+.btn-form-primary {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-light));
+    border: none;
+    color: white !important;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 16px;
+    border-radius: 14px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(var(--theme-primary), 0.3);
+    width: 100%;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.btn-form-primary:hover {
+    background: linear-gradient(135deg, var(--theme-primary-dark), var(--theme-primary));
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(var(--theme-primary), 0.4);
+    color: white !important;
+}
+
+.btn-primary-elegant {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-primary-light));
+    border: none;
+    color: white !important;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    padding: 16px 36px;
+    border-radius: 14px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(var(--theme-primary), 0.3);
+    letter-spacing: 0.5px;
+}
+
+.btn-primary-elegant:hover {
+    background: linear-gradient(135deg, var(--theme-primary-dark), var(--theme-primary));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(var(--theme-primary), 0.4);
+    color: white !important;
+}
+
+/* Кнопка регистрации - яркая и акцентная */
+.btn-secondary-elegant {
+    background: var(--theme-register-btn);
+    border: none;
+    color: white !important;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    padding: 16px 36px;
+    border-radius: 14px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(56, 178, 172, 0.4);
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-secondary-elegant::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-secondary-elegant:hover {
+    background: var(--theme-register-hover);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(56, 178, 172, 0.5);
+    color: white !important;
+}
+
+.btn-secondary-elegant:hover::before {
+    left: 100%;
+}
+
+.btn-elegant {
+    background: var(--theme-bg-light);
+    border: 2px solid var(--theme-border);
+    color: var(--theme-text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-elegant:hover {
+    background: var(--theme-primary);
+    border-color: var(--theme-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--theme-primary), 0.2);
+}
+
+/* === ТЕКСТ И ТИПОГРАФИЯ === */
+.elegant-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem !important;
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    padding-bottom: 15px;
+    text-shadow: 0 2px 10px rgba(var(--theme-primary), 0.1);
+}
+
+.elegant-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--theme-primary), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 10px rgba(var(--theme-primary), 0.1);
+}
+
+.elegant-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--theme-text);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+}
+
+.text-muted {
+    color: var(--theme-text-light) !important;
+    font-weight: 500;
+}
+
+.light-blue-text {
+    color: var(--theme-primary) !important;
+    font-weight: 600;
+}
+
+strong, b {
+    color: var(--theme-highlight);
+    font-weight: 700;
+}
+
+/* === ПЕРЕКЛЮЧАТЕЛЬ ТЕМ === */
+.theme-switcher {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 10000;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.theme-switcher .btn-group {
+    backdrop-filter: blur(20px);
+    background: var(--theme-card-bg);
+    border: 2px solid var(--theme-border);
+    border-radius: 25px;
+    padding: 6px;
+    box-shadow: var(--theme-shadow);
+    transition: all 0.5s ease;
+}
+
+.theme-switcher .theme-btn {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    color: var(--theme-text);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.theme-switcher .theme-btn.active {
+    background: var(--theme-primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(var(--theme-primary), 0.3);
+    transform: scale(1.05);
+}
+
+.theme-switcher .theme-btn:hover:not(.active) {
+    background: rgba(var(--theme-primary), 0.1);
+    transform: translateY(-2px);
+}
+
+.theme-switcher .theme-btn i {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+/* === УВЕДОМЛЕНИЯ О СМЕНЕ ТЕМЫ === */
+.theme-notification {
+    position: fixed;
+    top: 90px;
+    right: 25px;
+    z-index: 9999;
+    min-width: 300px;
+    animation: slideDown 0.5s ease-out;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.theme-notification .notification-content {
+    background: var(--theme-card-bg);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--theme-primary);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--theme-text);
+}
+
+.theme-notification .notification-icon {
+    font-size: 1.8rem;
+    color: var(--theme-primary);
+}
+
+.theme-notification .notification-text {
+    flex: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.theme-notification .notification-close {
+    background: none;
+    border: none;
+    color: var(--theme-text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.theme-notification .notification-close:hover {
+    color: var(--theme-primary);
+    background: rgba(var(--theme-primary), 0.1);
+}
+
+/* === ПРОФИЛЬ - УЛУЧШЕННАЯ КОНТРАСТНОСТЬ === */
+.user-stats .h5 {
+    color: var(--theme-primary) !important;
+    font-weight: 800;
+    font-size: 2.2rem;
+    text-shadow: 0 2px 10px rgba(var(--theme-primary), 0.2);
+}
+
+.user-stats small {
+    color: var(--theme-text) !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#userName {
+    color: var(--theme-text) !important;
+    font-weight: 800;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+#userRole {
+    color: var(--theme-primary) !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* Прогресс-бары */
+.progress {
+    height: 12px;
+    background-color: rgba(var(--theme-primary), 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-primary-light));
+    border-radius: 10px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 10px rgba(var(--theme-primary), 0.3);
+}
+
+/* Достижения */
+.achievement-item {
+    padding: 15px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(var(--theme-primary), 0.15), rgba(var(--theme-accent), 0.15));
+    border: 2px solid rgba(var(--theme-primary), 0.3);
+    transition: all 0.4s ease;
+}
+
+.achievement-item:hover {
+    background: linear-gradient(135deg, rgba(var(--theme-primary), 0.25), rgba(var(--theme-accent), 0.25));
+    transform: translateY(-5px) scale(1.05);
+    border-color: var(--theme-primary);
+    box-shadow: 0 10px 30px rgba(var(--theme-primary), 0.2);
+}
+
+.achievement-item .h4 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+.achievement-item small {
+    color: var(--theme-text) !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* === ОСТАЛЬНЫЕ СТИЛИ === */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--theme-primary);
+    color: white;
+    padding: 12px 20px;
+    z-index: 10000;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid white;
+    outline-offset: 3px;
+    box-shadow: 0 4px 20px rgba(var(--theme-primary), 0.4);
+}
+
+.navbar-transparent {
+    background: transparent !important;
+    border: none;
+}
+
+.btn-back {
+    background: var(--theme-bg-light);
+    border: 2px solid var(--theme-border);
+    color: var(--theme-text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-back:hover {
+    background: var(--theme-primary);
+    border-color: var(--theme-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--theme-primary), 0.2);
+}
+
+.container {
+    margin-top: 3rem;
+}
+
+.rounded-lg {
+    border-radius: 20px !important;
+}
+
+.photo-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.elegant-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo-container:hover .elegant-image {
+    transform: scale(1.08);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(var(--theme-primary), 0.1), rgba(var(--theme-accent), 0.1));
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.photo-container:hover .image-overlay {
+    opacity: 1;
+}
+
+.card, .btn, .elegant-list-item, .form-control {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.workout-details {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.plan-item {
+    border-left: 5px solid var(--theme-primary);
+    transition: all 0.4s ease;
+    background: linear-gradient(90deg, rgba(var(--theme-primary), 0.05), transparent);
+}
+
+.plan-item:hover {
+    transform: translateX(8px);
+    background: linear-gradient(90deg, rgba(var(--theme-primary), 0.1), transparent);
+    box-shadow: 0 6px 20px rgba(var(--theme-primary), 0.1);
+}
+
+.workout-type-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin-right: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.type-cardio { background: linear-gradient(135deg, #fecaca, #fca5a5); color: #dc2626; }
+.type-strength { background: linear-gradient(135deg, #bfdbfe, #93c5fd); color: #2563eb; }
+.type-yoga { background: linear-gradient(135deg, #d9f99d, #a3e635); color: #65a30d; }
+.type-hiit { background: linear-gradient(135deg, #fcd34d, #fbbf24); color: #d97706; }
+.type-stretching { background: linear-gradient(135deg, #c4b5fd, #a78bfa); color: #7c3aed; }
+.type-power-lifting { background: linear-gradient(135deg, #fda4af, #fb7185); color: #e11d48; }
+
+.level-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.level-beginner {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+}
+
+.level-intermediate {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: white;
+}
+
+.level-advanced {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: white;
+}
+
+.completed-workout-item {
+    background: linear-gradient(90deg, rgba(var(--theme-primary), 0.08), transparent);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--theme-primary);
+    transition: all 0.3s ease;
+}
+
+.completed-workout-item:hover {
+    background: linear-gradient(90deg, rgba(var(--theme-primary), 0.15), transparent);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(var(--theme-primary), 0.1);
+}
+
+.completed-workout-item h6 {
+    color: var(--theme-text);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.completed-workout-item small {
+    color: var(--theme-text-light);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 768px) {
+    .elegant-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .form-container {
+        padding: 2rem;
+        margin: 1rem;
+        border-radius: 20px;
+    }
+    
+    .theme-switcher {
+        top: 15px;
+        right: 15px;
+    }
+    
+    .theme-switcher .theme-btn {
+        padding: 8px 12px;
+        min-width: auto;
+    }
+    
+    .theme-switcher .theme-btn span {
+        display: none;
+    }
+    
+    .theme-switcher .theme-btn i {
+        font-size: 1.3rem;
+        margin: 0;
+    }
+    
+    .theme-notification {
+        top: 70px;
+        right: 15px;
+        left: 15px;
+        min-width: auto;
+    }
+    
+    .btn-primary-elegant,
+    .btn-secondary-elegant {
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
+    
+    .user-stats .h5 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Анимация появления страницы */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main {
+    animation: fadeIn 0.8s ease-out;
+}
+/* === SVG ИКОНКИ === */
+.svg-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    fill: currentColor;
+    transition: fill 0.3s ease;
+}
+
+/* Цвет иконок в кнопках */
+.btn-primary-elegant .svg-icon,
+.btn-secondary-elegant .svg-icon,
+.btn-form-primary .svg-icon {
+    fill: white;
+}
+
+.btn-elegant:hover .svg-icon {
+    fill: white;
+}
+
+.btn-back .svg-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: -3px;
+}
+
+/* Стили для иконок достижений */
+.achievement-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.achievement-item:hover .achievement-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Статистические иконки */
+.stats-icon .svg-icon {
+    vertical-align: -0.2em;
+}
+
+/* Иконка профиля на аватаре */
+.user-profile-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--primary-blue);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(79, 134, 247, 0.3);
+}
+
+.user-profile-icon .svg-icon {
+    display: block;
+}
+
+/* Иконки в заголовках */
+.form-title .svg-icon,
+.card-title .svg-icon {
+    vertical-align: -0.3em;
+}
+
+/* Иконки в теме */
+.theme-btn .svg-icon {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Анимация спиннера */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Иконки в workout-type-icon */
+.workout-type-icon .svg-icon {
+    width: 1em;
+    height: 1em;
+}
+
+/* Цвет иконок в теме */
+[data-theme="dark"] .svg-icon {
+    fill: currentColor;
+}
+
+[data-theme="pink"] .svg-icon {
+    fill: currentColor;
+}
+
+@media (max-width: 768px) {
+    .theme-switcher .theme-btn .svg-icon {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0;
+    }
+    
+    .achievement-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .user-profile-icon {
+        top: -5px;
+        right: -5px;
+        padding: 6px;
+    }
+    
+    .user-profile-icon .svg-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
