@@ -27,7 +27,20 @@
         <div class="card h-100">
           <div class="card-body">
             <h2 class="h5">Мои отзывы</h2>
-            <div class="text-muted">Функционал добавим позже</div>
+
+            <div v-if="getUserReviews.length === 0" class="text-muted">
+              Вы пока не оставили ни одного отзыва
+            </div>
+
+            <ul v-else class="list-group">
+              <li v-for="(r, idx) in getUserReviews" :key="idx" class="list-group-item">
+                <div class="d-flex justify-content-between">
+                  <span>{{ r.artist }} — {{ r.albumTitle }}</span>
+                  <span class="badge text-bg-warning">★ {{ r.rating }}</span>
+                </div>
+                <div v-if="r.text" class="mt-2">{{ r.text }}</div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -101,11 +114,14 @@ import { reactive, ref, computed, onMounted } from "vue";
 import { useProfile } from "../composables/useProfile";
 import { useFavorites } from "../composables/useFavorites";
 import { useAlbums } from "../composables/useAlbums";
+import { useReviews } from "../composables/useReviews";
 
 const { user, loading, error, updateProfile } = useProfile();
 
 const editOpen = ref(false);
 const form = reactive({ name: "", email: "" });
+
+const { getUserReviews } = useReviews();
 
 function openEdit() {
   form.name = user.value?.name ?? "";
