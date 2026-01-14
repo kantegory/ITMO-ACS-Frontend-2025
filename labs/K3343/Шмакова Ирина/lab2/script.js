@@ -46,7 +46,7 @@ async function loadRecipes() {
         document.getElementById('recipesContainer').innerHTML = `
             <div class="col-12">
                 <div class="alert alert-warning">
-                    Не удалось загрузить рецепты. Запустите JSON-server командой: json-server --watch db.json
+                    Не удалось загрузить рецепты
                 </div>
             </div>
         `;
