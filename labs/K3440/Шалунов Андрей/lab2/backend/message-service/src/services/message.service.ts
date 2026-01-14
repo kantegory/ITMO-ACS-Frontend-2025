@@ -68,7 +68,11 @@ export class MessageService {
             text: dto.text,
         });
 
-        return messageRepo.save(message);
+        const saved = await messageRepo.save(message);
+        chat.updated_at = new Date();
+        await chatRepo.save(chat);
+
+        return saved;
     }
 
     static getAllMessages() {

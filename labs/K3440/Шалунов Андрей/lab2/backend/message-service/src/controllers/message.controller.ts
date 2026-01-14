@@ -33,6 +33,20 @@ export class MessageController {
         return MessageService.getAllMessages();
     }
 
+    @Get('/chats/user/:userId')
+    @OpenAPI({ summary: 'Get all chats for user' })
+    @ResponseSchema(ChatResponseDto, { isArray: true })
+    getChatsForUser(@Param('userId') userId: number) {
+        return MessageService.getChatsForUser(userId);
+    }
+
+    @Get('/chats/:chatId/messages')
+    @OpenAPI({ summary: 'Get messages for chat' })
+    @ResponseSchema(MessageResponseDto, { isArray: true })
+    getMessagesByChat(@Param('chatId') chatId: number) {
+        return MessageService.getMessagesByChat(chatId);
+    }
+
     @Get('/:id')
     @OpenAPI({ summary: 'Get message by id' })
     @ResponseSchema(CreateMessageDto)
@@ -52,19 +66,5 @@ export class MessageController {
     @OpenAPI({ summary: 'Delete message' })
     remove(@Param('id') id: number) {
         return MessageService.deleteMessage(id);
-    }
-
-    @Get('/chats/user/:userId')
-    @OpenAPI({ summary: 'Get all chats for user' })
-    @ResponseSchema(ChatResponseDto, { isArray: true })
-    getChatsForUser(@Param('userId') userId: number) {
-        return MessageService.getChatsForUser(userId);
-    }
-
-    @Get('/chats/:chatId/messages')
-    @OpenAPI({ summary: 'Get messages for chat' })
-    @ResponseSchema(MessageResponseDto, { isArray: true })
-    getMessagesByChat(@Param('chatId') chatId: number) {
-        return MessageService.getMessagesByChat(chatId);
     }
 }

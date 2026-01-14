@@ -60,22 +60,22 @@ export class UserController {
         return user
     }
 
-    @Get('/:id')
-    @UseBefore(authMiddleware)
-    @OpenAPI({ summary: 'Get user by id' })
-    @ResponseSchema(UserResponse)
-    async findOne(@Param('id') id: number) {
-        const u = await UserService.getUserById(id)
-        if (!u) throw { status: 404, message: 'User not found' }
-        return u
-    }
-
     @Get('/by-email')
     @UseBefore(authMiddleware)
     @OpenAPI({ summary: 'Get user by email' })
     @ResponseSchema(UserResponse)
     async findByEmail(@QueryParam('email') email: string) {
         const u = await UserService.getUserByEmail(email)
+        if (!u) throw { status: 404, message: 'User not found' }
+        return u
+    }
+
+    @Get('/:id')
+    @UseBefore(authMiddleware)
+    @OpenAPI({ summary: 'Get user by id' })
+    @ResponseSchema(UserResponse)
+    async findOne(@Param('id') id: number) {
+        const u = await UserService.getUserById(id)
         if (!u) throw { status: 404, message: 'User not found' }
         return u
     }

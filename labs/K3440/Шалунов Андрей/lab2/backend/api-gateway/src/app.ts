@@ -9,15 +9,14 @@ async function start() {
     const app = express()
 
     app.use(cors())
-    app.use(loggingMiddleware)
-    setupProxy(app)
-
     app.use(express.json())
+    app.use(loggingMiddleware)
 
     app.get('/health', (_req, res) => {
         res.json({ status: 'OK' })
     })
 
+    setupProxy(app)
 
     app.use(errorMiddleware)
 

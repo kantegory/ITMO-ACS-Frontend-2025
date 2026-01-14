@@ -48,9 +48,7 @@ export class PhotoController {
     @OpenAPI({ summary: 'Get photo by id' })
     @ResponseSchema(CreatePhotoDto)
     async findOne(@Param('id') id: number) {
-        const p = await PhotoService.getPhotoById(id);
-        if (!p) throw { status: 404, message: 'Photo not found' };
-        return p;
+        return PhotoService.getPhotoById(id)
     }
 
     @Put('/:id')
