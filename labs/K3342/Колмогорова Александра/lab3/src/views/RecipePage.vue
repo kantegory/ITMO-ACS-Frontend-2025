@@ -1,5 +1,5 @@
 <template>
-  <Navbar />
+  <base-layout>
     <div class="container mt-4">
       <p v-if="error" class="text-danger text-center">{{ error }}</p>
       <p v-if="loading" class="text-muted text-center">Загрузка...</p>
@@ -18,13 +18,14 @@
         <p class="text-muted">Рецепт не найден</p>
       </div>
     </div>
+  </base-layout>
 </template>
 
 <script>
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-import Navbar from '@/components/Navbar.vue'
+import BaseLayout from '@/layouts/BaseLayout.vue'
 import RecipeFull from '@/components/RecipeFull.vue'
 
 import useRecipe from '@/composables/useRecipe'
@@ -34,7 +35,7 @@ export default {
   name: 'RecipePage',
 
   components: {
-    Navbar,
+    BaseLayout,
     RecipeFull
   },
 

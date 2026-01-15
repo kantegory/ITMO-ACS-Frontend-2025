@@ -1,5 +1,6 @@
 <script setup>
-import Navbar from '@/components/NavbarAccount.vue'
+// import Navbar from '@/components/Navbar.vue'
+import BaseLayout from '@/layouts/BaseLayout.vue'
 import ProfileHeader from '@/components/ProfileHeader.vue'
 import UserRecipes from '@/components/UserRecipes.vue'
 import UserStared from '@/components/UserStared.vue'
@@ -15,11 +16,12 @@ const {
   deleteRecipe,
 } = useAccount()
 
-const { staredRecipes, loadStared, addStared, isStared } = useStared()
+const { staredRecipes } = useStared()
 </script>
 
 <template>
-  <Navbar />
+  <!-- <Navbar /> -->
+  <base-layout>
   <ProfileHeader :user="user" @update="updateProfile"/>
 
   <div class="container mt-4">
@@ -48,4 +50,5 @@ const { staredRecipes, loadStared, addStared, isStared } = useStared()
       </div>
     </div>
   </div>
+  </base-layout>
 </template>

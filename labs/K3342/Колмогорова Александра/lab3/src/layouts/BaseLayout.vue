@@ -1,11 +1,9 @@
 <template>
-  <div>
+  <div class="app-wrapper d-flex flex-column min-vh-100">
     <Navbar />
-
-    <main class="container my-4">
+    <main class="flex-grow-1">
       <slot />
     </main>
-
     <Footer />
   </div>
 </template>
@@ -19,3 +17,9 @@ export default {
   components: { Navbar, Footer }
 }
 </script>
+
+<style>
+.app-wrapper {
+  min-height: 100vh;
+}
+</style>

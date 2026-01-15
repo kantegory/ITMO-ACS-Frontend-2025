@@ -1,5 +1,5 @@
 <template>
-  <Navbar />
+  <base-layout>
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -26,12 +26,13 @@
         </div>
       </div>
     </div>
+  </base-layout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import useAuth from '@/composables/useAuth'
-import Navbar from '@/components/NavbarLogin.vue'
+import BaseLayout from '@/layouts/BaseLayout.vue'
 
 const email = ref('')
 const password = ref('')

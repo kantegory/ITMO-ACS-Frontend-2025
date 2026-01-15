@@ -1,5 +1,5 @@
 <template>
-  <Navbar />
+  <base-layout>
     <div class="container m-4 p-2">
       <recipes-filters
         @all="loadAll"
@@ -16,12 +16,12 @@
         </div>
         <p v-if="!recipes.length" class="text-muted text-center mt-4">Рецепты не найдены</p>
       </div>
-
     </div>
+  </base-layout>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
+import BaseLayout from '@/layouts/BaseLayout.vue';
 import RecipesFilters from '@/components/RecipesFilters.vue'
 import RecipeCard from '@/components/RecipeCard.vue'
 
@@ -31,7 +31,7 @@ export default {
   name: 'MainPage',
 
   components: {
-    Navbar,
+    BaseLayout,
     RecipesFilters,
     RecipeCard
   },
