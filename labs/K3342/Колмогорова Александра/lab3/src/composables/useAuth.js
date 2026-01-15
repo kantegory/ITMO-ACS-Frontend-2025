@@ -1,9 +1,5 @@
-import axios from 'axios'
 import { useRouter } from 'vue-router'
-
-const api = axios.create({
-  baseURL: 'http://localhost:3000'
-})
+import api from '../api/instance.js'
 
 export default function useAuth() {
   const router = useRouter()
@@ -49,7 +45,7 @@ export default function useAuth() {
   }
 
   const isAuth = () => {
-    return !!localStorage.getItem('accessToken')
+    return !localStorage.getItem('accessToken')
   }
 
   return {
