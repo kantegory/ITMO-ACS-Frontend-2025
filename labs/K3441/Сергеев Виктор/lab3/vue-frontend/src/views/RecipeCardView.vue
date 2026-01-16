@@ -285,7 +285,7 @@ async function loadAuthor() {
 }
 async function loadComments() {
   try {
-    const response = await sendRequest(`${BACKEND_URL}/api/comment/?recipe_id=${recipeId.value}`)
+    const response = await sendRequest(`${BACKEND_URL}/api/comment/recipe/${recipeId.value}`)
     if (response.success) {
       const commentsData = response.data ?? []
 
@@ -309,7 +309,7 @@ async function loadLikes() {
     if (response.success) {
       likes.value = response.data ?? []
       hasUserLike.value = currentUser.value
-        ? likes.value.some((like) => like.user.id === currentUser.value.id)
+        ? likes.value.some((like) => like.user_id === currentUser.value.id)
         : false
     }
   } catch (error) {
@@ -320,7 +320,7 @@ async function toggleLike() {
   if (!isAuthenticated.value) return
   try {
     if (hasUserLike.value) {
-      const userLike = likes.value.find((like) => like.user.id === currentUser.value.id)
+      const userLike = likes.value.find((like) => like.user_id === currentUser.value.id)
       if (userLike) {
         const response = await sendRequest(`${BACKEND_URL}/api/like/${userLike.id}`, 'DELETE')
         if (response.success) {

@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-        <AppHeader />
+        <HeaderComponent />
         <router-view />
-        <AppFooter />
+        <FooterComponent />
     </div>
 </template>
 
@@ -11,8 +11,9 @@ import { RouterView } from 'vue-router'
 import { onMounted } from 'vue';
 import { useAuth } from '@/composables/useAuth';
 import { useTheme } from '@/composables/useTheme';
-import AppHeader from '@/components/HeaderComponent.vue';
-import AppFooter from '@/components/FooterComponent.vue';
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
+
 const { init } = useAuth();
 const { theme } = useTheme();
 onMounted(async () => {

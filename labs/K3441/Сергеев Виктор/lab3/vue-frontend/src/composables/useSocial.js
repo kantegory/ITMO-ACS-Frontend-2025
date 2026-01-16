@@ -20,7 +20,7 @@ export function useSocial() {
     }
 
     async function loadUserLikes(userId) {
-        const response = await sendRequest(`${BACKEND_URL}/api/like/?user_id=${userId}`);
+        const response = await sendRequest(`${BACKEND_URL}/api/like/user/${userId}`);
         if (!response.success) {
             throw new Error(response.data?.message || 'Не удалось загрузить лайки');
         }
