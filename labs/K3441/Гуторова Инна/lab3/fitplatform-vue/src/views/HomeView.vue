@@ -1,5 +1,5 @@
 <template>
-  <main class="hero text-center">
+  <main class="hero text-center" style="margin-top: -3.5rem">
     <div class="container">
       <h1 class="display-6">Платформа для фитнес-тренировок и здоровья</h1>
       <p class="lead">Тренируйтесь дома или в зале — выбирайте подходящие программы.</p>

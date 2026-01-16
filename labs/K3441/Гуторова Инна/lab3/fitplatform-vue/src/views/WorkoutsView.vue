@@ -2,7 +2,6 @@
   <main class="container my-4">
     <h2 class="mb-4">Поиск тренировок</h2>
 
-    <!-- ФИЛЬТРЫ -->
     <div class="d-flex gap-2 mb-3 flex-wrap">
       <select v-model="filters.level" class="form-select form-select-sm" style="max-width: 200px">
         <option value="all">Уровень: Все</option>
@@ -31,7 +30,6 @@
       </button>
     </div>
 
-    <!-- СПИСОК -->
     <section class="row g-3">
       <div v-for="w in workouts" :key="w.id" class="col-md-4">
         <div class="card workout-card h-100">
@@ -50,7 +48,6 @@
       </div>
     </section>
 
-    <!-- ПУСТО -->
     <p v-if="workouts.length === 0" class="text-center mt-4">
       По выбранным фильтрам ничего не найдено.
     </p>
@@ -79,7 +76,7 @@ async function loadWorkouts() {
   if (filters.value.type !== 'all') params.type = filters.value.type
   if (filters.value.duration !== 'all') params.duration = filters.value.duration
 
-  const { data } = await api.get('/workouts', {
+  const data = await api.get('/workouts', {
     params
   })
 
