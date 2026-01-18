@@ -6,16 +6,17 @@ let extended = [];
 const container = document.querySelector('.gallery');
 
 async function getItems (apiUrl) {
-    // try {
+    try {
         const response = await fetch(apiUrl);
 
-        // if (response.status !== 200) {
-        //     throw new Error(response.error)};
+        if (response.status !== 200) {
+            throw new Error(response.error)};
             
         const responseJson = await response.json();
         console.log(responseJson);
 
         const meals = responseJson.meals;
+        // const meals1 = meals.slice(0, 10)
         console.log(meals);
 
         for (let meal of meals) {
@@ -28,6 +29,7 @@ async function getItems (apiUrl) {
                 skill: innerMeals[0].strInstructions.length,
                 image: innerMeals[0].strMealThumb
             });
+        };
         
         meals.forEach((result) => {
             const card = document.createElement('div');
@@ -45,8 +47,7 @@ async function getItems (apiUrl) {
             `;
 
             container.innerHTML += content;
-            });
-        };
+        });
 
 
         //     const card = document.createElement('div');
@@ -103,16 +104,17 @@ async function getItems (apiUrl) {
         // let cards = Array.from(container.querySelectorAll('.card'));
 
         document.querySelector(".sortAZ").addEventListener("click", function () {
-             extAZSorted.forEach((recipe) => {
+            container.innerHTML = '';
+            extAZSorted.forEach((recipe) => {
                 const newCard = document.createElement('div');
                 newCard.classList = 'card-body';
                 
                 const content = `
                         <div class="card">
-                            <img src="${recipe.strMealThumb}" class="card-img-top">
+                            <img src="${recipe.image}" class="card-img-top">
                             <div class="card-body">
-                                <h4 class="card-title">${recipe.strMeal}</h4>
-                                <p class="card-text">Click on this card to find the recipe for ${recipe.strMeal}.</p>
+                                <h4 class="card-title">${recipe.recipe}</h4>
+                                <p class="card-text">Click on this card to find the recipe for ${recipe.recipe}.</p>
                                 <p class="card-author">By <a href=profile.html>Venus</a></p>
                             </div>
                         </div>
@@ -123,16 +125,17 @@ async function getItems (apiUrl) {
         });
 
         document.querySelector(".sortZA").addEventListener("click", function () {
+            container.innerHTML = '';
             extZASorted.forEach((recipe) => {
                 const newCard = document.createElement('div');
                 newCard.classList = 'card-body';
 
                 const content = `
                         <div class="card">
-                            <img src="${recipe.strMealThumb}" class="card-img-top">
+                            <img src="${recipe.image}" class="card-img-top">
                             <div class="card-body">
-                                <h4 class="card-title">${recipe.strMeal}</h4>
-                                <p class="card-text">Click on this card to find the recipe for ${recipe.strMeal}.</p>
+                                <h4 class="card-title">${recipe.recipe}</h4>
+                                <p class="card-text">Click on this card to find the recipe for ${recipe.recipe}.</p>
                                 <p class="card-author">By <a href=profile.html>Venus</a></p>
                             </div>
                         </div>
@@ -143,16 +146,17 @@ async function getItems (apiUrl) {
         });
 
         document.querySelector(".skill").addEventListener("click", function () {
-             extNumSorted.forEach((recipe) => {
+            container.innerHTML = '';
+            extNumSorted.forEach((recipe) => {
                 const newCard = document.createElement('div');
                 newCard.classList = 'card-body';
                 
                 const content = `
                         <div class="card">
-                            <img src="${recipe.strMealThumb}" class="card-img-top">
+                            <img src="${recipe.image}" class="card-img-top">
                             <div class="card-body">
-                                <h4 class="card-title">${recipe.strMeal}</h4>
-                                <p class="card-text">Click on this card to find the recipe for ${recipe.strMeal}.</p>
+                                <h4 class="card-title">${recipe.recipe}</h4>
+                                <p class="card-text">Click on this card to find the recipe for ${recipe.recipe}.</p>
                                 <p class="card-author">By <a href=profile.html>Venus</a></p>
                             </div>
                         </div>
@@ -164,9 +168,9 @@ async function getItems (apiUrl) {
 
         console.log(extended);
         return extended;
-    // } catch (error) {
-    //         console.error(`Caught error ${error}`)
-    // };
+    } catch (error) {
+            console.error(`Caught error ${error}`)
+    };
 };
 
 getItems(foodApi);
