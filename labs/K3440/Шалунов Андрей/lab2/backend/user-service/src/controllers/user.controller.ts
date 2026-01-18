@@ -94,5 +94,6 @@ export class UserController {
     @OpenAPI({ summary: 'Delete user' })
     async remove(@Param('id') id: number) {
         await UserService.deleteUser(id)
+        return null;
     }
 }

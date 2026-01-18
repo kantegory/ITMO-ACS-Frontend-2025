@@ -1,6 +1,6 @@
 import {
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
     Column,
     OneToMany
 } from 'typeorm'
@@ -8,7 +8,7 @@ import { Property } from './property.entity'
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     user_id!: number
 
     @Column()

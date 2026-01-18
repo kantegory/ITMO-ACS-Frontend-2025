@@ -63,5 +63,6 @@ export class PhotoController {
     @OpenAPI({ summary: 'Delete photo' })
     async remove(@Param('id') id: number) {
         await PhotoService.deletePhoto(id);
+        return null;
     }
 }  

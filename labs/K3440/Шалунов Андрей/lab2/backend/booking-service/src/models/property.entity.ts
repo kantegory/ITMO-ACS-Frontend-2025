@@ -1,15 +1,15 @@
 import {
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
     Column,
     OneToMany,
-    CreateDateColumn
+    CreateDateColumn,
 } from 'typeorm'
 import { Booking } from './booking.entity'
 
 @Entity()
 export class Property {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     property_id!: number
 
     @Column()

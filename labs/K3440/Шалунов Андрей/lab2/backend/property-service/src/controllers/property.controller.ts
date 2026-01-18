@@ -68,5 +68,6 @@ export class PropertyController {
     @OpenAPI({ summary: 'Delete property' })
     async remove(@Param('id') id: number) {
         await PropertyService.deleteProperty(id)
+        return null;
     }
 }

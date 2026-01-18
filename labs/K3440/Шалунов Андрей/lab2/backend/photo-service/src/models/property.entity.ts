@@ -1,6 +1,6 @@
 import {
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
     Column,
     OneToMany,
     CreateDateColumn
@@ -9,7 +9,7 @@ import { Photo } from './photo.entity'
 
 @Entity()
 export class Property{
-    @PrimaryGeneratedColumn() 
+    @PrimaryColumn() 
     property_id!:number
 
     @Column() 

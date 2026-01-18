@@ -3,6 +3,7 @@ import { User } from '../models/user.entity'
 import hashPassword from '../utils/hash-password'
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto'
 import { NotFoundError, BadRequestError } from 'routing-controllers'
+import { publishUserEvent } from '../rabbitmq'
 
 const repo = AppDataSource.getRepository(User)
 
@@ -12,13 +13,24 @@ export class UserService {
         if (exists) {
             throw new BadRequestError('Email already in use')
         }
+
         const user = repo.create({
             name: dto.name,
             email: dto.email,
             phone: dto.phone,
             password: hashPassword(dto.password)
         })
-        return repo.save(user)
+
+        const saved = await repo.save(user)
+
+        await publishUserEvent('user.created', {
+            user_id: saved.user_id,
+            name: saved.name,
+            email: saved.email,
+            phone: saved.phone ?? null
+        })
+
+        return saved
     }
 
     static getAllUsers(): Promise<User[]> {
@@ -45,8 +57,18 @@ export class UserService {
         if (dto.password) {
             dto.password = hashPassword(dto.password)
         }
+
         await repo.update({ user_id: id }, dto)
-        return this.getUserById(id)
+        const updated = await this.getUserById(id)
+
+        await publishUserEvent('user.updated', {
+            user_id: updated.user_id,
+            name: updated.name,
+            email: updated.email,
+            phone: updated.phone ?? null
+        })
+
+        return updated
     }
 
     static async deleteUser(id: number): Promise<void> {

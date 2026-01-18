@@ -11,9 +11,19 @@ import SETTINGS from './config/settings'
 import { AppDataSource } from './config/data-source'
 import { PropertyController } from './controllers/property.controller'
 import { ErrorMiddleware } from './middlewares/error.middleware'
+import { startBookingEventsConsumer } from './booking-events.consumer'
+import { startUserEventsConsumer } from './user-events.consumer'
 
 async function start(): Promise<void> {
     await AppDataSource.initialize()
+
+    startUserEventsConsumer().catch((err) => {
+        console.error('User events consumer error:', err)
+    })
+
+    startBookingEventsConsumer().catch((err) => {
+        console.error('Booking events consumer error:', err)
+    })
 
     const app: Application = express()
     app.use(cors())

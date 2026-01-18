@@ -11,9 +11,14 @@ import SETTINGS from './config/settings'
 import { AppDataSource } from './config/data-source'
 import { BookingController } from './controllers/booking.controller'
 import { ErrorMiddleware } from './middlewares/error.middleware'
+import { startUserEventsConsumer } from './user-events.consumer'
 
 async function start(): Promise<void> {
     await AppDataSource.initialize()
+
+    startUserEventsConsumer().catch((err) => {
+        console.error('Rabbit consumer error:', err)
+    })
 
     const app: Application = express()
     app.use(cors())

@@ -1,6 +1,6 @@
 import {
     Entity,
-    PrimaryGeneratedColumn,
+    PrimaryColumn,
     Column,
     OneToMany,
     CreateDateColumn,
@@ -10,7 +10,7 @@ import { Chat } from './chat.entity';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     user_id!: number;
 
     @Column()

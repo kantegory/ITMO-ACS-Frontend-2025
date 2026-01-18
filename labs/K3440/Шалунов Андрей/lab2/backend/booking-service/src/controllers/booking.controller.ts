@@ -34,6 +34,13 @@ export class BookingController {
         return BookingService.getAllBookings()
     }
 
+    @Get('/user/:userId')
+    @OpenAPI({ summary: 'Get bookings by user id' })
+    @ResponseSchema(CreateBookingDto, { isArray: true })
+    async findByUser(@Param('userId') userId: number) {
+        return BookingService.getBookingsByUserId(userId)
+    }
+
     @Get('/:id')
     @OpenAPI({ summary: 'Get booking by id' })
     @ResponseSchema(CreateBookingDto)
@@ -53,5 +60,6 @@ export class BookingController {
     @OpenAPI({ summary: 'Delete booking' })
     async remove(@Param('id') id: number) {
         await BookingService.deleteBooking(id)
+        return null
     }
 }

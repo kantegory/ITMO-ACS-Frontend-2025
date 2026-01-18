@@ -66,5 +66,6 @@ export class MessageController {
     @OpenAPI({ summary: 'Delete message' })
     remove(@Param('id') id: number) {
         return MessageService.deleteMessage(id);
+        return null;
     }
 }
