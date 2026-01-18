@@ -12,6 +12,13 @@ export const recipesApi = {
 }
 
 export const usersApi = {
+  getAll: () => instance.get("/users"),
   getOne: id => instance.get(`/users/${id}`),
   patch: (id, patch) => instance.patch(`/users/${id}`, patch)
+}
+
+export const sessionApi = {
+  get: () => instance.get("/session"),
+  set: (userId) => instance.post("/session", { userId }, { headers: { "Content-Type": "application/json" } }),
+  clear: () => instance.delete("/session")
 }

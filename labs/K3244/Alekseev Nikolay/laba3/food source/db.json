@@ -51,8 +51,11 @@
       "savedRecipeIds": [
         53373
       ],
-      "likedRecipeIds": [],
-      "id": 1002
+      "likedRecipeIds": [
+        53373
+      ],
+      "id": 1002,
+      "lastLoginAt": 1768762299709
     }
   ],
   "recipes": [
@@ -99,7 +102,7 @@
       "type": 2,
       "authorId": 1000,
       "author": "TheMealDB",
-      "likes": 0
+      "likes": 1
     },
     {
       "id": 53158,
@@ -4332,5 +4335,6 @@
       "author": "TheMealDB",
       "likes": 0
     }
-  ]
+  ],
+  "session": null
 }

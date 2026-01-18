@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { authApi, usersApi } from "@/api"
+import { authApi, usersApi, sessionApi } from "@/api"
 
 function toCreds(username) {
   const email = `${encodeURIComponent(username)}@local.user`
@@ -9,10 +9,9 @@ function toCreds(username) {
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    accessToken: localStorage.getItem("accessToken") || "",
-    user: (() => {
-      try { return JSON.parse(localStorage.getItem("currentUser") || "null") } catch { return null }
-    })()
+    initialized: false,
+    accessToken: "",
+    user: null
   }),
 
   getters: {
@@ -20,19 +19,22 @@ export const useAuthStore = defineStore("auth", {
   },
 
   actions: {
-    setSession(accessToken, user) {
-      this.accessToken = accessToken || ""
-      this.user = user || null
-      if (this.accessToken) localStorage.setItem("accessToken", this.accessToken)
-      else localStorage.removeItem("accessToken")
-      if (this.user) localStorage.setItem("currentUser", JSON.stringify(this.user))
-      else localStorage.removeItem("currentUser")
+    async init() {
+      if (this.initialized) return
+      await this.restoreSession()
+      this.initialized = true
+    },
+
+    setSession(token, user) {
+      this.accessToken = token
+      this.user = user
     },
 
     async loginByName(username) {
       const { email, password } = toCreds(username)
       const { data } = await authApi.login(email, password)
       this.setSession(data.accessToken, data.user)
+      await this.markLoggedIn(data.user.id)
       return data.user
     },
 
@@ -48,20 +50,45 @@ export const useAuthStore = defineStore("auth", {
         likedRecipeIds: []
       })
       this.setSession(data.accessToken, data.user)
+      await this.markLoggedIn(data.user.id)
       return data.user
     },
 
     async refreshMe() {
       if (!this.user?.id) return null
       const { data } = await usersApi.getOne(this.user.id)
-      this.setSession(this.accessToken, data)
+      this.user = data
       return data
     },
 
-    logout() {
-      this.setSession("", null)
-    }
-  },
+    async logout() {
+      this.accessToken = ""
+      this.user = null
 
-  persist: false
+      try { await sessionApi.clear() } catch {}
+    },
+
+    async restoreSession() {
+      try {
+        const res = await sessionApi.get()
+
+        if (!res || res.status === 204) return null
+    
+        if (res.status === 200 && res.data?.user) {
+          this.user = res.data.user
+          this.accessToken = "session"
+          return this.user
+        }
+      } catch {
+        return null
+      }
+    
+      return null
+    },
+    
+    async markLoggedIn(userId) {
+      await sessionApi.set(userId)
+    }
+    
+  }
 })
