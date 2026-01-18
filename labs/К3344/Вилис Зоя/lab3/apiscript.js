@@ -16,10 +16,9 @@ async function getItems (apiUrl) {
         console.log(responseJson);
 
         const meals = responseJson.meals;
-        const meals1 = meals.slice(0, 10);
-        console.log(meals1);
+        console.log(meals);
 
-        for (let meal of meals1) {
+        for (let meal of meals) {
             const extResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`);
             const extResponseJson = await extResponse.json();
             const innerMeals = extResponseJson.meals;
@@ -30,23 +29,24 @@ async function getItems (apiUrl) {
                 image: innerMeals[0].strMealThumb
             });
         
+        meals.forEach((result) => {
             const card = document.createElement('div');
             card.classList = 'card-body';
 
             const content = `
                     <div class="card">
-                        <img src="${meal.strMealThumb}" class="card-img-top">
+                        <img src="${result.strMealThumb}" class="card-img-top">
                         <div class="card-body">
-                            <h4 class="card-title">${meal.strMeal}</h4>
-                            <p class="card-text">Click on this card to find the recipe for ${meal.strMeal}.</p>
+                            <h4 class="card-title">${result.strMeal}</h4>
+                            <p class="card-text">Click on this card to find the recipe for ${result.strMeal}.</p>
                             <p class="card-author">By <a href=profile.html>Venus</a></p>
                         </div>
                     </div>
             `;
 
             container.innerHTML += content;
-        
-            };
+            });
+        };
 
 
         //     const card = document.createElement('div');
