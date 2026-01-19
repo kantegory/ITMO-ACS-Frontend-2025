@@ -44,7 +44,7 @@
       "email": "%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B9@local.user",
       "password": "$2a$10$QHaG9EIsm.WlN/2AcMpCb.2XcUlpSxPidSg0XnDTkiUdK6wi7uWqq",
       "name": "Николай",
-      "theme": "light",
+      "theme": "dark",
       "subscriptions": [
         1000
       ],
@@ -4371,6 +4371,17 @@
       "photo": "https://www.themealdb.com/images/media/meals/a4kgf21763075288.jpg",
       "category": "Dessert",
       "area": "Argentinian"
+    },
+    {
+      "id": 53386,
+      "source": "mealdb",
+      "likes": 0,
+      "authorId": 1000,
+      "mealId": "53158",
+      "name": "Air fryer patatas bravas",
+      "photo": "https://www.themealdb.com/images/media/meals/3m8yae1763257951.jpg",
+      "category": "Vegetarian",
+      "area": "Spanish"
     }
   ],
   "sessions": [

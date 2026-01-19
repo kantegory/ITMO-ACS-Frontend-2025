@@ -25,9 +25,9 @@
     <div v-else class="card shadow-lg p-4">
       <img
         :src="meal.strMealThumb"
-        class="object-fit-cover mb-3"
         :alt="meal.strMeal"
-        style="width:100%"
+        class="object-fit-contain mb-3"
+        style="max-height: 50vh;"
       />
 
       <h2 class="h4">{{ meal.strMeal }}</h2>
