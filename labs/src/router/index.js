@@ -6,7 +6,7 @@ import RecipePage from '@/pages/RecipePage.vue'
 import ProfilePage from '@/pages/ProfilePage.vue'
 
 const router = createRouter({
-  history: createWebHistory(), // SPA //
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -19,7 +19,7 @@ const router = createRouter({
       component: SearchPage
     },
     {
-      path: '/recipe/:id', // id - параметр, понадобится для страницы рецепта //
+      path: '/recipe/:id',
       name: 'recipe',
       component: RecipePage
     },
