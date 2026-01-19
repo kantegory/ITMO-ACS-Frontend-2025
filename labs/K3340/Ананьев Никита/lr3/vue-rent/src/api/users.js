@@ -16,13 +16,23 @@ class UserApi {
         })
     }
 
+    identifyUserByEmail = async (email) => {
+        try {
+            const response = await this.API({url: `${this.base}?email=${email}`});
+            return response.data.length > 0;
+        } catch (error) {
+            console.error('Error identifying user by email:', error);
+            return false;
+        }
+    }
+
     createUser = async (data) => {
         return this.API({
             method: 'POST',
             url: this.base,
             data,
             headers: {
-            '   Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             }
         })
     }

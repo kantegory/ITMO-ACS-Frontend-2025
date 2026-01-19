@@ -1,17 +1,32 @@
 <template>
     <nav>
-        <router-link active-class="logo" :to="{ name: 'main' }">GreenRent</router-link>
+        <router-link class="logo" :to="{ name: 'main' }">GreenRent</router-link>
         <label for="citySelect" style="color: #3c8c5a; font-size: 18px;">Ваш город:</label>
         <select id="citySelect">
             <option>Санкт-Петербург</option>
             <option>Москва</option>
             <option>Екатеринбург</option>
         </select>   
-        <div class="nav-links" id="navLinks"></div>
+        <div class="nav-links" id="navLinks">
+            <template v-if="user.email">
+                <a href="#">Сдать в аренду</a>
+                <a href="#">Чаты</a>
+                <router-link :to="{ name: 'profile' }">{{ user.email }}</router-link>
+            </template>
+            <template v-else>
+                <router-link :to="{ name: 'login' }">Войти</router-link>
+                <router-link :to="{ name: 'register' }">Регистрация</router-link>
+            </template>
+        </div>
     </nav>
 </template>
 
 <script setup>
+import useUserStore from '@/stores/userStorage'
+import { storeToRefs } from 'pinia'
+
+const userStorage = useUserStore()
+const { user } = storeToRefs(userStorage)
 
 </script>
 

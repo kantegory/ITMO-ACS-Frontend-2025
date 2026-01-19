@@ -1,7 +1,7 @@
 <template>
 <div class="card">
     <img 
-        :src="`/images/${DEFAULT_PICTURE}`" 
+        :src="`/images/${(property.feed_img) ? property.feed_img : DEFAULT_PICTURE}`" 
         :alt="`list image of ${property.address}`"
     />
     
@@ -17,7 +17,7 @@
         </div>
         
         <p class="limited-text">
-            {{ property.area }} м², {{ property.rooms }} комнат({{ getRoomsWord(property.rooms) }})
+            {{ property.area }} м², {{ property.rooms }} {{ getRoomsWord(property.rooms) }}
             <span v-if="property.floor">, {{ property.floor }}-й этаж</span>
             <br>
             {{ property.description }}
