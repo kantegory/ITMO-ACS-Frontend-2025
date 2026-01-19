@@ -19,24 +19,31 @@
       </div>
 
       <div class="col-md-2">
-        <select v-model="type" class="form-select">
-          <option value="any">Любой</option>
-          <option value="1">Завтрак</option>
-          <option value="2">Обед</option>
-          <option value="3">Ужин</option>
-          <option value="4">Десерт</option>
-          <option value="5">Напиток</option>
-        </select>
-      </div>
+      <select v-model="category" class="form-select">
+        <option value="any">Любая категория</option>
+        <option
+          v-for="c in filters.categories"
+          :key="c.idCategory"
+          :value="c.strCategory"
+        >
+          {{ c.strCategory }}
+        </option>
+      </select>
+    </div>
 
-      <div class="col-md-2">
-        <select v-model="difficulty" class="form-select">
-          <option value="any">Любая</option>
-          <option value="1">Легко</option>
-          <option value="2">Средне</option>
-          <option value="3">Сложно</option>
-        </select>
-      </div>
+    <div class="col-md-2">
+      <select v-model="area" class="form-select">
+        <option value="any">Любая кухня</option>
+        <option
+          v-for="a in filters.areas"
+          :key="a"
+          :value="a"
+        >
+          {{ a }}
+        </option>
+      </select>
+    </div>
+
 
       <div class="d-flex flex-column align-items-center col-md-2">
         <p class="w-50">Ингредиенты</p>
@@ -69,24 +76,22 @@
           id="ingredientsToggle"
           type="button"
           class="mt-2"
-          @click="$emit('toggleIngredients')"
+          @click="ingredientsCollapsed = !ingredientsCollapsed"
         >
           {{ ingredientsCollapsed ? "Показать ещё" : "Скрыть" }}
         </button>
       </div>
     </div>
 
-
-
     <div v-if="store.loading" class="text-muted">Загрузка...</div>
 
-    <p v-else-if="filtered.length === 0" class="text-muted text-center">
+    <p v-else-if="store.list.length === 0" class="text-muted text-center">
       Ничего не найдено
     </p>
 
     <div v-else class="row g-3">
-      <div class="col-md-4" v-for="r in filtered" :key="r.id">
-        <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.id}`">
+      <div class="col-md-4" v-for="r in store.list" :key="r.idMeal">
+        <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.idMeal}`">
           <RecipeCard :recipe="r" />
         </router-link>
       </div>
@@ -95,62 +100,53 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue"
+import { ref, computed, watch, onMounted } from "vue"
 import BaseLayout from "@/components/BaseLayout.vue"
 import RecipeCard from "@/components/RecipeCard.vue"
-import { useRecipesStore } from "@/stores/recipes"
+import { useMealdbFiltersStore } from "@/stores/mealDBFilters"
+import { useMealsStore } from "@/stores/meals"
 
-const store = useRecipesStore()
+const filters = useMealdbFiltersStore()
+const store = useMealsStore()
 
 const query = ref("")
-const type = ref("any")
-const difficulty = ref("any")
-
+const category = ref("any")  // было type
+const area = ref("any")      // вместо difficulty
 const ingredientsCollapsed = ref(true)
 const selectedIngredients = ref([])
 
-const ingredients = computed(() => {
-  const set = new Set()
-  for (const r of store.list) {
-    const arr = Array.isArray(r.ingredients) ? r.ingredients : []
-    for (const ing of arr) {
-      const s = String(ing || "").trim()
-      if (s) set.add(s)
-    }
-  }
-  return Array.from(set).sort((a, b) => a.localeCompare(b, "ru"))
-})
+const ingredients = computed(() => filters.ingredients)
 
 function onIngredientToggle(ing, checked) {
   const set = new Set(selectedIngredients.value)
-  if (checked) set.add(ing)
-  else set.delete(ing)
+  checked ? set.add(ing) : set.delete(ing)
   selectedIngredients.value = Array.from(set)
 }
 
-const filtered = computed(() => {
-  let list = [...store.list]
-
-  const q = query.value.trim().toLowerCase()
-  if (q) list = list.filter(r => (r.name || "").toLowerCase().includes(q))
-
-  if (type.value !== "any") list = list.filter(r => String(r.type) === String(type.value))
-  if (difficulty.value !== "any") list = list.filter(r => String(r.difficulty) === String(difficulty.value))
-
-  if (selectedIngredients.value.length) {
-    const need = selectedIngredients.value.map(s => String(s).toLowerCase())
-    list = list.filter(r => {
-      const have = (Array.isArray(r.ingredients) ? r.ingredients : []).map(x => String(x).toLowerCase())
-      return need.every(n => have.includes(n))
-    })
+function buildParams() {
+  return {
+    q: query.value.trim() || "",
+    category: category.value === "any" ? "" : category.value,
+    area: area.value === "any" ? "" : area.value,
+    ingredients: selectedIngredients.value
   }
+}
 
-  return list
-})
-
+let timer = null
+function request() {
+  clearTimeout(timer)
+  timer = setTimeout(() => {
+    store.loadFiltered(buildParams())
+  }, 250)
+}
 
 onMounted(async () => {
-  await store.load()
+  await filters.loadAll()
+
+  await store.loadFiltered(buildParams())
 })
+
+watch([query, category, area, selectedIngredients], request, { deep: true })
+
 
 </script>

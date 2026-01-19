@@ -8,7 +8,8 @@ export const authApi = {
 export const recipesApi = {
   getAll: () => instance.get("/recipes"),
   getOne: id => instance.get(`/recipes/${id}`),
-  patch: (id, patch) => instance.patch(`/recipes/${id}`, patch)
+  patch: (id, patch) => instance.patch(`/recipes/${id}`, patch),
+  search: (params) => instance.get("/recipes/search", { params })
 }
 
 export const usersApi = {
@@ -21,4 +22,12 @@ export const sessionApi = {
   get: () => instance.get("/session"),
   set: (userId) => instance.post("/session", { userId }, { headers: { "Content-Type": "application/json" } }),
   clear: () => instance.delete("/session")
+}
+
+export const mealdbProxyApi = {
+  getProxy: (mealId) => instance.get(`/recipes/mealdb-proxy/${mealId}`),
+  upsertProxy: (data) =>
+    instance.post("/recipes/mealdb-upsert", data, {
+      headers: { "Content-Type": "application/json" }
+    })
 }

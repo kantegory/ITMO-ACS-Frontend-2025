@@ -49,13 +49,17 @@
         1000
       ],
       "savedRecipeIds": [
-        53373
+        53373,
+        53384
       ],
       "likedRecipeIds": [
-        53373
+        53373,
+        53262,
+        53383,
+        53384
       ],
       "id": 1002,
-      "lastLoginAt": 1768762299709
+      "lastLoginAt": 1768771592050
     }
   ],
   "recipes": [
@@ -75,7 +79,7 @@
       "type": 2,
       "authorId": 1000,
       "author": "TheMealDB",
-      "likes": 0
+      "likes": 1
     },
     {
       "id": 53373,
@@ -4334,7 +4338,46 @@
       "authorId": 1000,
       "author": "TheMealDB",
       "likes": 0
+    },
+    {
+      "id": 53383,
+      "source": "mealdb",
+      "likes": 1,
+      "mealId": "53262",
+      "name": "Adana kebab",
+      "photo": "https://www.themealdb.com/images/media/meals/04axct1763793018.jpg",
+      "category": "Lamb",
+      "area": "Turkish",
+      "authorId": 1000
+    },
+    {
+      "id": 53384,
+      "source": "mealdb",
+      "likes": 1,
+      "mealId": "53373",
+      "name": "Air Fryer Egg Rolls",
+      "photo": "https://www.themealdb.com/images/media/meals/grhn401765687086.jpg",
+      "category": "Side",
+      "area": "Chinese",
+      "authorId": 1000
+    },
+    {
+      "id": 53385,
+      "source": "mealdb",
+      "likes": 0,
+      "authorId": 1000,
+      "mealId": "53138",
+      "name": "Alfajores",
+      "photo": "https://www.themealdb.com/images/media/meals/a4kgf21763075288.jpg",
+      "category": "Dessert",
+      "area": "Argentinian"
     }
   ],
-  "session": null
+  "sessions": [
+    {
+      "id": 1,
+      "userId": 1002,
+      "at": 1768771592046
+    }
+  ]
 }
