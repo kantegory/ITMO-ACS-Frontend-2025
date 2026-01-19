@@ -51,7 +51,7 @@
       </p>
 
       <p class="mb-3">
-        <strong>Автор:</strong>
+        <strong>Автор: </strong>
         <router-link
           v-if="author?.id"
           class="text-decoration-none"
