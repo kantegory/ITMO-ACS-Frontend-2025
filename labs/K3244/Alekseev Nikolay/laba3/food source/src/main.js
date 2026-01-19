@@ -17,9 +17,6 @@ app.use(pinia)
 const auth = useAuthStore()
 await auth.init()
 
-const recipesStore = useRecipesStore()
-await recipesStore.load()
-
 app.use(router)
 await router.isReady()
 
