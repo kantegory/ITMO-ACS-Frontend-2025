@@ -44,15 +44,24 @@
       </section>
 
       <div class="mt-3 d-flex gap-2 align-items-center flex-wrap">
-        <RouterLink to="/profile/edit" class="btn btn-primary d-flex align-items-center">
+        <RouterLink to="/profile/edit" class="btn btn-primary d-flex align-items-center gap-2">
+          <svg width="20" height="20" class="icon-svg">
+            <use href="#edit" />
+          </svg>
           Изменить данные
         </RouterLink>
 
-        <RouterLink to="/password-recovery" class="btn btn-primary d-flex align-items-center">
+        <RouterLink to="/password-recovery" class="btn btn-primary d-flex align-items-center gap-2">
+          <svg width="20" height="20" class="icon-svg">
+            <use href="#lock" />
+          </svg>
           Сменить пароль
         </RouterLink>
 
-        <button class="btn btn-outline-secondary" @click="toggleTheme">
+        <button class="btn btn-outline-secondary d-flex align-items-center gap-2" @click="toggleTheme">
+          <svg width="20" height="20" class="icon-svg">
+            <use href="#moon" />
+          </svg>
           {{ theme === 'light' ? 'Тёмная тема' : 'Светлая тема' }}
         </button>
       </div>
@@ -64,8 +73,8 @@
 import { computed, onMounted } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import BaseLayout from '@/layouts/BaseLayout.vue'
-import { useProfileStore } from '@/stores/profile'
-import { useThemeStore } from '@/stores/themeStore'
+import { useProfileStore } from '@/stores/profile.js'
+import { useThemeStore } from '@/stores/themeStore.js'
 
 const router = useRouter()
 const profileStore = useProfileStore()
@@ -96,3 +105,20 @@ const user = computed(() => profileStore.user)
 const upcomingBookings = computed(() => profileStore.upcomingBookings)
 const pastBookings = computed(() => profileStore.pastBookings)
 </script>
+
+<style scoped>
+.icon-svg {
+  flex-shrink: 0;
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.btn-primary .icon-svg {
+  fill: white;
+}
+
+.btn-outline-secondary .icon-svg {
+  fill: currentColor;
+}
+</style>

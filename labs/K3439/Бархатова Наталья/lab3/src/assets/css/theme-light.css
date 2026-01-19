@@ -1,7 +1,8 @@
 :root {
   --emerald: #046D55;
   --emerald-link: #09493A;
-  --mint: #A7D7C5;
+  --mint: #9ff4cd;
+  --dark-mint: #5c9178;
   --gold: #D4AF37;
 
   --success-green: #2E7D32;
@@ -68,14 +69,17 @@ a:hover {
 }
 
 .btn-primary {
-  background-color: var(--emerald);
-  border-color: var(--emerald);
-  color: #ffffff;
-}
-.btn-primary:hover {
-  background-color: var(--mint);
-  border-color: var(--mint);
-  color: var(--text-main);
+  --bs-btn-bg: var(--emerald);
+  --bs-btn-border-color: var(--emerald);
+  --bs-btn-color: #ffffff;
+
+  --bs-btn-hover-bg: var(--mint);
+  --bs-btn-hover-border-color: var(--mint);
+  --bs-btn-hover-color: var(--text-main);
+
+  --bs-btn-active-bg: var(--dark-mint);
+  --bs-btn-active-border-color: var(--dark-mint);
+  --bs-btn-active-color: var(--text-main);
 }
 
 .btn-gold {

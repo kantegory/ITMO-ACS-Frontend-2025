@@ -2,6 +2,7 @@
   --emerald: #4DB6A1;
   --emerald-link: #6ED1BE;
   --mint: #2F6F61;
+  --dark-mint: #1d453d;
   --gold: #E0C36A;
 
   --success-green: #4CAF50;
@@ -57,4 +58,8 @@ body {
   --bs-btn-hover-bg: var(--mint);
   --bs-btn-hover-border-color: var(--mint);
   --bs-btn-hover-color: var(--text-main);
+
+  --bs-btn-active-bg: var(--dark-mint);
+  --bs-btn-active-border-color: var(--dark-mint);
+  --bs-btn-active-color: var(--text-main);
 }
