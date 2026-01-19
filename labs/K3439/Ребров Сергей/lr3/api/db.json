@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "email": "Sergey081203@ya.ru",
+      "password": "$2a$10$37fnhvAmEs0AzbT3isBVzOJSRU1.VKeh8AbjCH2zJdzQdujOoTfoy",
+      "name": "Сергей Ребров",
+      "role": 1,
+      "id": 1
+    },
+    {
+      "email": "ivan@mail.ru",
+      "password": "$2a$10$elZDfj8s6rWYSmUjKq0Ciu2V.7539KEan3Ecg5LngRjkEfzPZKS4m",
+      "name": "Иван Иванов",
+      "role": 2,
+      "id": 2
+    },
+    {
+      "email": "Sergey08120213@ya.ru",
+      "password": "$2a$10$I3DfySDv9U7v2QSl.VfAJexS64.fTJxWhsnehyVvnBw.igE.HmW5W",
+      "name": "123",
+      "role": "1",
+      "id": 3
+    }
+  ],
+  "vacancies": [
+    {
+      "id": 1,
+      "name": "Front-end разработчик",
+      "company": "IT-компания",
+      "salary": "100 000 RUB",
+      "experience": "2-4 года",
+      "description": "Мы ищем талантливого Front-end разработчика, который будет создавать современные веб-приложения. В команде вы будете работать над проектами различной сложности, участвовать в обсуждении архитектуры и внедрять новые технологии.",
+      "userId": 2
+    }
+  ]
+}

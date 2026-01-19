@@ -64,8 +64,9 @@ body, html {
 	color: var(--bg-text-color);
 }
 
-.vacancy-card {
+.card {
 	background-color: var(--fg-color);
+	color: var(--bg-text-color);
 	padding: 1.5rem;
 	border-radius: 10px;
 	box-shadow: 0 0 15px rgba(0,0,0,0.1);
@@ -116,6 +117,16 @@ body, html {
 	margin-bottom: 20px;
 }
 
-.modal-content {
-	background-color: var(--bg-color);
+input {
+	color: var(--text-color) !important;
+	background-color: var(--bg-color) !important;
+	border: none !important;
+	box-shadow: 0 0 1px #000;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 1px #000 !important;
 }
