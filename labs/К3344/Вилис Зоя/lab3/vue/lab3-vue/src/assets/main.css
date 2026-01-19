@@ -1,0 +1,169 @@
+body {
+    font-family: Montserrat Alternates;
+    background-color: #E6D8C3;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    color: #2a3c31;
+    background-color: #C2A68C;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 4rem;
+    width: 100%;
+}
+
+.heading > .btn, h1 {
+    grid-row: 1;
+    align-self: center;
+}
+
+.heading > h1 {
+    font-size: 1.5em;
+    font-weight: 800;
+}
+
+
+.home-outer {
+    font-family: Montserrat Alternates;
+    background-color: #E6D8C3;
+    margin-top: 15px;
+}
+
+.latest {
+    font-size: 1.5em;
+    margin-left: 20px;
+    color: #2a3c31;
+}
+
+.home-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.card {
+    background-color: #F5F5F0;
+    font-size: 0.75em;
+    text-wrap: wrap;
+    width: 25rem;
+    margin: 15px;
+    border-radius: 20px;
+    border-color: #5D866C;
+}
+
+.card-title {
+    font-size: 1.5em;
+}
+
+.card > img {
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.offcanvas-top {
+    background-color: #e3ded7;
+    font-family: Montserrat Alternates;
+    color: #2a3c31;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.offcanvas-header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+}
+
+.offcanvas-title {
+    padding-left: 51.5%;
+    font-size: 1.5em;
+}
+
+.offcanvas-body {
+    font-size: 0.91em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    gap: 5px
+}
+
+a {
+    text-decoration: none;
+    color: #2a3c31;
+}
+
+.acct {
+    display: grid;
+    grid-template: 1fr 2fr / 1fr 3fr 2fr;
+    color: #2a3c31;
+    margin-top: 20px;
+}
+
+.acctname > h3 {
+    font-weight: 600;
+}
+
+.acctinfo {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.acctinfo > h5 {
+    font-weight: 400;
+}
+
+.acct > img {
+    grid-row: span 2;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #2a3c319a;
+    border-radius: 5px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+.gallery > * {
+    width: 90%;
+}
+
+.parameters {
+    display: grid;
+    color: #2a3c31;
+    grid-template: 1fr/ 1fr 1fr;
+    margin-left: 8%;
+    margin-right: 7%;
+}
+
+.latestbox {
+    padding-top: 10px;
+}
+
+.dropdown-menu {
+    width: 60%;
+    padding-left: 7px;
+    font-size: 1.3rem;
+    background-color: #F5F5F0;
+}
+
+.dropdown-button {
+    width: 100%;
+    border: 0px;
+    background-color: #F5F5F0;
+    text-align: left;
+}
