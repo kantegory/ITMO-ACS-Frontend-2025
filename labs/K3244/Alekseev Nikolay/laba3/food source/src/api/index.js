@@ -1,4 +1,5 @@
 import instance from "./instance"
+import CommentsApi from "@/api/comments"
 
 export const authApi = {
   login: (email, password) => instance.post("/login", { email, password }),
@@ -31,3 +32,5 @@ export const mealdbProxyApi = {
       headers: { "Content-Type": "application/json" }
     })
 }
+
+export const commentsApi = new CommentsApi(instance)

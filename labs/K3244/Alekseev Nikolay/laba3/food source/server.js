@@ -140,6 +140,10 @@ server.post("/recipes/mealdb-upsert", (req, res) => {
   return res.status(201).json(created)
 })
 
+if (server.db.get("comments").value() === undefined) {
+  server.db.set("comments", []).write()
+}
+
 server.use(auth)
 server.use(router)
 

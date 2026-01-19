@@ -85,6 +85,58 @@
           <use href="/sprite.svg#icon-heart"></use>
         </svg>
       </div>
+
+      <hr class="my-4" />
+
+      <h5>Комментарии</h5>
+
+      <div v-if="commentsLoading" class="text-muted">
+        Загрузка комментариев…
+      </div>
+
+      <p v-else-if="comments.length === 0" class="text-muted">
+        Комментариев пока нет
+      </p>
+
+      <div v-else class="d-flex flex-column gap-3 mb-3">
+        <div v-for="c in comments" :key="c.id" class="border rounded p-2">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div>
+              <strong>{{ c.user?.name || "Пользователь" }}</strong>
+              <p class="mb-1">{{ c.text }}</p>
+              <small class="text-muted">
+                {{ new Date(c.createdAt).toLocaleString() }}
+              </small>
+            </div>
+
+            <button
+              v-if="auth.user && Number(c.userId) === Number(auth.user.id)"
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              @click="deleteComment(c.id)"
+            >
+              Удалить
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="auth.user" class="mt-3">
+        <textarea
+          v-model="commentText"
+          class="form-control mb-2"
+          rows="3"
+          placeholder="Написать комментарий…"
+        />
+        <button class="btn btn-primary" @click="addComment">
+          Отправить
+        </button>
+      </div>
+
+      <p v-else class="text-muted">
+        Войдите, чтобы оставить комментарий
+      </p>
+      
     </div>
   </BaseLayout>
 </template>
@@ -95,7 +147,7 @@ import { useRoute } from "vue-router"
 import BaseLayout from "@/components/BaseLayout.vue"
 import { mealdbApi } from "@/api/mealDB"
 import { useMealdbProxyActions } from "@/composables/useMealdbProxyActions"
-import { usersApi } from "@/api"
+import { usersApi, commentsApi } from "@/api"
 import { useAuthStore } from "@/stores/auth"
 
 const route = useRoute()
@@ -110,6 +162,11 @@ const author = ref(null)
 
 const loading = ref(false)
 const meal = ref(null)
+
+const comments = ref([])
+const commentText = ref("")
+const commentsLoading = ref(false)
+
 
 const mealRef = computed(() => meal.value || {})
 
@@ -150,7 +207,6 @@ const isSubscribed = computed(() => {
 
 async function loadAuthor() {
   const aid = Number(proxy.value?.authorId)
-  console.log(proxy.value);
   
   if (!aid) {
     author.value = null
@@ -178,6 +234,45 @@ async function toggleSub() {
   await patchMe({ subscriptions: Array.from(set) })
 }
 
+async function loadComments() {
+  if (!proxy.value?.id) return
+  commentsLoading.value = true
+  try {
+    const { data } = await commentsApi.getByRecipe(proxy.value.id)
+    comments.value = data
+  } finally {
+    commentsLoading.value = false
+  }
+}
+
+async function addComment() {
+  if (!auth.user?.id) return
+  if (!commentText.value.trim()) return
+  if (!proxy.value?.id) return
+
+  await commentsApi.create({
+    recipeId: proxy.value.id,
+    userId: auth.user.id,
+    text: commentText.value.trim(),
+    createdAt: Date.now()
+  })
+
+  commentText.value = ""
+  await loadComments()
+}
+
+async function deleteComment(commentId) {
+  if (!auth.user?.id) return
+
+  const c = comments.value.find(x => Number(x.id) === Number(commentId))
+  if (!c) return
+
+  // удалять может автор комментария
+  if (Number(c.userId) !== Number(auth.user.id)) return
+
+  await commentsApi.remove(commentId)
+  await loadComments()
+}
 
 onMounted(async () => {
   const idMeal = String(route.params.id || "")
@@ -193,6 +288,7 @@ onMounted(async () => {
       await ensureProxy()
       await loadProxyIfExists()
       await loadAuthor()
+      await loadComments()
     }
 
 
