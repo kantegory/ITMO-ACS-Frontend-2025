@@ -44,19 +44,21 @@
       "email": "%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B9@local.user",
       "password": "$2a$10$QHaG9EIsm.WlN/2AcMpCb.2XcUlpSxPidSg0XnDTkiUdK6wi7uWqq",
       "name": "Николай",
-      "theme": "dark",
+      "theme": "light",
       "subscriptions": [
         1000
       ],
       "savedRecipeIds": [
         53373,
-        53384
+        53384,
+        53385
       ],
       "likedRecipeIds": [
         53373,
         53262,
         53383,
-        53384
+        53384,
+        53385
       ],
       "id": 1002,
       "lastLoginAt": 1768809098737
@@ -4364,7 +4366,7 @@
     {
       "id": 53385,
       "source": "mealdb",
-      "likes": 0,
+      "likes": 1,
       "authorId": 1000,
       "mealId": "53138",
       "name": "Alfajores",
@@ -4391,5 +4393,13 @@
       "at": 1768809098733
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "recipeId": 53385,
+      "userId": 1002,
+      "text": "sd",
+      "createdAt": 1768815893823,
+      "id": 1
+    }
+  ]
 }

@@ -3,6 +3,7 @@ import App from "./App.vue"
 import router from "./router"
 import pinia from "./stores"
 import { useAuthStore } from "@/stores/auth"
+import { applyTheme } from "@/theme"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
@@ -18,4 +19,8 @@ await auth.init()
 app.use(router)
 await router.isReady()
 
-app.mount('#app')
+auth.restoreSession().finally(() => {
+  const t = auth.user?.theme
+  applyTheme(t === "light" || t === "dark" ? t : null)
+  app.mount("#app")
+})

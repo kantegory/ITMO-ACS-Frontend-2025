@@ -81,8 +81,8 @@
 
       <div class="mt-3 d-flex align-items-center gap-2">
         <span>{{ likes }}</span>
-        <svg class="svg-icon fill" aria-hidden="true">
-          <use href="/sprite.svg#icon-heart"></use>
+        <svg class="svg-icon fill icon-heart" aria-hidden="true">
+          <use href="../../sprite.svg#icon-heart"></use>
         </svg>
       </div>
 
