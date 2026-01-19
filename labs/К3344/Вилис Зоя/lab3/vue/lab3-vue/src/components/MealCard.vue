@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img :src="imageUrl" class="card-img-top">
+        <img :src="thumbnail" class="card-img-top">
         <div class="card-body">
             <h4 class="card-title">{{ meal }}</h4>
             <p class="card-text">Click on this card to find the recipe for {{ meal }}.</p>

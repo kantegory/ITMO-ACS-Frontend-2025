@@ -31,6 +31,9 @@ class MealsApi {
    }
    return extended;
  }
+}
+
+export default MealsApi
 //     const response = await this.getAll();
 //     const meals = response.data.meals;
 
@@ -46,7 +49,6 @@ class MealsApi {
 //         });
 //       }
 //  }
-}
+// }
 
 
-export default MealsApi

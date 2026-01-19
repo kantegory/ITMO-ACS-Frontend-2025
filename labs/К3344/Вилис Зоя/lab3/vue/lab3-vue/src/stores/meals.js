@@ -17,8 +17,7 @@ const useMealsStore = defineStore('meals', {
      const response = await mealsApi.getItems();
 
 
-     this.meals = response.data;
-
+     this.meals = response.data.meals;
 
      return response;
    },
