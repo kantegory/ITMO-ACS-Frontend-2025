@@ -1,10 +1,8 @@
-// src/api/comments.js
 class CommentsApi {
   constructor(instance) {
     this.API = instance
   }
 
-  // получить комментарии к рецепту (recipeId = id прокси-рецепта в db.json)
   getByRecipe = async (recipeId) => {
     return this.API({
       url: "/comments",
@@ -27,7 +25,7 @@ class CommentsApi {
     })
   }
 
-  // (опционально) удалить комментарий
+  // удалить комментарий
   remove = async (id) => {
     return this.API({
       method: "DELETE",

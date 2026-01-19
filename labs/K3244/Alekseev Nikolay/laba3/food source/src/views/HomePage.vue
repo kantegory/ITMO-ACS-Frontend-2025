@@ -12,12 +12,12 @@
         </router-link>
       </div>
     </header>
+
     <div class="row g-4">
       <aside class="col-md-3">
         <div class="card p-3">
           <h5 class="mb-3">Фильтры</h5>
 
-          <!-- Поиск -->
           <div class="mb-3">
             <input
               v-model="query"
@@ -26,35 +26,24 @@
             />
           </div>
 
-          <!-- Категория -->
           <div class="mb-3">
             <select v-model="category" class="form-select">
               <option value="any">Любая категория</option>
-              <option
-                v-for="c in filters.categories"
-                :key="c.idCategory"
-                :value="c.strCategory"
-              >
-                {{ c.strCategory }}
+              <option v-for="c in categories" :key="c" :value="c">
+                {{ c }}
               </option>
             </select>
           </div>
 
-          <!-- Кухня -->
           <div class="mb-3">
             <select v-model="area" class="form-select">
               <option value="any">Любая кухня</option>
-              <option
-                v-for="a in filters.areas"
-                :key="a"
-                :value="a"
-              >
+              <option v-for="a in areas" :key="a" :value="a">
                 {{ a }}
               </option>
             </select>
           </div>
 
-          <!-- Ингредиенты -->
           <div>
             <p class="fw-semibold mb-2">Ингредиенты</p>
 
@@ -100,8 +89,8 @@
         </p>
 
         <div v-else class="row g-3">
-          <div class="col-md-4" v-for="r in store.list" :key="r.idMeal">
-            <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.idMeal}`">
+          <div class="col-md-4" v-for="r in store.list" :key="r.id">
+            <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.id}`">
               <RecipeCard :recipe="r" />
             </router-link>
           </div>
@@ -112,22 +101,24 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue"
+import { ref, watch, onMounted } from "vue"
 import BaseLayout from "@/components/BaseLayout.vue"
 import RecipeCard from "@/components/RecipeCard.vue"
-import { useMealdbFiltersStore } from "@/stores/mealDBFilters"
-import { useMealsStore } from "@/stores/meals"
+import { useRecipesStore } from "@/stores/recipes"
+import { filtersApi } from "@/api"
 
-const filters = useMealdbFiltersStore()
-const store = useMealsStore()
+const store = useRecipesStore()
 
 const query = ref("")
-const category = ref("any")  // было type
-const area = ref("any")      // вместо difficulty
+const category = ref("any")
+const area = ref("any")
+
+const categories = ref([])
+const areas = ref([])
+const ingredients = ref([])
+
 const ingredientsCollapsed = ref(true)
 const selectedIngredients = ref([])
-
-const ingredients = computed(() => filters.ingredients)
 
 function onIngredientToggle(ing, checked) {
   const set = new Set(selectedIngredients.value)
@@ -138,8 +129,8 @@ function onIngredientToggle(ing, checked) {
 function buildParams() {
   return {
     q: query.value.trim() || "",
-    category: category.value === "any" ? "" : category.value,
-    area: area.value === "any" ? "" : area.value,
+    category: category.value,
+    area: area.value,
     ingredients: selectedIngredients.value
   }
 }
@@ -153,12 +144,13 @@ function request() {
 }
 
 onMounted(async () => {
-  await filters.loadAll()
+  const { data } = await filtersApi.getAll()
+  categories.value = Array.isArray(data?.categories) ? data.categories : []
+  areas.value = Array.isArray(data?.areas) ? data.areas : []
+  ingredients.value = Array.isArray(data?.ingredients) ? data.ingredients : []
 
   await store.loadFiltered(buildParams())
 })
 
 watch([query, category, area, selectedIngredients], request, { deep: true })
-
-
 </script>

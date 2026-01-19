@@ -18,35 +18,36 @@
 
     <div v-if="loading" class="text-muted">Загрузка...</div>
 
-    <div v-else-if="!meal" class="text-muted text-center">
+    <div v-else-if="!recipe" class="text-muted text-center">
       Рецепт не найден
     </div>
 
     <div v-else class="card shadow-lg p-4">
       <img
-        :src="meal.strMealThumb"
-        :alt="meal.strMeal"
+        v-if="recipe.photo"
+        :src="recipe.photo"
+        :alt="recipe.name"
         class="object-fit-contain mb-3"
-        style="max-height: 50vh;"
+        style="max-height: 30vh; width: 100%;"
       />
 
-      <h2 class="h4">{{ meal.strMeal }}</h2>
+      <h2 class="h4">{{ recipe.name }}</h2>
 
       <p class="small text-muted" style="white-space: pre-line;">
-        {{ meal.strInstructions }}
+        {{ recipe.text }}
       </p>
 
-      <p>
+      <p v-if="(recipe.ingredients || []).length">
         <strong>Ингредиенты:</strong>
-        {{ ingredients.join(", ") }}
+        {{ (recipe.ingredients || []).join(", ") }}
       </p>
 
-      <p v-if="meal.strCategory">
-        <strong>Категория:</strong> {{ meal.strCategory }}
+      <p v-if="recipe.category">
+        <strong>Категория:</strong> {{ recipe.category }}
       </p>
 
-      <p v-if="meal.strArea">
-        <strong>Кухня:</strong> {{ meal.strArea }}
+      <p v-if="recipe.area">
+        <strong>Кухня:</strong> {{ recipe.area }}
       </p>
 
       <p class="mb-3">
@@ -59,7 +60,6 @@
           {{ isSubscribed ? "Отписаться" : "Подписаться" }}
         </button>
       </p>
-
 
       <div class="d-flex flex-wrap gap-2 mt-3">
         <button
@@ -80,7 +80,7 @@
       </div>
 
       <div class="mt-3 d-flex align-items-center gap-2">
-        <span>{{ likes }}</span>
+        <span>{{ recipe.likes || 0 }}</span>
         <svg class="svg-icon fill icon-heart" aria-hidden="true">
           <use href="../../sprite.svg#icon-heart"></use>
         </svg>
@@ -136,7 +136,6 @@
       <p v-else class="text-muted">
         Войдите, чтобы оставить комментарий
       </p>
-      
     </div>
   </BaseLayout>
 </template>
@@ -145,76 +144,44 @@
 import { ref, computed, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import BaseLayout from "@/components/BaseLayout.vue"
-import { mealdbApi } from "@/api/mealDB"
-import { useMealdbProxyActions } from "@/composables/useMealdbProxyActions"
-import { usersApi, commentsApi } from "@/api"
+import { recipesApi, usersApi, commentsApi } from "@/api"
 import { useAuthStore } from "@/stores/auth"
 
 const route = useRoute()
-
-const THEMEALDB_USER_ID = 999999
-
 const auth = useAuthStore()
+
 const me = computed(() => auth.user)
 
-const author = ref(null)
-
-
 const loading = ref(false)
-const meal = ref(null)
+const recipe = ref(null)
+const author = ref(null)
 
 const comments = ref([])
 const commentText = ref("")
 const commentsLoading = ref(false)
 
-
-const mealRef = computed(() => meal.value || {})
-
-const {
-  proxy,
-  likes,
-  isLiked,
-  isSaved,
-  loadProxyIfExists,
-  ensureProxy,
-  toggleLike,
-  toggleSave
-} = useMealdbProxyActions(mealRef)
-
-const ingredients = computed(() => {
-  if (!meal.value) return []
-  const out = []
-  for (let i = 1; i <= 20; i++) {
-    const ing = String(meal.value[`strIngredient${i}`] ?? "").trim()
-    if (ing) out.push(ing)
-  }
-  return out
-})
-
 const canSubscribe = computed(() => {
-  const authorId = Number(proxy.value?.authorId)
+  const authorId = Number(recipe.value?.authorId)
   const myId = Number(me.value?.id)
   if (!me.value || !authorId || !myId) return false
   if (authorId === myId) return false
-  if (authorId === THEMEALDB_USER_ID) return false
   return true
 })
 
 const isSubscribed = computed(() => {
   const set = new Set((me.value?.subscriptions || []).map(Number))
-  return set.has(Number(proxy.value?.authorId))
+  return set.has(Number(recipe.value?.authorId))
 })
 
-async function loadAuthor() {
-  const aid = Number(proxy.value?.authorId)
-  
-  if (!aid) {
-    author.value = null
-    return
-  }
-  const { data } = await usersApi.getOne(aid)
-  author.value = data
-}
+const isSaved = computed(() => {
+  const set = new Set((me.value?.savedRecipeIds || []).map(Number))
+  return set.has(Number(recipe.value?.id))
+})
+
+const isLiked = computed(() => {
+  const set = new Set((me.value?.likedRecipeIds || []).map(Number))
+  return set.has(Number(recipe.value?.id))
+})
 
 async function patchMe(patch) {
   if (!me.value?.id) return null
@@ -223,9 +190,20 @@ async function patchMe(patch) {
   return data
 }
 
+async function loadAuthor() {
+  const aid = Number(recipe.value?.authorId)
+  if (!aid) {
+    author.value = null
+    return
+  }
+  const { data } = await usersApi.getOne(aid)
+  author.value = data
+}
+
 async function toggleSub() {
-  const aid = Number(proxy.value?.authorId)
+  const aid = Number(recipe.value?.authorId)
   if (!aid) return
+  if (!me.value?.id) return
 
   const current = Array.isArray(me.value?.subscriptions) ? me.value.subscriptions : []
   const set = new Set(current.map(Number))
@@ -234,12 +212,44 @@ async function toggleSub() {
   await patchMe({ subscriptions: Array.from(set) })
 }
 
+async function toggleSave() {
+  if (!me.value?.id) return
+  const rid = Number(recipe.value?.id)
+  if (!rid) return
+
+  const current = Array.isArray(me.value?.savedRecipeIds) ? me.value.savedRecipeIds : []
+  const set = new Set(current.map(Number))
+  set.has(rid) ? set.delete(rid) : set.add(rid)
+
+  await patchMe({ savedRecipeIds: Array.from(set) })
+}
+
+async function toggleLike() {
+  if (!me.value?.id) return
+  const rid = Number(recipe.value?.id)
+  if (!rid) return
+
+  const current = Array.isArray(me.value?.likedRecipeIds) ? me.value.likedRecipeIds : []
+  const set = new Set(current.map(Number))
+
+  const has = set.has(rid)
+  has ? set.delete(rid) : set.add(rid)
+
+  await patchMe({ likedRecipeIds: Array.from(set) })
+
+  const nextLikes = Math.max(0, Number(recipe.value.likes || 0) + (has ? -1 : 1))
+  const { data: updatedRecipe } = await recipesApi.patch(rid, { likes: nextLikes })
+  recipe.value = updatedRecipe
+}
+
 async function loadComments() {
-  if (!proxy.value?.id) return
+  const rid = Number(recipe.value?.id)
+  if (!rid) return
+
   commentsLoading.value = true
   try {
-    const { data } = await commentsApi.getByRecipe(proxy.value.id)
-    comments.value = data
+    const { data } = await commentsApi.getByRecipe(rid)
+    comments.value = Array.isArray(data) ? data : []
   } finally {
     commentsLoading.value = false
   }
@@ -248,10 +258,11 @@ async function loadComments() {
 async function addComment() {
   if (!auth.user?.id) return
   if (!commentText.value.trim()) return
-  if (!proxy.value?.id) return
+  const rid = Number(recipe.value?.id)
+  if (!rid) return
 
   await commentsApi.create({
-    recipeId: proxy.value.id,
+    recipeId: rid,
     userId: auth.user.id,
     text: commentText.value.trim(),
     createdAt: Date.now()
@@ -263,11 +274,8 @@ async function addComment() {
 
 async function deleteComment(commentId) {
   if (!auth.user?.id) return
-
   const c = comments.value.find(x => Number(x.id) === Number(commentId))
   if (!c) return
-
-  // удалять может автор комментария
   if (Number(c.userId) !== Number(auth.user.id)) return
 
   await commentsApi.remove(commentId)
@@ -275,23 +283,18 @@ async function deleteComment(commentId) {
 }
 
 onMounted(async () => {
-  const idMeal = String(route.params.id || "")
-  if (!idMeal) return
+  const rid = Number(route.params.id)
+  if (!rid) return
 
   loading.value = true
   try {
-    const { data } = await mealdbApi.lookupById(idMeal)
-    meal.value = data?.meals?.[0] ?? null
+    const { data } = await recipesApi.getOne(rid)
+    recipe.value = data || null
 
-    // подтянуть лайки / сохранённые из db.json, если прокси уже существует
-    if (meal.value) {
-      await ensureProxy()
-      await loadProxyIfExists()
+    if (recipe.value) {
       await loadAuthor()
       await loadComments()
     }
-
-
   } finally {
     loading.value = false
   }

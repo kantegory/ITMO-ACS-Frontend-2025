@@ -31,7 +31,7 @@
         <strong>Автор:</strong> {{ authorText }}
       </p>
 
-      <div v-if="likes != null" class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-3">
         <p class="d-inline mb-0">{{ likes }}</p>
         <svg class="svg-icon fill icon-heart" aria-hidden="true">
           <use href="../../sprite.svg#icon-heart"></use>
@@ -42,86 +42,34 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue"
-import { useMealdbProxyActions } from "@/composables/useMealdbProxyActions"
+import { computed } from "vue"
 
 const props = defineProps({
   recipe: { type: Object, required: true }
 })
 
-const title = computed(() => {
-  return (
-    props.recipe?.strMeal ??
-    props.recipe?.name ??
-    "Без названия"
-  )
-})
+const title = computed(() => String(props.recipe?.name || "Без названия"))
 
-const img = computed(() => {
-  return (
-    props.recipe?.strMealThumb ??
-    props.recipe?.photo ??
-    ""
-  )
-})
+const img = computed(() => String(props.recipe?.photo || ""))
 
 const desc = computed(() => {
-  const t =
-    props.recipe?.strInstructions ??
-    props.recipe?.text ??
-    ""
-  return String(t).trim().slice(0, 160)
+  const t = String(props.recipe?.text || "").trim()
+  return t ? t.slice(0, 160) : ""
 })
 
-function mealdbIngredients(r) {
-  const out = []
-  for (let i = 1; i <= 20; i++) {
-    const v = r?.[`strIngredient${i}`]
-    const s = String(v ?? "").trim()
-    if (s) out.push(s)
-  }
-  return out
-}
+const ingredientsArr = computed(() =>
+  Array.isArray(props.recipe?.ingredients) ? props.recipe.ingredients.filter(Boolean) : []
+)
 
-const ingredientsArr = computed(() => {
-  if (Array.isArray(props.recipe?.ingredients)) return props.recipe.ingredients.filter(Boolean)
-  return mealdbIngredients(props.recipe)
-})
+const ingredientsText = computed(() =>
+  ingredientsArr.value.length ? ingredientsArr.value.join(", ") : ""
+)
 
-const ingredientsText = computed(() => {
-  return ingredientsArr.value.length ? ingredientsArr.value.join(", ") : ""
-})
+const categoryText = computed(() => String(props.recipe?.category || ""))
 
-const categoryText = computed(() => {
-  return (
-    props.recipe?.strCategory ??
-    props.recipe?.category ??
-    ""
-  )
-})
+const areaText = computed(() => String(props.recipe?.area || ""))
 
-const areaText = computed(() => {
-  return (
-    props.recipe?.strArea ??
-    props.recipe?.area ??
-    ""
-  )
-})
+const authorText = computed(() => String(props.recipe?.author || ""))
 
-const authorText = computed(() => {
-  return props.recipe?.author ?? "TheMealDB"
-})
-
-
-const isMealdb = computed(() => Boolean(props.recipe?.idMeal))
-
-const {
-  likes,
-  loadProxyIfExists,
-} = useMealdbProxyActions(computed(() => props.recipe))
-
-onMounted(() => {
-  if (isMealdb.value) loadProxyIfExists()
-})
-
+const likes = computed(() => Number(props.recipe?.likes || 0))
 </script>

@@ -3,6 +3,7 @@ import App from "./App.vue"
 import router from "./router"
 import pinia from "./stores"
 import { useAuthStore } from "@/stores/auth"
+import { useRecipesStore } from "@/stores/recipes"
 import { applyTheme } from "@/theme"
 
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -15,6 +16,9 @@ app.use(pinia)
 
 const auth = useAuthStore()
 await auth.init()
+
+const recipesStore = useRecipesStore()
+await recipesStore.load()
 
 app.use(router)
 await router.isReady()

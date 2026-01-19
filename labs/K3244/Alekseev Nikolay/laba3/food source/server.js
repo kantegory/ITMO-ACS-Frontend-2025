@@ -10,10 +10,12 @@ server.db = router.db
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
-const THEMEALDB_USER_ID = 1000
-
 if (server.db.get("sessions").value() === undefined) {
   server.db.set("sessions", []).write()
+}
+
+if (server.db.get("comments").value() === undefined) {
+  server.db.set("comments", []).write()
 }
 
 server.get("/session", (req, res) => {
@@ -41,11 +43,13 @@ server.delete("/session", (req, res) => {
   return res.json({ ok: true })
 })
 
-
 server.get("/recipes/search", (req, res) => {
   const q = String(req.query.q || "").trim().toLowerCase()
-  const type = req.query.type != null && req.query.type !== "any" ? Number(req.query.type) : null
-  const difficulty = req.query.difficulty != null && req.query.difficulty !== "any" ? Number(req.query.difficulty) : null
+
+  const category =
+    req.query.category != null && req.query.category !== "any" ? String(req.query.category) : null
+
+  const area = req.query.area != null && req.query.area !== "any" ? String(req.query.area) : null
 
   let ingredients = req.query.ingredient ?? req.query.ingredients ?? []
   ingredients = Array.isArray(ingredients) ? ingredients : [ingredients]
@@ -61,12 +65,12 @@ server.get("/recipes/search", (req, res) => {
     list = list.filter(r => String(r?.name || "").toLowerCase().includes(q))
   }
 
-  if (type != null) {
-    list = list.filter(r => Number(r?.type) === type)
+  if (category != null) {
+    list = list.filter(r => String(r?.category || "") === category)
   }
 
-  if (difficulty != null) {
-    list = list.filter(r => Number(r?.difficulty) === difficulty)
+  if (area != null) {
+    list = list.filter(r => String(r?.area || "") === area)
   }
 
   if (ingredients.length) {
@@ -79,70 +83,28 @@ server.get("/recipes/search", (req, res) => {
   return res.json(list)
 })
 
-function nextRecipeId() {
-  const list = server.db.get("recipes").value() || []
-  const maxId = list.reduce((m, r) => Math.max(m, Number(r?.id || 0)), 0)
-  return maxId + 1
-}
+server.get("/filters", (req, res) => {
+  const recipes = server.db.get("recipes").value() || []
 
-server.get("/recipes/mealdb-proxy/:mealId", (req, res) => {
-  const mealId = String(req.params.mealId)
-  let r = server.db.get("recipes").find({ source: "mealdb", mealId }).value()
-  if (!r) return res.status(204).end()
+  const categories = Array.from(
+    new Set(recipes.map(r => String(r?.category || "").trim()).filter(Boolean))
+  ).sort((a, b) => a.localeCompare(b, "ru"))
 
-  if (!r.authorId) {
-    server.db.get("recipes").find({ id: r.id }).assign({ authorId: THEMEALDB_USER_ID }).write()
-    r = server.db.get("recipes").find({ id: r.id }).value()
-  }
+  const areas = Array.from(
+    new Set(recipes.map(r => String(r?.area || "").trim()).filter(Boolean))
+  ).sort((a, b) => a.localeCompare(b, "ru"))
 
-  return res.json(r)
+  const ingredients = Array.from(
+    new Set(
+      recipes
+        .flatMap(r => (Array.isArray(r?.ingredients) ? r.ingredients : []))
+        .map(x => String(x || "").trim())
+        .filter(Boolean)
+    )
+  ).sort((a, b) => a.localeCompare(b, "ru"))
+
+  return res.json({ categories, areas, ingredients })
 })
-
-
-server.post("/recipes/mealdb-upsert", (req, res) => {
-  const mealId = String(req.body?.mealId || "").trim()
-  if (!mealId) return res.status(400).json({ error: "mealId is required" })
-
-  const payload = {
-    mealId,
-    name: String(req.body?.name || "").trim(),
-    photo: String(req.body?.photo || "").trim(),
-    category: String(req.body?.category || "").trim(),
-    area: String(req.body?.area || "").trim()
-  }
-
-  let existing = server.db.get("recipes").find({ source: "mealdb", mealId }).value()
-
-  if (existing) {
-    server.db
-      .get("recipes")
-      .find({ id: existing.id })
-      .assign({
-        ...payload,
-        source: "mealdb",
-        authorId: THEMEALDB_USER_ID
-      })
-      .write()
-
-    existing = server.db.get("recipes").find({ id: existing.id }).value()
-    return res.json(existing)
-  }
-
-  const created = {
-    id: nextRecipeId(),
-    source: "mealdb",
-    likes: 0,
-    authorId: THEMEALDB_USER_ID,
-    ...payload
-  }
-
-  server.db.get("recipes").push(created).write()
-  return res.status(201).json(created)
-})
-
-if (server.db.get("comments").value() === undefined) {
-  server.db.set("comments", []).write()
-}
 
 server.use(auth)
 server.use(router)
