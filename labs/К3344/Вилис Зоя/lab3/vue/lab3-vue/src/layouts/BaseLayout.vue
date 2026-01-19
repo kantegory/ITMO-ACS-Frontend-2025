@@ -10,7 +10,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <a href="recipes.html">Recipes</a>
+                    <a href="recipes.html">Recipes</a> -->
                     <!-- <a href="">Blog</a> -->
                     <!-- <a href="profile.html">Profile</a>
                     <a href="login.html">Log In</a>
@@ -18,7 +18,7 @@
             </div>
             <h1 class="heading-title"><a href="index.html">Venus' Vegetarian Ward</a></h1>     
         </div>
-    </header> --> -->
+    </header> -->
     <main class="gallery">
         <slot />
     </main>

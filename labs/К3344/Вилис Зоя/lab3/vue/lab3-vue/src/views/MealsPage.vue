@@ -1,6 +1,5 @@
 <template>
- <base-layout>
-    <div class="parameters">
+        <div class="parameters">
         <div class="latestbox">
             <h3 class="latest">Recipes</h3>
         </div>
@@ -14,6 +13,7 @@
         </div>
     </div>
     <hr />
+ <base-layout>
     <div class="card" v-for="meal in meals" :key="meal.strMeal">
         <meal-card :thumbnail="meal.image" :meal="meal.recipe" />
     </div>
