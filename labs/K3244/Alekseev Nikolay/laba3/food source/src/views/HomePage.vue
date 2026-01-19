@@ -12,89 +12,101 @@
         </router-link>
       </div>
     </header>
+    <div class="row g-4">
+      <aside class="col-md-3">
+        <div class="card p-3">
+          <h5 class="mb-3">Фильтры</h5>
 
-    <div class="row g-3 mb-3">
-      <div class="col-md-6">
-        <input v-model="query" class="form-control" placeholder="Поиск по названию" />
-      </div>
-
-      <div class="col-md-2">
-      <select v-model="category" class="form-select">
-        <option value="any">Любая категория</option>
-        <option
-          v-for="c in filters.categories"
-          :key="c.idCategory"
-          :value="c.strCategory"
-        >
-          {{ c.strCategory }}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-md-2">
-      <select v-model="area" class="form-select">
-        <option value="any">Любая кухня</option>
-        <option
-          v-for="a in filters.areas"
-          :key="a"
-          :value="a"
-        >
-          {{ a }}
-        </option>
-      </select>
-    </div>
-
-
-      <div class="d-flex flex-column align-items-center col-md-2">
-        <p class="w-50">Ингредиенты</p>
-
-        <div
-          id="ingredientsContainer"
-          class="d-flex flex-wrap gap-2 justify-content-center p-2 ingredients-filter"
-          :class="{ collapsed: ingredientsCollapsed }"
-        >
-          <label
-            v-for="ing in ingredients"
-            :key="ing"
-            class="form-check form-check-inline border rounded px-2 py-1 user-select-none"
-            style="cursor:pointer;"
-          >
+          <!-- Поиск -->
+          <div class="mb-3">
             <input
-              type="checkbox"
-              class="me-3"
-              style="cursor:pointer;"
-              :value="ing"
-              :checked="selectedIngredients.includes(ing)"
-              @change="onIngredientToggle(ing, $event.target.checked)"
+              v-model="query"
+              class="form-control"
+              placeholder="Поиск по названию"
             />
-            <span>{{ ing }}</span>
-          </label>
+          </div>
+
+          <!-- Категория -->
+          <div class="mb-3">
+            <select v-model="category" class="form-select">
+              <option value="any">Любая категория</option>
+              <option
+                v-for="c in filters.categories"
+                :key="c.idCategory"
+                :value="c.strCategory"
+              >
+                {{ c.strCategory }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Кухня -->
+          <div class="mb-3">
+            <select v-model="area" class="form-select">
+              <option value="any">Любая кухня</option>
+              <option
+                v-for="a in filters.areas"
+                :key="a"
+                :value="a"
+              >
+                {{ a }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Ингредиенты -->
+          <div>
+            <p class="fw-semibold mb-2">Ингредиенты</p>
+
+            <div
+              id="ingredientsContainer"
+              class="d-flex flex-wrap gap-2 ingredients-filter"
+              :class="{ collapsed: ingredientsCollapsed }"
+            >
+              <label
+                v-for="ing in ingredients"
+                :key="ing"
+                class="form-check form-check-inline border rounded px-2 py-1 user-select-none"
+                style="cursor:pointer;"
+              >
+                <input
+                  type="checkbox"
+                  class="me-2"
+                  :value="ing"
+                  :checked="selectedIngredients.includes(ing)"
+                  @change="onIngredientToggle(ing, $event.target.checked)"
+                />
+                <span>{{ ing }}</span>
+              </label>
+            </div>
+
+            <button
+              v-if="ingredients.length > 3"
+              type="button"
+              class="btn btn-link px-0 mt-2"
+              @click="ingredientsCollapsed = !ingredientsCollapsed"
+            >
+              {{ ingredientsCollapsed ? "Показать ещё" : "Скрыть" }}
+            </button>
+          </div>
         </div>
+      </aside>
 
-        <button
-          v-if="ingredients.length > 3"
-          id="ingredientsToggle"
-          type="button"
-          class="mt-2"
-          @click="ingredientsCollapsed = !ingredientsCollapsed"
-        >
-          {{ ingredientsCollapsed ? "Показать ещё" : "Скрыть" }}
-        </button>
-      </div>
-    </div>
+      <section class="col-md-9">
+        <div v-if="store.loading" class="text-muted">Загрузка...</div>
 
-    <div v-if="store.loading" class="text-muted">Загрузка...</div>
+        <p v-else-if="store.list.length === 0" class="text-muted text-center">
+          Ничего не найдено
+        </p>
 
-    <p v-else-if="store.list.length === 0" class="text-muted text-center">
-      Ничего не найдено
-    </p>
-
-    <div v-else class="row g-3">
-      <div class="col-md-4" v-for="r in store.list" :key="r.idMeal">
-        <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.idMeal}`">
-          <RecipeCard :recipe="r" />
-        </router-link>
-      </div>
+        <div v-else class="row g-3">
+          <div class="col-md-4" v-for="r in store.list" :key="r.idMeal">
+            <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.idMeal}`">
+              <RecipeCard :recipe="r" />
+            </router-link>
+          </div>
+        </div>
+      </section>
     </div>
   </BaseLayout>
 </template>
