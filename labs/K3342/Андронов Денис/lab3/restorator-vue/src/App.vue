@@ -13,5 +13,5 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <style>
-/* стили подключаются позже */
+@import '@/assets/styles.css';
 </style>
