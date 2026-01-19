@@ -7,7 +7,17 @@ const router = createRouter({
  routes: [
    // отдельный роут
    {
-     path: '/',
+    path: '/',
+    name: 'main',
+    component: () => import('../views/MainPage.vue')
+   },
+   {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/ProfilePage.vue')
+   },
+   {
+     path: '/recipes',
      name: 'meals',
      // реализация ленивой подгрузки представления
      // (до момента открытия этого представления,
