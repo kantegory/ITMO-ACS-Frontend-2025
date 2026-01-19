@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- навигация -->
     <nav class="navbar navbar-light bg-light">
-        <div class="container">
+        <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand" href="#">Кулинарный сайт</a>
-            <div>
-                <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Вход</button>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
+            <div class="d-flex align-items-center">
+                <button id="themeToggle" class="btn btn-outline-secondary me-2">Тёмная тема</button>
+                <div id="navButtons">
+                    <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Вход</button>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -65,9 +67,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="loginEmail" placeholder="Email">
                     </div>
                     <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Пароль</label>
                         <input type="password" class="form-control" id="loginPassword" placeholder="Пароль">
                     </div>
                     <button class="btn btn-success w-100" onclick="login()">Войти</button>
@@ -86,12 +90,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label for="regName" class="form-label">Имя</label>
                         <input type="text" class="form-control" id="regName" placeholder="Имя">
                     </div>
                     <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>                        
                         <input type="email" class="form-control" id="regEmail" placeholder="Email">
                     </div>
                     <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Пароль</label>
                         <input type="password" class="form-control" id="regPassword" placeholder="Пароль">
                     </div>
                     <button class="btn btn-success w-100" onclick="register()">Зарегистрироваться</button>

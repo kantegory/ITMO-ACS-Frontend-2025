@@ -20,20 +20,61 @@ async function fetchData(url, options = {}) {
 
 // обновление интерфейса навигации
 function updateNavbar() {
-    const navDiv = document.querySelector('.navbar div');
+    const navButtons = document.getElementById('navButtons');
     
     if (currentUser) {
-        navDiv.innerHTML = `
+        navButtons.innerHTML = `
             <span class="navbar-text me-3">Привет, ${currentUser.name}!</span>
             <button class="btn btn-outline-danger" onclick="logout()">Выйти</button>
         `;
     } else {
-        navDiv.innerHTML = `
+        navButtons.innerHTML = `
             <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Вход</button>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
         `;
     }
 }
+
+// ТЕМЫ
+
+// инициализация темы
+function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'Светлая тема';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle.textContent = 'Тёмная тема';
+    }
+}
+
+// переключение темы
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (!themeToggle) {
+        console.error('Кнопка темы не найдена');
+        return;
+    }
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeToggle.textContent = 'Тёмная тема';
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = 'Светлая тема';
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+}
+
 
 // РАБОТА С РЕЦЕПТАМИ
 
@@ -239,10 +280,10 @@ function logout() {
     alert('Вы вышли из системы');
 }
 
-// ИНИЦИАЛИЗАЦИЯ
-
-// загрузка страницы
+// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
+    initTheme();
+    setupThemeToggle();
     updateNavbar();
     loadRecipes();
 });
