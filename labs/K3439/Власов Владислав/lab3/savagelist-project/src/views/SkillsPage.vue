@@ -48,7 +48,7 @@
         
         <div class="skills-list-container">
           <div class="list-header">
-            <h1>Мои навыки</h1>
+            <h1>Навыки</h1>
           </div>
           
           <div class="list-items">
@@ -80,10 +80,6 @@
             @cancel="cancelCreating"
             @create="handleCreateSkill"
           />
-
-          <div v-else class="empty-state">
-            <p>Выберите навык или создайте новый</p>
-          </div>
           
         </div>
       </div>
@@ -119,10 +115,6 @@
         flex: 1;
         width: auto;
         opacity: 1;
-    }
-
-    .empty-state {
-        display: none;
     }
 
     .add-skill-btn {
