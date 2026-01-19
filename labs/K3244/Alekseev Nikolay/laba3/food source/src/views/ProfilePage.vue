@@ -113,8 +113,12 @@
         <div class="card shadow-sm p-3">
           <div class="d-flex justify-content-between align-items-center">
             <div>
-              <div class="fw-semibold">{{ u.name || "Пользователь" }}</div>
-              <div class="text-muted small" v-if="u.email">{{ u.email }}</div>
+              <router-link
+                class="fw-semibold text-decoration-none"
+                :to="`/author/${u.id}`"
+              >
+                {{ u.name || "Пользователь" }}
+              </router-link>
             </div>
 
             <button class="btn btn-outline-primary btn-sm" @click="toggleSub(u.id)">

@@ -51,7 +51,16 @@
       </p>
 
       <p class="mb-3">
-        <strong>Автор:</strong> {{ author?.name || "—" }}
+        <strong>Автор:</strong>
+        <router-link
+          v-if="author?.id"
+          class="text-decoration-none"
+          :to="`/author/${author.id}`"
+        >
+          {{ author?.name || "—" }}
+        </router-link>
+        <span v-else>—</span>
+
         <button
           v-if="canSubscribe"
           class="btn btn-outline-primary btn-sm ms-2"

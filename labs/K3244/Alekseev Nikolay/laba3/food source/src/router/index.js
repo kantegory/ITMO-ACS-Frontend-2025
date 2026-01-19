@@ -11,6 +11,8 @@ const router = createRouter({
     { path: "/profile", name: "profile", component: () => import("@/views/ProfilePage.vue"), meta: { requiresAuth: true } },
     { path: "/recipe/:id", name: "recipe", component: () => import("@/views/RecipePage.vue"), meta: { requiresAuth: true } },
 
+    { path: "/author/:id", name: "author", component: () => import("@/views/AuthorPage.vue") },
+
     { path: "/:pathMatch(.*)*", redirect: "/" }
   ]
 })
