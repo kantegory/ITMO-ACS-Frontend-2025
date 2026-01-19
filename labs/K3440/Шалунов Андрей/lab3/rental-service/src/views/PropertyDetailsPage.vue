@@ -164,8 +164,8 @@ const pricePerDay = computed(() => {
 
 const priceText = computed(() => (pricePerDay.value ? `${pricePerDay.value} ₽ / день` : "Цена уточняется"));
 
-const typeLabel = computed(() => TYPE_LABELS[store.property?.type] || store.property?.type || "—");
-const statusLabel = computed(() => STATUS_LABELS[store.property?.status] || store.property?.status || "—");
+const typeLabel = computed(() => TYPE_LABELS[store.property?.type] || store.property?.type || "-");
+const statusLabel = computed(() => STATUS_LABELS[store.property?.status] || store.property?.status || "-");
 
 const isOccupied = computed(() => store.property?.status === "occupied");
 

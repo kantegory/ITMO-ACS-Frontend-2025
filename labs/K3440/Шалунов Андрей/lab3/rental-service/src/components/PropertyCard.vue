@@ -6,7 +6,7 @@
             <h5 class="card-title">{{ property.title || "Объявление" }}</h5>
 
             <p class="mb-1"><strong>Тип:</strong> {{ typeLabel }}</p>
-            <p class="mb-1"><strong>Локация:</strong> {{ property.location || "—" }}</p>
+            <p class="mb-1"><strong>Локация:</strong> {{ property.location || "-" }}</p>
             <p class="mb-3"><strong>Цена:</strong> {{ price }} ₽/день</p>
 
             <RouterLink class="btn btn-outline-primary btn-sm mt-auto align-self-start" :to="`/property/${property.property_id}`">
@@ -23,13 +23,13 @@ const props = defineProps({
     property: { type: Object, required: true }
 });
 
-const placeholder = "https://via.placeholder.com/400x250?text=Нет+фото";
+const placeholder = "https://placehold.co/400x250?text=Нет+фото";
 
 const TYPE_LABELS = { flat: "Квартира", house: "Дом", room: "Комната" };
 
 const typeLabel = computed(() => {
     const t = props.property?.type;
-    return TYPE_LABELS[t] || t || "—";
+    return TYPE_LABELS[t] || t || "-";
 });
 
 const price = computed(() => {

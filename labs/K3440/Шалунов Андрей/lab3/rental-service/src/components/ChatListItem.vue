@@ -27,7 +27,7 @@ const otherName = computed(() => {
 });
 
 const propertyTitle = computed(() => {
-    return props.chat.property?.title || `Объект #${props.chat.property_id ?? "—"}`;
+    return props.chat.property?.title || `Объект #${props.chat.property_id ?? "-"}`;
 });
 
 const lastText = computed(() => props.chat.lastMessage?.text || "(сообщений пока нет)");

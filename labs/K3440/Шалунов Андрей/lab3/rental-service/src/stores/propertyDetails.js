@@ -25,7 +25,7 @@ export const usePropertyDetailsStore = defineStore("propertyDetails", {
                 this.photos = ph.map((x) => x.photo_url).filter(Boolean);
 
                 if (this.photos.length === 0) {
-                    this.photos = ["https://via.placeholder.com/800x500?text=Нет+фото"];
+                    this.photos = ["https://placehold.co/800x500?text=Нет+фото"];
                 }
 
                 return true;

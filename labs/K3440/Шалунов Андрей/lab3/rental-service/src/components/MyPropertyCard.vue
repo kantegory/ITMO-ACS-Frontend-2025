@@ -7,7 +7,7 @@
 
             <p class="mb-1"><strong>Тип:</strong> {{ typeLabel }}</p>
             <p class="mb-1"><strong>Статус:</strong> {{ statusLabel }}</p>
-            <p class="mb-1"><strong>Локация:</strong> {{ property.location || "—" }}</p>
+            <p class="mb-1"><strong>Локация:</strong> {{ property.location || "-" }}</p>
             <p class="mb-3"><strong>Цена:</strong> {{ price }} ₽/сутки</p>
 
             <div class="mt-auto d-flex gap-2">
@@ -31,13 +31,13 @@ const props = defineProps({
 
 const emit = defineEmits(["edit", "delete"]);
 
-const placeholder = "https://via.placeholder.com/400x250?text=Нет+фото";
+const placeholder = "https://placehold.co/400x250?text=Нет+фото";
 
 const TYPE_LABELS = { flat: "Квартира", house: "Дом", room: "Комната" };
 const STATUS_LABELS = { available: "Свободно", occupied: "Занято", closed: "Неактивно" };
 
-const typeLabel = computed(() => TYPE_LABELS[props.property?.type] || props.property?.type || "—");
-const statusLabel = computed(() => STATUS_LABELS[props.property?.status] || props.property?.status || "—");
+const typeLabel = computed(() => TYPE_LABELS[props.property?.type] || props.property?.type || "-");
+const statusLabel = computed(() => STATUS_LABELS[props.property?.status] || props.property?.status || "-");
 
 const price = computed(() => {
     const n = Number(props.property?.price_per_day);

@@ -45,7 +45,7 @@ const end = ref("");
 const total = ref(null);
 const error = ref("");
 
-const totalText = computed(() => (total.value == null ? "—" : `${total.value} ₽`));
+const totalText = computed(() => (total.value == null ? "-" : `${total.value} ₽`));
 
 function calc() {
     error.value = "";
