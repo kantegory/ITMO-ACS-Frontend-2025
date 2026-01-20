@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить рецепт | Кулинарное сообщество</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-dark fw-bold" href="index.html">
+                <i class="bi bi-egg-fried me-2"></i>КулинарноеСообщество
+            </a>
+            <div class="d-flex">
+                <a href="profile.html" class="btn btn-outline-dark me-2">
+                    <i class="bi bi-person"></i> Профиль
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+                <li class="breadcrumb-item"><a href="profile.html">Моя кухня</a></li>
+                <li class="breadcrumb-item active">Новый рецепт</li>
+            </ol>
+        </nav>
+
+        <h1 class="mb-4">Добавить рецепт</h1>
+        
+        <div class="card border">
+            <div class="card-body">
+                <form id="recipeForm">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Название рецепта</label>
+                        <input type="text" class="form-control" id="recipeTitle" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Описание</label>
+                        <textarea class="form-control" id="recipeDescription" rows="3" required></textarea>
+                        <div class="form-text">Кратко опишите ваш рецепт</div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Категория</label>
+                            <select class="form-select" id="recipeCategory" required>
+                                <option value="">Выберите категорию</option>
+                                <option value="Завтраки">Завтраки</option>
+                                <option value="Основные блюда">Основные блюда</option>
+                                <option value="Десерты">Десерты</option>
+                                <option value="Напитки">Напитки</option>
+                                <option value="Супы">Супы</option>
+                                <option value="Салаты">Салаты</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Сложность</label>
+                            <select class="form-select" id="recipeDifficulty" required>
+                                <option value="">Выберите сложность</option>
+                                <option value="Легкая">Легкая</option>
+                                <option value="Средняя">Средняя</option>
+                                <option value="Сложная">Сложная</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Время приготовления (мин)</label>
+                            <input type="number" class="form-control" id="recipeTime" min="1" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Ингредиенты</label>
+                        <div id="ingredientsContainer">
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control ingredient-input" placeholder="Например: 500 г муки">
+                                <button type="button" class="btn btn-outline-danger remove-ingredient">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-dark btn-sm mt-2" id="addIngredient">
+                            <i class="bi bi-plus"></i> Добавить ингредиент
+                        </button>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Шаги приготовления</label>
+                        <div id="stepsContainer">
+                            <div class="mb-3">
+                                <label class="form-label">Шаг 1</label>
+                                <textarea class="form-control step-input" rows="2" required></textarea>
+                                <button type="button" class="btn btn-outline-danger btn-sm mt-2 remove-step">
+                                    Удалить шаг
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-dark btn-sm" id="addStep">
+                            <i class="bi bi-plus"></i> Добавить шаг
+                        </button>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Фотография</label>
+                        <div class="border rounded p-3 text-center">
+                            <i class="bi bi-image fs-1 text-muted mb-3 d-block"></i>
+                            <p class="text-muted small mb-3">Перетащите фото сюда или нажмите для загрузки</p>
+                            <input type="file" class="form-control" id="recipeImage" accept="image/*">
+                            <div class="form-text">Рекомендуемый размер: 1200x800 px</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-outline-dark" onclick="window.history.back()">
+                            Отмена
+                        </button>
+                        <div class="d-flex gap-3">
+                            <button type="submit" class="btn btn-dark" id="saveDraft">
+                                Сохранить черновик
+                            </button>
+                            <button type="submit" class="btn btn-success" id="publishRecipe">
+                                Опубликовать
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                После публикации рецепт станет доступен всем пользователям сообщества
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0 small">&copy; 2026 КулинарноеСообщество</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

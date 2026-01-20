@@ -1,4 +1,3 @@
-// Данные рецептов
 const allRecipes = [
     {
         id: 1,
@@ -51,43 +50,17 @@ const allRecipes = [
         likes: 421,
         saved: false,
         liked: false
-    },
-    {
-        id: 5,
-        title: "Паста Карбонара",
-        description: "Классическая итальянская паста",
-        image: "https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-        category: "Основные блюда",
-        difficulty: "Легкая",
-        time: "25 мин",
-        author: "Сергей Волков",
-        likes: 312,
-        saved: false,
-        liked: false
-    },
-    {
-        id: 6,
-        title: "Брауни",
-        description: "Шоколадное пирожное",
-        image: "https://images.unsplash.com/photo-1606313564200-75f2d4fa383b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-        category: "Десерты",
-        difficulty: "Средняя",
-        time: "45 мин",
-        author: "Ольга Смирнова",
-        likes: 178,
-        saved: false,
-        liked: false
     }
 ];
 
-// Генерация карточек рецептов для главной
+let stepCounter = 1;
+let ingredientCounter = 1;
+
 function generateRecipeCards() {
     const container = document.getElementById('recipeGrid');
     if (!container) return;
 
-    const recipes = allRecipes.slice(0, 4);
-    
-    container.innerHTML = recipes.map(recipe => `
+    container.innerHTML = allRecipes.map(recipe => `
         <div class="col-lg-3 col-md-6">
             <div class="recipe-card card h-100">
                 <img src="${recipe.image}" class="card-img-top" alt="${recipe.title}">
@@ -125,7 +98,6 @@ function generateRecipeCards() {
     addEventListeners();
 }
 
-// Генерация результатов поиска
 function generateSearchResults() {
     const container = document.getElementById('searchResults');
     if (!container) return;
@@ -168,13 +140,46 @@ function generateSearchResults() {
     addEventListeners();
 }
 
-// Обработчики событий
 function addEventListeners() {
-    // Лайки на карточках
     document.querySelectorAll('.like-btn').forEach(button => {
         button.addEventListener('click', function() {
             const icon = this.querySelector('i');
             const counter = this.querySelector('.like-count');
+            let count = parseInt(counter.textContent);
+            
+            if (icon.classList.contains('bi-heart')) {
+                icon.classList.replace('bi-heart', 'bi-heart-fill');
+                icon.style.color = '#dc3545';
+                counter.textContent = count + 1;
+                showNotification('Лайк добавлен!');
+            } else {
+                icon.classList.replace('bi-heart-fill', 'bi-heart');
+                icon.style.color = '';
+                counter.textContent = count - 1;
+                showNotification('Лайк удален');
+            }
+        });
+    });
+    
+    document.querySelectorAll('.save-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('bi-bookmark')) {
+                icon.classList.replace('bi-bookmark', 'bi-bookmark-fill');
+                icon.style.color = '#0d6efd';
+                showNotification('Рецепт сохранен');
+            } else {
+                icon.classList.replace('bi-bookmark-fill', 'bi-bookmark');
+                icon.style.color = '';
+                showNotification('Рецепт удален из сохраненных');
+            }
+        });
+    });
+
+    document.querySelectorAll('.blog-like').forEach(button => {
+        button.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            const counter = this.querySelector('span:not(.ms-1)');
             let count = parseInt(counter.textContent);
             
             if (icon.classList.contains('bi-heart')) {
@@ -188,23 +193,8 @@ function addEventListeners() {
             }
         });
     });
-    
-    // Сохранение на карточках
-    document.querySelectorAll('.save-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('bi-bookmark')) {
-                icon.classList.replace('bi-bookmark', 'bi-bookmark-fill');
-                icon.style.color = '#0d6efd';
-            } else {
-                icon.classList.replace('bi-bookmark-fill', 'bi-bookmark');
-                icon.style.color = '';
-            }
-        });
-    });
 }
 
-// Функции для страницы рецепта
 function initRecipePage() {
     const likeBtn = document.querySelector('.like-btn-recipe');
     const saveBtn = document.querySelector('.save-btn-recipe');
@@ -222,10 +212,12 @@ function initRecipePage() {
                 icon.classList.replace('bi-heart', 'bi-heart-fill');
                 icon.style.color = '#dc3545';
                 counter.textContent = count + 1;
+                showNotification('Лайк добавлен!');
             } else {
                 icon.classList.replace('bi-heart-fill', 'bi-heart');
                 icon.style.color = '';
                 counter.textContent = count - 1;
+                showNotification('Лайк удален');
             }
         });
     }
@@ -236,9 +228,11 @@ function initRecipePage() {
             if (icon.classList.contains('bi-bookmark')) {
                 icon.classList.replace('bi-bookmark', 'bi-bookmark-fill');
                 icon.style.color = '#0d6efd';
+                showNotification('Рецепт сохранен');
             } else {
                 icon.classList.replace('bi-bookmark-fill', 'bi-bookmark');
                 icon.style.color = '';
+                showNotification('Рецепт удален из сохраненных');
             }
         });
     }
@@ -247,7 +241,7 @@ function initRecipePage() {
         addCommentBtn.addEventListener('click', function() {
             const text = commentText.value.trim();
             if (!text) {
-                alert('Введите комментарий');
+                showNotification('Введите комментарий', 'warning');
                 return;
             }
             
@@ -263,11 +257,11 @@ function initRecipePage() {
             
             commentsList.prepend(newComment);
             commentText.value = '';
+            showNotification('Комментарий добавлен');
         });
     }
 }
 
-// Функции для страницы поиска
 function initSearchPage() {
     const searchInput = document.getElementById('searchInput');
     const searchButton = document.getElementById('searchButton');
@@ -288,6 +282,7 @@ function initSearchPage() {
             );
             
             updateSearchResults(filtered);
+            showNotification(`Найдено ${filtered.length} рецептов`);
         });
     }
     
@@ -317,6 +312,7 @@ function initSearchPage() {
             }
             
             updateSearchResults(filtered);
+            showNotification(`Применены фильтры: ${filtered.length} рецептов`);
         });
     }
     
@@ -325,8 +321,112 @@ function initSearchPage() {
             checkboxes.forEach(cb => cb.checked = false);
             radios.forEach(r => r.checked = false);
             updateSearchResults(allRecipes);
+            showNotification('Фильтры сброшены');
         });
     }
+}
+
+function initRecipeForm() {
+    const addIngredientBtn = document.getElementById('addIngredient');
+    const addStepBtn = document.getElementById('addStep');
+    const recipeForm = document.getElementById('recipeForm');
+    const saveDraftBtn = document.getElementById('saveDraft');
+    const publishBtn = document.getElementById('publishRecipe');
+    
+    if (addIngredientBtn) {
+        addIngredientBtn.addEventListener('click', function() {
+            const container = document.getElementById('ingredientsContainer');
+            ingredientCounter++;
+            
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.innerHTML = `
+                <input type="text" class="form-control ingredient-input" placeholder="Например: 500 г муки">
+                <button type="button" class="btn btn-outline-danger remove-ingredient">
+                    <i class="bi bi-x"></i>
+                </button>
+            `;
+            
+            container.appendChild(div);
+            
+            div.querySelector('.remove-ingredient').addEventListener('click', function() {
+                div.remove();
+                showNotification('Ингредиент удален');
+            });
+        });
+    }
+    
+    if (addStepBtn) {
+        addStepBtn.addEventListener('click', function() {
+            const container = document.getElementById('stepsContainer');
+            stepCounter++;
+            
+            const div = document.createElement('div');
+            div.className = 'mb-3';
+            div.innerHTML = `
+                <label class="form-label">Шаг ${stepCounter}</label>
+                <textarea class="form-control step-input" rows="2" required></textarea>
+                <button type="button" class="btn btn-outline-danger btn-sm mt-2 remove-step">
+                    Удалить шаг
+                </button>
+            `;
+            
+            container.appendChild(div);
+            
+            div.querySelector('.remove-step').addEventListener('click', function() {
+                div.remove();
+                stepCounter--;
+                updateStepLabels();
+                showNotification('Шаг удален');
+            });
+        });
+    }
+    
+    if (recipeForm) {
+        recipeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('recipeTitle').value;
+            const category = document.getElementById('recipeCategory').value;
+            
+            if (!title || !category) {
+                showNotification('Заполните обязательные поля', 'warning');
+                return;
+            }
+            
+            if (e.submitter?.id === 'publishRecipe') {
+                showNotification('Рецепт опубликован!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 1500);
+            } else {
+                showNotification('Черновик сохранен');
+            }
+        });
+    }
+    
+    document.querySelectorAll('.remove-ingredient').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.closest('.input-group').remove();
+            showNotification('Ингредиент удален');
+        });
+    });
+    
+    document.querySelectorAll('.remove-step').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.closest('.mb-3').remove();
+            stepCounter--;
+            updateStepLabels();
+            showNotification('Шаг удален');
+        });
+    });
+}
+
+function updateStepLabels() {
+    const steps = document.querySelectorAll('#stepsContainer .mb-3');
+    steps.forEach((step, index) => {
+        step.querySelector('.form-label').textContent = `Шаг ${index + 1}`;
+    });
 }
 
 function updateSearchResults(recipes) {
@@ -382,19 +482,18 @@ function updateSearchResults(recipes) {
     addEventListeners();
 }
 
-// Обработка форм
 function initForms() {
-    const loginForm = document.getElementById('loginForm');
+    const loginForms = document.querySelectorAll('form[id^="loginForm"]');
     const registerForm = document.getElementById('registerForm');
     
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+    loginForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Вход выполнен успешно');
+            showNotification('Вход выполнен успешно', 'success');
             const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
             if (modal) modal.hide();
         });
-    }
+    });
     
     if (registerForm) {
         registerForm.addEventListener('submit', function(e) {
@@ -403,22 +502,67 @@ function initForms() {
             const confirm = document.getElementById('registerConfirm').value;
             
             if (password !== confirm) {
-                alert('Пароли не совпадают');
+                showNotification('Пароли не совпадают', 'warning');
                 return;
             }
             
-            alert('Регистрация завершена');
+            showNotification('Регистрация завершена', 'success');
             const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
             if (modal) modal.hide();
         });
     }
 }
 
-// Инициализация при загрузке
+function showNotification(message, type = 'info') {
+    const colors = {
+        'success': '#28a745',
+        'warning': '#ffc107',
+        'info': '#17a2b8'
+    };
+    
+    const notification = document.createElement('div');
+    notification.className = 'position-fixed top-0 end-0 p-3';
+    notification.style.zIndex = '9999';
+    notification.innerHTML = `
+        <div class="toast align-items-center text-white bg-${type === 'info' ? 'dark' : type} border-0 show" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+function initBlogPage() {
+    document.querySelectorAll('.read-more').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            showNotification('Статья скоро будет доступна');
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     generateRecipeCards();
     generateSearchResults();
     initForms();
     initRecipePage();
     initSearchPage();
+    initRecipeForm();
+    initBlogPage();
+    
+    if (typeof bootstrap !== 'undefined') {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
 });
