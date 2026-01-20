@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2>Блог о здоровье и питании</h2>
       <button
-        v-if="!isAuthenticated"
+        v-if="isAuthenticated"
         class="btn btn-primary"
         @click="openModal"
       >
