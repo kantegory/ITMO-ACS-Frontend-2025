@@ -45,7 +45,7 @@ import { storeToRefs } from 'pinia'
 const router = useRouter()
 
 const userStorage = useUserStore()
-const { clearUserData } = userStorage
+const { clearUserData, saveUserChanges } = userStorage
 const { user } = storeToRefs(userStorage)
 
 const fieldsMap = new Map([
@@ -69,9 +69,15 @@ function enableEdit() {
     editMode.value = true
 }
 
-function saveChanges() {
+async function saveChanges() {
     editMode.value = false
-    Object.assign(user.value, editFields)
+
+    try {
+        await saveUserChanges(editFields)
+        Object.assign(user.value, editFields)
+    } catch (e) {
+        alert(`Ошибка обновления пользовательских данных. Попробуйте позднее ${e}`)
+    }
 }
 
 function cancelEdit() {

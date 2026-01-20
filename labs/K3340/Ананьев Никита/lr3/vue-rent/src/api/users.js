@@ -36,6 +36,17 @@ class UserApi {
             }
         })
     }
+
+    updateUser = async (id, data) => {
+        return this.API({
+            method: 'PATCH',
+            url: `${this.base}/${id}`,
+            data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
 }
 
 export {

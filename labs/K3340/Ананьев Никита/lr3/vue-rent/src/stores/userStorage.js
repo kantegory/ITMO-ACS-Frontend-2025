@@ -6,6 +6,7 @@ const DEFAULT_ROLE = 'tenant';
 
 const defaultUserData = () => {
     return {
+        id: null,
         name: null, 
         email: null,
         phone: null,
@@ -58,6 +59,13 @@ const useUserStore = defineStore('users', () => {
         user.value = { ...user.value,  ...response.data}
     }
 
+    async function saveUserChanges(newData) {
+        const response = await userApi.updateUser(user.value.id, newData)
+
+        if (response.status !== 200)
+            throw new Error(`HTTP error during user update, status: ${response.status}`)
+    }
+
     function clearUserData() {
         Object.assign(user, defaultUserData())
         localStorage.removeItem('user')
@@ -67,7 +75,7 @@ const useUserStore = defineStore('users', () => {
         localStorage.setItem('user', JSON.stringify(newUser));
     }, { deep: true });
 
-    return {DEFAULT_ROLE, user, loadUserById, loadUser, createUser, clearUserData}
+    return {DEFAULT_ROLE, user, loadUserById, loadUser, createUser, clearUserData, saveUserChanges}
 })
 
 export default useUserStore
