@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- Иконка профиля/пользователя -->
+    <symbol id="icon-user" viewBox="0 0 24 24">
+        <path d="M12 12c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6zM2.5 22v-1c0-4.142 4.134-6.5 9.5-6.5s9.5 2.358 9.5 6.5v1H2.5z" fill="currentColor"/>
+    </symbol>
+
+    <!-- Иконка треугольника (Next.js/Vercel) -->
+    <symbol id="icon-triangle" viewBox="0 0 1155 1000">
+        <path d="m577.3 0 577.4 1000H0z" fill="currentColor"/>
+    </symbol>
+
+    <!-- Иконка браузера/окна -->
+    <symbol id="icon-browser" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="currentColor"/>
+    </symbol>
+</svg>
