@@ -1,6 +1,6 @@
 body {
     font-family: Montserrat Alternates;
-    background-color: #E6D8C3;
+    background-color: var(--back-color);
 }
 
 .form {
@@ -15,13 +15,13 @@ body {
 
 .btn {
     font-family: Montserrat Alternates;
-    background-color: #2a3c31;
-    color: #C2A68C;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
 }
 
 .btn:hover {
-    background-color: #2a3c314b;
-    color: #38302a;
+    background-color: var(--hover-bg);
+    color: var(--hover-color);
 }
 
 .row.g-5 {
@@ -30,11 +30,24 @@ body {
 
 a {
     text-decoration: none;
-    color: #2a3c31;
+    color: var(--latest-color);
 }
 
 .signup {
-    color: #204e2f;
+    color: var(--signup-color);
     text-decoration: underline;
+}
+
+.form-control {
+    background-color: var(--form-bg);
+    color: var(--form-color);
+}
+
+.form-label {
+    color: var(--form-color);
+}
+
+.letter {
+    color: var(--latest-color);
 }
 
