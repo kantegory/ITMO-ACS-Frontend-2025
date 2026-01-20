@@ -1,13 +1,13 @@
 body {
     font-family: Montserrat Alternates;
-    background-color: #E6D8C3;
+    background-color: var(--back-color);
     display: flex;
     flex-direction: column;
 }
 
 .heading {
-    color: #2a3c31;
-    background-color: #C2A68C;
+    color: var(--heading-text);
+    background-color: var(--heading-bg);
     /* display: flex;
     justify-content: center;
     align-items: center; */
@@ -30,14 +30,14 @@ body {
 
 .home-outer {
     font-family: Montserrat Alternates;
-    background-color: #E6D8C3;
+    background-color: var(--home-outer);
     margin-top: 15px;
 }
 
 .latest {
     font-size: 1.5em;
     margin-left: 20px;
-    color: #2a3c31;
+    color: var(--latest-color);
 }
 
 .home-inner {
@@ -48,13 +48,13 @@ body {
 }
 
 .card {
-    background-color: #F5F5F0;
+    background-color: var(--card-color);
     font-size: 0.75em;
     text-wrap: wrap;
     width: 25rem;
     margin: 15px;
     border-radius: 20px;
-    border-color: #5D866C;
+    border-color: var(--border-color);
 }
 
 .card-title {
@@ -68,9 +68,9 @@ body {
 }
 
 .offcanvas-top {
-    background-color: #e3ded7;
+    background-color: var(--offcanvas-color);
     font-family: Montserrat Alternates;
-    color: #2a3c31;
+    color: var(--latest-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,13 +99,17 @@ body {
 
 a {
     text-decoration: none;
-    color: #2a3c31;
+    color: var(--latest-color);
+}
+
+.byvenus {
+    color: var(--link-color);
 }
 
 .acct {
     display: grid;
     grid-template: 1fr 2fr / 1fr 3fr 2fr;
-    color: #2a3c31;
+    color: var(--latest-color);
     margin-top: 20px;
 }
 
@@ -146,7 +150,7 @@ a {
 
 .parameters {
     display: grid;
-    color: #2a3c31;
+    color: var(--latest-color);
     grid-template: 1fr/ 1fr 1fr;
     margin-left: 8%;
     margin-right: 7%;
@@ -160,12 +164,16 @@ a {
     width: 60%;
     padding-left: 7px;
     font-size: 1.3rem;
-    background-color: #F5F5F0;
+    background-color: var(--card-color);
 }
 
 .dropdown-button {
     width: 100%;
     border: 0px;
-    background-color: #F5F5F0;
+    background-color: var(--card-color);
     text-align: left;
+}
+
+.btn {
+    color: var(--latest-color);
 }
