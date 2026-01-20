@@ -134,6 +134,50 @@
         "Медстраховка",
         "Команда"
       ]
+    },
+    {
+      "id": "1766132125267",
+      "title": "работа",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
+    },
+    {
+      "id": "1767006810293",
+      "title": "работа",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
     }
   ],
   "applications": [
@@ -178,6 +222,26 @@
       "email": "dariaedigareva@gmail.com",
       "vacancy": "Data Product Manager",
       "message": "цаоицлиа"
+    },
+    {
+      "name": "имя и фамилия",
+      "email": "firs_iln@mail.ru",
+      "vacancy": "Data Product Manager",
+      "title": "Data Product Manager",
+      "candidate": "имя и фамилия",
+      "status": "В рассмотрении",
+      "message": "я подхожу",
+      "id": "bRj5Nff"
+    },
+    {
+      "name": "ии",
+      "email": "a@a.a",
+      "vacancy": "работа",
+      "title": "работа",
+      "candidate": "ии",
+      "status": "В рассмотрении",
+      "message": "опыт",
+      "id": "cptVrpY"
     }
   ],
   "employerVacancies": [
@@ -220,31 +284,53 @@
         "Медстраховка",
         "Команда"
       ]
+    },
+    {
+      "id": "1766132125267",
+      "title": "работа",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
+    },
+    {
+      "id": "1767006810293",
+      "title": "работа",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ]
     }
   ],
   "resumes": [
-    {
-      "title": "Backend-разработчик",
-      "city": "СПб",
-      "experienceYears": 2,
-      "summary": "...!!",
-      "skills": [
-        "FastAPI",
-        "OOP",
-        "REST API"
-      ],
-      "id": "301"
-    },
-    {
-      "id": "ddce",
-      "title": "Frontend-разработчик",
-      "city": "СПб",
-      "experienceYears": 1,
-      "summary": "ляляля",
-      "skills": [
-        "React"
-      ]
-    },
     {
       "id": "87c2",
       "title": "product-manager",
@@ -254,6 +340,17 @@
       "skills": [
         "scram"
       ]
+    },
+    {
+      "title": "менеджер",
+      "city": "москва",
+      "experienceYears": 20,
+      "summary": "опыт",
+      "skills": [
+        "sql",
+        "python"
+      ],
+      "id": "NNXZJ4o"
     }
   ],
   "auth": [],
@@ -290,6 +387,30 @@
       "username": "aedig",
       "role": "job_seeker",
       "id": "TG6JCiT"
+    },
+    {
+      "email": "firs_iln@mail.ru",
+      "password": "$2a$10$nomH0CRqqbAhphFfPqMW6e4AyV/J/eKa8MnYzns6fD2mSx/YvWOIy",
+      "fullName": "имя фамилия",
+      "username": "firs_iln",
+      "role": "job_seeker",
+      "id": "9ELaskb"
+    },
+    {
+      "email": "a@a.a",
+      "password": "$2a$10$Bn54rUkwKq4Z7DFerc2RKu989/aRB7MPqDjf1kBov/gT25CfCD.IS",
+      "fullName": "имя ф",
+      "username": "a",
+      "role": "job_seeker",
+      "id": "e0IHjac"
+    },
+    {
+      "email": "a@a.b",
+      "password": "$2a$10$uNAURfbhoGqHmXjv0LSBAOyZbEkVm/miTVtaKgo.wdUqSoL9fNnUG",
+      "fullName": "и ф",
+      "username": "a",
+      "role": "job_seeker",
+      "id": "IimUE7u"
     }
   ]
 }
