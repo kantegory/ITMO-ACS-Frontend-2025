@@ -1,0 +1,2288 @@
+/* src/styles/HomeworkPage.css */
+
+/* Специфичные стили для Homework Page - полная высота экрана */
+.homework-page-wrapper.app-layout {
+  display: flex;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.homework-page-wrapper .main-content {
+  margin-left: 240px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  padding-bottom: 0 !important;
+}
+
+.homework-page-wrapper .content-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Общий layout: Sidebar + Main */
+.homework-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+  
+  /* ===== НОВОЕ: Мобильная навигация ===== */
+  .mobile-navigation {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    gap: 4px;
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-navigation {
+      display: flex;
+    }
+  }
+  
+  .nav-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    line-height: 1.2;
+  }
+  
+  .nav-btn.active {
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 177, 143, 0.3);
+  }
+  
+  .nav-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .nav-btn:not(.disabled):not(.active):hover {
+    background: #e2e8f0;
+    color: #475569;
+  }
+  
+  /* Скрытие колонок на мобильных */
+  @media (max-width: 768px) {
+    .mobile-hidden {
+      display: none !important;
+    }
+  }
+  
+  /* Кнопка "Назад" */
+  .back-btn {
+    background: rgba(0, 177, 143, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(215, 9, 219, 0.3);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .back-btn:hover {
+    background: rgba(0, 177, 143, 0.2);
+    border-color: rgba(0, 177, 143, 0.5);
+  }
+  
+  @media (max-width: 480px) {
+    .nav-btn {
+      font-size: 10px;
+      padding: 8px 6px;
+    }
+    
+    .back-btn {
+      font-size: 10px;
+      padding: 3px 6px;
+      margin-left: 4px;
+    }
+  }
+  
+  /* Сетка трёх колонок */
+  .homework-grid {
+    display: grid;
+    grid-template-columns: 250px 300px 1fr;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  
+  /* Колонка общие стили */
+  .column {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+  
+  .column h2 {
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    color: white;
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 4px 4px 0.3px rgba(3, 131, 106, 0.3);
+  }
+  
+  /* Колонка 1: группы */
+  .groups-col {
+    flex: 1;
+    min-width: 250px;
+  }
+  .groups-col h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  
+  .groups-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  
+  /* Кастомный скроллбар для списков */
+  .groups-list::-webkit-scrollbar,
+  .topics-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .groups-list::-webkit-scrollbar-track,
+  .topics-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .groups-list::-webkit-scrollbar-thumb,
+  .topics-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    border-radius: 4px;
+  }
+  
+  .groups-list::-webkit-scrollbar-thumb:hover,
+  .topics-list::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #03836A 0%, #025f4a 100%);
+  }
+  
+  .groups-list,
+  .topics-list {
+    scrollbar-width: thin;
+    scrollbar-color: #00B18F #f1f1f1;
+  }
+  .groups-list li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .groups-list li:hover {
+    background-color: #f8f9fa;
+  }
+  .groups-list li.selected {
+    background-color: rgba(0, 177, 143, 0.1);
+    color: #03836A;
+    font-weight: 500;
+    border-left: 4px solid #00B18F;
+  }
+  
+  .group-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .group-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .group-meta {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  /* Колонка 2: темы */
+  .topics-col {
+    flex: 2;
+    min-width: 300px;
+  }
+  .topics-col h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  
+  .topics-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .topics-list li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .topics-list li:hover {
+    background-color: #f8f9fa;
+  }
+  .topics-list li.selected {
+    background-color: rgba(0, 177, 143, 0.15);
+    color: #03836A;
+    border-left: 4px solid #00B18F;
+  }
+  
+  .lesson-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .lesson-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .lesson-meta {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  .lesson-date {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  /* Колонка 3: домашки */
+  .submissions-col {
+    flex: 3;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .submissions-col h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  
+  .submissions-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    min-height: 0;
+  }
+  
+  /* Кастомный скроллбар для submissions */
+  .submissions-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .submissions-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .submissions-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    border-radius: 4px;
+  }
+  
+  .submissions-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #03836A 0%, #025f4a 100%);
+  }
+  
+  .submissions-content {
+    scrollbar-width: thin;
+    scrollbar-color: #00B18F #f1f1f1;
+  }
+
+  /* Мобильная адаптация списка домашек */
+  @media (max-width: 768px) {
+    .submissions-content {
+      max-height: 400px;
+    }
+    
+    .submissions-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .submissions-content::-webkit-scrollbar-track {
+      background: rgba(0, 177, 143, 0.1);
+      border-radius: 3px;
+    }
+    
+    .submissions-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, rgba(0, 177, 143, 0.6) 0%, rgba(3, 131, 106, 0.8) 100%);
+      border-radius: 3px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .submissions-content {
+      max-height: 350px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .submissions-content {
+      max-height: 300px;
+    }
+  }
+  
+  .submission-item {
+    border-bottom: 1px solid #eee;
+    transition: all 0.2s ease;
+  }
+  
+  .submission-item:last-child {
+    border-bottom: none;
+  }
+  
+  .submission-header {
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+  }
+  .submission-header:hover {
+    background-color: #f8f9fa;
+  }
+  .submission-header.expanded {
+    background-color: rgba(0, 177, 143, 0.1);
+    border-bottom: 1px solid #00B18F;
+  }
+  
+  .student-info {
+    flex: 1;
+  }
+  
+  .student-name {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 4px;
+  }
+  
+  .student-meta {
+    font-size: 0.85rem;
+    color: #666;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .homework-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .status-badge.submitted {
+    background-color: rgba(0, 177, 143, 0.1);
+    color: #03836A;
+  }
+  .status-badge.not-submitted {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  .status-badge.graded {
+    background-color: rgba(0, 177, 143, 0.2);
+    color: #03836A;
+  }
+  
+  .grade-display {
+    font-weight: 600;
+    color: #00B18F;
+  }
+  
+  .expand-icon {
+    transition: transform 0.2s ease;
+  }
+  .expand-icon.rotated {
+    transform: rotate(180deg);
+  }
+  
+  /* Детали домашки */
+  .submission-details {
+    padding: 20px;
+    background-color: #fafafa;
+    border-top: 1px solid #e0e0e0;
+    
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #00B18F #f1f1f1;
+    position: relative;
+  }
+  
+  /* Индикатор прокрутки */
+  .submission-details::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #00B18F 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .submission-details.has-scroll::before {
+    opacity: 0.6;
+  }
+  
+  /* Кастомный скроллбар для WebKit */
+  .submission-details::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .submission-details::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .submission-details::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .submission-details::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #03836A 0%, #025f4a 100%);
+  }
+  
+  .homework-files {
+    margin-bottom: 20px;
+  }
+  
+  .homework-files h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 0.9rem;
+  }
+  
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+  }
+  
+  .file-icon {
+    color: #666;
+  }
+  
+  .file-name {
+    flex: 1;
+    font-size: 0.85rem;
+    color: #333;
+  }
+  
+  .file-link {
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+  .file-link:hover {
+    text-decoration: underline;
+  }
+  
+  .grading-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .grade-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .grade-field label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .grade-field input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+  }
+  .grade-field input:focus {
+    outline: none;
+    border-color: #00B18F;
+    box-shadow: 0 0 0 2px rgba(0, 177, 143, 0.1);
+  }
+  
+  .comment-field {
+    margin-bottom: 20px;
+  }
+  
+  .comment-field label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+  
+  .comment-field textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+  }
+  .comment-field textarea:focus {
+    outline: none;
+    border-color: #00B18F;
+    box-shadow: 0 0 0 3px rgba(0, 177, 143, 0.1);
+  }
+  
+  .details-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 20px;
+    border-top: 1px solid #e5e7eb;
+    background: #fafafa;
+    position: sticky;
+    bottom: 0;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: -20px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  /* Фирменные стили кнопок наследуются из ManageUserPage.css */
+  .btn-primary {
+    flex: 1;
+    background: #00B18F;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 20px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 4px 4px 0.3px #03836A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #03836A;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0.3px #03836A;
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-primary:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0.3px #03836A;
+    transition: transform 0.1s ease;
+  }
+  
+  .btn-primary:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-primary:disabled::before {
+    display: none;
+  }
+  
+  .btn-secondary {
+    background: #f8fafc;
+    color: #03836A;
+    border: 2px solid #00B18F;
+    border-radius: 10px;
+    padding: 20px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 2px 2px 0.3px rgba(0, 177, 143, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0, 177, 143, 0.1);
+    border-color: #03836A;
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0.3px rgba(0, 177, 143, 0.3);
+    color: #03836A;
+  }
+  
+  /* Плейсхолдер при отсутствии выбора */
+  .placeholder {
+    padding: 40px 20px;
+    text-align: center;
+    color: #ffffff;
+    font-style: italic;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #666;
+  }
+  
+  .error {
+    padding: 20px;
+    background-color: #ffebee;
+    color: #c62828;
+    border-radius: 6px;
+    margin: 10px;
+  }
+  
+  /* Existing comments */
+  .existing-comments {
+    margin-top: 15px;
+  }
+  
+  .existing-comments h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 0.9rem;
+  }
+  
+  .comment-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .comment-meta {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  
+  .comment-text {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.4;
+  }
+  
+  /* Новые стили для градации */
+  .homework-grading-section {
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    margin-bottom: 20px;
+  }
+  
+  .coins-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .coins-field label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+  }
+  
+  .coins-input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .coins-input-group:focus-within {
+    border-color: #00B18F;
+    box-shadow: 0 0 0 3px rgba(0, 177, 143, 0.1);
+  }
+  
+  .coins-input-group input {
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+    flex: 1;
+    background: transparent;
+  }
+  
+  .coins-input-group input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+  
+  .coins-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+  
+  .coins-hint {
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-style: italic;
+  }
+  
+  .comment-preview {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(0, 177, 143, 0.1);
+    border: 1px solid rgba(0, 177, 143, 0.3);
+    border-radius: 8px;
+  }
+  
+  .comment-preview strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #03836A;
+    font-size: 0.9rem;
+  }
+  
+  .notification-preview {
+    background: white;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border-left: 4px solid #00B18F;
+    font-size: 0.9rem;
+    color: #374151;
+    line-height: 1.4;
+  }
+  
+  /* Обновляем отображение статуса */
+  .homework-status .grade-display {
+    background: #00B18F;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 2px 2px 0.3px #03836A;
+  }
+  
+  .homework-status .grade-display::before {
+    content: '🪙';
+    font-size: 0.9rem;
+  }
+  
+  /* Адаптивность для мобильных */
+  @media (max-width: 768px) {
+    .homework-page-wrapper.app-layout {
+      height: 100vh !important;
+      max-height: 100vh !important;
+      overflow: hidden !important;
+    }
+    
+    .homework-page-wrapper .main-content {
+      margin-left: 0 !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      overflow: hidden !important;
+    }
+    
+    .homework-page-wrapper .content-area {
+      flex: 1 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+    
+    .homework-page {
+      padding: 8px;
+      flex: 1 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+  }
+  
+  /* Дополнительно для планшетов */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .homework-page-wrapper.app-layout {
+      height: 100vh !important;
+      max-height: 100vh !important;
+    }
+    
+    .homework-page-wrapper .main-content {
+      height: 100vh !important;
+      max-height: 100vh !important;
+    }
+  }
+  
+  /* Для очень маленьких экранов */
+  @media (max-width: 480px) {
+    .homework-page-wrapper.app-layout {
+      height: 100vh !important;
+      height: calc(var(--vh, 1vh) * 100) !important;
+    }
+    
+    .homework-page-wrapper .main-content {
+      height: 100vh !important;
+      height: calc(var(--vh, 1vh) * 100) !important;
+    }
+  }
+  
+  /* Старые мобильные стили для остальных элементов */
+  @media (max-width: 768px) {
+    .homework-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      height: 100%;
+      min-height: 0;
+    }
+    
+    .column {
+      min-width: auto;
+      height: auto;
+      min-height: 300px;
+      max-height: 60vh;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      flex: 1;
+    }
+    
+    /* Увеличиваем высоту для колонки с домашками */
+    .submissions-col {
+      max-height: 70vh;
+      min-height: 400px;
+      flex: 1;
+    }
+    
+    .column h2 {
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    
+    /* Заголовки колонок на мобильных */
+    .topics-col h2,
+    .submissions-col h2 {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    
+    .topics-col h2 .back-btn,
+    .submissions-col h2 .back-btn {
+      align-self: flex-start;
+      order: -1;
+    }
+    
+    /* Мобильная адаптация колонок */
+    .groups-col,
+    .topics-col,
+    .submissions-col {
+      flex: none;
+      min-width: auto;
+      height: auto;
+      max-height: none;
+    }
+    
+    /* Интерактивные заголовки колонок */
+    .groups-col.collapsed .groups-list,
+    .topics-col.collapsed .topics-list,
+    .submissions-col.collapsed .submissions-content {
+      display: none;
+    }
+    
+    .groups-list,
+    .topics-list {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 177, 143, 0.6) rgba(0, 177, 143, 0.1);
+    }
+    
+    /* Submissions колонка на мобильных занимает больше места */
+    .submissions-content {
+      flex: 1;
+      min-height: 0;
+      max-height: none;
+      overflow-y: auto;
+    }
+    
+    .groups-list li,
+    .topics-list li {
+      padding: 12px 14px;
+      border-left: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+    }
+    
+    .groups-list li::before,
+    .topics-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: #00B18F;
+      transition: width 0.2s ease;
+    }
+    
+    .groups-list li.selected,
+    .topics-list li.selected {
+      background-color: rgba(0, 177, 143, 0.08);
+      font-weight: 600;
+    }
+    
+    .groups-list li.selected::before,
+    .topics-list li.selected::before {
+      width: 4px;
+    }
+    
+    /* Улучшенная типографика для мобильных */
+    .group-name,
+    .lesson-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #2c3e50;
+    }
+    
+    .group-meta,
+    .lesson-meta,
+    .lesson-date {
+      font-size: 12px;
+      margin-top: 4px;
+      color: #64748b;
+      line-height: 1.3;
+    }
+    
+    /* Мобильная адаптация элементов домашек */
+    .submission-header {
+      padding: 12px 14px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      position: relative;
+      border-radius: 8px;
+      margin: 2px;
+      transition: all 0.2s ease;
+    }
+    
+    .submission-header:active {
+      background-color: rgba(0, 177, 143, 0.15);
+      transform: scale(0.98);
+    }
+    
+    .submission-header .homework-status {
+      align-self: flex-end;
+      position: absolute;
+      top: 12px;
+      right: 14px;
+    }
+    
+    .student-name {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #1e293b;
+      padding-right: 80px; /* Место для статуса */
+    }
+    
+    .student-meta {
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+    
+    .status-badge {
+      font-size: 10px;
+      padding: 3px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    
+    .expand-icon {
+      font-size: 14px;
+      color: #64748b;
+    }
+    
+    /* Улучшенные мобильные формы */
+    .homework-grading-section {
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+    }
+    
+    .coins-field label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    
+    .coins-input-group {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      min-height: 44px; /* Touch-friendly размер */
+    }
+    
+    .coins-input-group:focus-within {
+      border-color: #00B18F;
+      box-shadow: 0 0 0 2px rgba(0, 177, 143, 0.15);
+    }
+    
+    .coins-input-group input {
+      font-size: 16px; /* Предотвращает zoom на iOS */
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .coins-icon {
+      font-size: 1.4rem;
+    }
+    
+    .coins-hint {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #64748b;
+    }
+    
+    /* Мобильные кнопки */
+    .details-buttons {
+      flex-direction: column;
+      padding: 12px;
+      gap: 8px;
+      border-radius: 0 0 8px 8px;
+      background: #f8fafc;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      width: 100%;
+      justify-content: center;
+      border-radius: 8px;
+      min-height: 44px; /* Touch-friendly */
+      transition: all 0.2s ease;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+      border: none;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 177, 143, 0.3);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgba(0, 177, 143, 0.3);
+    }
+    
+    .btn-secondary {
+      background: white;
+      border: 2px solid #00B18F;
+      color: #00B18F;
+    }
+    
+    .btn-secondary:active {
+      background: rgba(0, 177, 143, 0.1);
+    }
+    
+    /* Оптимизированные текстовые поля */
+    .comment-field textarea {
+      min-height: 88px;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+      line-height: 1.4;
+      resize: vertical;
+    }
+    
+    .comment-field textarea:focus {
+      border-color: #00B18F;
+      box-shadow: 0 0 0 2px rgba(0, 177, 143, 0.15);
+    }
+    
+    .comment-field label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    
+    .notification-preview {
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+    
+    /* Мобильные стили для скролла */
+    .submission-details {
+      max-height: 65vh;
+      padding: 12px;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .archive-details {
+      max-height: 55vh;
+      padding: 12px;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .archive-buttons {
+      padding: 12px;
+      flex-direction: column;
+      gap: 8px;
+      background: #f8fafc;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .btn-warning {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 16px;
+      min-height: 44px;
+      background: #00B18F;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    
+    .btn-warning:active {
+      background: #03836A;
+      transform: translateY(1px);
+    }
+    
+    /* Увеличиваем размер скроллбара на мобильных */
+    .submission-details::-webkit-scrollbar,
+    .archive-details::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .submission-details::-webkit-scrollbar-track,
+    .archive-details::-webkit-scrollbar-track {
+      background: rgba(0, 177, 143, 0.1);
+      border-radius: 4px;
+    }
+    
+    .submission-details::-webkit-scrollbar-thumb,
+    .archive-details::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, rgba(0, 177, 143, 0.7) 0%, rgba(3, 131, 106, 0.9) 100%);
+      border-radius: 4px;
+    }
+    
+    .groups-list::-webkit-scrollbar,
+    .topics-list::-webkit-scrollbar,
+    .submissions-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .groups-list::-webkit-scrollbar-track,
+    .topics-list::-webkit-scrollbar-track,
+    .submissions-content::-webkit-scrollbar-track {
+      background: rgba(0, 177, 143, 0.1);
+      border-radius: 2px;
+    }
+    
+    .groups-list::-webkit-scrollbar-thumb,
+    .topics-list::-webkit-scrollbar-thumb,
+    .submissions-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, rgba(0, 177, 143, 0.6) 0%, rgba(3, 131, 106, 0.8) 100%);
+      border-radius: 2px;
+    }
+  }
+
+  /* Стили для маленьких телефонов */
+  @media (max-width: 480px) {
+    .homework-page {
+      padding: 8px;
+    }
+    
+    .homework-grid {
+      gap: 12px;
+    }
+    
+    .column {
+      border-radius: 8px;
+      max-height: 100%;
+      flex: 1;
+    }
+    
+    /* Еще больше увеличиваем высоту для колонки с домашками на маленьких экранах */
+    .submissions-col {
+      max-height: 95% !important;
+      min-height: 400px;
+      flex: 1;
+    }
+    
+    .submissions-content {
+      flex: 1;
+      min-height: 0;
+      max-height: none !important;
+    }
+    
+    .column h2 {
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+    
+    .groups-list,
+    .topics-list {
+      flex: 1;
+      min-height: 0;
+      max-height: none;
+    }
+    
+    .groups-list li,
+    .topics-list li {
+      padding: 10px 12px;
+    }
+    
+    .group-name,
+    .lesson-title {
+      font-size: 14px;
+    }
+    
+    .group-meta,
+    .lesson-meta,
+    .lesson-date {
+      font-size: 12px;
+    }
+    
+    .submission-header {
+      padding: 12px;
+    }
+    
+    .student-name {
+      font-size: 14px;
+    }
+    
+    .student-meta {
+      font-size: 12px;
+    }
+    
+    .status-badge {
+      font-size: 10px;
+      padding: 2px 5px;
+    }
+    
+    .submission-details,
+    .archive-details {
+      max-height: 65vh;
+      padding: 12px;
+    }
+    
+    .homework-grading-section {
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .coins-field label {
+      font-size: 14px;
+    }
+    
+    .coins-input-group {
+      padding: 8px 12px;
+    }
+    
+    .coins-input-group input {
+      font-size: 16px; /* Предотвращает zoom на iOS */
+    }
+    
+    .coins-icon {
+      font-size: 1.2rem;
+    }
+    
+    .coins-hint {
+      font-size: 12px;
+    }
+    
+    .comment-field label {
+      font-size: 14px;
+    }
+    
+    .comment-field textarea {
+      min-height: 80px;
+      font-size: 14px;
+      padding: 10px 12px;
+    }
+    
+    .notification-preview {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+    
+    .details-buttons,
+    .archive-buttons {
+      padding: 12px;
+      gap: 6px;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-warning {
+      padding: 12px 14px;
+      font-size: 13px;
+      border-radius: 8px;
+    }
+    
+    .archive-section {
+      padding: 12px;
+      border-radius: 8px;
+    }
+    
+    .archive-section h3 {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    
+    .archive-header {
+      padding: 10px 12px;
+    }
+    
+    .archive-toggle {
+      padding: 4px 8px;
+      font-size: 11px;
+      margin-left: 8px;
+    }
+    
+    .btn-ungrade {
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+    }
+    
+    .homework-files,
+    .student-comments {
+      margin: 15px 0;
+      padding: 12px;
+    }
+    
+    .homework-files h4,
+    .student-comments h4 {
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    
+    .file-item {
+      padding: 6px 10px;
+    }
+    
+    .file-name {
+      font-size: 13px;
+    }
+    
+    .file-link {
+      font-size: 12px;
+    }
+    
+    .student-comment-item {
+      padding: 8px;
+    }
+    
+    .comment-text {
+      font-size: 13px;
+    }
+    
+    .comment-date {
+      font-size: 10px;
+    }
+    
+    .scroll-hint {
+      bottom: 60px;
+      right: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
+      border-radius: 16px;
+    }
+    
+    .grade-info {
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+    
+    .grade-summary strong {
+      font-size: 13px;
+    }
+    
+    .coins-earned {
+      font-size: 11px;
+    }
+    
+    .graded-date {
+      font-size: 11px;
+    }
+    
+    /* Компактные плейсхолдеры */
+    .placeholder {
+      padding: 30px 15px;
+      font-size: 14px;
+      color: #ffffff;
+    }
+    
+    .loading {
+      height: 150px;
+      font-size: 14px;
+    }
+    
+    .error {
+      padding: 15px;
+      margin: 8px;
+      font-size: 14px;
+    }
+  }
+
+  /* Дополнительные стили для очень узких экранов */
+  @media (max-width: 360px) {
+    .homework-page {
+      padding: 6px;
+    }
+    
+    .homework-grid {
+      gap: 10px;
+    }
+    
+    .column {
+      max-height: 60vh;
+      flex: 1;
+    }
+    
+    /* Максимальное увеличение высоты для очень узких экранов */
+    .submissions-col {
+      max-height: 75vh !important;
+      min-height: 450px;
+      flex: 1;
+    }
+    
+    .submissions-content {
+      flex: 1;
+      min-height: 0;
+      max-height: none !important;
+    }
+    
+    .column h2 {
+      padding: 8px 10px;
+      font-size: 0.9rem;
+    }
+    
+    .groups-list,
+    .topics-list {
+      flex: 1;
+      min-height: 0;
+      max-height: none;
+    }
+    
+    .submission-details,
+    .archive-details {
+      max-height: 70vh;
+      padding: 10px;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-warning {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    
+    .details-buttons,
+    .archive-buttons {
+      padding: 10px;
+    }
+  }
+  
+  /* ===== НОВОЕ: Стили для архива ===== */
+.archive-toggle {
+  background: #00B18F;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0.3px #03836A;
+}
+
+.archive-toggle:hover {
+  background: #03836A;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0.3px #03836A;
+}
+
+/* Мобильная адаптация кнопки архива */
+@media (max-width: 768px) {
+  .submissions-section h2 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 10px 14px;
+  }
+  
+  .archive-toggle {
+    margin-left: 0;
+    align-self: flex-start;
+    font-size: 11px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    color: white;
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 177, 143, 0.3);
+    transition: all 0.2s ease;
+  }
+  
+  .archive-toggle:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 177, 143, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .archive-toggle {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+}
+
+.submissions-section {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.archive-section {
+  background: rgba(0, 177, 143, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  border: 2px dashed rgba(0, 177, 143, 0.3);
+}
+
+.archive-section h3 {
+  margin: 0 0 15px 0;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.archive-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.archive-item {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.archive-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.archive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  background: #f8f9fa;
+  transition: all 0.2s ease;
+}
+
+.archive-header:hover {
+  background: #e9ecef;
+}
+
+.archive-header.expanded {
+  background: #e9ecef;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.archive-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-ungrade {
+  background: #00B18F;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0.3px #03836A;
+}
+
+.btn-ungrade:hover {
+  background: #03836A;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0.3px #03836A;
+}
+
+.status-graded {
+  background: rgba(0, 177, 143, 0.2);
+  color: #03836A;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status-new {
+  background: #fff3cd;
+  color: #856404;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.coins-display {
+  background: transparent;
+  color: #059669;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}  .archive-details {
+    padding: 15px;
+    background: white;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #00B18F #f1f1f1;
+    position: relative;
+  }
+  
+  /* Индикатор прокрутки для архива */
+  .archive-details::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #00B18F 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .archive-details.has-scroll::before {
+    opacity: 0.5;
+  }
+  
+  /* Кастомный скроллбар для архивных деталей */
+  .archive-details::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .archive-details::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  .archive-details::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #00B18F 0%, #03836A 100%);
+    border-radius: 3px;
+  }
+  
+  .archive-details::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #03836A 0%, #025f4a 100%);
+  }
+
+.grade-info {
+  background: rgba(0, 177, 143, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-left: 4px solid #00B18F;
+}
+
+.grade-summary strong {
+  color: #03836A;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.grade-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.coins-earned {
+  color: #059669;
+  font-weight: 600;
+  background: transparent;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.graded-date {
+  color: #6c757d;
+  font-size: 12px;
+}  .archive-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 15px;
+    padding: 15px;
+    border-top: 1px solid #e9ecef;
+    background: white;
+    position: sticky;
+    bottom: 0;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: -15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+.btn-warning {
+  background: #00B18F;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  box-shadow: 2px 2px 0.3px #03836A;
+}
+
+.btn-warning:hover {
+  background: #03836A;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0.3px #03836A;
+}
+
+/* Обновляем статус для активных домашек */
+.submission-header .student-meta .status-new {
+  animation: pulse 2s infinite;
+}
+
+/* Улучшаем кнопку оценки */
+.btn-primary:disabled {
+  background: #adb5bd !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Подсказка о скролле */
+.scroll-hint {
+    position: absolute;
+    bottom: 70px;
+    right: 20px;
+    background: rgba(0, 177, 143, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 10;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+  }
+  
+  .submission-details.has-scroll .scroll-hint,
+  .archive-details.has-scroll .scroll-hint {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .scroll-hint::before {
+    content: '⬇️';
+    margin-right: 6px;
+  }
+
+  /* Скрываем подсказку через 3 секунды */
+  .scroll-hint.fade-out {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+/* ===== Стили для комментариев студентов ===== */
+.student-comments {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.student-comments h4 {
+  margin: 0 0 12px 0;
+  color: #495057;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.student-comment-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.comment-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.comment-icon {
+  font-size: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.comment-text {
+  color: #495057;
+  font-size: 14px;
+  line-height: 1.4;
+  font-style: italic;
+  flex: 1;
+}
+
+.comment-date {
+  font-size: 11px;
+  color: #6c757d;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Адаптивность для комментариев */
+@media (max-width: 768px) {
+  .student-comments {
+    margin: 15px 0;
+    padding: 12px;
+  }
+  
+  .comment-text {
+    font-size: 13px;
+  }
+}
+
+/* Мобилка: скрыть бейдж "Сдано" в заголовке домашки */
+@media (max-width: 768px) {
+  .submission-header .homework-status .status-badge.submitted {
+    display: none !important;
+  }
+}
+/* Планшеты и узкие экраны: делаем кнопки снизу столбцом и на всю ширину */
+@media (max-width: 1100px) {
+  .details-buttons,
+  .archive-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .details-buttons .btn-primary,
+  .details-buttons .btn-secondary,
+  .archive-buttons .btn-warning,
+  .archive-buttons .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Не даём контенту прятаться за "липкими" кнопками внизу */
+@media (max-width: 1100px) {
+  .submission-details {
+    padding-bottom: 96px; /* место под .details-buttons */
+  }
+  .archive-details {
+    padding-bottom: 84px; /* место под .archive-buttons */
+  }
+}
+
+/* Чуть увеличим "кликабельность" на узких экранах */
+@media (max-width: 1100px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-warning {
+    min-height: 44px;      /* комфортный тач-таргет */
+    font-size: 15px;
+  }
+}
+
+
+/* ===== МАЛЕНЬКИЕ ДЕСКТОПЫ: 769–1280px ===== */
+@media (min-width: 769px) and (max-width: 1280px) {
+  /* Детали делаем колонкой, чтобы можно было прижать кнопки вниз */
+  .submission-details,
+  .archive-details {
+    display: flex;
+    flex-direction: column;
+    /* больше места, чтобы панель с кнопками не «висела» */
+    max-height: 62vh;
+    padding-bottom: 100px; /* запас под нижнюю панель */
+  }
+
+  /* Панель с кнопками — всегда у нижней кромки внутри скролл-карты */
+  .details-buttons,
+  .archive-buttons {
+    position: sticky;
+    bottom: 0;
+    background: #fafafa;
+    border-top: 1px solid #e5e7eb;
+    padding: 16px;
+    margin: 0;                 /* убираем отрицательные отступы, чтобы не смещало */
+    border-radius: 0 0 12px 12px;
+    gap: 12px;
+
+    /* если контента мало — панель не будет «посередине», а прижмётся вниз,
+       т.к. родитель flex-column и контент над ней займёт пространство */
+    margin-top: auto;
+  }
+
+  /* Кнопки одинаковые по ширине и высоте */
+  .details-buttons .btn-primary,
+  .details-buttons .btn-secondary,
+  .archive-buttons .btn-warning,
+  .archive-buttons .btn-secondary {
+    flex: 1 1 0;          /* одинаковые доли */
+    min-width: 0;         /* корректный флекс в узких контейнерах */
+    justify-content: center;
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  /* Если ширины хватает — показываем в одну строку справа;
+     если уже совсем тесно — ниже в блоке есть «аварийный» переход в колонку */
+  .details-buttons,
+  .archive-buttons {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+}
+
+/* когда становится ещё уже — переключаем кнопки в колонку на всю ширину */
+@media (max-width: 1024px) {
+  .details-buttons,
+  .archive-buttons {
+    flex-direction: column;
+  }
+
+  .details-buttons .btn-primary,
+  .details-buttons .btn-secondary,
+  .archive-buttons .btn-warning,
+  .archive-buttons .btn-secondary {
+    width: 100%;
+  }
+
+  /* побольше отступ снизу под «липкую» панель */
+  .submission-details { padding-bottom: 110px; }
+  .archive-details    { padding-bottom: 96px; }
+}
+
+/* Убираем «Сдано» на мобилках (оставляю, чтобы было в одном месте) */
+@media (max-width: 768px) {
+  .submission-header .homework-status .status-badge.submitted {
+    display: none !important;
+  }
+}
+
+/* Небольшие визуальные выравнивания (одинаковая «плотность») */
+.details-buttons .btn-primary,
+.details-buttons .btn-secondary {
+  padding: 16px 20px; /* одинаковый вертикальный ритм */
+}
+.archive-buttons .btn-warning,
+.archive-buttons .btn-secondary {
+  padding: 12px 16px;
+}
+
+/* (Опционально) Если не хочешь sticky — можно прижать чисто флексом:
+   включи эти две строки и отключи position: sticky выше.
+.submission-details, .archive-details { min-height: 60vh; }
+.details-buttons, .archive-buttons   { position: static; margin-top: auto; }
+*/
+
+
+/* ===== FIX: панель кнопок не перекрывает контент и чуть ниже ===== */
+
+/* общий вид панели */
+.details-buttons,
+.archive-buttons {
+  position: sticky;
+  bottom: 8px;                 /* "чуть ниже", чем вплотную к краю */
+  background: #ffffff;         /* сплошной фон, чтобы не просвечивал контент */
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 -6px 18px rgba(17,24,39,.08);
+  border-radius: 12px;
+  padding: 14px;
+  gap: 12px;
+  margin: 0 !important;        /* убираем отрицательные маргины из старых правил */
+  z-index: 10;                 /* поверх контента */
+}
+
+/* одинаковый вид кнопок и равные доли */
+.details-buttons .btn-primary,
+.details-buttons .btn-secondary,
+.archive-buttons .btn-warning,
+.archive-buttons .btn-secondary {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  justify-content: center;
+}
+
+/* на маленьких десктопах можно в строку, на узких — столбцом */
+@media (min-width: 1024px) {
+  .details-buttons,
+  .archive-buttons {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: stretch;
+  }
+}
+@media (max-width: 1023.98px) {
+  .details-buttons,
+  .archive-buttons {
+    flex-direction: column;
+  }
+}
+
+/* даём дополнительное место под "липкую" панель, чтобы ничего не прилипало снизу */
+.submission-details,
+.archive-details {
+  padding-bottom: 130px; /* запас под высоту панели + отступ */
+}
+
+/* когда на совсем узких, чуть больше запаса */
+@media (max-width: 1024px) {
+  .submission-details { padding-bottom: 150px; }
+  .archive-details    { padding-bottom: 140px; }
+}
+
+/* мобилка: скрыть бейдж "Сдано" */
+@media (max-width: 768px) {
+  .submission-header .homework-status .status-badge.submitted {
+    display: none !important;
+  }
+}
+
+/* === Кнопки внизу карточки, без липкости и без перекрытия === */
+
+/* Делаем область деталей флекс-колонкой,
+   чтобы можно было прижать панель кнопок вниз */
+.submission-details,
+.archive-details {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;          /* как и было */
+  padding-bottom: 16px !important;   /* убираем предыдущие большие паддинги */
+}
+
+/* Панель кнопок — обычная, не sticky, без отрицательных маргинов */
+.details-buttons,
+.archive-buttons {
+  position: static !important;   /* сброс sticky */
+  bottom: auto !important;
+  margin: 16px 0 0 0 !important; /* убираем отрицательные отступы */
+  padding: 16px;
+  background: #fafafa;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Прижимаем панели к низу контейнера */
+.details-buttons { margin-top: auto !important; }
+.archive-buttons  { margin-top: auto !important; }
+
+/* Кнопки одинаковые по размеру и не «плавают» */
+.details-buttons .btn-primary,
+.details-buttons .btn-secondary,
+.archive-buttons .btn-warning,
+.archive-buttons .btn-secondary {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  justify-content: center;
+}
+
+/* Узкие экраны и маленькие десктопы: кнопки в столбик на всю ширину */
+@media (max-width: 1100px) {
+  .details-buttons,
+  .archive-buttons {
+    flex-direction: column;
+  }
+  .details-buttons .btn-primary,
+  .details-buttons .btn-secondary,
+  .archive-buttons .btn-warning,
+  .archive-buttons .btn-secondary {
+    width: 100%;
+  }
+}
