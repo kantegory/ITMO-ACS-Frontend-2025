@@ -1,0 +1,442 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row row-cols-1 row-cols-sm-2">
+  <div class="col d-flex align-items-center">
+    <div>
+      <h1 class="text-body-emphasis">Браслет, который сделает тебя лучше</h1>
+      <p>
+        Браслет подключается по Wi-Fi и проверяет делаешь ли ты что-нибудь
+        полезное. Если ты не учишься / работаешь / тренируешься, то браслет
+        начинает нагреваться.
+      </p>
+      <a class="btn btn-outline-light btn-lg" href="/buy">Купить</a>
+    </div>
+  </div>
+  <div class="col rainbow-imgs">
+    <img src="/static/img/band-blue.webp" class="rainbow-img" />
+    <img src="/static/img/band-green.webp" class="rainbow-img" />
+    <img src="/static/img/band-red.webp" class="rainbow-img" />
+  </div>
+</div>
+
+<div class="row align-items-md-stretch my-3">
+  <div class="col-md-6 my-2">
+    <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+      <h2>Расширение</h2>
+      <p>
+        Ты можешь установить расширение, которое контролирует какие сайты ты
+        посещаешь и какие видео смотрите. Расширение для браузера отслеживает,
+        совершает ли человек полезные действия, и отправляет эти данные на
+        браслет. Если ты хочешь изучить Python, до просто вбейте слово в
+        расширение и браслет будет поощерять просмотр видео по Python и
+        посещение сайтов по программированию.
+      </p>
+      <a class="btn btn-outline-light" href="#">Установить расширение</a>
+    </div>
+  </div>
+  <div class="col-md-6 my-2">
+    <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+      <h2>Программа</h2>
+      <p>
+        Ты можешь установить программу на свой компьютер, которая будет
+        контролировать какими программами ты пользуетесь. Если ты дизайнер, то
+        можете вбить Photoshop и Illustrator, тогда браслет будет помогать не
+        отвлекаться от работы на соц-сети, например. А если отвлечёшься, то
+        быстро вернёт к работе с помощью нагрева. Программа работает на Windows,
+        MacOS.
+      </p>
+      <a class="btn btn-outline-light" href="#">Скачать для Windows</a>
+      <a class="btn btn-outline-light" href="#">Скачать для MacOS</a>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 my-5">
+  <div class="col d-flex align-items-center my-2">
+    <div>
+      <h1>Веб-интерфейс</h1>
+      <p>Настраивай браслет с любого устройства в удобном веб-интерфейсе.</p>
+      <a class="btn btn-outline-light" href="/pages/tutorial">Инструкция</a>
+    </div>
+  </div>
+  <div class="col row my-2">
+    <div class="col">
+      <img src="/static/img/web-settings.png" class="img-fluid" />
+    </div>
+    <div class="col">
+      <img src="/static/img/web-main.png" class="img-fluid" />
+    </div>
+  </div>
+</div>
+
+<div class="row my-5">
+  <div class="col-4">
+    <img src="/static/img/band-runner.webp" class="img-fluid" />
+  </div>
+  <div class="col-8 d-flex align-items-center">
+    <div>
+      <h1>Тренировки</h1>
+      <p>
+        Браслет может также применятся и для занятий спортом. С помощью датчика
+        пульса можно контролировать бег и другие виды кардионагрузок. Если пульс
+        опускается ниже определённого порога, то браслет нагревается, пока пульс
+        не повысится.
+      </p>
+      <p>Инструкции по подключению датчиков пульса:</p>
+      <a class="btn btn-outline-light" href="#">Apple Watch</a>
+      <a class="btn btn-outline-light" href="#">Amazfit</a>
+      <a class="btn btn-outline-light" href="#">Bluetooth датчик пульса</a>
+    </div>
+  </div>
+</div>
+
+<div
+  class="position-relative text-center text-muted bg-body border rounded-5 my-5"
+>
+  <div class="pt-5">
+    <h1 class="text-body-emphasis">Зарядка</h1>
+    <p class="col-lg-6 mx-auto mb-4">
+      Браслет заряжается с помощью USB-C. Аккумулятор на 300 mAh.<br />
+      На обратной стороне браслета расположен нагреватель.
+    </p>
+  </div>
+  <img src="/static/img/band-usb-c-thin.webp" class="img-fluid" />
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 my-5">
+  <div class="col">
+    <img src="/static/img/band-pcb-blur.png" class="img-fluid" />
+  </div>
+  <div class="col d-flex align-items-center">
+    <div>
+      <h1>Открытый код</h1>
+      <p>
+        Браслет сделан на основе ESP32. Благодаря этому ты можешь написать свой
+        код для браслета на Arduino.
+      </p>
+      <a class="btn btn-outline-light" href="#">Код на GitHub</a>
+    </div>
+  </div>
+</div>
+
+<h1>FAQ</h1>
+<p>Часто задаваемые вопросы.</p>
+
+<div class="accordion" id="accordionFAQ">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-1"
+        aria-expanded="true"
+        aria-controls="collapse-1"
+      >
+        Как работает браслет?
+      </button>
+    </h2>
+    <div
+      id="collapse-1"
+      class="accordion-collapse collapse show"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        Браслет настраивается с помощью удобного веб-интерфейса. После настройки
+        подключается к интернету через Wi-Fi. Подключение к API различных
+        сервисов позволяет контролировать выполнение многих задач. Если задача
+        не выполняется, то браслет начинает нагреваться, тем самым стимулируя
+        пользователя к работе или учёбе.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-2"
+        aria-expanded="true"
+        aria-controls="collapse-2"
+      >
+        Насколько сильно нагревается браслет?
+      </button>
+    </h2>
+    <div
+      id="collapse-2"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        Мощность нагрева можно <a href="">настроить</a> в веб-интерфейсе
+        браслета. Максимальной мощности достаточно, чтобы получить ожог.
+        Максимальная мощность не подбиралась по уровню безопасности, тебе надо
+        самому подобрать подходящую для тебя мощность.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-3"
+        aria-expanded="true"
+        aria-controls="collapse-3"
+      >
+        Как долго браслет работает от аккумулятора?
+      </button>
+    </h2>
+    <div
+      id="collapse-3"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        <p>
+          Время работы браслета очень сильно зависит от способа применения. В
+          случае, если браслет используется каждый день для тренировки или
+          изучения чего-либо в течении часа, то браслет будет работать неделю и
+          более. Если же браслет должен контролировать деятельность человека в
+          течении всего дня, то его хватает на день и лучше его в конце дня
+          ставить на зарядку, как это делают пользователи Apple Watch. Если не
+          хватает аккумулятора, можешь посмотреть
+          <a href="">рекомендации по экономии энергии</a>.
+        </p>
+        Браслет при работе с Wi-Fi тратит очень много энергии, поэтому большую
+        часть времени он находится в режиме глубокого сна, который тратит очень
+        мало энергии, и просыпается, чтобы получить данные из интернета и либо
+        начать нагреваться либо заснуть опять. Это надо учитывать, если ты
+        хочешь написать свою программу для браслета. Можешь посмотреть
+        <a href="">информацию об экономии энергии для разработчиков</a>.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-4"
+        aria-expanded="true"
+        aria-controls="collapse-4"
+      >
+        Нельзя ли просто снять браслет, когда он начнёт нагреваться?
+      </button>
+    </h2>
+    <div
+      id="collapse-4"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        <p>Для этого есть несколько решений.</p>
+        <p>
+          Не снимать браслет на силе воли или <a href="">обещании</a>. Выполнить
+          задачу просто не снимать браслет значительно легче, чем весь день
+          контролировать силой воли, чем сейчас заниматься. Можно сказать, что
+          силу воли нужно будет прекладывать не ко всем действиям, которые
+          теперь контролирует браслет, а только к одному узлу, не снимать сам
+          браслет.
+        </p>
+        <p>
+          Можно произвести некоторую <a href="">модернизацию</a> браслета,
+          которые сильно усложнят его снятие.
+        </p>
+        Можно подключить дополнительные возможности контроля используется ли
+        браслет. Для этого добавлена специальная функция на сайт, которая
+        позволяет узнавать, когда браслет последний раз выходил на связь и
+        выполняются ли обязаности. При обращении на него вовзращается либо 0,
+        либо 1. Я, например, подключил эту систему к
+        <a href="">программе для ноутбука</a>, которая включает сирену в случае,
+        если браслет не используется. Подключил к
+        <a href="">отдельному устройству</a>, которое начинает пищать. И к
+        <a href="">роутеру</a>, который сильно сильно понижает скорость
+        интернета.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-5"
+        aria-expanded="true"
+        aria-controls="collapse-5"
+      >
+        Можно ли перепрограммировать браслет?
+      </button>
+    </h2>
+    <div
+      id="collapse-5"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        Да, можно. Код Open Source и написан на Arduino. Загрузить прошивку
+        можно Over-the-air в web-интерфейсе браслета по
+        <a href="pages/ota">инструкции</a>.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-6"
+        aria-expanded="false"
+        aria-controls="collapse-6"
+      >
+        Могу ли я поменять ремешок браслета?
+      </button>
+    </h2>
+    <div
+      id="collapse-6"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        Да, это можно сделать, браслет совместим с определёнными ремешками для
+        Mi Band 7 от MiJobs.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-7"
+        aria-expanded="false"
+        aria-controls="collapse-7"
+      >
+        Есть ли другие подобные устройства?
+      </button>
+    </h2>
+    <div
+      id="collapse-7"
+      class="accordion-collapse collapse"
+      data-bs-parent="#accordionFAQ"
+    >
+      <div class="accordion-body">
+        Единственным похожим устройством является браслет Pavlok, который бьёт
+        током, но он не доставляется в Россию из-за санкций, сравнение Razvit
+        Band и Pavlok можно посмотреть на этой
+        <a href="pages/pavlok">странице</a>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #bg {
+    width: 500px;
+    height: 500px;
+  }
+  .rainbow-imgs {
+    position: relative;
+    aspect-ratio: 4 / 5;
+  }
+  .rainbow-img {
+    position: absolute;
+    opacity: 1;
+    animation: rainbow-img-animation 12s infinite linear;
+
+    aspect-ratio: 4 / 5;
+    width: 90%;
+  }
+  .rainbow-img:nth-child(1) {
+    animation-delay: -8s;
+  }
+  .rainbow-img:nth-child(2) {
+    animation-delay: -4s;
+  }
+  .rainbow-img:nth-child(3) {
+    animation-delay: 0s;
+  }
+  @keyframes rainbow-img-animation {
+    0% {
+      opacity: 1;
+      z-index: 2;
+    }
+    16.6% {
+      opacity: 0;
+      z-index: 2;
+    }
+    33% {
+      opacity: 0;
+      z-index: 1;
+    }
+    33.3% {
+      opacity: 1;
+      z-index: 1;
+    }
+    66.6% {
+      opacity: 1;
+      z-index: 1;
+    }
+    67% {
+      opacity: 0;
+      z-index: 1;
+    }
+    83.2% {
+      opacity: 0;
+      z-index: 2;
+    }
+    100% {
+      opacity: 1;
+      z-index: 2;
+    }
+  }
+
+  .rainbow-color {
+    animation: rainbow-color-animation 12s infinite linear;
+    background: #111;
+    border-width: 1px;
+    border-style: solid;
+  }
+  @keyframes rainbow-color-animation {
+    0% {
+      color: Tomato;
+      border-color: Tomato;
+    }
+    16.6% {
+      color: MediumSeaGreen;
+      border-color: MediumSeaGreen;
+    }
+    33.3% {
+      color: DodgerBlue;
+      border-color: DodgerBlue;
+    }
+    50% {
+      color: Tomato;
+      border-color: Tomato;
+    }
+    66.6% {
+      color: MediumSeaGreen;
+      border-color: MediumSeaGreen;
+    }
+    83.2% {
+      color: DodgerBlue;
+      border-color: DodgerBlue;
+    }
+    100% {
+      color: Tomato;
+      border-color: Tomato;
+    }
+  }
+</style>
+{% endblock %}

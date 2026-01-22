@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Яблочный пирог — Лакомка</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Лакомка</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">Личный кабинет</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Вход</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="container my-5">
+    <div class="row">
+
+      <div class="col-lg-6 mb-4">
+        <img src="https://media.istockphoto.com/id/512602151/ru/фото/классическая-американская-яблочный-пирог.jpg?s=1024x1024&w=is&k=20&c=5JTDoo_OSarOcymSnpKvq-ZfURK7-d2o0n0S8Xqr3KI="
+             class="img-fluid rounded" 
+             alt="Яблочный пирог">
+      </div>
+
+      <div class="col-lg-6">
+        <h2 style="color:#6b3e26;">Яблочный пирог</h2>
+        <p class="text-muted">Автор: <span style="color:#d47b63;">Мария Беброва</span></p>
+
+        <div class="d-flex flex-wrap mb-3">
+          <span class="badge bg-secondary me-2">⏱ 55 мин</span>
+          <span class="badge bg-secondary me-2">🍏 Сложность: Легко</span>
+          <span class="badge bg-secondary">🥧 Категория: Выпечка</span>
+        </div>
+
+        <p>
+        Классика: сочные яблоки, аромат корицы и рассыпчатое тесто.
+        </p>
+
+        <button id="saveRecipeBtn" class="btn mt-2" style="background-color:#d47b63; color:#fff; border:none;">
+          💖 Сохранить
+        </button>
+      </div>
+
+    </div>
+
+    <div class="row mt-5">
+
+      <div class="col-md-4">
+        <h4 style="color:#6b3e26;">Ингредиенты</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Яблоки — 4 шт.</li>
+          <li class="list-group-item">Мука — 200 г</li>
+          <li class="list-group-item">Сахар — 150 г</li>
+          <li class="list-group-item">Яйца — 3 шт.</li>
+          <li class="list-group-item">Сливочное масло — 80 г</li>
+          <li class="list-group-item">Корица — 1 ч.л.</li>
+          <li class="list-group-item">Разрыхлитель — 1 ч.л.</li>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+        <h4 style="color:#6b3e26;">Пошаговый рецепт</h4>
+
+        <ol class="list-group list-group-numbered list-group-flush">
+          <li class="list-group-item">Разогрейте духовку до 180°C.</li>
+          <li class="list-group-item">Взбейте яйца с сахаром до лёгкой, воздушной массы.</li>
+          <li class="list-group-item">Добавьте растопленное масло, затем муку с разрыхлителем.</li>
+          <li class="list-group-item">Яблоки очистите и нарежьте тонкими ломтиками, перемешайте с корицей.</li>
+          <li class="list-group-item">Добавьте яблоки в тесто и аккуратно перемешайте.</li>
+          <li class="list-group-item">Перелейте в форму и выпекайте 35–40 минут до золотистой корочки.</li>
+        </ol>
+      </div>
+
+    </div>
+
+    <div class="mt-5">
+      <h4 style="color:#6b3e26;">Комментарии</h4>
+
+      <div id="comments-container">
+        <div class="card p-3 my-3">
+          <p><strong>Лена:</strong> Пирог получился невероятно ароматным! Обязательно повторю!</p>
+        </div>
+      </div>
+
+      <form id="comment-form" class="mt-4">
+        <div class="mb-3">
+          <label for="comment" class="form-label">Оставить комментарий</label>
+          <textarea id="comment-input" class="form-control" rows="3" placeholder="Напишите ваш отзыв..." required></textarea>
+        </div>
+        <button type="submit" class="btn" style="background-color:#d47b63; color:#fff; border:none;">Отправить</button>
+      </form>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2025 Лакомка | Кулинарный блог</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
