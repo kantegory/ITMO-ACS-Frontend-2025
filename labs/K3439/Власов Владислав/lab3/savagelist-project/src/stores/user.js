@@ -39,7 +39,8 @@ const useUserStore = defineStore('user', {
 
     async updateUser(data) {
       
-      const response = await usersApi.updateUser(data, this.token)
+      console.log(this.token)
+      const response = await usersApi.updateUser(data, this.id, this.token)
 
       console.log(response.data)
 

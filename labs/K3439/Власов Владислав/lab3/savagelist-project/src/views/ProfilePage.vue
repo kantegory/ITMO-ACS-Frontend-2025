@@ -37,8 +37,8 @@
         </div>
         <EditProfileModal
             :is-open="isModalOpen"
-            :user-email="name"
-            :user-name="email"
+            :user-email="email"
+            :user-name="name"
             @close="isModalOpen = false" 
             @save="handleUpdateUser"
         />

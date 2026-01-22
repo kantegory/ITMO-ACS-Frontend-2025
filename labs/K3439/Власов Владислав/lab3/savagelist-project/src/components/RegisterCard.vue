@@ -58,13 +58,11 @@
     </template>
     
     <style scoped>
-    /* Стили идентичны LoginCard, добавим только специфичные */
     .hint {
       font-size: 12px;
       color: #888;
       margin-top: -4px;
     }
-    /* ... (скопировать стили из LoginCard) ... */
     .auth-card {
       background: white;
       border-radius: 8px;

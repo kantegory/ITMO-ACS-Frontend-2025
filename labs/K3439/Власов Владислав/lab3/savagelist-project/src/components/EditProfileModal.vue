@@ -9,12 +9,13 @@
     
     const emit = defineEmits(['close', 'save']);
     
-    // Локальные реактивные переменные для полей формы
     const name = ref(props.userName);
     const email = ref(props.userEmail);
     const password = ref('');
     
     const close = () => {
+      name.value = props.userName;
+      email.value = props.userEmail;
       password.value = '';
       emit('close');
     }

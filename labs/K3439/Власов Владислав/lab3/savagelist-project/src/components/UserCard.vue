@@ -1,5 +1,4 @@
 <script setup>
-    // Временно используем пропсы вместо Pinia
     const props = defineProps({
       userName: { type: String},
       userEmail: { type: String}

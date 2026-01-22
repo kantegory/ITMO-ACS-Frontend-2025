@@ -6,5 +6,5 @@ const notesApi = new NotesApi(instance)
 
 
 export {
- notesApi
+    notesApi
 }

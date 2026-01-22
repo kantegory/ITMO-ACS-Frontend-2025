@@ -10,7 +10,7 @@
             default: ''
         },
         to: {
-            type: String,
+            type: [String, Object],
             default: '#'
         },
         isDisabled: {
@@ -41,10 +41,10 @@
 </template>
     
 <style scoped>
-  /* Базовая кнопка */
+
   .nav-btn {
     text-decoration: none;
-    color: #ffffff; /* Белый текст на темном фоне */
+    color: #ffffff;
     padding: 8px 16px;
     border-radius: 4px;
     font-size: 0.95rem;
@@ -57,29 +57,29 @@
   }
 
   .nav-btn:hover {
-    color: #dccc94; /* Текст становится золотым при наведении */
+    color: #dccc94;
     background: rgba(255, 255, 255, 0.05);
   }
 
-  /* Кнопка "Action" (Выход, Профиль) */
+
   .nav-btn--action {
-    color: #dccc94; /* Сразу золотая */
-    border: 1px solid #dccc94; /* Тонкая золотая рамка */
+    color: #dccc94; 
+    border: 1px solid #dccc94;
   }
 
   .nav-btn--action:hover {
     background: #dccc94;
-    color: #1e2329; /* Инверсия цветов при наведении */
+    color: #1e2329;
   }
 
-  /* Неактивная кнопка */
+
   .nav-btn--disabled {
-    color: #5f6368; /* Серый текст */
+    color: #5f6368;
     cursor: not-allowed;
-    pointer-events: none; /* Отключаем клики */
+    pointer-events: none;
   }
 
-  /* Если есть иконки внутри кнопки */
+ 
   .nav-btn__label {
     display: inline-block;
   }

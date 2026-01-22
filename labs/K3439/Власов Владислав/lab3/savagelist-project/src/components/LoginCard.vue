@@ -8,7 +8,7 @@
     const rememberMe = ref(false);
     
     const props = defineProps({
-        errorMessage: String // Получаем текст ошибки от родителя
+        errorMessage: String
     });
     
     const handleLogin = () => {
@@ -55,7 +55,6 @@
     </template>
     
     <style scoped>
-    /* Общие стили для обеих карточек вынесем сюда для наглядности */
     .auth-card {
       background: white;
       border-radius: 8px;

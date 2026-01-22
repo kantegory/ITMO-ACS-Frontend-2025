@@ -1,6 +1,5 @@
 <script setup>
   import { reactive } from 'vue';
-  // Убедись, что путь к composable верный
   import useFormReset from '@/composables/useFormReset'
 
   const emit = defineEmits(['cancel', 'create']);
@@ -10,11 +9,11 @@
   const formData = reactive({
     name: '',
     description: '',
-    attribute: '' // Это поле будет заполняться из select
+    attribute: ''
   })
 
   const submitForm = () => {
-    if (!formData.name || !formData.attribute) return; // Добавил проверку на заполненность атрибута
+    if (!formData.name || !formData.attribute) return;
     emit('create', formData);
     resetFields(formData)
     console.log(formData);
@@ -76,7 +75,7 @@
       overflow: hidden;
       width: 100%;
       max-width: 450px;
-      top: 20px; /* Если используется absolute/fixed, иначе можно margin-top */
+      top: 20px;
   }
 
   .card-header {
@@ -109,7 +108,6 @@
       color: #333;
   }
 
-  /* Добавил .form-group select сюда, чтобы стиль был единым */
   .form-group input,
   .form-group textarea,
   .form-group select {
@@ -121,7 +119,7 @@
       font-family: inherit;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
-      background-color: #fff; /* Важно для select */
+      background-color: #fff;
   }
 
   .form-group input:focus,

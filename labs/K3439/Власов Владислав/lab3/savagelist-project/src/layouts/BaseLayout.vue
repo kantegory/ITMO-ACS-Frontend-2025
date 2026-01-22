@@ -3,16 +3,16 @@
 
     // Список основных разделов
     const navItems = [
-        { label: 'Персонажи', to: '{ name: characters }', disabled: false },
-        { label: 'Навыки', to: '{ name: skills }', disabled: false },
-        { label: 'Черты', to: '{ name: edges }', disabled: true },
-        { label: 'Предметы', to: '{ name: items }', disabled: true },
+        { label: 'Персонажи', to: { name: 'characters' }, disabled: false },
+        { label: 'Навыки', to: { name: 'skills' }, disabled: false },
+        { label: 'Черты', to: { name: 'edges' }, disabled: true },
+        { label: 'Предметы', to: { name: 'items' }, disabled: true },
     ];
 
     // Список пользовательских действий
     const userItems = [
-        { label: 'Профиль', to: '{ name: profile }'},
-        { label: 'Выход', to: '{ name: auth }'},
+        { label: 'Профиль', to: { name: 'profile' }},
+        { label: 'Выход', to: { name: 'auth' }},
     ];
 </script>
     
