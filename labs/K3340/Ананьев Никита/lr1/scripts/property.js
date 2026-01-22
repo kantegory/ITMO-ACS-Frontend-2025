@@ -38,7 +38,7 @@ function fillPropertyContent(property) {
     images.forEach((img, i) => {
         imgDiv = document.createElement("div");
         imgDiv.className = "carousel-item" + (i === 0 ? " active" : "");
-        imgDiv.innerHTML = `<img alt="image ${i + 1} of ${property.address}" src="${img}" class="d-block w-100">`;
+        imgDiv.innerHTML = `<img alt="image ${i + 1} of ${property.address}" src="../media/images/${img}" class="d-block w-100">`;
         carousel.append(imgDiv);
     });
 
