@@ -1,0 +1,63 @@
+body { margin: 0; font-family: Arial, sans-serif; background: #f3f8f4; }
+
+.profile-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 { 
+    color: #3c8c5a; 
+    margin-bottom: 20px; 
+}
+
+.profile-header {
+    display: flex; 
+    align-items: center; 
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 144px; 
+    height: 144px;
+    border-radius: 50%;
+    object-fit: cover; 
+    border: 3px solid #cde3d4;
+}
+
+.user-info div { 
+    margin-bottom: 8px; 
+    font-size: 16px; 
+}
+
+.edit-block input {
+    width: calc(100% - 20px); 
+    padding: 10px;
+    margin-bottom: 10px; 
+    border-radius: 10px;
+    border: 1px solid #cde3d4;
+}
+
+.edit-actions {
+    display: flex; 
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+.history {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.deal {
+    background: #f8fdf9; 
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
+}
