@@ -731,3 +731,35 @@ body {
   }
 }
 
+.icon {
+    fill: currentColor;
+    stroke: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon.search-icon {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+

@@ -1,0 +1,16 @@
+{
+  "name": "lab-1",
+  "version": "1.0.0",
+  "description": "В рамках 1 лабораторной работы разработан веб-сервис для просмотра, поиска и оценки музыкальных альбомов. Интерфейс реализован на HTML, CSS и Bootstrap с использованием JavaScript для интерактивных функций.",
+  "main": "index.js",
+  "scripts": {
+    "dev-api": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "^0.17.4",
+    "json-server-auth": "^2.1.0"
+  }
+}
