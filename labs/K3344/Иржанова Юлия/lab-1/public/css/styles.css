@@ -823,6 +823,44 @@ a.text-decoration-none:hover {
   text-decoration: underline;
 }
 
+/* стили для иконок */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.icon-star {
+  color: #000000; 
+}
+
+.icon-comment {
+  color: #888;
+}
+
+.icon-filter {
+  color: #2b6032;
+  margin-right: 8px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 8px 0;
+}
+
+.reviews-count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
 /* адаптивность */
 
 @media (min-width: 1000px) {

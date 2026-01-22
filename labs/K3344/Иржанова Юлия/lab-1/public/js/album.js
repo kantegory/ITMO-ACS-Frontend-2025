@@ -230,24 +230,19 @@ function attachReviewFormHandler(album) {
             date: new Date().toLocaleDateString('ru-RU')
         };
 
-        // добавить отзыв к альбому
         album.reviews.push(review);
 
-        // сохранить в localStorage
         saveAlbumToStorage(album);
 
         console.log('Отзыв опубликован');
         alert('Спасибо за ваш отзыв!');
 
-        // обновить отображение
         displayReviews(album);
         displayAlbumInfo(album);
 
-        // закрыть модальное окно
         const modal = bootstrap.Modal.getInstance(document.getElementById('addReviewModal'));
         if (modal) modal.hide();
 
-        // очистить форму
         reviewForm.reset();
     });
 }

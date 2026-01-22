@@ -23,6 +23,12 @@
       "password": "$2a$10$Wo7Rq.tXMbsSXN0LjdMXaO5DssEQ6LwyCmj1gv3upbYmn5fOou8YS",
       "name": "jululiett",
       "id": 4
+    },
+    {
+      "email": "1234@mail.ru",
+      "password": "$2a$10$HFUck1555AmhcOOHUYoLQuti4a67R819zzOwdpPzyJRGVNQEqRIEm",
+      "name": "yulya",
+      "id": 5
     }
   ],
   "albums": [

@@ -55,7 +55,18 @@ function renderAlbums(albums) {
           <div class="album-title">${album.albumTitle}</div>
           <div class="album-artist">${album.artist}</div>
           <div class="album-year">${album.year} • ${album.genre}</div>
-          <div class="album-rating">${album.rating.toFixed(1)}</div>
+          <div class="album-reviews">
+            <svg class="icon icon-comment" width="16" height="16">
+              <use href="#icon-comment"></use>
+            </svg>
+            ${album.reviews ? album.reviews.length : 0} отзывов
+          </div>
+          <div class="album-rating">
+            <svg class="icon icon-star" width="16" height="16">
+              <use href="#icon-star"></use>
+            </svg>
+            ${album.rating.toFixed(1)}
+          </div>
         </div>
       </div>
     </div>
