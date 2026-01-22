@@ -8,52 +8,60 @@
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
+    <a id="skip-to-main" href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
 
-<div id="header-placeholder"></div>
+<div id="header-placeholder" role="banner"></div>
 
-<main class="container py-4">
-    <div id="searchAlert" class="alert inline-alert"></div>
+<main id="main-content" class="container py-4" role="main">
+    <div id="searchAlert" class="alert inline-alert" role="alert" aria-live="polite"></div>
 
     <section class="page-header">
-        <h1>Поиск рецептов</h1>
+        <h1 id="searchPageTitle">Поиск рецептов</h1>
         <p class="text-muted mb-0">Фильтруйте рецепты по типу блюда, сложности и ингредиентам.</p>
     </section>
-    <section class="card shadow-sm filter-card">
+
+    <section class="card shadow-sm filter-card" aria-labelledby="searchPageTitle">
         <div class="card-body">
-            <form id="searchForm" class="row g-3 align-items-end">
+            <form id="searchForm" class="row g-3 align-items-end" aria-labelledby="searchPageTitle" role="search">
                 <div class="col-md-4">
                     <label for="titleFilter" class="form-label">Название рецепта</label>
-                    <input id="titleFilter" class="form-control" type="text" placeholder="Например, борщ или паста">
+                    <input id="titleFilter" class="form-control" type="text" placeholder="Например, борщ или паста" 
+                           aria-label="Поиск по названию рецепта" autocomplete="off">
                 </div>
                 <div class="col-md-3">
                     <label for="dishTypeFilter" class="form-label">Тип блюда</label>
-                    <select id="dishTypeFilter" class="form-select"></select>
+                    <select id="dishTypeFilter" class="form-select" aria-label="Фильтр по типу блюда"></select>
                 </div>
                 <div class="col-md-3">
                     <label for="difficultyFilter" class="form-label">Сложность</label>
-                    <select id="difficultyFilter" class="form-select"></select>
+                    <select id="difficultyFilter" class="form-select" aria-label="Фильтр по сложности приготовления"></select>
                 </div>
                 <div class="col-md-6">
-                    <label for="ingredientFilter" class="form-label">Ингредиенты (несколько по Ctrl/Cmd)</label>
-                    <select id="ingredientFilter" class="form-select" multiple size="5"></select>
+                    <label for="ingredientFilter" class="form-label">Ингредиенты <span class="text-muted">(несколько по Ctrl/Cmd)</span></label>
+                    <select id="ingredientFilter" class="form-select" multiple size="5" 
+                            aria-label="Выбор ингредиентов, можно выбрать несколько" 
+                            aria-describedby="ingredientFilterHelp">
+                        <option value="" disabled hidden>Выберите ингредиенты</option>
+                    </select>
+                    <small id="ingredientFilterHelp" class="form-text text-muted">Для выбора нескольких ингредиентов используйте Ctrl (Windows/Linux) или Cmd (Mac)</small>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-primary w-100" type="submit">Найти</button>
+                    <button class="btn btn-primary w-100" type="submit" aria-label="Выполнить поиск рецептов">Найти</button>
                 </div>
             </form>
         </div>
     </section>
 
-    <section class="mt-4">
+    <section class="mt-4" aria-labelledby="resultsHeading">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="h5 mb-0">Результаты</h2>
-            <span id="searchSummary" class="data-summary"></span>
+            <h2 id="resultsHeading" class="h5 mb-0">Результаты</h2>
+            <span id="searchSummary" class="data-summary" aria-live="polite" aria-atomic="true"></span>
         </div>
-        <div id="recipesList" class="row row-cols-1 row-cols-md-2 g-3"></div>
+        <div id="recipesList" class="row row-cols-1 row-cols-md-2 g-3" role="list" aria-label="Список найденных рецептов"></div>
     </section>
 </main>
 
-<div id="footer-placeholder"></div>
+<div id="footer-placeholder" role="contentinfo"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/api.js"></script>
@@ -63,4 +71,3 @@
 <script src="js/components.js"></script>
 </body>
 </html>
-
