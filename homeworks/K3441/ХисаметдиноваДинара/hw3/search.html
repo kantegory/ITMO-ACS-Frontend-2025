@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Properties - RentAparts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+    <style>
+        .search-sidebar {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            position: sticky;
+            top: 20px;
+        }
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .property-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .filter-section {
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+        .price-range-container {
+            padding: 20px 15px;
+        }
+        #priceRange {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">RentAparts</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search.html">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Dashboard</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="loginLink">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-light py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h4 mb-2">Search Properties</h1>
+                    <p class="text-muted mb-0" id="searchResults">Searching for the best properties...</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" id="sortBtn" data-bs-toggle="dropdown">
+                            <i class="fas fa-sort me-2"></i>Sort by: Price
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-sort="price">Price: Low to High</a></li>
+                            <li><a class="dropdown-item" href="#" data-sort="price-desc">Price: High to Low</a></li>
+                            <li><a class="dropdown-item" href="#" data-sort="rating">Rating</a></li>
+                            <li><a class="dropdown-item" href="#" data-sort="distance">Distance</a></li>
+                        </ul>
+                        <button class="btn btn-outline-secondary btn-sm" id="viewToggle" onclick="toggleView()">
+                            <i class="fas fa-th-large" id="viewIcon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="search-sidebar p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Filters</h5>
+                            <button class="btn btn-link p-0 text-primary" onclick="clearAllFilters()">
+                                Clear all
+                            </button>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Location</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                                <input type="text" class="form-control" id="locationFilter"
+                                       placeholder="Enter city or country">
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Dates</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="date" class="form-control form-control-sm" id="checkInDate">
+                                </div>
+                                <div class="col-6">
+                                    <input type="date" class="form-control form-control-sm" id="checkOutDate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Property Type</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="typeApartment" value="apartment">
+                                <label class="form-check-label" for="typeApartment">Apartment</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="typeHouse" value="house">
+                                <label class="form-check-label" for="typeHouse">House</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="typeStudio" value="studio">
+                                <label class="form-check-label" for="typeStudio">Studio</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="typeHotel" value="hotel">
+                                <label class="form-check-label" for="typeHotel">Hotel Room</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Price Range per Night</label>
+                            <div class="price-range-container">
+                                <div id="priceRange"></div>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <span class="text-muted">$<span id="minPriceDisplay">10</span></span>
+                                    <span class="text-muted">$<span id="maxPriceDisplay">500</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Guests</label>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Adults</span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeGuests('adults', -1)">-</button>
+                                    <span id="adultsCount">1</span>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeGuests('adults', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Children</span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeGuests('children', -1)">-</button>
+                                    <span id="childrenCount">0</span>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeGuests('children', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Amenities</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wifiAmenity" value="wifi">
+                                <label class="form-check-label" for="wifiAmenity">WiFi</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="parkingAmenity" value="parking">
+                                <label class="form-check-label" for="parkingAmenity">Parking</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="kitchenAmenity" value="kitchen">
+                                <label class="form-check-label" for="kitchenAmenity">Kitchen</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="airConAmenity" value="aircon">
+                                <label class="form-check-label" for="airConAmenity">Air Conditioning</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="washerAmenity" value="washer">
+                                <label class="form-check-label" for="washerAmenity">Washer</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <label class="form-label fw-semibold">Minimum Rating</label>
+                            <div class="rating-filter">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating4" value="4">
+                                    <label class="form-check-label" for="rating4">
+                                        <span class="text-warning">★★★★</span>☆ & up
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating35" value="3.5">
+                                    <label class="form-check-label" for="rating35">
+                                        <span class="text-warning">★★★</span>☆☆ & up
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
+                                    <label class="form-check-label" for="rating3">
+                                        <span class="text-warning">★★★</span>☆☆ & up
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" onclick="applyFilters()">
+                            <i class="fas fa-filter me-2"></i>Apply Filters
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div id="loadingState" class="text-center py-5">
+                        <div class="spinner-border text-primary mb-3" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="text-muted">Finding the best properties for you...</p>
+                    </div>
+
+                    <div id="resultsContainer" class="d-none">
+                        <div id="propertyGrid" class="property-grid">
+                        </div>
+
+                        <nav class="mt-5">
+                            <ul class="pagination justify-content-center" id="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div id="noResults" class="text-center py-5 d-none">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4>No properties found</h4>
+                        <p class="text-muted">Try adjusting your search criteria</p>
+                        <button class="btn btn-primary" onclick="clearAllFilters()">Clear Filters</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="propertyModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPropertyTitle">Property Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalPropertyContent">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="bookProperty()">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 RentAparts.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
