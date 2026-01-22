@@ -164,3 +164,23 @@ document.getElementById("logoutBtn")?.addEventListener("click", () => {
     localStorage.clear();
     location.href = "login";
 });
+const themeToggle = document.getElementById("themeToggle");
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+}
+
+themeToggle?.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+
+    if (currentTheme === "dark") {
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.removeItem("theme");
+        themeToggle.textContent = "🌙";
+    } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+        themeToggle.textContent = "☀️";
+    }
+});
