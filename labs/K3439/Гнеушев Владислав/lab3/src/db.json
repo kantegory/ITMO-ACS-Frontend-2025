@@ -1,0 +1,296 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Анна Петрова",
+      "email": "anna@example.com",
+      "password": "secret123",
+      "stats": {
+        "completedWorkouts": 18,
+        "burnedCalories": 4200,
+        "workoutDays": 24,
+        "currentStreak": 5
+      },
+      "plan": {
+        "monday": {
+          "workoutId": 2,
+          "title": "Силовая тренировка для рук",
+          "duration": 45,
+          "status": "scheduled"
+        },
+        "tuesday": {
+          "workoutId": 3,
+          "title": "Йога для начинающих",
+          "duration": 30,
+          "status": "scheduled"
+        },
+        "wednesday": {
+          "workoutId": 2,
+          "title": "Силовая тренировка для рук",
+          "duration": 45,
+          "status": "completed"
+        },
+        "thursday": null,
+        "friday": {
+          "workoutId": 3,
+          "title": "Йога для начинающих",
+          "duration": 30,
+          "status": "scheduled"
+        },
+        "saturday": null,
+        "sunday": null
+      }
+    },
+    {
+      "name": "sds",
+      "email": "email@mail.ru",
+      "password": "email",
+      "stats": {
+        "completedWorkouts": 0,
+        "burnedCalories": 0,
+        "workoutDays": 0,
+        "currentStreak": 0
+      },
+      "plan": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "id": 2
+    }
+  ],
+  "workouts": [
+    {
+      "id": 1,
+      "title": "Интенсивное кардио",
+      "type": "cardio",
+      "level": "beginner",
+      "duration": 30,
+      "description": "Отличная кардио тренировка для начинающих. Помогает улучшить выносливость и сжечь калории.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instructions": [
+        {
+          "step": 1,
+          "title": "Разминка",
+          "description": "5 минут легкой ходьбы или бега на месте"
+        },
+        {
+          "step": 2,
+          "title": "Основная часть",
+          "description": "20 минут чередования бега и ходьбы"
+        },
+        {
+          "step": 3,
+          "title": "Заминка",
+          "description": "5 минут медленной ходьбы и растяжки"
+        }
+      ],
+      "equipment": [
+        "Коврик",
+        "Вода"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Силовая тренировка для рук",
+      "type": "strength",
+      "level": "intermediate",
+      "duration": 45,
+      "description": "Тренировка для укрепления мышц рук и плеч. Подходит для среднего уровня подготовки.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instructions": [
+        {
+          "step": 1,
+          "title": "Разминка",
+          "description": "10 минут разминки суставов"
+        },
+        {
+          "step": 2,
+          "title": "Упражнения",
+          "description": "3 подхода по 12 повторений каждого упражнения"
+        },
+        {
+          "step": 3,
+          "title": "Заминка",
+          "description": "5 минут растяжки"
+        }
+      ],
+      "equipment": [
+        "Гантели",
+        "Коврик"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Йога для начинающих",
+      "type": "yoga",
+      "level": "beginner",
+      "duration": 30,
+      "description": "Спокойная йога-сессия для расслабления и улучшения гибкости.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instructions": [
+        {
+          "step": 1,
+          "title": "Настройка",
+          "description": "Найдите тихое место и подготовьте коврик"
+        },
+        {
+          "step": 2,
+          "title": "Асаны",
+          "description": "Выполните базовые асаны для начинающих"
+        },
+        {
+          "step": 3,
+          "title": "Медитация",
+          "description": "5 минут медитации в конце"
+        }
+      ],
+      "equipment": [
+        "Коврик для йоги"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Растяжка всего тела",
+      "type": "stretch",
+      "level": "beginner",
+      "duration": 15,
+      "description": "Короткая сессия растяжки для улучшения гибкости и восстановления.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instructions": [
+        {
+          "step": 1,
+          "title": "Разминка",
+          "description": "Легкие движения для разогрева"
+        },
+        {
+          "step": 2,
+          "title": "Растяжка",
+          "description": "Растяжка всех основных групп мышц"
+        }
+      ],
+      "equipment": [
+        "Коврик"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Продвинутое кардио",
+      "type": "cardio",
+      "level": "advanced",
+      "duration": 60,
+      "description": "Интенсивная кардио тренировка для продвинутых спортсменов.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instructions": [
+        {
+          "step": 1,
+          "title": "Разминка",
+          "description": "10 минут разминки"
+        },
+        {
+          "step": 2,
+          "title": "Интервалы",
+          "description": "40 минут интервальных тренировок"
+        },
+        {
+          "step": 3,
+          "title": "Заминка",
+          "description": "10 минут заминки"
+        }
+      ],
+      "equipment": [
+        "Беговая дорожка или открытое пространство"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Силовая тренировка ног",
+      "type": "strength",
+      "level": "intermediate",
+      "duration": 45,
+      "description": "Тренировка для укрепления мышц ног и ягодиц.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "instructions": [
+        {
+          "step": 1,
+          "title": "Разминка",
+          "description": "10 минут разминки"
+        },
+        {
+          "step": 2,
+          "title": "Упражнения",
+          "description": "Приседания, выпады, подъемы на носки"
+        },
+        {
+          "step": 3,
+          "title": "Заминка",
+          "description": "Растяжка ног"
+        }
+      ],
+      "equipment": [
+        "Гантели",
+        "Коврик"
+      ]
+    }
+  ],
+  "blogPosts": [
+    {
+      "id": 1,
+      "title": "Правильное питание для тренировок",
+      "category": "nutrition",
+      "date": "15.11.2025",
+      "author": "Эксперт по питанию",
+      "image": "https://via.placeholder.com/800x400",
+      "content": "<p>Правильное питание играет ключевую роль в достижении ваших фитнес-целей.</p>\n<h3>1. Баланс макронутриентов</h3>\n<p>Важно получать достаточное количество белков, углеводов и жиров.</p>\n<h3>2. Время приема пищи</h3>\n<p>Ешьте за 1-2 часа до тренировки и в течение часа после неё.</p>\n<h3>3. Гидратация</h3>\n<p>Не забывайте пить достаточно воды в течение дня.</p>"
+    },
+    {
+      "id": 2,
+      "title": "10 советов для начинающих",
+      "category": "motivation",
+      "date": "10.11.2025",
+      "author": "Фитнес-тренер",
+      "image": "https://via.placeholder.com/800x400",
+      "content": "<p>Начало фитнес-пути может быть пугающим. Вот 10 советов, которые помогут вам начать.</p>\n<ol>\n<li>Начните с малого</li>\n<li>Поставьте реалистичные цели</li>\n<li>Создайте расписание тренировок</li>\n<li>Найдите то, что вам нравится</li>\n<li>Не пропускайте разминку</li>\n<li>Слушайте свое тело</li>\n<li>Отслеживайте прогресс</li>\n<li>Правильно питайтесь</li>\n<li>Высыпайтесь</li>\n<li>Будьте терпеливы</li>\n</ol>"
+    },
+    {
+      "id": 3,
+      "title": "Восстановление после тренировок",
+      "category": "health",
+      "date": "05.11.2025",
+      "author": "Врач-реабилитолог",
+      "image": "https://via.placeholder.com/800x400",
+      "content": "<p>Правильное восстановление так же важно, как и сама тренировка.</p>\n<h3>Сон</h3>\n<p>Старайтесь спать не менее 7-8 часов в сутки.</p>\n<h3>Растяжка</h3>\n<p>Регулярная растяжка помогает улучшить гибкость.</p>\n<h3>Питание</h3>\n<p>После тренировки важно получить белок и углеводы.</p>"
+    },
+    {
+      "id": 4,
+      "title": "Как мотивировать себя тренироваться",
+      "category": "motivation",
+      "date": "01.11.2025",
+      "author": "Психолог",
+      "image": "https://via.placeholder.com/800x400",
+      "content": "<p>Мотивация - ключ к постоянным тренировкам.</p>\n<ul>\n<li>Найдите партнера</li>\n<li>Слушайте музыку</li>\n<li>Ведите дневник прогресса</li>\n<li>Награждайте себя за достижения</li>\n<li>Визуализируйте цели</li>\n</ul>"
+    },
+    {
+      "id": 5,
+      "title": "Белки в рационе спортсмена",
+      "category": "nutrition",
+      "date": "25.10.2025",
+      "author": "Диетолог",
+      "image": "https://via.placeholder.com/800x400",
+      "content": "<p>Белки - строительный материал для мышц.</p>\n<h3>Сколько нужно?</h3>\n<p>Активным людям нужно 1.2-2 г белка на кг веса.</p>\n<h3>Источники белка</h3>\n<p>Курица, рыба, яйца, молочные продукты, бобовые.</p>"
+    },
+    {
+      "id": 6,
+      "title": "Важность разминки",
+      "category": "health",
+      "date": "20.10.2025",
+      "author": "Спортивный врач",
+      "image": "https://via.placeholder.com/800x400",
+      "content": "<p>Разминка перед тренировкой необходима для предотвращения травм.</p>\n<h3>Зачем нужна разминка?</h3>\n<p>Подготавливает тело к нагрузке.</p>\n<h3>Как разминаться?</h3>\n<p>Начните с легких движений, затем переходите к динамическим упражнениям.</p>"
+    }
+  ]
+}
