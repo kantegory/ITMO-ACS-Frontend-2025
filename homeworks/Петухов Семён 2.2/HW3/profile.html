@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Профиль — FastRent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body data-page="profile">
+  <header>
+    <nav class="navbar container py-3" aria-label="Навигация профиля">
+      <a class="navbar-brand brand" href="index.html">FastRent</a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <div id="nav-user"></div>
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary theme-toggle" type="button" aria-pressed="false" aria-label="Переключить тему" title="Переключить тему">
+          <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5" role="main">
+    <div class="card mx-auto shadow-sm profile-card">
+      <div class="row g-0">
+        <div class="col-md-4 text-center bg-light p-4">
+          <img id="profileAvatar" src="https://via.placeholder.com/180" alt="Аватар пользователя" class="img-fluid rounded-circle mb-3 profile-avatar" role="img">
+          <div>
+            <button id="editProfileBtn" class="btn btn-sm btn-outline-primary" aria-haspopup="dialog" aria-controls="profileModal">Редактировать профиль</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+              <h4 id="profileName" class="card-title mb-1">Имя пользователя</h4>
+              <div class="text-muted mb-3"><span id="profileEmail">email@example.com</span></div>
+
+            <div class="row mb-2">
+              <div class="col-6"><strong>Имя в системе</strong><div id="profileUsername" class="text-muted">username</div></div>
+              <div class="col-6"><strong>Местоположение</strong><div id="profileLocation" class="text-muted">—</div></div>
+            </div>
+
+            <div class="mb-3">
+              <strong>О себе</strong>
+              <p id="profileAbout" class="text-muted">Короткая информация о пользователе.</p>
+            </div>
+
+            <div>
+              <a href="dashboard.html" class="btn btn-outline-secondary me-2">Мои объявления</a>
+              <a href="index.html" class="btn btn-outline-secondary">Поиск объявлений</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="profileModalLabel">Редактировать профиль</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <form id="profileForm">
+          <div class="modal-body">
+            <div class="mb-2">
+                <label class="form-label" for="profileNameInput">Полное имя</label>
+              <input id="profileNameInput" name="name" type="text" class="form-control" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="profileEmailInput">Эл. почта</label>
+              <input id="profileEmailInput" name="email" type="email" class="form-control" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="profileUsernameInput">Имя в системе</label>
+              <input id="profileUsernameInput" name="username" type="text" class="form-control">
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="profileLocationInput">Местоположение</label>
+              <input id="profileLocationInput" name="location" type="text" class="form-control">
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="profileAvatarInput">Ссылка на аватар</label>
+              <input id="profileAvatarInput" name="avatar" type="url" class="form-control" placeholder="https://...">
+            </div>
+            <div class="mb-2">
+              <label class="form-label" for="profileAboutInput">О себе</label>
+              <textarea id="profileAboutInput" name="about" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer text-center" role="contentinfo">
+    <div class="container"><small>© 2025 FastRent</small></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

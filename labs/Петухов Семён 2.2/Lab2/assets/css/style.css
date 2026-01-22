@@ -1,0 +1,105 @@
+:root{
+  --bg:#f7f8fb;
+  --card:#ffffff;
+  --muted:#6c757d;
+  --accent:#0d6efd;
+  --radius:12px;
+  --shadow: 0 6px 18px rgba(15,23,42,0.06);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  color:#112;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Navbar */
+.navbar{
+  background:transparent;
+}
+.brand{
+  font-weight:700;
+  color:var(--accent);
+  letter-spacing:.2px;
+}
+
+/* Container cards */
+.card-custom{
+  border:0;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* Search controls */
+.filter-chip{
+  background:#fff;
+  border-radius:10rem;
+  padding:.35rem .75rem;
+  margin-right:.5rem;
+  border:1px solid rgba(17,17,17,0.04);
+  cursor:pointer;
+}
+.filter-chip.active{
+  border-color:rgba(13,110,253,0.15);
+  box-shadow:0 6px 18px rgba(13,110,253,0.06);
+}
+
+/* Property card */
+.property-img{
+  height:180px;
+  object-fit:cover;
+  border-top-left-radius:var(--radius);
+  border-top-right-radius:var(--radius);
+}
+.property-card-body{
+  padding:1rem;
+}
+.property-meta{font-size:.9rem;color:var(--muted)}
+
+/* Make cards stretch so action buttons align at the bottom */
+.card.card-custom.h-100{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.property-card-body{
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+}
+/* ensure the last row of buttons stays at the bottom */
+.property-card-body > .d-flex:last-child{
+  margin-top:auto;
+}
+
+/* Dashboard lists */
+.list-item{
+  border-radius:10px;
+  background:#fff;
+  padding:1rem;
+  margin-bottom:.8rem;
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  box-shadow:var(--shadow);
+}
+
+/* Footer */
+.footer{
+  padding:2rem 0;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* Responsive tweaks */
+@media (max-width:576px){
+  .property-img{height:160px;}
+  .property-card-body{padding:.75rem;}
+  .filter-group{flex-wrap:wrap}
+}
+
+/* Tiny utilities */
+.badge-ghost{background:rgba(17,17,17,0.06);color:#111;padding:.25rem .5rem;border-radius:.5rem;font-size:.8rem}
