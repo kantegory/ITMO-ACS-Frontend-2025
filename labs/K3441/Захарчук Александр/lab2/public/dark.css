@@ -1,0 +1,171 @@
+:root {
+    --primary-color: #dc3545;
+    --primary-hover: #c82333;
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #0dcaf0;
+    --light-bg: #212529;
+    --dark-bg: #191b1f;
+    --text-dark: #f8f9fa;
+    --text-light: #adb5bd;
+    --text-white: #ffffff;
+    --border-color: #495057;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --modal-shadow: rgba(0, 0, 0, 0.4);
+    --overlay-bg: rgba(220, 53, 69, 0.2);
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+}
+
+.navbar {
+    background-color: var(--dark-bg);
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-dark);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--primary-color);
+}
+
+.text-muted {
+    color: var(--text-light) !important;
+}
+
+.btn-danger {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-white);
+}
+
+.btn-danger:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.form-label {
+    color: var(--text-dark);
+}
+
+.form-control {
+    background-color: var(--dark-bg);
+    border-color: var(--border-color);
+    color: var(--text-dark);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+}
+
+.form-check-input {
+    background-color: var(--dark-bg);
+    border-color: var(--border-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-label {
+    color: var(--text-dark);
+}
+
+.form-select {
+    background-color: var(--dark-bg);
+    border-color: var(--border-color);
+    color: var(--text-light);
+}
+
+.position-relative hr {
+    border-color: var(--border-color);
+}
+
+.position-absolute {
+    background-color: var(--light-bg);
+    color: var(--text-light);
+}
+
+a.text-danger:hover {
+    color: var(--primary-hover) !important;
+    text-decoration: underline;
+}
+
+.modal-content {
+    background-color: var(--light-bg);
+}
+
+.modal-header {
+    background-color: var(--dark-bg);
+    border-color: var(--border-color);
+}
+
+.modal-footer {
+    border-color: var(--border-color);
+}
+
+.modal-title {
+    color: var(--text-dark);
+}
+
+.nav.flex-column .nav-link {
+    color: var(--text-dark);
+}
+
+.nav.flex-column .nav-link:hover,
+.nav.flex-column .nav-link.active {
+    color: var(--primary-color);
+    background-color: var(--overlay-bg);
+}
+
+.card {
+    background-color: var(--dark-bg);
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.card-header {
+    background-color: var(--dark-bg);
+}
+
+.tag-btn {
+    background-color: var(--light-bg);
+    border-color: var(--border-color);
+    color: var(--text-dark);
+}
+
+.tag-btn:hover,
+.tag-btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.pagination .page-link {
+    background-color: var(--dark-bg);
+    border-color: var(--border-color);
+    color: var(--primary-color);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--light-bg);
+    border-color: var(--border-color);
+    color: var(--primary-hover);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
