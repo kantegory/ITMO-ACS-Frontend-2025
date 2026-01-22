@@ -115,7 +115,3 @@ body, html {
 	display: flex;
 	margin-bottom: 20px;
 }
-
-.modal-content {
-	background-color: var(--bg-color);
-}
