@@ -1,0 +1,68 @@
+body { 
+    margin: 0; 
+    font-family: Arial, sans-serif; 
+    background: var(--bg-page); 
+    color: var(--text-main); 
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: var(--bg-surface);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 { 
+    color: var(--green-main); 
+    margin-bottom: 20px; 
+}
+
+.profile-header {
+    display: flex; 
+    align-items: center; 
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 144px; 
+    height: 144px;
+    border-radius: 50%;
+    object-fit: cover; 
+    border: 3px solid var(--border-main);
+}
+
+.user-info div { 
+    margin-bottom: 8px; 
+    font-size: 16px; 
+}
+
+.edit-block input {
+    width: calc(100% - 20px); 
+    padding: 10px;
+    margin-bottom: 10px; 
+    border-radius: 10px;
+    border: 1px solid var(--border-main);
+}
+
+.edit-actions {
+    display: flex; 
+    gap: 10px; 
+    margin-top: 10px;
+}
+
+.history {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--history-border);
+}
+
+.deal {
+    background: var(--bg-soft); 
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
+}

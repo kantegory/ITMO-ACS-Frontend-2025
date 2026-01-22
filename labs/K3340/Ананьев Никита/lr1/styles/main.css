@@ -1,0 +1,153 @@
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search { 
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 25px; 
+}
+
+.search input {
+    padding: 12px; 
+    border-radius: 10px; 
+    border: 1px solid var(--border-main); 
+    width: 100%;
+}
+
+.search button {
+    display: flex;
+    gap: 10px;
+    background: var(--green-accent); 
+    color: var(--bg-surface); 
+    border: none;
+    padding: 12px 20px;     
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 16px;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--green-accent);
+    display: inline-block;
+}
+
+.search button:hover { background: var(--green-btn-hover); }
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+    background: var(--bg-surface);
+    border-radius: 5px;
+    border: 1px solid var(--border-main);
+    width: calc(25% - 12px);
+    position: sticky;
+    top: 75px; 
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.filter {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter select {
+    padding: 5px;
+    border-radius: 5px; 
+    border: 1px solid var(--border-main);
+    width: calc(100% - 20px)
+}
+
+.filter label, h6 {
+    margin: 5px 0 5px 0;
+    color: var(--green-main); 
+}
+
+.filter input[type="checkbox"] {
+    margin-left: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    accent-color: var(--green-accent); ;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: auto;
+    background: var(--green-accent); ; 
+    color: var(--bg-surface);
+    border:none; 
+    border-radius: 0 0 5px 5px; 
+    font-size: 16px; 
+    cursor: pointer;
+}
+
+.cards { 
+    width: 75%;
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+}
+
+.card {
+    display: flex; 
+    flex-direction: row;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: 5px; 
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.card img {
+    width: 360px; 
+    height: 240px; 
+    object-fit: cover;
+}
+
+.card-info { 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.card-link {
+    text-decoration: none; 
+    color: var(--green-main); 
+    font-size: 16px; 
+    background: none; 
+    border: none; 
+    cursor: pointer;
+}
+
+.card-link:hover { color: var(--green-hover); }
+
+.price { 
+    font-size: 20px; 
+    color: var(--green-main); 
+    font-weight: bold; 
+}
+
+.limited-text {
+    max-width: 50ch;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-main);
+}

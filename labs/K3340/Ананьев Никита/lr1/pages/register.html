@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../styles/light.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="../styles/auth.css">
+
+    <title>Зарегистрироваться</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Регистрация</h2>
+        <input type="text" id="name" placeholder="Ваше имя" />
+        <input type="email" id="email" placeholder="Email" />
+        <input type="tel" id="phone" placeholder="Телефон" />
+        <input type="password" id="password" placeholder="Пароль" />
+
+        <button onclick="register()">Создать аккаунт</button>
+        <div class="link">Уже есть аккаунт? <a href="login.html">Войти</a></div>
+    </div>
+
+    <script src="../scripts/utils.js"></script>
+    <script src="../scripts/vars.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script src="../scripts/register.js"></script>
+</body>
+</html>

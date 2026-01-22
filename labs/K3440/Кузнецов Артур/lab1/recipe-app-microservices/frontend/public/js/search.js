@@ -125,22 +125,25 @@ function renderRecipes(recipes) {
     }
 
     listContainer.innerHTML = '';
-    recipes.forEach((recipe) => {
+    recipes.forEach((recipe, index) => {
         const card = document.createElement('div');
         card.className = 'col';
+        card.setAttribute('role', 'listitem');
+        const recipeUrl = `recipe.html?id=${recipe.id}`;
         card.innerHTML = `
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm" role="article" aria-labelledby="recipe-title-${index}">
                 <div class="card-body d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                         <div>
-                            <span class="badge bg-secondary">${recipe.dishType?.name || 'Без категории'}</span>
+                            <span class="badge bg-secondary" aria-label="Тип блюда: ${escapeHtml(recipe.dishType?.name || 'Без категории')}">${recipe.dishType?.name || 'Без категории'}</span>
                         </div>
-                        <small class="text-muted">${formatMinutesToText(recipe.preparation_time + recipe.cooking_time)}</small>
+                        <small class="text-muted" aria-label="Время приготовления: ${formatMinutesToText(recipe.preparation_time + recipe.cooking_time)}">${formatMinutesToText(recipe.preparation_time + recipe.cooking_time)}</small>
                     </div>
-                    <h5 class="card-title">${escapeHtml(recipe.title)}</h5>
-                    <p class="card-text text-muted flex-grow-1">${escapeHtml(recipe.description ?? 'Без описания')}</p>
-                    <p class="mb-3 text-muted">Сложность: ${recipe.recipeDifficulty?.name || '-'}</p>
-                    <a class="btn btn-primary mt-auto align-self-start" href="recipe.html?id=${recipe.id}">Открыть</a>
+                    <h5 id="recipe-title-${index}" class="card-title">${escapeHtml(recipe.title)}</h5>
+                    <p class="card-text text-muted flex-grow-1" aria-label="Описание рецепта">${escapeHtml(recipe.description ?? 'Без описания')}</p>
+                    <p class="mb-3 text-muted">Сложность: <span aria-label="Сложность приготовления">${recipe.recipeDifficulty?.name || '-'}</span></p>
+                    <a class="btn btn-primary mt-auto align-self-start" href="${recipeUrl}" 
+                       aria-label="Открыть рецепт: ${escapeHtml(recipe.title)}">Открыть</a>
                 </div>
             </div>
         `;

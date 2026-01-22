@@ -1,0 +1,103 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "user@example.com",
+      "password": "password123",
+      "name": "Иван",
+      "progress": {
+        "weight": 75,
+        "weeklyWorkouts": 4,
+        "pushupGoal": 35
+      },
+      "trainingPlan": [
+        {
+          "day": "Понедельник",
+          "title": "Силовая (Грудь/Спина)",
+          "details": "Жим лежа (3x10), Тяга блока (3x12), Отжимания (до отказа)."
+        },
+        {
+          "day": "Среда",
+          "title": "Кардио (Бег 5 км)",
+          "details": "Разминка 10 мин, Бег 5 км в среднем темпе, Заминка 5 мин."
+        }
+      ]
+    },
+    {
+      "id": "5d36",
+      "name": "Тестер",
+      "email": "test@newuser.com",
+      "password": "newpass",
+      "progress": {
+        "weight": 80,
+        "weeklyWorkouts": 0,
+        "pushupGoal": 0
+      },
+      "trainingPlan": []
+    }
+  ],
+  "workouts": [
+    {
+      "id": "101",
+      "title": "Все тело за 45 минут",
+      "description": "Эффективная силовая тренировка для всего тела, подходит для среднего уровня подготовки.",
+      "level": "средний",
+      "type": "силовые",
+      "duration": 45,
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
+      "instructions": [
+        "Приседания: 15 повторений",
+        "Планка: 60 секунд",
+        "Берпи: 10 повторений"
+      ]
+    },
+    {
+      "id": "102",
+      "title": "Утреннее кардио для начинающих",
+      "description": "Легкая пробежка и разминка, идеальна для старта дня и повышения выносливости.",
+      "level": "начинающий",
+      "type": "кардио",
+      "duration": 30,
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
+      "instructions": [
+        "Разминка: 5 мин",
+        "Легкий бег: 20 мин",
+        "Растяжка: 5 мин"
+      ]
+    },
+    {
+      "id": "103",
+      "title": "Продвинутая йога для гибкости",
+      "description": "Комплекс сложных асан для опытных пользователей.",
+      "level": "продвинутый",
+      "type": "йога",
+      "duration": 60,
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
+      "instructions": [
+        "Собака мордой вниз: 60 сек",
+        "Воин II: 60 сек (каждая сторона)",
+        "Шавасана: 5 мин"
+      ]
+    }
+  ],
+  "blogPosts": [
+    {
+      "id": "201",
+      "title": "Топ-5 продуктов для энергии",
+      "text": "Узнайте, какие продукты помогут вам восстановиться после интенсивных тренировок.",
+      "image": "https://placehold.co/600x400/1abc9c/ffffff?text=Питание"
+    },
+    {
+      "id": "202",
+      "title": "Идеальный план кардио на 30 дней",
+      "text": "Пошаговое руководство для улучшения выносливости.",
+      "image": "https://placehold.co/600x400/3498db/ffffff?text=Тренировка"
+    },
+    {
+      "id": "203",
+      "title": "Важность сна для восстановления мышц",
+      "text": "Почему качественный сон — ключ к фитнес-успеху.",
+      "image": "https://placehold.co/600x400/9b59b6/ffffff?text=Здоровье"
+    }
+  ]
+}
