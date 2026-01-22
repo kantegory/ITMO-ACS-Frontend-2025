@@ -1,0 +1,8 @@
+/* базовая стилизация */
+body { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1 0 auto; padding-bottom: 1rem; }
+.navbar-brand { font-weight: 600; }
+footer { border-top: 1px solid rgba(0,0,0,0.06); }
+.card img { max-height: 220px; object-fit: cover; }
+.nav-link.active { font-weight: 600; }
+
