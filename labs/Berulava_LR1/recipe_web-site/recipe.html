@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Паста Карбонара - Кулинарный Портал</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container py-5">
+            <div class="col-lg-8">
+                <div class="glass-container mb-4">
+                    <h3 class="text-gradient mb-3">
+                        <i class="fas fa-list"></i> Ингредиенты
+                    </h3>
+                    <ul class="ingredients-list">
+                        <li>
+                            <strong>400 г</strong> спагетти
+                        </li>
+                        <li>
+                            <strong>200 г</strong> бекона или панчетты
+                        </li>
+                        <li>
+                            <strong>4 шт</strong> яичных желтка
+                        </li>
+                        <li>
+                            <strong>100 г</strong> сыра пармезан (тертого)
+                        </li>
+                        <li>
+                            <strong>2 зубчика</strong> чеснока
+                        </li>
+                        <li>
+                            <strong>По вкусу</strong> соль и черный перец
+                        </li>
+                        <li>
+                            <strong>2 ст.л.</strong> оливкового масла
+                        </li>
+                        <li>
+                            <strong>Для подачи</strong> свежая петрушка
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-container mb-4">
+                    <h3 class="text-gradient mb-3">
+                        <i class="fas fa-video"></i> Видео рецепт
+                    </h3>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px;">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center;">
+                            <div class="text-center">
+                                <i class="fas fa-play-circle fa-5x mb-3" style="opacity: 0.5;"></i>
+                                <p style="color: rgba(255, 255, 255, 0.7);">Видео будет здесь</p>
+                                <small style="color: rgba(255, 255, 255, 0.5);">(Placeholder для видео-плеера)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="mb-4">
+                        <textarea class="form-control form-glass mb-2" rows="3" id="newComment" placeholder="Напишите комментарий..."></textarea>
+                        <button class="btn btn-glass-primary" id="addCommentBtn">
+                            <i class="fas fa-paper-plane"></i> Отправить
+                        </button>
+                    </div>
+
+            <div class="col-lg-4">
+                <div class="glass-container mb-4">
+                    <h5 class="text-gradient mb-3">Действия</h5>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-glass" id="likeBtn">
+                            <i class="fas fa-heart"></i> Нравится (<span id="likeCount">567</span>)
+                        </button>
+                        <button class="btn btn-glass" id="saveBtn">
+                            <i class="fas fa-bookmark"></i> Сохранить
+                        </button>
+                        <button class="btn btn-glass" data-bs-toggle="modal" data-bs-target="#shareModal">
+                            <i class="fas fa-share-alt"></i> Поделиться
+                        </button>
+                        <button class="btn btn-glass" onclick="window.print()">
+                            <i class="fas fa-print"></i> Печать
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-container">
+                    <h5 class="text-gradient mb-3">
+                        <i class="fas fa-tags"></i> Теги
+                    </h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge badge-glass">#итальянская кухня</span>
+                        <span class="badge badge-glass">#паста</span>
+                        <span class="badge badge-glass">#быстрый ужин</span>
+                        <span class="badge badge-glass">#классика</span>
+                        <span class="badge badge-glass">#карбонара</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="modal fade" id="shareModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content modal-content-glass">
+                <div class="modal-header">
+                    <h5 class="modal-title">Поделиться рецептом</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-glass">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </button>
+                        <button class="btn btn-glass">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                        <button class="btn btn-glass">
+                            <i class="fab fa-pinterest"></i> Pinterest
+                        </button>
+                        <button class="btn btn-glass">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                        <button class="btn btn-glass" onclick="copyLink()">
+                            <i class="fas fa-link"></i> Скопировать ссылку
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+
+        let liked = false;
+        document.getElementById('likeBtn').addEventListener('click', function() {
+            const likeCount = document.getElementById('likeCount');
+            let count = parseInt(likeCount.textContent);
+            
+            if (!liked) {
+                count++;
+                this.innerHTML = '<i class="fas fa-heart" style="color: #ff6b6b;"></i> Нравится (<span id="likeCount">' + count + '</span>)';
+                liked = true;
+            } else {
+                count--;
+                this.innerHTML = '<i class="fas fa-heart"></i> Нравится (<span id="likeCount">' + count + '</span>)';
+                liked = false;
+            }
+        });
+
+
+        let saved = false;
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            if (!saved) {
+                this.innerHTML = '<i class="fas fa-bookmark" style="color: #4facfe;"></i> Сохранено';
+                saved = true;
+            } else {
+                this.innerHTML = '<i class="fas fa-bookmark"></i> Сохранить';
+                saved = false;
+            }
+        });
+
+
+        let subscribed = false;
+        document.getElementById('subscribeBtn').addEventListener('click', function() {
+            if (!subscribed) {
+                this.innerHTML = '<i class="fas fa-check"></i> Подписаны';
+                this.classList.remove('btn-glass-primary');
+                this.classList.add('btn-glass-secondary');
+                subscribed = true;
+            } else {
+                this.innerHTML = '<i class="fas fa-user-plus"></i> Подписаться';
+                this.classList.remove('btn-glass-secondary');
+                this.classList.add('btn-glass-primary');
+                subscribed = false;
+            }
+        });
+
+
+        document.getElementById('addCommentBtn').addEventListener('click', function() {
+            const commentText = document.getElementById('newComment').value;
+            if (commentText.trim() === '') {
+                alert('Пожалуйста, напишите комментарий');
+                return;
+            }
+
+            const commentsList = document.getElementById('commentsList');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <img src="https://ui-avatars.com/api/?name=New+User&size=40&background=667eea&color=fff" alt="Avatar" class="comment-avatar">
+                    <div class="flex-grow-1">
+                        <div class="comment-author">Вы</div>
+                        <div class="comment-date">Только что</div>
+                    </div>
+                    <button class="btn btn-glass btn-sm">
+                        <i class="fas fa-heart"></i> 0
+                    </button>
+                </div>
+                <div class="comment-text">${commentText}</div>
+            `;
+
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+            document.getElementById('newComment').value = '';
+
+
+            const commentCount = document.getElementById('commentCount');
+            commentCount.textContent = parseInt(commentCount.textContent) + 1;
+        });
+
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Ссылка скопирована!');
+        }
+    </script>
+</body>
+</html>
