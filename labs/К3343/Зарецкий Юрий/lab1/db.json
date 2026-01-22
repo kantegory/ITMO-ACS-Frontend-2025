@@ -1,0 +1,186 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Иван Иванов",
+      "email": "ivan@example.com",
+      "phone": "+7 (999) 123-45-67",
+      "password": "password123"
+    },
+    {
+      "id": 2,
+      "fullName": "Мария Петрова",
+      "email": "maria@example.com",
+      "phone": "+7 (999) 234-56-78",
+      "password": "password123"
+    },
+    {
+      "id": 3,
+      "fullName": "Алексей Смирнов",
+      "email": "alex@example.com",
+      "phone": "+7 (999) 345-67-89",
+      "password": "password123"
+    },
+    {
+      "id": 4,
+      "fullName": "Юрий Зарецкий",
+      "email": "zaretskiy.y.a@gmail.com",
+      "phone": "89814365732",
+      "password": "password"
+    }
+  ],
+  "apartments": [
+    {
+      "id": 1,
+      "title": "2-комнатная квартира в центре",
+      "location": "Москва, ул. Тверская, д. 10",
+      "price": 45000,
+      "type": "apartment",
+      "rooms": 2,
+      "area": 65,
+      "floor": 5,
+      "totalFloors": 9,
+      "images": [
+        "https://idcollection.ru/upload/medialibrary/edd/8t199pqh69o30eyz9m1yoyz0b70sh4jw/Sovremennaya-spalnya_18.jpg",
+        "https://idcollection.ru/upload/resize_cache/iblock/21c/1906_503_1/3d_rendering_loft_luxury_living_room_with_bookshelf-_1_.jpg",
+        "https://idcollection.ru/upload/medialibrary/966/n1m1b9kl2ec9mxbg7yc749471myi6u95/12.jpg"
+      ],
+      "description": "Просторная двухкомнатная квартира в центре Москвы. Квартира полностью меблирована, есть вся необходимая техника. Ремонт выполнен в современном стиле. Окна выходят на тихую улицу. Рядом метро, магазины, кафе.",
+      "conditions": [
+        "Залог: 1 месяц",
+        "Предоплата: 1 месяц",
+        "Коммунальные услуги включены",
+        "Домашние животные разрешены",
+        "Минимальный срок аренды: 3 месяца"
+      ],
+      "ownerId": 1,
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "title": "Студия в новостройке",
+      "location": "Санкт-Петербург, пр. Невский, д. 25",
+      "price": 30000,
+      "type": "studio",
+      "rooms": 1,
+      "area": 35,
+      "floor": 3,
+      "totalFloors": 12,
+      "images": [
+        "https://idcollection.ru/upload/medialibrary/6f9/pcr6h91ej1pn9xqbjrrpztgkuwdpgv2u/minimalizm_stilnaya-mebel-dlya-gostinoy.jpg",
+        "https://idcollection.ru/upload/medialibrary/587/w9g4tft65agdlqzs10py1z2l13shdg9m/Sovremennaya-spalnya_14.jpg"
+      ],
+      "description": "Современная студия в новом доме. Свежий ремонт, новая мебель и техника. Идеально подходит для одного человека или пары.",
+      "conditions": [
+        "Залог: 1 месяц",
+        "Предоплата: 1 месяц",
+        "Коммунальные услуги включены",
+        "Минимальный срок аренды: 6 месяцев"
+      ],
+      "ownerId": 2,
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "title": "1-комнатная квартира",
+      "location": "Казань, ул. Баумана, д. 5",
+      "price": 25000,
+      "type": "apartment",
+      "rooms": 1,
+      "area": 40,
+      "floor": 2,
+      "totalFloors": 5,
+      "images": [
+        "https://idcollection.ru/upload/medialibrary/73a/lfpa51bxn2i8rwp2vxrfro17dxirl3vb/3d_rendering_loft_scandinavian_living_room_with_working_table_and_bookshelf-_1_.jpg"
+      ],
+      "description": "Уютная однокомнатная квартира в тихом районе.",
+      "conditions": [
+        "Залог: 1 месяц",
+        "Предоплата: 1 месяц",
+        "Коммунальные услуги оплачиваются отдельно"
+      ],
+      "ownerId": 1,
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "title": "Загородный дом",
+      "location": "Московская область, д. Сосновка",
+      "price": 80000,
+      "type": "house",
+      "rooms": 4,
+      "area": 120,
+      "floor": 2,
+      "totalFloors": 2,
+      "images": [
+        "https://idcollection.ru/upload/medialibrary/29f/163pda1zbzzqlodwkk0vrvg9jdsz6to1/444.jpg",
+        "https://idcollection.ru/upload/medialibrary/c8e/c7mspgtvx3sgkusymr7ul3o7f4gzrxon/Sovremennaya-prikhozhaya_5.jpg"
+      ],
+      "description": "Просторный загородный дом с участком. Идеально для большой семьи.",
+      "conditions": [
+        "Залог: 2 месяца",
+        "Предоплата: 2 месяца",
+        "Коммунальные услуги оплачиваются отдельно",
+        "Минимальный срок аренды: 1 год"
+      ],
+      "ownerId": 3,
+      "status": "available"
+    },
+    {
+      "id": 5,
+      "title": "Офисное помещение",
+      "location": "Москва, БЦ 'Солнце', оф. 501",
+      "price": 120000,
+      "type": "office",
+      "rooms": 0,
+      "area": 80,
+      "floor": 5,
+      "totalFloors": 10,
+      "images": [
+        "https://idcollection.ru/upload/medialibrary/87e/uy47ir3sw3r7slmdodqifit94imicp87/interior_design_with_photoframes_and_couch.jpg"
+      ],
+      "description": "Современное офисное помещение в бизнес-центре.",
+      "conditions": [
+        "Залог: 2 месяца",
+        "Предоплата: 2 месяца",
+        "Коммунальные услуги включены",
+        "Минимальный срок аренды: 1 год"
+      ],
+      "ownerId": 2,
+      "status": "available"
+    },
+    {
+      "id": 6,
+      "title": "3-комнатная квартира",
+      "location": "Санкт-Петербург, ул. Литейный, д. 15",
+      "price": 55000,
+      "type": "apartment",
+      "rooms": 3,
+      "area": 85,
+      "floor": 4,
+      "totalFloors": 7,
+      "images": [
+        "https://idcollection.ru/upload/medialibrary/4b7/y1vbxcw6h6zlbi8p5wwiwhcbm5u9vrdq/empty_flat_interrior_with_elements_of_decoration.jpg",
+        "https://idcollection.ru/upload/medialibrary/27f/aju0k1bhf6qfy8f8lz9flp6tw2ej326t/16.jpg"
+      ],
+      "description": "Просторная трехкомнатная квартира в центре Санкт-Петербурга.",
+      "conditions": [
+        "Залог: 1 месяц",
+        "Предоплата: 1 месяц",
+        "Коммунальные услуги включены"
+      ],
+      "ownerId": 3,
+      "status": "available"
+    }
+  ],
+  "rentedApartments": [
+    {
+      "id": 1,
+      "apartmentId": 5,
+      "tenantId": 4,
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-31",
+      "guests": 10
+    }
+  ]
+}

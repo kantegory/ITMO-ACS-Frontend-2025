@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Объект недвижимости - Аренда недвижимости</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🏠 Аренда недвижимости</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="mb-3">
+            <a href="search.html" class="btn btn-outline-secondary">← Назад к поиску</a>
+        </div>
+
+        <div class="row">
+            <!-- Галерея изображений -->
+            <div class="col-md-8 mb-4">
+                <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="carouselInner">
+                        <!-- Будет заполнено через JavaScript -->
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Информация о недвижимости -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="propertyTitle">Загрузка...</h2>
+                        <p class="text-muted mb-3" id="propertyLocation">Загрузка...</p>
+                        <h3 class="text-primary mb-4" id="propertyPrice">Загрузка...</h3>
+                        <button class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            Связаться с владельцем
+                        </button>
+                        <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#rentModal">
+                            Арендовать
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Описание</h4>
+                        <p class="card-text" id="propertyDescription">Загрузка...</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Характеристики</h4>
+                        <ul class="list-unstyled" id="propertyFeatures">
+                            <!-- Будет заполнено через JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Условия аренды</h4>
+                        <ul id="rentalConditions">
+                            <!-- Будет заполнено через JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для связи -->
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Связаться с владельцем</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Ваше имя</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactPhone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="contactPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label">Сообщение</label>
+                            <textarea class="form-control" id="contactMessage" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" onclick="submitContact()">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для аренды -->
+    <div class="modal fade" id="rentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Оформить аренду</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="rentForm">
+                        <div class="mb-3">
+                            <label for="rentStartDate" class="form-label">Дата начала аренды</label>
+                            <input type="date" class="form-control" id="rentStartDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rentEndDate" class="form-label">Дата окончания аренды</label>
+                            <input type="date" class="form-control" id="rentEndDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rentGuests" class="form-label">Количество гостей</label>
+                            <input type="number" class="form-control" id="rentGuests" min="1" required>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Сумма к оплате:</strong> <span id="totalAmount">0</span> ₽
+                        </div>
+                        <div id="rentError" class="alert alert-danger d-none" role="alert"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" onclick="submitRent()">Оформить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/property.js"></script>
+</body>
+</html>
+
