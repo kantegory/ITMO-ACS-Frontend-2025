@@ -6,6 +6,7 @@ function buildCardHTML(property) {
 
     const img = document.createElement("img");
     img.src = (property.feed_img !== undefined) ? property.feed_img : DEFAULT_PICTURE_URL;
+    img.alt = `list image of ${property.address}`;
 
     const info = document.createElement("div");
     info.className = "card-info";
@@ -24,6 +25,7 @@ function buildCardHTML(property) {
     link.innerHTML = `<a class="card-link" href="property.html?id=${property.id}">${property.address}</a>`;
 
     const description = document.createElement("p");
+    description.className = "limited-text";
     description.innerHTML = `${property.area} м², ${property.rooms} комнат(-ы)`;
     if (property.floor !== undefined) 
         description.innerHTML += `, ${property.floor}-й этаж`;
