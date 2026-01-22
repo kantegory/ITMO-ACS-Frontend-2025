@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль - Кулинарное сообщество</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light)">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container">
+            <a class="navbar-brand text-danger fw-bold" href="index.html">🍳 Кулинарное сообщество</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Поиск рецептов</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">Личный кабинет</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <span id="userNameNav">Пользователь</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="profile.html">Мой профиль</a></li>
+                            <li><a class="dropdown-item" href="#">Редактировать профиль</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Выйти</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body text-center">
+                        <div class="position-relative d-inline-block mb-3">
+                            <img src="https://static.vecteezy.com/system/resources/previews/024/983/914/large_2x/simple-user-default-icon-free-png.png" alt="User image" id="userImage" height="100" width="100" style="border-radius: 100px; object-fit: cover;">
+                        </div>
+                        <h4 class="card-title mb-1" id="userName">Пользователь</h4>
+                        <p class="text-muted mb-1" id="userEmail">email@example.com</p>
+                        <p class="strong mb-3" id="userBio">Bio</p>
+                        
+                        <div class="row text-center mb-3">
+                            <div class="col-4">
+                                <div class="">
+                                    <div class="h5 mb-1 text-danger" id="recipesCount">2</div>
+                                    <small class="text-muted">Рецепта</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="">
+                                    <div class="h5 mb-1 text-danger" id="followersCount">10</div>
+                                    <small class="text-muted">Подписчиков</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="h5 mb-1 text-danger" id="followingCount">20</div>
+                                <small class="text-muted">Подписок</small>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-danger w-100">
+                            Редактировать профиль
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="nav flex-column">
+                            <a class="nav-link active d-flex align-items-center py-2" href="#my-recipes" data-bs-toggle="tab">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-book-half me-2">
+                                    <use xlink:href="sprite.svg#book-half"></use>
+                                </svg>
+                                <span>Мои рецепты</span>
+                            </a>
+                            <a class="nav-link d-flex align-items-center py-2" href="#saved-recipes" data-bs-toggle="tab">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill me-2" >
+                                    <use xlink:href="sprite.svg#bookmark-fill"></use>
+                                </svg>
+                                <span>Сохраненные</span>
+                            </a>
+                            <a class="nav-link d-flex align-items-center py-2" href="#favorites" data-bs-toggle="tab">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-star-fill me-2" >
+                                    <use xlink:href="sprite.svg#bookmark-fill"></use>
+                                </svg>
+                                <span>Избранное</span>
+                            </a>
+                            <a class="nav-link d-flex align-items-center py-2" href="#followers" data-bs-toggle="tab">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-people-fill me-2" >
+                                    <use xlink:href="sprite.svg#people-fill"></use>
+                                </svg>
+                                <span></span>Подписчики</span>
+                            </a>
+                            <a class="nav-link d-flex align-items-center py-2" href="#following" data-bs-toggle="tab">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-rss-fill me-2" >
+                                    <use xlink:href="sprite.svg#rss-fill"></use>
+                                </svg>
+                                <span></span>Подписки</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="my-recipes">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Мои рецепты</h4>
+                            <button class="btn btn-danger">
+                                <svg width="20" height="20" fill="currentColor" class="bi bi-plus-circle mb-1 me-1" >
+                                    <use xlink:href="sprite.svg#plus-circle"></use>
+                                </svg>
+                                <span>Добавить рецепт</span>
+                            </button>
+                        </div>
+
+                        <div class="row px-3 mb-4" id="myRecipesGrid">
+                            <a class="nav-link col me-4" href="recipe.html">
+                                <div class="card p-4">
+                                    <img src="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?t=st=1763757351~exp=1763760951~hmac=73f4ed9da6e37e38ea22f47537a14bb9758f4631988d69e3ad390fecfded46a3&w=1480" class="card-img-top" alt="...">
+                                    <div class="mt-4">
+                                        <h5 class="card-title">Быстрый рецепт</h5>
+                                        <p class="card-text">Описание быстрого рецепта</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="nav-link col" href="recipe.html">
+                                <div class="card p-4">
+                                    <img src="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?t=st=1763757351~exp=1763760951~hmac=73f4ed9da6e37e38ea22f47537a14bb9758f4631988d69e3ad390fecfded46a3&w=1480" class="card-img-top" alt="...">
+                                    <div class="mt-4">
+                                        <h5 class="card-title">Вкусный рецепт</h5>
+                                        <p class="card-text">Описание вкусного рецепта</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    </div>
+
+                    <div class="tab-pane fade" id="saved-recipes">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Сохраненные рецепты</h4>
+                            <span class="badge bg-secondary" id="savedCount">2 рецепта</span>
+                        </div>
+                        
+                        <div class="row px-3 mb-4" id="savedRecipesGrid">
+                            <a class="nav-link col me-4" href="recipe.html">
+                                <div class="card p-4">
+                                    <img src="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?t=st=1763757351~exp=1763760951~hmac=73f4ed9da6e37e38ea22f47537a14bb9758f4631988d69e3ad390fecfded46a3&w=1480" class="card-img-top" alt="...">
+                                    <div class="mt-4">
+                                        <h5 class="card-title">Быстрый рецепт</h5>
+                                        <p class="card-text">Описание быстрого рецепта</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="nav-link col" href="recipe.html">
+                                <div class="card p-4">
+                                    <img src="https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?t=st=1763757351~exp=1763760951~hmac=73f4ed9da6e37e38ea22f47537a14bb9758f4631988d69e3ad390fecfded46a3&w=1480" class="card-img-top" alt="...">
+                                    <div class="mt-4">
+                                        <h5 class="card-title">Вкусный рецепт</h5>
+                                        <p class="card-text">Описание вкусного рецепта</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="favorites">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Избранное</h4>
+                            <span class="badge bg-secondary" id="favoritesCount">0 рецептов</span>
+                        </div>
+                        
+                        <div class="row" id="favoritesGrid">
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="followers">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Подписчики</h4>
+                            <span class="badge bg-secondary" id="followersTotal">0 подписчиков</span>
+                        </div>
+                        
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <div id="followersList">
+                                    <div class="card p-4 mb-3">
+                                        <div class="d-flex">
+                                            <svg width="55" height="55" fill="currentColor" class="bi bi-person-circle me-3" >
+                                                <use xlink:href="sprite.svg#person-circle"></use>
+                                            </svg>
+                                            <div>
+                                                <h5 class="card-title">Иван Иванов</h5>
+                                                <p class="card-text">Шеф-повар</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card p-4 mb-3">
+                                        <div class="d-flex">
+                                            <svg width="55" height="55" fill="currentColor" class="bi bi-person-circle me-3" >
+                                                <use xlink:href="sprite.svg#person-circle"></use>
+                                            </svg>
+                                            <div>
+                                                <h5 class="card-title">Иван Иванов</h5>
+                                                <p class="card-text">Шеф-повар</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card p-4">
+                                        <div class="d-flex">
+                                            <svg width="55" height="55" fill="currentColor" class="bi bi-person-circle me-3" >
+                                                <use xlink:href="sprite.svg#person-circle"></use>
+                                            </svg>
+                                            <div>
+                                                <h5 class="card-title">Иван Иванов</h5>
+                                                <p class="card-text">Шеф-повар</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="following">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Подписки</h4>
+                            <span class="badge bg-secondary" id="followingTotal">0 подписок</span>
+                        </div>
+                        
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <div id="followingList">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+        const access_token = localStorage.getItem("access_token");
+        if (!access_token) {
+            window.location.href = "login.html";
+        }
+
+        const usernameField = document.querySelector("#userName");
+        const emailField = document.querySelector("#userEmail");
+        const userImageField = document.querySelector("#userImage");
+        const userBioField = document.querySelector("#userBio");
+
+        fetch("http://localhost/api/users/me", {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: `Bearer ${access_token}`,
+          },
+        }).then(r => r.json().then(json => {
+            usernameField.innerHTML = json["username"];
+            emailField.innerHTML = json["email"];
+            userImageField.src = json["profile_picture"];
+            userBioField.innerHTML = json["bio"];
+        }))
+
+    </script>
+</body>
+</html>
