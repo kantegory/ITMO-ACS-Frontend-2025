@@ -47,12 +47,12 @@ async function setSkills() {
     skills.forEach(skills => {
         container.insertAdjacentHTML('beforeend',
             `
-            <li class="skill list-group-item" tabindex="0">${skills.name}</li>
+            <li class="card skill list-group-item" tabindex="0">${skills.name}</li>
             `)
     });
     container.insertAdjacentHTML('beforeend',
         `
-        <li class="skill-create list-group-item" tabindex="0">Создать новый</li>
+        <li class="card skill-create list-group-item" tabindex="0">Создать новый</li>
         `)
 
     console.log(getSkillsArray())
