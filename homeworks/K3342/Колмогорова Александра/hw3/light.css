@@ -1,0 +1,41 @@
+:root {
+  --bg-color: white;
+  --text-color: #333;
+  --visited-link-color: #313131;
+  --carousel-caption-color: #333;
+  --carousel-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.156);
+  --carousel-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --main-h3-color: #333;
+  --main-p-color: #6c757d;
+  --profile-header-color: rgb(52, 52, 52);
+  --carousel-indicator-color: rgba(0, 0, 0, 0.5);
+  --carousel-indicator-active-color: rgba(0, 0, 0, 0.9);
+  --navbar-bg: #f8f9fa;
+  --navbar-text: #333;
+    
+  --card-header-bg: #f8f9fa;
+  --card-header-text: #333;
+  --form-label-color: #333;
+  --form-control-bg: white;
+  --form-control-text: #333;
+  --form-control-border: #ced4da;
+  --btn-outline-color: #6c757d;
+  --btn-outline-hover-bg: #6c757d;
+  --btn-outline-hover-text: white;
+  --link-color: #0d6efd;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--carousel-indicator-color, #d7d7d7);
+  opacity: 0.5;
+}
+
+.carousel-indicators .active {
+  background-color: var(--carousel-indicator-active-color, #d7d7d7);
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+}
