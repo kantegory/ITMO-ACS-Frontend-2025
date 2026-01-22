@@ -1,0 +1,32 @@
+@import "./normilize";
+@import "./theme";
+@import "./breakpoints";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+.container {
+  margin: 0 40px;
+  @include media-lg {
+    margin: 0 30px;
+  }
+  @include media-xs {
+    margin: 0 20px;
+  }
+}
+
+.app {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
