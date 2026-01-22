@@ -26,6 +26,26 @@
           ]
         }
       ]
+    },
+    {
+      "email": "1@mail.ru",
+      "password": "$2a$10$EpfS6zk.SpUPwRPfJT2/oewLhGPr61TFppwPi9FE7c9LLCKPcxUZm",
+      "username": "sss",
+      "id": 3,
+      "name": "Scdc",
+      "bio": "cece",
+      "recipes": [
+        {
+          "id": 1765790215740,
+          "title": "csdc",
+          "description": "cdc",
+          "type": "breakfast-meal",
+          "difficulty": "Легкое",
+          "ingredients": [
+            "poultry"
+          ]
+        }
+      ]
     }
   ],
   "publicRecipes": [
