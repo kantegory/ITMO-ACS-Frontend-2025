@@ -1,0 +1,13 @@
+{
+  "name": "jobfinder",
+  "version": "1.0.0",
+  "description": "JobFinder - сайт для поиска работы",
+  "scripts": {
+    "server": "json-server --watch db.json --port 3000 --middlewares ./server-middleware.js",
+    "start": "json-server --watch db.json --port 3000 --middlewares ./server-middleware.js"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
+
