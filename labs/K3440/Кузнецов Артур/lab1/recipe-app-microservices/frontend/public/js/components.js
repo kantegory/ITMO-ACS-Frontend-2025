@@ -18,8 +18,21 @@ async function loadComponent(selector, url) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    if (typeof initTheme === 'function') {
+        initTheme();
+    }
+    
     await loadComponent('#header-placeholder', 'header.html');
     await loadComponent('#footer-placeholder', 'footer.html');
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (typeof applyTheme === 'function') {
+        applyTheme(currentTheme);
+    }
+
+    if (typeof setupThemeToggle === 'function') {
+        setupThemeToggle();
+    }
 
     if (typeof updateNavigationControls === 'function') {
         updateNavigationControls();
