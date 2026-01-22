@@ -67,17 +67,17 @@ function fillSelectWithOptions(selectId, items, placeholder, isMultiple = false)
 }
 
 function collectSearchFilters() {
-    const titleFilter = document.getElementById('titleFilter').value.trim().toLowerCase();
+    const titleFilter = document.getElementById('titleFilter').value.trim();
     const dishTypeFilter = document.getElementById('dishTypeFilter').value;
     const difficultyFilter = document.getElementById('difficultyFilter').value;
     const ingredientSelect = document.getElementById('ingredientFilter');
-    const selectedIngredients = Array.from(ingredientSelect.selectedOptions).map((option) => option.value);
+    const selectedIngredients = ingredientSelect ? Array.from(ingredientSelect.selectedOptions).map((option) => option.value) : [];
 
     return {
-        title: titleFilter,
+        title: titleFilter || null,
         dishTypeId: dishTypeFilter || null,
         difficultyId: difficultyFilter || null,
-        ingredientIds: selectedIngredients,
+        ingredientIds: selectedIngredients || [],
     };
 }
 
@@ -91,6 +91,7 @@ async function loadRecipes(filters = {}) {
     hideInlineMessage('searchAlert');
 
     const queryParams = new URLSearchParams();
+    if (filters.title) queryParams.append('title', filters.title);
     if (filters.dishTypeId) queryParams.append('dishTypeId', filters.dishTypeId);
     if (filters.difficultyId) queryParams.append('difficultyId', filters.difficultyId);
     if (filters.ingredientIds && filters.ingredientIds.length) {
@@ -108,10 +109,7 @@ async function loadRecipes(filters = {}) {
         return;
     }
 
-    const recipes = (response.data ?? []).filter((recipe) => {
-        if (!filters.title) return true;
-        return recipe.title?.toLowerCase().includes(filters.title);
-    });
+    const recipes = response.data ?? [];
 
     summaryElement.innerText = `Найдено рецептов: ${recipes.length}`;
     renderRecipes(recipes);
@@ -155,4 +153,3 @@ function handleSearchFormSubmit(event) {
     const filters = collectSearchFilters();
     loadRecipes(filters);
 }
-

@@ -5,6 +5,7 @@ import { DishType } from '../models/DishType';
 import { RecipeDifficulty } from '../models/RecipeDifficulty';
 import { AuthRequest, userExists } from 'common-service';
 import { Ingredient } from '../models/Ingredient';
+import { In } from 'typeorm';
 
 const recipeRepository = AppDataSource.getRepository(Recipe);
 const dishTypeRepository = AppDataSource.getRepository(DishType);
@@ -77,44 +78,69 @@ export const createRecipe = async function(req: AuthRequest, res: Response) {
 };
 
 export const getRecipes = async (req: Request, res: Response) => {
-    const dishTypeId = req.query.dishTypeId ? Number(req.query.dishTypeId) : null;
-    const difficultyId = req.query.difficultyId ? Number(req.query.difficultyId) : null;
-    const ingredientIds = req.query.ingredientIds
-        ? (req.query.ingredientIds as string).split(',').map(id => Number(id)).filter(id => Number.isInteger(id))
-        : [];
+    try {
+        const dishTypeId = req.query.dishTypeId ? Number(req.query.dishTypeId) : null;
+        const difficultyId = req.query.difficultyId ? Number(req.query.difficultyId) : null;
+        const ingredientIds = req.query.ingredientIds
+            ? (req.query.ingredientIds as string).split(',').map(id => Number(id)).filter(id => Number.isInteger(id))
+            : [];
+        const title = (req.query.title as string) || null;
 
-    const qb = recipeRepository
-    .createQueryBuilder('recipe')
-    .leftJoinAndSelect('recipe.dishType', 'dishType')
-    .leftJoinAndSelect('recipe.recipeDifficulty', 'recipeDifficulty')
-    .leftJoinAndSelect('recipe.recipeIngredients', 'ri')
-    .leftJoinAndSelect('ri.ingredient', 'ingredient');
-
-    if (dishTypeId) {
-        qb.andWhere('recipe.dishTypeId = :dishTypeId', { dishTypeId });
-    }
-    if (difficultyId) {
-        qb.andWhere('recipe.recipeDifficultyId = :difficultyId', { difficultyId });
-    }
-    if (ingredientIds.length > 0) {
-        for (const id of ingredientIds) {
-            if (!await ingredientRepository.findOneBy({ id })) {
-                res.status(404).json({ message: `Ingredient with ${id} not found` });
-                return;
+        if (ingredientIds.length > 0) {
+            const found = await ingredientRepository.find({ where: { id: In(ingredientIds) } });
+            if (found.length !== ingredientIds.length) {
+                const foundIds = new Set(found.map(i => i.id));
+                const missing = ingredientIds.filter(i => !foundIds.has(i));
+                return res.status(404).json({ message: `Ingredient(s) not found: ${missing.join(',')}` });
             }
         }
-        qb
-        .andWhere('ingredient.id IN (:...ingredientIds)', { ingredientIds })
-        .groupBy('recipe.id')
-        .addGroupBy('dishType.id')
-        .addGroupBy('recipeDifficulty.id')
-        .addGroupBy('ri.id')
-        .addGroupBy('ingredient.id')
-        .having('COUNT(DISTINCT ingredient.id) = :count', { count: ingredientIds.length });
-    }
 
-    const recipes = await qb.getMany();
-    res.json(recipes);
+        let recipeIdsMatchingIngredients: number[] | null = null;
+        if (ingredientIds.length > 0) {
+            const qbIds = recipeRepository
+            .createQueryBuilder('r')
+            .leftJoin('r.recipeIngredients', 'ri')
+            .leftJoin('ri.ingredient', 'ingredient')
+            .where('ingredient.id IN (:...ingredientIds)', { ingredientIds })
+            .groupBy('r.id')
+            .having('COUNT(DISTINCT ingredient.id) = :count', { count: ingredientIds.length })
+            .select('r.id', 'id');
+
+            const rows: { id: number }[] = await qbIds.getRawMany();
+            recipeIdsMatchingIngredients = rows.map(row => Number(row.id));
+
+            if (recipeIdsMatchingIngredients.length === 0) {
+                return res.json([]);
+            }
+        }
+
+        const qb = recipeRepository
+        .createQueryBuilder('recipe')
+        .leftJoinAndSelect('recipe.dishType', 'dishType')
+        .leftJoinAndSelect('recipe.recipeDifficulty', 'recipeDifficulty')
+        .leftJoinAndSelect('recipe.recipeIngredients', 'ri')
+        .leftJoinAndSelect('ri.ingredient', 'ingredient');
+
+        if (dishTypeId) {
+            qb.andWhere('dishType.id = :dishTypeId', { dishTypeId });
+        }
+        if (difficultyId) {
+            qb.andWhere('recipeDifficulty.id = :difficultyId', { difficultyId });
+        }
+        if (title) {
+            qb.andWhere('recipe.title ILIKE :title', { title: `%${title}%` });
+        }
+
+        if (recipeIdsMatchingIngredients) {
+            qb.andWhere('recipe.id IN (:...ids)', { ids: recipeIdsMatchingIngredients });
+        }
+
+        const recipes = await qb.getMany();
+        return res.json(recipes);
+    } catch (err) {
+        console.error('getRecipes error', err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
 };
 
 export const getRecipe = async function(req: Request, res: Response) {
