@@ -1,0 +1,32 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+
+const router = createRouter({
+ history: createWebHistory(import.meta.env.BASE_URL),
+ // массив с роутами
+ routes: [
+   // отдельный роут
+   {
+    path: '/',
+    name: 'main',
+    component: () => import('../views/MainPage.vue')
+   },
+   {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/ProfilePage.vue')
+   },
+   {
+     path: '/recipes',
+     name: 'meals',
+     // реализация ленивой подгрузки представления
+     // (до момента открытия этого представления,
+     // оно не будет сохранено в браузере пользователя)
+     component: () => import('../views/MealsPage.vue')
+   }
+ ]
+})
+
+
+// экспортируем сконфигурированный роутер
+export default router
