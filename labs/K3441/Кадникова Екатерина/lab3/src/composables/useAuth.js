@@ -27,7 +27,6 @@ export function useAuth() {
         user.value = null;
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(USER_KEY);
-        isAuthenticated = false;
     }
 
     return {

@@ -42,7 +42,6 @@ function openEditProperty(property) {
 <template>
   <div class="container my-4">
 
-    <!-- SIDEBAR -->
     <div class="row">
       <div class="col-lg-3">
         <div class="card p-4 text-center">
@@ -57,7 +56,7 @@ function openEditProperty(property) {
             {{ userStore.user?.role === 'ADMIN' ? 'Администратор' : 'Пользователь' }}
           </div>
 
-          <!-- Stats -->
+
           <div class="row text-center mt-3">
             <div class="col">
               <div class="h5">{{ propertyStore.list.length }}</div>
