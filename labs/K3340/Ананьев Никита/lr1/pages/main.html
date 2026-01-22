@@ -35,7 +35,12 @@
         <div class="main-container">
             <div class="search">
                 <input type="text" placeholder="Метро, адрес или Ж\Д станция..." />
-                <button>Поиск</button>
+                <button>
+                    <svg class="search-icon">
+                        <use href="#icon-search"></use>
+                    </svg>
+                    <div>Поиск</div>
+                </button>
             </div>
 
             <div class="filters">
@@ -126,6 +131,7 @@
         </div>
     </footer>
 
+    <script src="../scripts/add_svg.js"></script>
     <script src="../scripts/vars.js" defer></script>
     <script src="../scripts/utils.js" defer></script>
     <script src="../scripts/user.js" defer></script>

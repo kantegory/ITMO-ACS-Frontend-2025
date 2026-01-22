@@ -19,6 +19,8 @@
 }
 
 .search button {
+    display: flex;
+    gap: 10px;
     background: var(--green-accent); 
     color: var(--bg-surface); 
     border: none;
@@ -26,6 +28,13 @@
     border-radius: 10px; 
     cursor: pointer; 
     font-size: 16px;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--green-accent);
+    display: inline-block;
 }
 
 .search button:hover { background: var(--green-btn-hover); }
@@ -52,7 +61,6 @@
     justify-content: flex-start;
     font-size: 14px;
     cursor: pointer;
-    /* color: #2e4d39; */
 }
 
 .filter select {

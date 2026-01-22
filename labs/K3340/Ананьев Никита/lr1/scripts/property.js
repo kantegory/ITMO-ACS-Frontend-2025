@@ -55,7 +55,10 @@ function fillPropertyContent(property) {
     price.textContent += frequency;
 
     const address = document.getElementById("propertyAddress");
-    address.innerHTML = `<b>Адрес:</b> ${property.address}`;
+    address.innerHTML = `<svg class="icon">
+                            <use href="#icon-address"></use>
+                        </svg> 
+                        ${property.address}`;
 
     const specs = document.getElementById("propertySpecs");
     let floor = (property.floor !== undefined) ? property.floor + "-й" : "-";
@@ -87,8 +90,18 @@ function fillLandlordContent(landlord) {
         <h5 class="mb-3">Контакты владельца</h5>
 
         <p>${name}</p>
-        <p><b>Телефон:</b> ${phone}</p>
-        <p><b>Email:</b> ${email}</p>
+        <p>
+            <svg class="icon">
+                <use href="#icon-phone"></use>
+            </svg> 
+            ${phone}
+        </p>
+        <p>
+            <svg class="icon">
+                <use href="#icon-email"></use>
+            </svg> 
+            ${email}
+        </p>
 
         <button>Написать владельцу</button>
     `;
