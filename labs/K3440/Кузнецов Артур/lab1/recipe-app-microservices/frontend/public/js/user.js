@@ -68,7 +68,14 @@ async function loadProfileHeader() {
     const profileUser = response.data;
     userPageState.profileUser = profileUser;
 
-    document.getElementById('profileFullName').innerText = `${profileUser.first_name} ${profileUser.last_name}`;
+    const profileFullNameElement = document.getElementById('profileFullName');
+    const fullName = `${profileUser.first_name} ${profileUser.last_name}`;
+    profileFullNameElement.innerHTML = `
+        <svg class="me-2" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+            <use href="#userCircle"></use>
+        </svg>
+        <span>${escapeHtml(fullName)}</span>
+    `;
     document.getElementById('profileSubtitle').innerText = `Пользователь #${profileUser.id}`;
 
     const actionContainer = document.getElementById('profileActions');
