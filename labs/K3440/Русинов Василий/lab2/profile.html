@@ -14,7 +14,12 @@
 <header>
     <nav class="navbar navbar-expand-lg" aria-label="Основная навигация">
         <div class="container">
-            <a class="navbar-brand" href="search.html">RentHouse</a>
+            <a class="navbar-brand" href="search.html">
+                <svg width="20" height="20">
+                    <use href="sprite.svg#icon-home"></use>
+                </svg>
+                RentHouse
+            </a>
 
             <div>
                 <a
@@ -22,22 +27,29 @@
                         class="btn btn-outline-primary me-2"
                         aria-label="Перейти к поиску недвижимости"
                 >
+                    <svg width="18" height="18">
+                        <use href="sprite.svg#icon-search"></use>
+                    </svg>
                     Поиск
                 </a>
-                <button
-                        id="themeToggle"
-                        class="btn btn-outline-secondary me-2"
-                        type="button"
-                        aria-label="Переключить тему"
-                >
-                    🌙
+
+                <button id="themeToggle" class="btn btn-outline-secondary me-2">
+                    <svg width="18" height="18">
+                        <use id="themeIcon" href="sprite.svg#icon-moon"></use>
+                    </svg>
                 </button>
+
+
+
                 <a
                         href="login.html"
                         class="btn btn-danger"
                         id="logoutBtn"
                         aria-label="Выйти из аккаунта"
                 >
+                    <svg width="18" height="18">
+                        <use href="sprite.svg#icon-logout"></use>
+                    </svg>
                     Выйти
                 </a>
             </div>
@@ -47,13 +59,24 @@
 
 <main class="container mt-4" id="main-content">
 
-    <h1>Личный кабинет</h1>
+    <h1>
+        <svg width="22" height="22">
+            <use href="sprite.svg#icon-user"></use>
+        </svg>
+        Личный кабинет
+    </h1>
 
     <section
             class="card p-3 mt-3"
             aria-labelledby="profile-data-title"
     >
-        <h2 id="profile-data-title">Ваши данные</h2>
+        <h2 id="profile-data-title">
+            <svg width="18" height="18">
+                <use href="sprite.svg#icon-user"></use>
+            </svg>
+            Ваши данные
+        </h2>
+
         <p>Имя: <span id="profileName"></span></p>
         <p>Email: <span id="profileEmail"></span></p>
     </section>
@@ -62,7 +85,12 @@
             class="mt-4"
             aria-labelledby="rented-title"
     >
-        <h2 id="rented-title">Арендованные объекты</h2>
+        <h2 id="rented-title">
+            <svg width="18" height="18">
+                <use href="sprite.svg#icon-home"></use>
+            </svg>
+            Арендованные объекты
+        </h2>
 
         <div
                 class="row g-3 mt-1"

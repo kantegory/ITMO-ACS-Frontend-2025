@@ -110,3 +110,19 @@ p {
         --shadow-color: rgba(0, 0, 0, 0.6);
     }
 }
+svg {
+    fill: currentColor;
+    display: block;
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+#themeToggle {
+    width: 42px;
+    height: 38px;
+    padding: 0;
+}
