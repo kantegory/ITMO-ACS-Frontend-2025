@@ -1,0 +1,396 @@
+{
+  "users": [
+    {
+      "email": "inngutorova@gmail.com",
+      "password": "$2a$10$JKWY6DmG7x2q.oyTGqIrd.42P5GGoH7kZZKysT0GJZRFGd5SqwLqW",
+      "name": "Inna",
+      "id": 1,
+      "stats": {
+        "progress": 45,
+        "workouts": 12,
+        "hours": 8
+      }
+    },
+    {
+      "email": "nane@gmail.com",
+      "password": "$2a$10$NNPO2sOMl7XgR7H/kHEcgOsZAzRni/VdSjNFfozkJz179CNk/3.nW",
+      "name": "Name",
+      "id": 2,
+      "stats": {
+        "progress": 45,
+        "workouts": 12,
+        "hours": 8
+      }
+    },
+    {
+      "email": "h@gmail.com",
+      "password": "$2a$10$vf2iK/Yv3teZBkDg3CrgEORrs2t/Q7B7WaxPtECPQURpkLUMAHMiq",
+      "name": "h",
+      "id": 3,
+      "stats": {
+        "progress": 45,
+        "workouts": 12,
+        "hours": 8
+      }
+    },
+    {
+      "email": "hhh@gmail.com",
+      "password": "$2a$10$yWDvF8gveIAoCPE6ys4oxOcHmtf38YFNXiG6paVMU0BuBGP/f1CtC",
+      "name": "hhh",
+      "id": 4,
+      "stats": {
+        "progress": 45,
+        "workouts": 12,
+        "hours": 8
+      }
+    },
+    {
+      "email": "rrr@gmail.com",
+      "password": "$2a$10$APT.eFfFjIaC91NpJMaeN.4oe0OtXbGgTzbvgWHV5m4.azEGAw81m",
+      "name": "rrr",
+      "id": 5,
+      "stats": {
+        "progress": 45,
+        "workouts": 12,
+        "hours": 8
+      }
+    },
+    {
+      "email": "k@gmail.com",
+      "password": "$2a$10$MA9TTlEACi6fPanq8JsVregM0EJF9ORRRp5nSXm8ySgcmA/IdgN42",
+      "name": "k",
+      "id": 6,
+      "stats": {
+        "progress": 45,
+        "workouts": 12,
+        "hours": 8
+      }
+    },
+    {
+      "email": "ying@gmal.com",
+      "password": "$2a$10$960sSqtu1EyB2jvLXNAuwegG4n.M9MWHbYQrYcwCxJGHEGYhnohqG",
+      "name": "ying",
+      "id": 7
+    }
+  ],
+  "workouts": [
+    {
+      "id": 1,
+      "title": "Кардио для новичков",
+      "level": "beginner",
+      "type": "cardio",
+      "duration": "short",
+      "description": "Лёгкая кардио-тренировка, поможет разогреться и улучшить выносливость.",
+      "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+      "video": "https://www.youtube.com/embed/ml6cT4AZdqI",
+      "instructions": [
+        "Разминка — 2 минуты",
+        "Бег на месте — 3 минуты",
+        "Прыжки — 5 минут"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Силовая тренировка дома",
+      "level": "intermediate",
+      "type": "strength",
+      "duration": "medium",
+      "description": "Эффективная силовая тренировка на всё тело без использования оборудования.",
+      "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+      "video": "https://rutube.ru/play/embed/a0677d0953e9f8c37382d11cf57b04f2",
+      "instructions": [
+        "Приседания — 3 подхода",
+        "Отжимания — 3 подхода",
+        "Планка — 1 минута"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Йога для расслабления",
+      "level": "beginner",
+      "type": "stretch",
+      "duration": "short",
+      "description": "Спокойная практика для растяжки и восстановления после тяжёлого дня.",
+      "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3",
+      "video": "https://www.youtube.com/embed/v7AYKMP6rOE",
+      "instructions": [
+        "Дыхательная техника — 2 минуты",
+        "Позы для спины — 6 минут",
+        "Завершающее расслабление — 7 минут"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Интенсивное кардио HIIT",
+      "level": "advanced",
+      "type": "HIIT",
+      "duration": "long",
+      "description": "Высокоинтенсивная интервальная тренировка для жиросжигания.",
+      "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+      "video": "https://www.youtube.com/embed/cbKkB3POqaY?si=lO0Wi4NEcroDQVOL",
+      "instructions": [
+        "Разминка — 3 минуты",
+        "Интервалы 40/20 — 15 минут",
+        "Заминка — 7 минут"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Силовая тренировка для ног",
+      "level": "intermediate",
+      "type": "strength",
+      "duration": "medium",
+      "description": "Комплекс упражнений для ног и ягодиц без оборудования.",
+      "image": "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0",
+      "video": "https://www.youtube.com/embed/aclHkVaku9U",
+      "instructions": [
+        "Выпады — 3×15",
+        "Приседания — 3×20",
+        "Ягодичный мост — 3×15"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Растяжка на каждый день",
+      "level": "beginner",
+      "type": "stretch",
+      "duration": "short",
+      "description": "Базовый комплекс растяжки для всего тела.",
+      "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3",
+      "video": "https://www.youtube.com/embed/Eml2xnoLpYE",
+      "instructions": [
+        "Повороты шеи — 2 минуты",
+        "Растяжка спины — 5 минут",
+        "Растяжка ног — 5 минут"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Тренировка корпуса (Core)",
+      "level": "intermediate",
+      "type": "strength",
+      "duration": "medium",
+      "description": "Комплекс упражнений на пресс и мышцы корпуса.",
+      "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+      "video": "https://www.youtube.com/embed/1919eTCoESo",
+      "instructions": [
+        "Планка — 1 минута",
+        "Скручивания — 3×20",
+        "Подъёмы ног — 3×15"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Кардио без прыжков",
+      "level": "beginner",
+      "type": "cardio",
+      "duration": "short",
+      "description": "Щадящая кардио-тренировка без ударной нагрузки.",
+      "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+      "video": "https://www.youtube.com/embed/cZnsLVArIt8",
+      "instructions": [
+        "Ходьба на месте — 4 минуты",
+        "Лёгкие наклоны — 3 минуты",
+        "Шаги в сторону — 7 минут"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Фулл-боди тренировка",
+      "level": "advanced",
+      "type": "strength",
+      "duration": "long",
+      "description": "Сложная силовая тренировка для проработки всего тела.",
+      "image": "https://images.unsplash.com/photo-1558611848-73f7eb4001a1",
+      "video": "https://www.youtube.com/embed/UBMk30rjy0o",
+      "instructions": [
+        "Приседания с прыжком — 3×12",
+        "Отжимания — 4×15",
+        "Планка — 1 минута × 3"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Утренняя зарядка",
+      "level": "beginner",
+      "type": "HIIT",
+      "duration": "short",
+      "description": "Лёгкая утренняя разминка, чтобы зарядиться энергией на день.",
+      "image": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3",
+      "video": "https://www.youtube.com/embed/aPYCiuiB4PA",
+      "instructions": [
+        "Лёгкая разминка — 2 минуты",
+        "Круги руками — 2 минуты",
+        "Наклоны и скручивания — 4 минуты"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "userId": 1,
+      "workoutId": 3,
+      "date": "2025-12-05",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "workoutId": 3,
+      "date": "2025-12-05",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "workoutId": 1,
+      "date": "2026-01-15",
+      "id": 7
+    },
+    {
+      "userId": 7,
+      "workoutId": 1,
+      "date": "2026-01-16",
+      "id": 8
+    }
+  ],
+  "planned": [
+    {
+      "userId": 1,
+      "workoutId": 3,
+      "date": "2025-12-11",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "workoutId": 4,
+      "date": "2025-12-18",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "workoutId": 4,
+      "date": "2025-12-21",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "workoutId": 4,
+      "date": "2025-12-19",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "workoutId": 1,
+      "date": "2026-01-15",
+      "id": 6
+    },
+    {
+      "userId": 7,
+      "workoutId": 1,
+      "date": "2026-01-16",
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "workoutId": 2,
+      "date": "2026-01-16",
+      "id": 8
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Как восстановиться после тренировки",
+      "text": "После интенсивной тренировки важно уделить внимание восстановлению. Оно включает полноценный сон не менее 7–9 часов, достаточное потребление белка, поддержание водного баланса и легкую растяжку. Многие спортсмены недооценивают влияние отдыха на прогресс — а ведь мышцы растут именно во время восстановления!",
+      "image": "https://picsum.photos/seed/b1/600/400",
+      "author": 1,
+      "date": "2025-01-15"
+    },
+    {
+      "id": 2,
+      "title": "Питание для набора мышечной массы: подробное руководство",
+      "text": "Чтобы набирать мышечную массу, нужно соблюдать несколько основных принципов питания, которые оказывают прямое влияние на результат тренировок и общее состояние организма.\n\n1. **Калорийный профицит**. Для роста мышц вам необходимо потреблять больше калорий, чем вы тратите. Однако важно избегать чрезмерного переедания: профицит должен составлять 200–400 ккал в сутки, чтобы минимизировать набор жира.\n\n2. **Белок — главный строительный материал**. Средняя рекомендация составляет от 1.6 до 2.2 г белка на килограмм массы тела. Белок необходим для восстановления мышечных волокон после нагрузок. Хорошие источники: курица, яйца, творог, рыба, чечевица, греческий йогурт, протеиновые коктейли.\n\n3. **Углеводы — топливо для тренировок**. Сложные углеводы помогают поддерживать энергичность и восстанавливать запасы гликогена в мышцах. Овсянка, бурый рис, киноа, цельнозерновой хлеб — отличные варианты для стабильной энергии.\n\n4. **Жиры — необходимый элемент гормонального баланса**. Омега-3 и полиненасыщенные жиры помогают работе мозга и регулируют уровни гормонов, влияющих на рост мышц.\n\n5. **Распределение питания в течение дня**. Рекомендуется есть 4–6 раз в день небольшими порциями, чтобы поддерживать стабильный уровень энергии и аминокислот в крови.\n\n6. **Питание после тренировки**. Через 30–60 минут после нагрузки организм активно восстанавливается. Лучший вариант — сочетание быстрых углеводов и белка: банан + протеиновый коктейль, йогурт + мюсли, рис + курица.\n\nВот пример примерного рациона на день:\n— Завтрак: овсянка с ягодами и орехами\n— Перекус: йогурт + фрукт\n— Обед: куриная грудка, рис, овощи\n— Перекус: тост с арахисовой пастой\n— Ужин: рыба, картофель, салат\n— Перед сном: творог или протеиновый коктейль\n\nНабор мышечной массы — это долгий, последовательный процесс: важны не только тренировки, но и питание, которое формирует базу для роста.",
+      "image": "https://picsum.photos/seed/b2/600/400",
+      "author": 1,
+      "date": "2025-01-20"
+    },
+    {
+      "id": 3,
+      "title": "Значение сна для спортивных результатов",
+      "text": "Сон — это главный инструмент восстановления организма. Во время глубоких фаз сна улучшается работа гормональной системы, нормализуется уровень кортизола и активно синтезируются белки. Недостаток сна снижает реакцию, мотивацию и эффективность тренировок...",
+      "image": "https://picsum.photos/seed/b3/600/400",
+      "author": 1,
+      "date": "2025-01-21"
+    },
+    {
+      "id": 4,
+      "title": "Почему утренние тренировки эффективнее",
+      "text": "Многие исследования показывают, что тренировки утром помогают улучшить настроение, ускорить метаболизм и сделать режим дня стабильнее...",
+      "image": "https://picsum.photos/seed/b4/600/400",
+      "author": 2,
+      "date": "2025-01-22"
+    },
+    {
+      "id": 5,
+      "title": "ТОП-5 ошибок новичков в спортзале",
+      "text": "Новички часто допускают одинаковые ошибки: неправильная техника, слишком большой вес, отсутствие разминки...",
+      "image": "https://picsum.photos/seed/b5/600/400",
+      "author": 2,
+      "date": "2025-01-23"
+    },
+    {
+      "id": 6,
+      "title": "Как сохранить мотивацию заниматься спортом",
+      "text": "Мотивация нестабильна, поэтому важно формировать полезные привычки. Занимайтесь в одно и то же время...",
+      "image": "https://picsum.photos/seed/b6/600/400",
+      "author": 3,
+      "date": "2025-01-24"
+    },
+    {
+      "id": 7,
+      "title": "Правильная техника приседаний: ошибки и советы",
+      "text": "Присед — одно из самых эффективных упражнений, но многие выполняют его неправильно...",
+      "image": "https://picsum.photos/seed/b7/600/400",
+      "author": 2,
+      "date": "2025-01-24"
+    },
+    {
+      "id": 8,
+      "title": "Что есть перед тренировкой?",
+      "text": "За 1–2 часа до тренировки выбирайте сложные углеводы и небольшое количество белка...",
+      "image": "https://picsum.photos/seed/b8/600/400",
+      "author": 3,
+      "date": "2025-01-25"
+    },
+    {
+      "id": 9,
+      "title": "Растяжка: зачем она нужна и почему её пропускают?",
+      "text": "Растяжка снижает риск травм, улучшает мобильность и ускоряет восстановление...",
+      "image": "https://picsum.photos/seed/b9/600/400",
+      "author": 1,
+      "date": "2025-01-26"
+    },
+    {
+      "title": "new test post",
+      "text": "post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text post text \n",
+      "image": "https://picsum.photos/seed/new/600/400",
+      "author": 1,
+      "date": "2025-12-05",
+      "id": 10
+    },
+    {
+      "title": "аа",
+      "text": "аа",
+      "image": "https://picsum.photos/seed/new/600/400",
+      "author": 1,
+      "date": "2026-01-15",
+      "id": 11
+    },
+    {
+      "title": "test",
+      "text": "test test",
+      "image": "https://picsum.photos/seed/new/600/400",
+      "author": 1,
+      "date": "2026-01-16",
+      "id": 12
+    }
+  ]
+}
