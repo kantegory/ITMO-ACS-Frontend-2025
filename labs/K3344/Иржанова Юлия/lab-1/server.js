@@ -7,6 +7,7 @@ const router = jsonServer.router('db.json');
 
 app.db = router.db;
 
+// статика из ./public
 app.use(jsonServer.defaults({
   static: path.join(__dirname, 'public')
 }));
