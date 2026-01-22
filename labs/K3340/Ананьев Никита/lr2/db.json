@@ -5,7 +5,8 @@
       "name": "Nikita",
       "email": "nickita-ananiev@yandex.ru",
       "password": "qwerty",
-      "role": "admin"
+      "role": "admin",
+      "city": "Санкт-Петербург"
     },
     {
       "id": "57f5",
@@ -13,7 +14,8 @@
       "email": "game.azog@gmail.com",
       "phone": "+7 (911) 646-90-49",
       "password": "qwerty",
-      "role": "tenant"
+      "role": "tenant",
+      "city": "Санкт-Петербург"
     },
     {
       "id": "fe29",
@@ -21,7 +23,17 @@
       "email": "test@test.ru",
       "phone": "+7 (888) 888-88-56",
       "password": "111",
-      "role": "tenant"
+      "role": "tenant",
+      "city": "Санкт-Петербург"
+    },
+    {
+      "id": "c640",
+      "name": "vue",
+      "email": "vue@tester.ru",
+      "phone": "89116469046",
+      "password": "qwerty",
+      "role": "tenant",
+      "city": "Санкт-Петербург"
     }
   ],
   "properties": [
@@ -34,10 +46,10 @@
       "price": 80000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Невский пр., 88",
-      "feed_img": "../media/images/nevskiy.jpg",
+      "feed_img": "nevskiy.jpg",
       "images": [
-        "../media/images/nevsk1.jpeg",
-        "../media/images/nevsk2.jpg"
+        "nevsk1.jpeg",
+        "nevsk2.jpg"
       ],
       "rooms": 2,
       "floor": 2,
@@ -52,10 +64,10 @@
       "price": 67000,
       "is_daily_payment": false,
       "address": "Москва, ул. Лесная, 12",
-      "feed_img": "../media/images/Lesnaya.jpg",
+      "feed_img": "Lesnaya.jpg",
       "images": [
-        "../media/images/lesn1.webp",
-        "../media/images/lesn2.jpeg"
+        "lesn1.webp",
+        "lesn2.jpeg"
       ],
       "rooms": 2,
       "floor": 5,
@@ -70,9 +82,9 @@
       "price": 27000,
       "is_daily_payment": false,
       "address": "Екатеринбург, ул. Мира, 25",
-      "feed_img": "../media/images/ekb.jpg",
+      "feed_img": "ekb.jpg",
       "images": [
-        "../media/images/ekb1.jpg"
+        "ekb1.jpg"
       ],
       "rooms": 1,
       "floor": 4,
@@ -87,10 +99,10 @@
       "price": 71000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Большой проспект Петроградской стороны, 25/2",
-      "feed_img": "../media/images/petrograd.webp",
+      "feed_img": "petrograd.webp",
       "images": [
-        "../media/images/petr1.jpg",
-        "../media/images/petrograd.webp"
+        "petr1.jpg",
+        "petrograd.webp"
       ],
       "rooms": 2,
       "floor": 4,
@@ -105,10 +117,10 @@
       "price": 25000,
       "is_daily_payment": false,
       "address": "Санкт-Петербург, Пулковское шоссе, 71к3",
-      "feed_img": "../media/images/zelenyyjj-kvartal.jpg",
+      "feed_img": "zelenyyjj-kvartal.jpg",
       "images": [
-        "../media/images/zk1.jpg",
-        "../media/images/zk2.jpg"
+        "zk1.jpg",
+        "zk2.jpg"
       ],
       "rooms": 1,
       "floor": 4,
@@ -123,9 +135,9 @@
       "price": 110000,
       "is_daily_payment": false,
       "address": "Москва, Подсосенский переулок, 23с3",
-      "feed_img": "../media/images/msk.webp",
+      "feed_img": "msk.webp",
       "images": [
-        "../media/images/msk.webp"
+        "msk.webp"
       ],
       "rooms": 2,
       "floor": 2,

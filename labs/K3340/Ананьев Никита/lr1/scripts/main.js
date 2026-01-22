@@ -5,7 +5,7 @@ function buildCardHTML(property) {
     newCard.className = "card";
 
     const img = document.createElement("img");
-    img.src = (property.feed_img !== undefined) ? property.feed_img : DEFAULT_PICTURE_URL;
+    img.src = (property.feed_img !== undefined) ? `../media/images/${property.feed_img}` : DEFAULT_PICTURE_URL;
     img.alt = `list image of ${property.address}`;
 
     const info = document.createElement("div");

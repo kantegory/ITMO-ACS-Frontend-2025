@@ -1,14 +1,25 @@
 <template>
+<AllIcons/>
 <Header/>
 <main>
   <div class="main-container">
+    <div class="search">
+      <input type="text" placeholder="Метро, адрес или Ж\Д станция..." />
+      <button>
+        <svg class="search-icon">
+          <use href="#icon-search"></use>
+        </svg>
+        Поиск
+      </button>
+    </div>
+
     <div class="filters">
       <div v-for="filter in filtersConfig" :key="filter.id" class="filter" :data-filter="filter.id">
 
         <template v-if="filter.type === 'select'">
           <label :for="filter.id">{{ filter.label }}</label>
 
-          <select :id="filter.id" v-model="filters[filter.id]" @change="handleFilterChange">
+          <select :id="filter.id" v-model="filters[filter.id]">
             <option v-for="option in filter.options" :key="option.value" :value="option.value">
               {{ option.label }}
             </option>
@@ -19,13 +30,13 @@
           <h3>{{ filter.label }}</h3>
 
           <label v-for="option in filter.options" :key="option.value">
-            <input type="checkbox" v-model="filters[filter.id]" :value="option.value" @change="handleFilterChange">
+            <input type="checkbox" v-model="filters[filter.id]" :value="option.value">
             {{ option.label }}
           </label>
         </template>
 
       </div>
-      <button class="apply-btn" onclick="filterProperties()" title="apply">Применить</button>
+      <button class="apply-btn" @click="filterProperties" title="apply">Применить</button>
     </div>
 
     <div id="cards" class="cards">
@@ -45,8 +56,9 @@
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import PropertyCard from '@/components/PropertyCard.vue';
-import usePropertyStore from '@/stores/propertyStorage';
-import { ref, reactive, onMounted } from 'vue';
+import AllIcons from '@/components/icons/AllIcons.vue';
+import { usePropertyStore } from '@/stores/propertyStorage';
+import { reactive, onMounted } from 'vue';
 import { storeToRefs } from 'pinia'
 
 const filtersConfig = [
@@ -130,13 +142,16 @@ const propertyStore = usePropertyStore()
 const { properties } = storeToRefs(propertyStore)
 const { loadProperties } = propertyStore
 
+
 onMounted(() => {
-  loadProperties([]).then(response => {
-    console.log("properties=", properties.value)
-  }).catch(error => {
-    console.error("Ошибка:", error)
-  })
+  document.title = 'Главная'
+  loadProperties([])
 })
+
+function filterProperties() {
+  const filterMap = new Map(Object.entries(filters))
+  loadProperties(filterMap)
+}
 </script>
 
 <style lang="css" scoped>
@@ -146,29 +161,29 @@ onMounted(() => {
     gap: 10px;
 }
 
-.search { 
+.search {
     display: flex;
     gap: 10px;
     width: 100%;
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
 }
 
 .search input {
-    padding: 12px; 
-    border-radius: 10px; 
-    border: 1px solid var(--border-main); 
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-main);
     width: 100%;
 }
 
 .search button {
     display: flex;
     gap: 10px;
-    background: var(--green-accent); 
-    color: var(--bg-surface); 
+    background: var(--green-accent);
+    color: var(--bg-surface);
     border: none;
-    padding: 12px 20px;     
-    border-radius: 10px; 
-    cursor: pointer; 
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
     font-size: 16px;
 }
 
@@ -181,6 +196,13 @@ onMounted(() => {
 
 .search button:hover { background: var(--green-btn-hover); }
 
+.search-icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--green-accent);
+    display: inline-block;
+}
+
 .filters {
     display: flex;
     flex-direction: column;
@@ -190,7 +212,7 @@ onMounted(() => {
     border: 1px solid var(--border-main);
     width: calc(25% - 12px);
     position: sticky;
-    top: 75px; 
+    top: 75px;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
 }
@@ -207,14 +229,14 @@ onMounted(() => {
 
 .filter select {
     padding: 5px;
-    border-radius: 5px; 
+    border-radius: 5px;
     border: 1px solid var(--border-main);
     width: calc(100% - 20px)
 }
 
 .filter label, h3 {
     margin: 5px 0 5px 0;
-    color: var(--green-main); 
+    color: var(--green-main);
 }
 
 .filter input[type="checkbox"] {
@@ -229,18 +251,18 @@ onMounted(() => {
     width: 100%;
     padding: 10px 20px;
     margin-top: auto;
-    background: var(--green-accent); ; 
+    background: var(--green-accent); ;
     color: var(--bg-surface);
-    border:none; 
-    border-radius: 0 0 5px 5px; 
-    font-size: 16px; 
+    border:none;
+    border-radius: 0 0 5px 5px;
+    font-size: 16px;
     cursor: pointer;
 }
 
-.cards { 
+.cards {
     width: 75%;
-    display: flex; 
-    flex-direction: column; 
-    gap: 20px; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 </style>
