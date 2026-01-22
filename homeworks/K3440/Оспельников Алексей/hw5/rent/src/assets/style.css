@@ -1,0 +1,65 @@
+/* Базовая тема (светлая) */
+:root {
+  --bs-primary: #ff6b6b;
+  --bs-primary-rgb: 255, 107, 107;
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f8f9fa;
+  --navbar-bg: var(--bs-primary);
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+  --bs-primary: #1e90ff;
+  --bs-primary-rgb: 30, 144, 255;
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: #1e1e1e;
+  --navbar-bg: #1e90ff;
+}
+
+/* Применяем переменные */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.navbar.bg-primary {
+  background-color: var(--navbar-bg) !important;
+}
+
+/* Существующие кнопки */
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+.btn-primary:hover {
+  background-color: #ff5252;
+  border-color: #ff5252;
+}
+.btn-outline-primary {
+  color: #f8f9fa;
+  border-color: var(--bs-primary);
+}
+.btn-outline-primary:hover {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: white;
+}
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+.border-primary {
+  border-color: var(--bs-primary) !important;
+}
+
+footer {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
