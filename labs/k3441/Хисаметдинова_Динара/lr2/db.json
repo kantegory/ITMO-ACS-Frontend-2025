@@ -545,8 +545,8 @@
       "propertyId": 1,
       "name": "Alex",
       "avatar": "https://ui-avatars.com/api/?name=Alex&background=007bff&color=fff&size=40",
-      "lastMessage": "cefefe",
-      "timestamp": "2025-11-27T17:51:29.794Z",
+      "lastMessage": "wewew",
+      "timestamp": "2025-11-28T10:23:58.322Z",
       "unread": 2,
       "property": "Belgrade Apartment",
       "messages": [
@@ -577,6 +577,13 @@
           "sender": "user",
           "text": "cefefe",
           "timestamp": "2025-11-27T17:51:29.794Z"
+        },
+        {
+          "id": 5,
+          "senderId": 2,
+          "sender": "user",
+          "text": "wewew",
+          "timestamp": "2025-11-28T10:23:58.322Z"
         }
       ]
     }
