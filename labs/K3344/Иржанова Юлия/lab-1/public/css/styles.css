@@ -1,15 +1,75 @@
+/* Тёмная тема */
 :root {
-    --primary-color: #1DB954;
-    --danger-color: #dc3545;
-    --success-color: #28a745;
-    --warning-color: #ffc107;
-    --dark-color: #191414;
-    --light-color: #f8f9fa;
-    --spotify-dark: #121212;
-    --spotify-card: #282828;
-    --spotify-border: #404040;
-    --text-primary: #fff;
-    --text-secondary: #b3b3b3;
+  --primary-color: #1DB954;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --dark-color: #191414;
+  --light-color: #f8f9fa;
+  --spotify-dark: #121212;
+  --spotify-card: #282828;
+  --spotify-border: #404040;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+}
+
+/* Светлая тема */
+[data-theme="light"] {
+  --primary-color: #1DB954;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --dark-color: #f5f5f5;
+  --light-color: #ffffff;
+  --spotify-dark: #ffffff;
+  --spotify-card: #f9f9f9;
+  --spotify-border: #e0e0e0;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+}
+
+[data-theme="light"] body {
+  background-color: var(--spotify-dark);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .navbar {
+  background-color: #f5f5f5 !important;
+  border-bottom-color: #e0e0e0 !important;
+}
+
+[data-theme="light"] .card {
+  background-color: var(--spotify-card);
+  border-color: var(--spotify-border);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .form-control,
+[data-theme="light"] .form-select {
+  background-color: var(--spotify-card);
+  border-color: var(--spotify-border);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+[data-theme="light"] .btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: #000000;
+}
+
+[data-theme="light"] .modal-content {
+  background-color: var(--spotify-card);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .modal-header,
+[data-theme="light"] .modal-footer {
+  background-color: #f0f0f0;
+  border-color: var(--spotify-border);
 }
 
 * {
