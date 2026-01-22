@@ -17,3 +17,11 @@ body[data-theme="oldpaper"] div.card,
 body[data-theme="oldpaper"] ul li.card {
     background-color: var(--bg-color-card);
 }
+
+
+.icon {
+    stroke: currentColor;
+    width: 24px;
+    height: 24px;
+    fill: none;
+}
