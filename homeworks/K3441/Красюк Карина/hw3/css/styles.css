@@ -1,0 +1,247 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #adb5bd;
+  --border-color: #dee2e6;
+  --card-bg: #ffffff;
+  --navbar-bg: #212529;
+  --navbar-text: #ffffff;
+  --hero-gradient-start: #0d6efd;
+  --hero-gradient-mid: #0b5ed7;
+  --hero-gradient-end: #020617;
+  --auth-gradient-start: #0d6efd;
+  --auth-gradient-mid: #6f42c1;
+  --auth-gradient-end: #020617;
+  --dashboard-gradient-start: #0d6efd;
+  --dashboard-gradient-mid: #20c997;
+  --dashboard-gradient-end: #0b5ed7;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #3d3d3d;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #808080;
+  --border-color: #404040;
+  --card-bg: #2d2d2d;
+  --navbar-bg: #0d1117;
+  --navbar-text: #ffffff;
+  --hero-gradient-start: #0d6efd;
+  --hero-gradient-mid: #0b5ed7;
+  --hero-gradient-end: #0a0a0a;
+  --auth-gradient-start: #0d6efd;
+  --auth-gradient-mid: #6f42c1;
+  --auth-gradient-end: #0a0a0a;
+  --dashboard-gradient-start: #0d6efd;
+  --dashboard-gradient-mid: #20c997;
+  --dashboard-gradient-end: #0b5ed7;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.hero-section {
+  min-height: 70vh;
+  background: radial-gradient(circle at top left, var(--hero-gradient-start) 0, var(--hero-gradient-start) 15%, var(--hero-gradient-mid) 30%, var(--hero-gradient-end) 100%);
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.hero-section .lead {
+  max-width: 32rem;
+}
+
+.hero-card {
+  border-radius: 1.5rem;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.auth-body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--auth-gradient-start) 0, var(--auth-gradient-mid) 50%, var(--auth-gradient-end) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.auth-wrapper {
+  width: 100%;
+  max-width: 460px;
+  padding: 1.5rem;
+}
+
+.auth-card {
+  border-radius: 1.5rem;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard-header {
+  background: linear-gradient(135deg, var(--dashboard-gradient-start) 0, var(--dashboard-gradient-mid) 40%, var(--dashboard-gradient-end) 100%);
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.dashboard-header .avatar-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.resume-block-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.job-header-badge {
+  font-size: 0.8rem;
+}
+
+.job-meta-item {
+  font-size: 0.95rem;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+}
+
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  transition: background-color 0.3s ease;
+}
+
+.bg-light {
+  background-color: var(--bg-secondary) !important;
+  transition: background-color 0.3s ease;
+}
+
+.card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.list-group-item {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.text-muted {
+  color: var(--text-secondary) !important;
+  transition: color 0.3s ease;
+}
+
+.form-control,
+.form-select {
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--bg-primary);
+  border-color: var(--hero-gradient-start);
+  color: var(--text-primary);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.table {
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.table td,
+.table th {
+  border-color: var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.badge + .badge {
+  margin-left: 0.25rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--navbar-text);
+  color: var(--navbar-text);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle.btn-light {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.theme-toggle.btn-light:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.theme-toggle i {
+  font-size: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .hero-section {
+    min-height: 0;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+}
+
+
