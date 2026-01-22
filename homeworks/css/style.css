@@ -1,0 +1,66 @@
+/* --- Основной текст --- */
+body {
+  color: #111;           /* тёмно-серый для хорошего контраста */
+  background-color: #fff; /* белый фон */
+  font-family: Arial, sans-serif;
+}
+
+/* --- Навигация --- */
+nav.navbar.navbar-light.bg-light {
+  background-color: #f8f9fa; /* светлый фон */
+  color: #111;               /* тёмный текст для контраста */
+}
+
+/* --- Кнопки в навигации --- */
+a.btn.btn-outline-primary.me-2 {
+  color: #0d6efd;            /* тёмно-синий текст */
+  background-color: #fff;     /* белый фон */
+  border-color: #0d6efd;     /* граница совпадает с текстом */
+}
+
+a.btn.btn-outline-primary.me-2:hover {
+  color: #fff;                /* белый текст при hover */
+  background-color: #0d6efd;  /* синий фон при hover */
+  border-color: #0b5ed7;      /* немного тёмнее при hover */
+}
+
+/* --- Кнопки обычные --- */
+.btn-primary {
+  background-color: #0d6efd;  /* синий фон */
+  color: #fff;                 /* белый текст */
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;  /* чуть тёмнее при hover */
+  border-color: #0a58ca;
+  color: #fff;
+}
+
+/* --- Заголовки и текст --- */
+h1, h2, h3, h4, h5, h6 {
+  color: #111; /* тёмные заголовки */
+}
+
+.card-title {
+  color: #111;
+}
+
+.card-text {
+  color: #333;
+}
+
+/* --- Метки форм --- */
+.form-label {
+  color: #111;
+}
+
+/* --- Ссылки --- */
+a {
+  color: #0d6efd;
+}
+
+a:hover {
+  color: #0b5ed7;
+  text-decoration: underline;
+}
