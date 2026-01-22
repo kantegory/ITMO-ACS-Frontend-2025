@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>История бронирований — RestaurantBooking</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">RestaurantBooking</a>
+    <a class="btn btn-outline-primary" href="account.html">Личный кабинет</a>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h2>История бронирований</h2>
+  <hr>
+
+  <div id="historyList" class="list-group">
+    <!-- JS заполнит историю -->
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Проверяем текущего пользователя
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if (!currentUser) {
+    window.location.href = 'login.html'; // перенаправление, если не авторизован
+  }
+
+  const historyList = document.getElementById('historyList');
+  const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+
+  // Фильтруем бронирования только текущего пользователя
+  const userBookings = bookings.filter(b => b.email === currentUser.email);
+
+  if (!userBookings.length) {
+    historyList.innerHTML = `<p class="text-muted">История пуста</p>`;
+    return;
+  }
+
+  userBookings.forEach(b => {
+    const item = document.createElement('div');
+    item.className = "list-group-item";
+
+    item.innerHTML = `
+      <h5>${b.name}</h5>
+      <p class="mb-1">Дата: ${b.date}</p>
+      <small>${b.guests} человек(а)</small>
+    `;
+
+    historyList.appendChild(item);
+  });
+});
+</script>
+
+</body>
+</html>

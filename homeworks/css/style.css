@@ -1,0 +1,124 @@
+/* CSS-переменные светлой темы */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+
+  --card-bg: #ffffff;
+  --card-text-muted: #6c757d;
+
+  --nav-bg: #f8f9fa;
+  --nav-text: #111111;
+
+  --btn-primary-bg: #0d6efd;
+  --btn-primary-color: #ffffff;
+  --btn-primary-border: #0d6efd;
+
+  --btn-outline-bg: #ffffff;
+  --btn-outline-color: #0d6efd;
+  --btn-outline-border: #0d6efd;
+
+  --link-color: #0d6efd;
+  --link-hover: #0b5ed7;
+}
+
+/* CSS-переменные тёмной темы */
+body.dark-theme {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+
+  --card-bg: #1e1e1e;
+  --card-text-muted: #b0b0b0;
+
+  --nav-bg: #1a1a1a;
+  --nav-text: #e0e0e0;
+
+  --btn-primary-bg: #bb86fc;
+  --btn-primary-color: #121212;
+  --btn-primary-border: #bb86fc;
+
+  --btn-outline-bg: #121212;
+  --btn-outline-color: #bb86fc;
+  --btn-outline-border: #bb86fc;
+
+  --link-color: #bb86fc;
+  --link-hover: #ffffff;
+}
+
+/* Базовые стили страницы */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+}
+
+/* Навигация */
+nav.navbar {
+  background-color: var(--nav-bg) !important;
+  color: var(--nav-text);
+}
+
+/* Карточки */
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.card-text,
+.text-muted {
+  color: var(--card-text-muted) !important;
+}
+
+/* Кнопки с темой */
+.themed-btn.btn,
+.themed-btn.form-control,
+.themed-btn.form-select {
+  background-color: var(--btn-outline-bg) !important;
+  color: var(--btn-outline-color) !important;
+  border-color: var(--btn-outline-border) !important;
+}
+
+.themed-btn.btn:hover {
+  background-color: var(--btn-outline-color) !important;
+  color: var(--btn-outline-bg) !important;
+}
+
+/* Основные кнопки */
+.btn-primary {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-color) !important;
+  border-color: var(--btn-primary-border) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-color) !important;
+}
+
+/* Формы */
+.form-control,
+.form-select {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--btn-outline-border);
+}
+
+.form-control::placeholder {
+  color: var(--card-text-muted);
+}
+
+/* Ссылки */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* SVG-иконки */
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
