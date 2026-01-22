@@ -35,19 +35,19 @@
 
 ### Язык разметки HTML: основы
 
-Презентация: https://disk.yandex.ru/i/ilCu5uV4ReO-YA
+Презентация: https://disk.yandex.ru/i/ilCu5uV4ReO-YA  
 Текстовая лекция: https://blog.kantegory.me/frontend-html-basics  
 Видео-лекция: https://youtu.be/XOdffiTNHW8
 
 ### Язык разметки HTML: семантическая вёрстка
 
-Презентация: https://disk.yandex.ru/i/ZNS7Fm-Prj5-yw
+Презентация: https://disk.yandex.ru/i/ZNS7Fm-Prj5-yw  
 Текстовая лекция: https://blog.kantegory.me/frontend-html-semantics  
 Видео-лекция: https://youtu.be/3Ea8OkMunyU
 
 ### Язык CSS: основы
 
-Презентация: https://disk.yandex.ru/i/r30dub3G_hvjtQ
+Презентация: https://disk.yandex.ru/i/r30dub3G_hvjtQ  
 Текстовая лекция: https://blog.kantegory.me/frontend-css-basics  
 Видео-лекция: https://youtu.be/EZhU1VidGVY  
 Видео по селекторам с примерами: https://www.youtube.com/watch?v=onoRgoj0Xus
@@ -186,15 +186,14 @@
 
 Ссылки:
 
-Статья на developers.google: https://developers.google.com/web/fundamentals/accessibility?hl=ru 
-Большой раздел на MDN: https://developer.mozilla.org/ru/docs/Learn/Accessibility/HTML 
-Примеры того, как делать не надо: https://www.htmhell.dev/
+Статья на developers.google: https://developers.google.com/web/fundamentals/accessibility?hl=ru  
+Большой раздел на MDN: https://developer.mozilla.org/ru/docs/Learn/Accessibility/HTML  
 
 ### Домашняя работа 2: доступность в HTML
 
 Задание: улучшить доступность ранее реализованного сайта. Добавить необходимые HTML-атрибуты ко всему контенту на странице и проверить это с помощью инструментов из Dev Tools браузера Firefox и сервиса Google Lighthouse.
 
-Дедлайн: *пока не определён*
+Дедлайн: 15.12.2025
 
 ### Язык CSS: работа с CSS-переменными
 ### Язык CSS: темизация сайта через CSS-переменные
@@ -214,7 +213,7 @@ https://www.youtube.com/watch?v=8LFbS78a4Rw
 Видео-лекция: https://www.youtube.com/watch?v=aKeJuUKTWPI  
 Пример, который разбирали на лекции: https://github.com/kantegory/mentoring/tree/master/08_themization_example
 
-Дедлайн: *пока не определён*
+Дедлайн: 15.12.2025
 
 ### Для чего нужен SVG-спрайт? Создание собственного SVG-спрайта
 
@@ -227,7 +226,7 @@ https://www.youtube.com/watch?v=8LFbS78a4Rw
 
 Задание: вынести все используемые ранее SVG-иконки в общий SVG-спрайт. Если иконок не было, добавьте 3-5 иконок и поместите их в SVG-спрайт.
 
-Дедлайн: *пока не определён*
+Дедлайн: 15.12.2025
 
 ### Кроссбраузерные картинки (тег picture)
 
@@ -236,7 +235,7 @@ https://www.youtube.com/watch?v=8LFbS78a4Rw
 
 ### Контрольная работа 1
 
-Дата проведения: -
+Дата проведения: 19.01.2025 (можно сдать и раньше)
 
 ## Раздел “Разработка одностраничного веб-приложения (SPA) с использованием фреймворка Vue.JS”
 
@@ -246,9 +245,12 @@ https://www.youtube.com/watch?v=8LFbS78a4Rw
 
 ### Домашняя работа 5: изучение основ работы с менеджером зависимостей npm
 
-Дедлайн: *пока не определён*
+Дедлайн: 22.12.2025
 
 В рамках данной работы Вам предстоит изучить основные команды пакетного менеджера NPM и научиться стартовать проект на Vue.
+Научиться работать с npm и vue на основе мануала: https://docs.google.com/document/d/187UkgGNrcWqkb2aCGpkHTLgeozoElMqdVgVGMBOC9gk/edit?usp=sharing.
+
+В качестве отчёта ожидаю скриншоты ваших компонентов и код получившегося приложения.
 
 ### Фреймворк Vue.JS: компонентный подход
 
@@ -275,19 +277,19 @@ https://www.youtube.com/watch?v=8LFbS78a4Rw
 
 ### Лабораторная работа 3: Разработка одностраничного веб-приложения (SPA) с использованием фреймворка Vue.JS
 
-Дедлайн: *пока не определён*
+Дедлайн: 14.01.2026
 
-Крайний срок проверки работ: 20.01.2025  
+Крайний срок проверки работ: 19.01.2026  
 
-Мигрировать ранее написанный сайт на фреймворк Vue.JS.
+Мигрировать ранее разработанное приложение (в рамках ЛР1 и ЛР2) на фреймворк Vue.JS.
 
-Минимальные требования:
+Каким требованиям ваше приложение должно соответстовать:
 
 - Должен быть подключён роутер
-- Должна быть реализована работа с внешним API
-- Разумное деление на компоненты
-- Использование composable
+- Должна быть реализована работа с внешним API (желательно посредством axios)
+- Разумное деление на компоненты (продемонстрируйте понимание компонентного подхода)
+- Использование composable для выделения повторяющеся функционала в отдельные файлы
 
 ### Контрольная работа 2
 
-Дата проведения: 27.12.2024
+Дата проведения: 19.01.2026 (можно сдать и раньше)

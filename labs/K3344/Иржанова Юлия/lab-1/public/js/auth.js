@@ -115,7 +115,7 @@ if (document.getElementById('loginForm')) {
 
       saveAuthData(data.accessToken, data.user);
 
-      console.log('Успешный вход:', data.user.email);
+      console.log('✅ Успешный вход:', data.user.email);
       window.location.href = 'catalog.html';
     } catch (error) {
       console.error('Ошибка при входе:', error);
@@ -239,7 +239,7 @@ if (document.getElementById('registerForm')) {
 
       saveAuthData(data.accessToken, data.user);
 
-      console.log('Успешная регистрация:', data.user.email);
+      console.log('✅ Успешная регистрация:', data.user.email);
       alert('Регистрация прошла успешно!');
       window.location.href = 'catalog.html';
     } catch (error) {
