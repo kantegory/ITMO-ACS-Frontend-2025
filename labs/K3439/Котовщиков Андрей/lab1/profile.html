@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ресторан</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5">Редактирование профиля</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="first-name-input form-control" placeholder="Имя">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия</label>
+                        <input type="text" class="last-name-input form-control" placeholder="Фамилия">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="save-profile btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="restaurant-list.html">Рестораны</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="profile.html">Профиль</a>
+                <a class="nav-link" href="sign-in.html">Выйти</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img 
+                            src="https://mvrdv.com/media/uploads/00_male.jpg?width=1600" 
+                            class="rounded-circle mb-3 avatar" 
+                            alt="Аватар"
+                        >
+                        <h5 class="username card-title">Котовщиков Андрей</h5>
+                        <p class="text-muted">+7924-123-45-67</p>
+                        <div class="d-grid gap-2">
+                            <button class="edit-profile btn btn-outline-primary">Редактировать профиль</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <h4 class="greeting mb-4">Добро пожаловать, Андрей!</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0">История бронирования</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Claude Monet</h6>
+                                            <small>Сегодня, 20:00</small>
+                                        </div>
+                                        <span class="badge bg-danger rounded-pill">2500 ₽</span>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Claude Monet</h6>
+                                            <small>Вчера, 22:30</small>
+                                        </div>
+                                        <span class="badge bg-danger rounded-pill">2500 ₽</span>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Claude Monet</h6>
+                                            <small>20.10.2025, 21:30</small>
+                                        </div>
+                                        <span class="badge bg-danger rounded-pill">2500 ₽</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        function onSaveProfile(e) {
+            e.preventDefault();
+
+            const firstName = document.querySelector(".first-name-input").value;
+            const lastName = document.querySelector(".last-name-input").value;
+
+            document.querySelector(".greeting").textContent = `Добро пожаловать, ${firstName}`
+            document.querySelector(".username").textContent = `${lastName} ${firstName}`;
+        };
+
+        function handleEditProfile() {
+            document.querySelector(".edit-profile").addEventListener("click", function(e) {
+                e.preventDefault()
+                const myModal = new bootstrap.Modal(document.querySelector(".modal"));
+                myModal.show();
+            });
+
+            const firstNameInput = document.querySelector(".first-name-input");
+            const lastNameInput = document.querySelector(".last-name-input");
+
+            const [lastName, firstName] = document.querySelector(".username").textContent.split(" ", 2)
+            firstNameInput.placeholder = firstName;
+            lastNameInput.placeholder = lastName;      
+            document.querySelector(".save-profile").addEventListener("click", onSaveProfile);
+        }
+
+        document.addEventListener('DOMContentLoaded', handleEditProfile);
+    </script>
+</body>
+</html>
