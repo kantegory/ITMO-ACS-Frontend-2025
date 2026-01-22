@@ -18,26 +18,16 @@ function loadRecipeCards() {
         });
 }
 
-function showRecipeCards(recipes, filters = {}) {
+function showRecipeCards(recipes) {
     const container = document.getElementById('cards-container');
-    
-    let filtered = recipes.filter(r => {
-        if (filters.type && r.type !== filters.type) return false;
-        if (filters.difficulty && r.difficulty !== filters.difficulty) return false;
-        if (filters.search) {
-            return r.title.toLowerCase().includes(filters.search.toLowerCase());
-        }
-        return true;
-    });
-    
     container.innerHTML = '';
-    
-    if (filtered.length == 0) {
+
+    if (recipes.length === 0) {
         container.innerHTML = '<p>Рецепты не найдены</p>';
         return;
     }
-    
-    filtered.forEach(r => {
+
+    recipes.forEach(r => {
         const card = document.createElement('div');
         card.className = 'col-12 col-xl-4 col-md-6 mb-4';
         card.innerHTML = `
@@ -71,45 +61,55 @@ function setActiveTab(tabId, text = null) {
 }
 
 function filterByType(type) {
-    if (publicRecipes.length > 0) {
-        setActiveTab('type-dropdown', type);
-        showRecipeCards(publicRecipes, { type: type });
-    }
+    setActiveTab('type-dropdown', type);
+
+    fetch(`${url}/publicRecipes?type=${encodeURIComponent(type)}`)
+        .then(res => res.json())
+        .then(recipes => showRecipeCards(recipes))
+        .catch(err => console.error(err));
 }
 
 function filterByDifficulty(difficulty) {
-    if (publicRecipes.length > 0) {
-        const diffNames = {
-            '★': 'Низкая',
-            '★★': 'Средняя', 
-            '★★★': 'Высокая'
-        };
-        setActiveTab('difficulty-dropdown', diffNames[difficulty] || difficulty);
-        showRecipeCards(publicRecipes, { difficulty: difficulty });
-    }
+    const diffNames = {
+        '★': 'Низкая',
+        '★★': 'Средняя', 
+        '★★★': 'Высокая'
+    };
+
+    setActiveTab('difficulty-dropdown', diffNames[difficulty]);
+
+    fetch(`${url}/publicRecipes?difficulty=${encodeURIComponent(difficulty)}`) 
+        .then(res => res.json())
+        .then(recipes => showRecipeCards(recipes))
+        .catch(err => console.error(err));
 }
 
 function showAllRecipes() {
-    if (publicRecipes.length > 0) {
-        document.getElementById('type-dropdown').textContent = 'Тип блюда';
-        document.getElementById('difficulty-dropdown').textContent = 'Сложность';
-        
-        setActiveTab('all-recipes');
-        showRecipeCards(publicRecipes);
-    }
+    document.getElementById('type-dropdown').textContent = 'Тип блюда';
+    document.getElementById('difficulty-dropdown').textContent = 'Сложность';
+
+    setActiveTab('all-recipes');
+    loadRecipeCards();
 }
 
 function searchRecipe(event) {
     event.preventDefault();
-    
-    const searchInput = document.getElementById('searchInput');
-    const searchTerm = searchInput.value.trim();
-    
-    if (searchTerm) {
-        showRecipeCards(publicRecipes, { search: searchTerm });
-    } else {
-        showRecipeCards(publicRecipes);
-    }
+
+    const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    const query = searchTerm
+        ? `${url}/publicRecipes?q=${encodeURIComponent(searchTerm)}`
+        : `${url}/publicRecipes`;
+
+    fetch(query)
+        .then(res => res.json())
+        .then(recipes => {
+            const filtered = recipes.filter(r =>
+                r.title.toLowerCase().includes(searchTerm)
+            );
+            showRecipeCards(filtered);
+        })
+        .catch(err => console.error(err));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
