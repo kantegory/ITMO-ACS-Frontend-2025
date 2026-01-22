@@ -1,0 +1,1 @@
+function g(n){const t=new Date(n),e=a=>String(a).padStart(2,"0");return`${e(t.getDate())}.${e(t.getMonth()+1)}.${t.getFullYear()} ${e(t.getHours())}:${e(t.getMinutes())}:${e(t.getSeconds())}`}export{g};
