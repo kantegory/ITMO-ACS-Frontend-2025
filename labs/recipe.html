@@ -1,149 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Рецепт — Recipes</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <style>
-    /* Небольшие локальные стили для галереи и чекбоксов */
-    .thumbs img { cursor: pointer; max-height: 80px; object-fit: cover; margin-right: .5rem; }
-    .thumbs img.active { outline: 3px solid #0d6efd; }
-    .ingredient-item { display: flex; align-items: center; gap: .5rem; }
-    .ingredient-item input[type="checkbox"] { transform: scale(1.05); margin-right: .5rem; }
-    .video-wrap { aspect-ratio: 16 / 9; } /* оставлено, но не используется */
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Рецепт — Рецепты</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Recipes</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="mainNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
-            <li class="nav-item"><a class="nav-link" href="search.html">Поиск</a></li>
-            <li class="nav-item"><a class="nav-link" href="profile.html">Кабинет</a></li>
-          </ul>
-
-          <form class="d-flex me-3" role="search" action="search.html" method="get">
-            <input class="form-control me-2" type="search" placeholder="Поиск рецептов" aria-label="Search" name="q">
-            <button class="btn btn-outline-primary" type="submit">Найти</button>
-          </form>
-
-          <div class="d-flex align-items-center">
-            <div id="userHeaderInfo"></div>
-          </div>
-        </div>
+  <!-- та же шапка, что на других страницах -->
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Рецепты</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+          <li class="nav-item"><a class="nav-link" href="search.html">Поиск</a></li>
+          <li class="nav-item"><a class="nav-link" href="profile.html">Мой кабинет</a></li>
+        </ul>
+        <div id="userInfo"></div>
       </div>
-    </nav>
-  </header>
-
-  <!-- MAIN: детали рецепта -->
-  <main class="container my-5">
-    <div class="row g-4">
-      <div class="col-lg-8">
-        <h1 id="recipeTitle">Загрузка...</h1>
-        <p class="text-muted" id="recipeSubtitle"></p>
-
-        <!-- Галлерея -->
-        <div class="card mb-3">
-          <!-- главное изображение: id mainRecipeImage (используем вместо старого recipeImage) -->
-          <img id="mainRecipeImage" class="card-img-top" alt="Рецепт" onerror="this.onerror=null; this.src='assets/img/example.jpg'">
-          <div class="card-body">
-            <div id="thumbs" class="d-flex thumbs"></div>
-          </div>
-        </div>
-
-        <!-- Ингредиенты -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <h4>Ингредиенты</h4>
-            <ul id="ingredientsList" class="list-unstyled mb-0">
-              <li>—</li>
-            </ul>
-            <div class="text-muted small mt-2">Прогресс сохраняется локально в браузере</div>
-          </div>
-        </div>
-
-        <!-- Шаги -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <h4>Шаги приготовления</h4>
-            <ol id="stepsList"></ol>
-          </div>
-        </div>
-
-        <!-- Comments -->
-        <div class="card mb-5">
-          <div class="card-body">
-            <h4>Комментарии</h4>
-
-            <div id="commentsBlock" class="mb-3">
-              <p class="text-muted">Загрузка...</p>
-            </div>
-
-            <form id="commentForm">
-              <div class="mb-2">
-                <input id="commentUser" class="form-control" placeholder="Ваше имя" required>
-              </div>
-              <div class="mb-2">
-                <textarea id="commentText" class="form-control" rows="3" placeholder="Написать комментарий..." required></textarea>
-              </div>
-              <div class="d-flex gap-2">
-                <button class="btn btn-primary" type="submit">Отправить</button>
-                <button class="btn btn-outline-secondary" id="clearCommentsBtn" type="button">Очистить локально</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-      </div>
-
-      <aside class="col-lg-4">
-        <div class="card mb-3">
-          <div class="card-body">
-            <p><strong>Время:</strong> <span id="timeInfo">—</span></p>
-            <p><strong>Сложность:</strong> <span id="difficultyInfo">—</span></p>
-            <div class="d-grid gap-2">
-              <button class="btn btn-outline-danger" id="likeBtn">❤ Нравится</button>
-              <a href="#" class="btn btn-outline-secondary" id="saveBtn">Сохранить</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-body">
-            <h6>Автор</h6>
-            <p class="mb-0" id="authorInfo">—</p>
-            <small class="text-muted" id="publishedInfo">—</small>
-          </div>
-        </div>
-      </aside>
     </div>
-  </main>
+  </nav>
 
-  <!-- FOOTER -->
-  <footer class="bg-light py-4 mt-auto">
-    <div class="container text-center">
-      <p class="mb-1">© 2025 Recipes — учебный проект</p>
+  <div class="container mt-4">
+    <div id="recipeContent">
+      <!-- сюда JS вставит рецепт -->
     </div>
-  </footer>
+  </div>
 
-  <!-- Data -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/data.js"></script>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- App logic -->
   <script src="js/app.js"></script>
 </body>
 </html>
