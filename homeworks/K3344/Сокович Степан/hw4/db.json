@@ -41,13 +41,6 @@
       "username": "sokovichstepan@gmail.commmm",
       "phone": "",
       "id": 6
-    },
-    {
-      "email": "sokovichstepan@gmail.comkkkk",
-      "password": "qewrqewre",
-      "username": "sokovichstepan@gmail.comkkkk",
-      "phone": "",
-      "id": 7
     }
   ],
   "listings": [
@@ -136,12 +129,6 @@
       "token": "token_1765744607642_wmp0yysnl",
       "createdAt": "2025-12-14T20:36:47.642Z",
       "id": 5
-    },
-    {
-      "userId": 7,
-      "token": "token_1765746021132_k73xty38n",
-      "createdAt": "2025-12-14T21:00:21.132Z",
-      "id": 6
     }
   ]
 }

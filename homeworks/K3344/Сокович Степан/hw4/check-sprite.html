@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка SVG-спрайта</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .check-item {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .icon-demo {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .icon {
+            width: 2em;
+            height: 2em;
+            display: block;
+            margin: 0 auto 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Проверка SVG-спрайта</h1>
+    
+    <div id="checks"></div>
+    
+    <h2>Демонстрация иконок из спрайта:</h2>
+    <div id="icon-demo"></div>
+
+    <script>
+        const checks = [];
+        
+        function checkSprite() {
+            const svg = document.querySelector('svg[style*="display: none"]');
+            if (svg) {
+                checks.push({ name: 'SVG-спрайт найден в DOM', status: 'success' });
+                
+                const symbols = svg.querySelectorAll('symbol');
+                checks.push({ 
+                    name: `Найдено символов в спрайте: ${symbols.length}`, 
+                    status: symbols.length > 0 ? 'success' : 'error' 
+                });
+                
+                symbols.forEach(symbol => {
+                    const id = symbol.getAttribute('id');
+                    checks.push({ 
+                        name: `Символ "${id}" найден`, 
+                        status: 'success' 
+                    });
+                });
+            } else {
+                checks.push({ name: 'SVG-спрайт не найден', status: 'error' });
+            }
+        }
+        
+        function checkIcons() {
+            const uses = document.querySelectorAll('use[href^="#icon-"]');
+            checks.push({ 
+                name: `Найдено использований иконок через <use>: ${uses.length}`, 
+                status: uses.length > 0 ? 'success' : 'error' 
+            });
+            
+            uses.forEach(use => {
+                const href = use.getAttribute('href');
+                const symbolId = href.replace('#', '');
+                const symbol = document.querySelector(`#${symbolId}`);
+                if (symbol) {
+                    checks.push({ 
+                        name: `Иконка "${symbolId}" используется и найдена в спрайте`, 
+                        status: 'success' 
+                    });
+                } else {
+                    checks.push({ 
+                        name: `Иконка "${symbolId}" используется, но не найдена в спрайте`, 
+                        status: 'error' 
+                    });
+                }
+            });
+        }
+        
+        function displayChecks() {
+            const container = document.getElementById('checks');
+            checks.forEach(check => {
+                const div = document.createElement('div');
+                div.className = `check-item ${check.status}`;
+                div.textContent = check.name;
+                container.appendChild(div);
+            });
+        }
+        
+        function displayIcons() {
+            const container = document.getElementById('icon-demo');
+            const symbols = document.querySelectorAll('symbol');
+            
+            symbols.forEach(symbol => {
+                const id = symbol.getAttribute('id');
+                const div = document.createElement('div');
+                div.className = 'icon-demo';
+                div.innerHTML = `
+                    <svg class="icon"><use href="#${id}"></use></svg>
+                    <div>${id}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            checkSprite();
+            checkIcons();
+            displayChecks();
+            displayIcons();
+        });
+    </script>
+</body>
+</html>
+
+
+
