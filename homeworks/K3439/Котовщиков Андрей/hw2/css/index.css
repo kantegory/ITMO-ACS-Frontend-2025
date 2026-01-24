@@ -1,0 +1,26 @@
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.restaurant-image {
+    height: 180px;
+    object-fit: cover;
+}
+
+.menu-card-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.restaurant-card-title {
+    font-size: 20px;
+}
+
+.restaurant-slider-image {
+    height: 600px;
+    object-fit: cover;
+}

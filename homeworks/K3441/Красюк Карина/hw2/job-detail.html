@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Frontend разработчик (React) — JobFinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm" role="navigation" aria-label="Основная навигация">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html" aria-label="JobFinder - главная страница">JobFinder</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Поиск вакансий</a>
+            </li>
+          </ul>
+          <div class="d-flex gap-2">
+            <a href="login.html" class="btn btn-outline-light btn-sm">Войти</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Регистрация</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container pb-5" style="margin-top: 5rem;">
+      <div class="row g-4">
+        <article class="col-lg-8">
+          <section class="card shadow-sm mb-3" aria-labelledby="job-title">
+            <div class="card-body">
+              <header class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h1 class="h3 mb-1" id="job-title">Frontend разработчик (React)</h1>
+                  <div class="text-muted mb-2">
+                    ООО «ТехСофт» • Москва • Полная занятость
+                  </div>
+                  <div class="d-flex flex-wrap gap-2 job-header-badge" role="list" aria-label="Теги вакансии">
+                    <span class="badge text-bg-primary" role="listitem">IT</span>
+                    <span class="badge text-bg-secondary" role="listitem">0–1 год опыта</span>
+                    <span class="badge text-bg-light text-dark" role="listitem">Офис / удалённо</span>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <div class="h4 mb-1" aria-label="Зарплата от 90000 рублей">от 90 000 ₽</div>
+                  <small class="text-muted">Опубликовано: сегодня</small>
+                </div>
+              </header>
+
+              <div class="row mb-3">
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Тип занятости</div>
+                  <div>Полная</div>
+                </div>
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Формат</div>
+                  <div>Гибрид (офис + удалённо)</div>
+                </div>
+                <div class="col-md-4 job-meta-item">
+                  <div class="text-muted small">Опыт работы</div>
+                  <div>0–1 год</div>
+                </div>
+              </div>
+
+              <h2 class="h5 mt-4 mb-2">Описание</h2>
+              <p>
+                Мы ищем Frontend разработчика, который поможет нам развивать веб‑сервисы для тысяч пользователей.
+                Вас ждёт работа в команде, современный стек и возможность профессионального роста.
+              </p>
+
+              <h2 class="h5 mt-4 mb-2">Обязанности</h2>
+              <ul role="list">
+                <li role="listitem">Разработка интерфейсов на React и Bootstrap.</li>
+                <li role="listitem">Участие в проектировании пользовательских сценариев.</li>
+                <li role="listitem">Работа с REST API и интеграция с backend‑сервисами.</li>
+                <li role="listitem">Поддержка и улучшение существующего кода.</li>
+              </ul>
+
+              <h2 class="h5 mt-4 mb-2">Требования</h2>
+              <ul role="list">
+                <li role="listitem">Знание JavaScript, HTML, CSS.</li>
+                <li role="listitem">Базовый опыт работы с React или другим фреймворком.</li>
+                <li role="listitem">Понимание принципов адаптивной вёрстки.</li>
+                <li role="listitem">Желание учиться и развиваться.</li>
+              </ul>
+
+              <h2 class="h5 mt-4 mb-2">Условия</h2>
+              <ul role="list">
+                <li role="listitem">Оформление по ТК.</li>
+                <li role="listitem">Гибкий график, возможность частичной удалённой работы.</li>
+                <li role="listitem">Корпоративное обучение и система наставничества.</li>
+              </ul>
+            </div>
+          </section>
+
+          <nav aria-label="Навигация">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm">&larr; Назад к списку вакансий</a>
+          </nav>
+        </article>
+
+        <aside class="col-lg-4" aria-label="Дополнительная информация">
+          <section class="card shadow-sm mb-3" aria-labelledby="apply-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-3" id="apply-heading">Отклик на вакансию</h2>
+              <button
+                class="btn btn-primary w-100 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#applyModal"
+                aria-label="Откликнуться на вакансию"
+              >
+                Откликнуться
+              </button>
+              <button class="btn btn-outline-primary w-100 btn-sm" aria-label="Сохранить вакансию в избранное">Сохранить в избранное</button>
+              <p class="small text-muted mt-2 mb-0">
+                Для отклика требуется вход в личный кабинет соискателя.
+              </p>
+            </div>
+          </section>
+
+          <section class="card shadow-sm" aria-labelledby="company-heading">
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2" id="company-heading">О компании</h2>
+              <p class="mb-1 fw-semibold">ООО «ТехСофт»</p>
+              <p class="small text-muted mb-2">IT‑компания, занимающаяся разработкой веб‑сервисов.</p>
+              <p class="small mb-1">
+                В команде более 50 специалистов, гибкий график, современный стек технологий.
+              </p>
+              <a href="#" class="small text-decoration-none">Все вакансии компании</a>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Modal: отклик на вакансию -->
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-describedby="applyModalDescription" aria-modal="true" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="applyModalLabel">Отклик на вакансию</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть окно отклика на вакансию"></button>
+          </div>
+          <div class="modal-body" id="applyModalBody">
+            <p id="applyModalDescription" class="small text-muted">
+              Чтобы откликнуться, войдите в личный кабинет соискателя или зарегистрируйтесь.
+            </p>
+            <div class="d-flex gap-2">
+              <a href="login.html" class="btn btn-primary flex-grow-1">Войти</a>
+              <a href="register.html" class="btn btn-outline-secondary flex-grow-1">Регистрация</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
+
+

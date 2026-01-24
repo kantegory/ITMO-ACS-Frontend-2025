@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог — FitPlatform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+    <script defer src="js/blog.js"></script>
+    <script defer src="js/theme.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm" role="navigation"
+        aria-label="Основная навигация">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">FitPlatform</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
+                aria-controls="navMain" aria-expanded="false" aria-label="Открыть меню навигации">
+                <span class="navbar-toggler-icon" aria-hidden="true"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="workouts.html">Тренировки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="blog.html" aria-current="page">
+                            Блог
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link auth-only" href="profile.html" aria-label="Перейти в личный кабинет">
+                            Личный кабинет
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal"
+                        aria-label="Добавить новый пост в блог">
+                        Добавить пост
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <button id="themeToggle" class="btn btn-secondary me-2" aria-label="Переключить тему">
+            🌙
+        </button>
+    </nav>
+
+    <main class="container my-5" role="main" aria-labelledby="page-title">
+
+        <h1 id="page-title" class="visually-hidden">
+            Блог FitPlatform
+        </h1>
+
+        <h2 class="mb-4">
+            Блог о здоровье и питании
+        </h2>
+
+        <section id="blogFeed" aria-live="polite" aria-label="Список публикаций блога">
+        </section>
+
+    </main>
+
+    <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="addPostModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addPostForm" class="needs-validation" novalidate>
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="addPostModalLabel">
+                            Добавить новый пост
+                        </h2>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Закрыть окно добавления поста"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="postTitle" class="form-label">
+                                Заголовок
+                            </label>
+                            <input id="postTitle" type="text" class="form-control" required aria-required="true">
+                            <div class="invalid-feedback">
+                                Введите заголовок.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="postText" class="form-label">
+                                Текст
+                            </label>
+                            <textarea id="postText" class="form-control" rows="4" required
+                                aria-required="true"></textarea>
+                            <div class="invalid-feedback">
+                                Введите текст поста.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="postImage" class="form-label">
+                                Ссылка на изображение
+                            </label>
+                            <input id="postImage" type="url" class="form-control" aria-describedby="imageHelp">
+                            <div id="imageHelp" class="form-text">
+                                Необязательно. Ссылка на изображение для поста.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" aria-label="Добавить пост">
+                            Добавить
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Закрыть без сохранения">
+                            Закрыть
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/authVisibility.js"></script>
+
+</body>
+
+</html>
