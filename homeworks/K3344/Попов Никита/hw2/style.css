@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Skip link для доступности */
+.visually-hidden-focusable {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.visually-hidden-focusable:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    z-index: 9999;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.card img, .carousel-inner img {
+    height: 150px;
+    object-fit: cover;
+}
+
+#restaurantCarousel .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    width: 100%;
+}
