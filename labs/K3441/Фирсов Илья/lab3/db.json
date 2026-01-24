@@ -1,0 +1,398 @@
+{
+  "vacancies": [
+    {
+      "id": 1,
+      "title": "Frontend разработчик",
+      "company": "ТехноСофт",
+      "city": "Москва",
+      "industry": "it",
+      "format": "remote",
+      "salaryFrom": 150000,
+      "salaryTo": 250000,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [
+        "Vue.js",
+        "JavaScript",
+        "TypeScript"
+      ],
+      "description": "Ищем опытного frontend разработчика для работы над современными веб-приложениями.",
+      "requirements": [
+        "Опыт работы с Vue.js от 2 лет",
+        "Знание JavaScript/TypeScript",
+        "Опыт работы с REST API"
+      ],
+      "benefits": [
+        "Гибкий график",
+        "Удаленная работа",
+        "Официальное трудоустройство"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Backend разработчик",
+      "company": "ДанныеПлюс",
+      "city": "Санкт-Петербург",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 180000,
+      "salaryTo": 300000,
+      "level": "senior",
+      "experienceYears": 5,
+      "posted": "вчера",
+      "status": "опубликована",
+      "tags": [
+        "Node.js",
+        "Python",
+        "PostgreSQL"
+      ],
+      "description": "Требуется senior backend разработчик для разработки высоконагруженных систем.",
+      "requirements": [
+        "Опыт работы с Node.js или Python",
+        "Знание SQL и NoSQL баз данных",
+        "Опыт работы с микросервисами"
+      ],
+      "benefits": [
+        "Премии",
+        "Медстраховка",
+        "Спортзал"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "UX/UI дизайнер",
+      "company": "КреативСтудия",
+      "city": "Москва",
+      "industry": "design",
+      "format": "hybrid",
+      "salaryFrom": 120000,
+      "salaryTo": 200000,
+      "level": "middle",
+      "experienceYears": 2,
+      "posted": "2 дня назад",
+      "status": "опубликована",
+      "tags": [
+        "Figma",
+        "UI/UX",
+        "Прототипирование"
+      ],
+      "description": "Ищем талантливого дизайнера для создания интерфейсов мобильных и веб-приложений.",
+      "requirements": [
+        "Опыт работы с Figma",
+        "Портфолио с примерами работ",
+        "Понимание принципов UX"
+      ],
+      "benefits": [
+        "Творческая атмосфера",
+        "Обучение",
+        "Гибкий график"
+      ]
+    }
+  ],
+  "applications": [
+    {
+      "name": "марина ля",
+      "email": "marina@mail.ru",
+      "vacancy": "Frontend разработчик",
+      "title": "Frontend разработчик",
+      "candidate": "марина ля",
+      "message": "kzkzkz",
+      "status": "В рассмотрении",
+      "id": 1
+    }
+  ],
+  "resumes": [
+    {
+      "id": 1,
+      "title": "Backend-разработчик",
+      "city": "санкт-петербург",
+      "experienceYears": 3,
+      "summary": "кратко о себе",
+      "skills": [
+        "FastAPI",
+        "OOP",
+        "REST API"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Backend-разработчик",
+      "city": "санкт-петербург",
+      "experienceYears": 3,
+      "summary": "kklscbqwlcbqlbfw",
+      "skills": [
+        "FastAPI",
+        "OOP",
+        "REST API"
+      ]
+    }
+  ],
+  "employerVacancies": [
+    {
+      "title": "фронтенд разработчик",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 2,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768402752754"
+    },
+    {
+      "title": "дизайнер",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 5,
+      "salaryTo": 0,
+      "level": "senior",
+      "experienceYears": 5,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768402762993"
+    },
+    {
+      "title": "проджект менеджер",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 3,
+      "salaryTo": 0,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "Новая вакансия работодателя",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768402779385"
+    },
+    {
+      "title": "дизайнер",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100000,
+      "salaryTo": 200000,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "описание",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768403109040"
+    },
+    {
+      "title": "фронтенд-разработчик",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 200000,
+      "salaryTo": 300000,
+      "level": "senior",
+      "experienceYears": 5,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "описание",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768403143528"
+    },
+    {
+      "title": "дизайнер",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100000,
+      "salaryTo": 200000,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "описание",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768403224751"
+    },
+    {
+      "title": "фронтенд разработчик",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 200000,
+      "salaryTo": 300000,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "описание",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768403238874"
+    },
+    {
+      "title": "фронтенд разработчик",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 100000,
+      "salaryTo": 200000,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "описание",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768403401941"
+    },
+    {
+      "title": "дизайнер",
+      "company": "Моя компания",
+      "city": "—",
+      "industry": "it",
+      "format": "office",
+      "salaryFrom": 1000,
+      "salaryTo": 2000,
+      "level": "middle",
+      "experienceYears": 3,
+      "posted": "сегодня",
+      "status": "опубликована",
+      "tags": [],
+      "description": "описание",
+      "requirements": [],
+      "benefits": [
+        "Гибкий график",
+        "Медстраховка",
+        "Команда"
+      ],
+      "id": "1768403415488"
+    }
+  ],
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$kkLEnZL4h5UUnvU8xNqtfuYR2gwUL6VSCSeG1doi//X0xowbmg5ZS",
+      "fullName": "Test User",
+      "username": "testuser",
+      "role": "candidate",
+      "id": 1
+    },
+    {
+      "email": "ilia@mail.ru",
+      "password": "$2a$10$n4eMmvdXD2C7VexTciWsr.d4.xmALMRRQ8/DWAHIiNYEetyr/0nzq",
+      "fullName": "илья фирсов",
+      "username": "ilia",
+      "role": "job_seeker",
+      "id": 2
+    },
+    {
+      "email": "ilia2@mail.ru",
+      "password": "$2a$10$mFtDl4ljidV65amJNLzcNej8KQFvDy6ZSARft1OAyOMcjcrClCYn2",
+      "fullName": "илья2 фирсов2",
+      "username": "ilia2",
+      "role": "employer",
+      "id": 3
+    },
+    {
+      "email": "ilia3@mail.ru",
+      "password": "$2a$10$2lpJT1k5ueE0vVhoIRSmd.mE67T6gieu8O9FFQqfH/YFQa5gMyPPe",
+      "fullName": "илья3 фирсов3",
+      "username": "ilia3",
+      "role": "employer",
+      "id": 4
+    },
+    {
+      "email": "ilia4@mail.ru",
+      "password": "$2a$10$6ylmDgxGL7CFLiSWbHwGy.370V8B5dmxGv2XCrEtePOU.sKlps0oG",
+      "fullName": "илья4 фирсов4",
+      "username": "ilia4",
+      "role": "employer",
+      "id": 5
+    },
+    {
+      "email": "marina@mail.ru",
+      "password": "$2a$10$1z4L0Ax0lrTkr0ywgGeMueCRBKyjF.pt.kXVM1Gqj3opf.XoOGB/W",
+      "fullName": "марина ля",
+      "username": "marina",
+      "role": "job_seeker",
+      "id": 6
+    },
+    {
+      "email": "a@a.a",
+      "password": "$2a$10$Zwa8iQdpH3j8MoLAjtHGY.2eV8q0IjdWn5zzFSd/y9gYWsV9AM8Ji",
+      "fullName": "и ф",
+      "username": "a",
+      "role": "job_seeker",
+      "id": 7
+    },
+    {
+      "email": "q@a.a",
+      "password": "$2a$10$lEoR7c9FTUPl8OSSpqb12umDVFVczgeXok9fMuRUKXr1crDpIk6g.",
+      "fullName": "и ф",
+      "username": "q",
+      "role": "job_seeker",
+      "id": 8
+    }
+  ]
+}
