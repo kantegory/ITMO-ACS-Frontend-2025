@@ -41,7 +41,7 @@ async function getItems (apiUrl) {
                         <div class="card-body">
                             <p class="card-title">${result.strMeal}</p>
                             <p class="card-text">Click on this card to find the recipe for ${result.strMeal}.</p>
-                            <p class="card-author">By <a href=profile.html>Venus</a></p>
+                            <p class="card-author">By <a class="byvenus" href=profile.html>Venus</a></p>
                         </div>
                     </div>
             `;
@@ -115,7 +115,7 @@ async function getItems (apiUrl) {
                             <div class="card-body">
                                 <p class="card-title">${recipe.recipe}</p>
                                 <p class="card-text">Click on this card to find the recipe for ${recipe.recipe}.</p>
-                                <p class="card-author">By <a href=profile.html>Venus</a></p>
+                                <p class="card-author">By <a class="byvenus" href=profile.html>Venus</a></p>
                             </div>
                         </div>
                 `;
@@ -136,7 +136,7 @@ async function getItems (apiUrl) {
                             <div class="card-body">
                                 <p class="card-title">${recipe.recipe}</p>
                                 <p class="card-text">Click on this card to find the recipe for ${recipe.recipe}.</p>
-                                <p class="card-author">By <a href=profile.html>Venus</a></p>
+                                <p class="card-author">By <a class="byvenus" href=profile.html>Venus</a></p>
                             </div>
                         </div>
                 `;
@@ -157,7 +157,7 @@ async function getItems (apiUrl) {
                             <div class="card-body">
                                 <p class="card-title">${recipe.recipe}</p>
                                 <p class="card-text">Click on this card to find the recipe for ${recipe.recipe}.</p>
-                                <p class="card-author">By <a href=profile.html>Venus</a></p>
+                                <p class="card-author">By <a class="byvenus" href=profile.html>Venus</a></p>
                             </div>
                         </div>
                 `;

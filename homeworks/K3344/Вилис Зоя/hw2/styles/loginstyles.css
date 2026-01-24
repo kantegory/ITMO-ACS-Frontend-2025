@@ -1,0 +1,53 @@
+body {
+    font-family: Montserrat Alternates;
+    background-color: var(--back-color);
+}
+
+.form {
+    width: 40vw;
+}
+
+.iconholder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    font-family: Montserrat Alternates;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+}
+
+.btn:hover {
+    background-color: var(--hover-bg);
+    color: var(--hover-color);
+}
+
+.row.g-5 {
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--latest-color);
+}
+
+.signup {
+    color: var(--signup-color);
+    text-decoration: underline;
+}
+
+.form-control {
+    background-color: var(--form-bg);
+    color: var(--form-color);
+}
+
+.form-label {
+    color: var(--form-color);
+}
+
+.letter {
+    color: var(--latest-color);
+}
+
