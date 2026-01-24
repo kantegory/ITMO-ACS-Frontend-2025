@@ -1,0 +1,29 @@
+[
+  {
+    "id": "msg-1",
+    "propertyId": "prop-1",
+    "senderId": "user-2",
+    "recipientId": "user-1",
+    "text": "Здравствуйте! Интересует квартира, можно посмотреть на этой неделе?",
+    "timestamp": "2025-01-18T14:30:00Z",
+    "read": true
+  },
+  {
+    "id": "msg-2",
+    "propertyId": "prop-1",
+    "senderId": "user-1",
+    "recipientId": "user-2",
+    "text": "Здравствуйте! Да, конечно. Завтра в 18:00 подойдет?",
+    "timestamp": "2025-01-18T15:45:00Z",
+    "read": true
+  },
+  {
+    "id": "msg-3",
+    "propertyId": "prop-3",
+    "senderId": "user-1",
+    "recipientId": "user-3",
+    "text": "Добрый день! Интересует аренда на длительный срок. Возможны ли домашние животные?",
+    "timestamp": "2025-01-22T10:15:00Z",
+    "read": false
+  }
+]
