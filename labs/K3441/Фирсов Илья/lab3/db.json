@@ -377,6 +377,22 @@
       "username": "marina",
       "role": "job_seeker",
       "id": 6
+    },
+    {
+      "email": "a@a.a",
+      "password": "$2a$10$Zwa8iQdpH3j8MoLAjtHGY.2eV8q0IjdWn5zzFSd/y9gYWsV9AM8Ji",
+      "fullName": "и ф",
+      "username": "a",
+      "role": "job_seeker",
+      "id": 7
+    },
+    {
+      "email": "q@a.a",
+      "password": "$2a$10$lEoR7c9FTUPl8OSSpqb12umDVFVczgeXok9fMuRUKXr1crDpIk6g.",
+      "fullName": "и ф",
+      "username": "q",
+      "role": "job_seeker",
+      "id": 8
     }
   ]
 }
