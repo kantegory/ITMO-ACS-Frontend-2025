@@ -1,0 +1,156 @@
+<template>
+  <BaseLayout>
+    <header class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h4 m-0">Food Source</h1>
+
+      <div class="d-flex gap-2">
+        <router-link class="btn btn-outline-primary d-inline-flex align-items-center gap-2" to="/profile">
+          <svg class="svg-icon fill" aria-hidden="true">
+            <use href="../../sprite.svg#icon-user"></use>
+          </svg>
+          <span>Профиль</span>
+        </router-link>
+      </div>
+    </header>
+
+    <div class="row g-4">
+      <aside class="col-md-3">
+        <div class="card p-3">
+          <h5 class="mb-3">Фильтры</h5>
+
+          <div class="mb-3">
+            <input
+              v-model="query"
+              class="form-control"
+              placeholder="Поиск по названию"
+            />
+          </div>
+
+          <div class="mb-3">
+            <select v-model="category" class="form-select">
+              <option value="any">Любая категория</option>
+              <option v-for="c in categories" :key="c" :value="c">
+                {{ c }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <select v-model="area" class="form-select">
+              <option value="any">Любая кухня</option>
+              <option v-for="a in areas" :key="a" :value="a">
+                {{ a }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <p class="fw-semibold mb-2">Ингредиенты</p>
+
+            <div
+              id="ingredientsContainer"
+              class="d-flex flex-wrap gap-2 ingredients-filter"
+              :class="{ collapsed: ingredientsCollapsed }"
+            >
+              <label
+                v-for="ing in ingredients"
+                :key="ing"
+                class="form-check form-check-inline border rounded px-2 py-1 user-select-none"
+                style="cursor:pointer;"
+              >
+                <input
+                  type="checkbox"
+                  class="me-2"
+                  :value="ing"
+                  :checked="selectedIngredients.includes(ing)"
+                  @change="onIngredientToggle(ing, $event.target.checked)"
+                />
+                <span>{{ ing }}</span>
+              </label>
+            </div>
+
+            <button
+              v-if="ingredients.length > 3"
+              type="button"
+              class="btn btn-link px-0 mt-2"
+              @click="ingredientsCollapsed = !ingredientsCollapsed"
+            >
+              {{ ingredientsCollapsed ? "Показать ещё" : "Скрыть" }}
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="col-md-9">
+        <div v-if="store.loading" class="text-muted">Загрузка...</div>
+
+        <p v-else-if="store.list.length === 0" class="text-muted text-center">
+          Ничего не найдено
+        </p>
+
+        <div v-else class="row g-3">
+          <div class="col-md-4" v-for="r in store.list" :key="r.id">
+            <router-link class="text-decoration-none text-dark" :to="`/recipe/${r.id}`">
+              <RecipeCard :recipe="r" />
+            </router-link>
+          </div>
+        </div>
+      </section>
+    </div>
+  </BaseLayout>
+</template>
+
+<script setup>
+import { ref, watch, onMounted } from "vue"
+import BaseLayout from "@/components/BaseLayout.vue"
+import RecipeCard from "@/components/RecipeCard.vue"
+import { useRecipesStore } from "@/stores/recipes"
+import { filtersApi } from "@/api"
+
+const store = useRecipesStore()
+
+const query = ref("")
+const category = ref("any")
+const area = ref("any")
+
+const categories = ref([])
+const areas = ref([])
+const ingredients = ref([])
+
+const ingredientsCollapsed = ref(true)
+const selectedIngredients = ref([])
+
+function onIngredientToggle(ing, checked) {
+  const set = new Set(selectedIngredients.value)
+  checked ? set.add(ing) : set.delete(ing)
+  selectedIngredients.value = Array.from(set)
+}
+
+function buildParams() {
+  return {
+    q: query.value.trim() || "",
+    category: category.value,
+    area: area.value,
+    ingredients: selectedIngredients.value
+  }
+}
+
+let timer = null
+function request() {
+  clearTimeout(timer)
+  timer = setTimeout(() => {
+    store.loadFiltered(buildParams())
+  }, 250)
+}
+
+onMounted(async () => {
+  const { data } = await filtersApi.getAll()
+  categories.value = Array.isArray(data?.categories) ? data.categories : []
+  areas.value = Array.isArray(data?.areas) ? data.areas : []
+  ingredients.value = Array.isArray(data?.ingredients) ? data.ingredients : []
+
+  await store.loadFiltered(buildParams())
+})
+
+watch([query, category, area, selectedIngredients], request, { deep: true })
+</script>

@@ -25,7 +25,7 @@ document.body.appendChild(resultsContainer)
 function renderRecipes(list) {
   resultsContainer.innerHTML = ""
   if (list.length === 0) {
-    resultsContainer.innerHTML = `<p class="text-muted text-center">Ничего не найдено 😔</p>`
+    resultsContainer.innerHTML = `<p class="text-muted text-center">Ничего не найдено</p>`
     return
   }
 
@@ -47,7 +47,6 @@ function renderRecipes(list) {
               <div class="ingredients-list collapsed">
                 ${r.ingredients.map(i => `<span>${i}</span>`).join("")}
               </div>
-              ${r.ingredients.length > 10 ? `<div class="ingredients-toggle">Показать ещё</div>` : ""}
             </div>
             <p><strong>Сложность:</strong> ${["Легко", "Средне", "Сложно"][r.difficulty - 1]}</p>
             <p><strong>Тип:</strong> ${["Завтрак", "Обед", "Ужин", "Десерт", "Напиток"][r.type - 1]}</p>
