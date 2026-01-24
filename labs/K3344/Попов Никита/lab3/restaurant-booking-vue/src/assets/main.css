@@ -1,0 +1,11 @@
+@import './base.css';
+
+/* Базовые настройки для всего приложения */
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  min-height: 100vh;
+}
