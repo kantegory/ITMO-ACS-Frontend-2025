@@ -1,0 +1,49 @@
+/* -------------------------------------------------------- Карточки рецептов -------------------------------------------------------- */
+
+/* карточка */
+.card {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* эффект наведения */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* тело карточки */
+.card-body {
+    padding: 16px;
+}
+
+/* заголовок рецепта */
+.card-title {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+/* краткое описание */
+.card-text {
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* блок с временем + сложностью */
+.card-body small {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* кнопка в карточке */
+.card-body .btn {
+    margin-top: 8px;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+/* чтобы кнопка не прилипала к краям */
+.card-body .btn-sm {
+    align-self: flex-start;
+}
