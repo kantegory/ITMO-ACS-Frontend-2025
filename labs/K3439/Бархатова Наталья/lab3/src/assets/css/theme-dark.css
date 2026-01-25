@@ -1,0 +1,65 @@
+:root {
+  --emerald: #4DB6A1;
+  --emerald-link: #6ED1BE;
+  --mint: #2F6F61;
+  --dark-mint: #1d453d;
+  --gold: #E0C36A;
+
+  --success-green: #4CAF50;
+  --error-red: #EF5350;
+
+  --bg-main: #141716;
+  --bg-surface: #1E2221;
+  --bg-surface-soft: #252B29;
+
+  --text-main: #E6ECE9;
+  --text-muted: #E6ECE9;
+
+  --border-soft: #2F3A36;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+.navbar {
+  background-color: #0F3F35;
+}
+
+.login-card,
+.filter-section,
+.profile-container,
+.restaurant-card,
+.review,
+.info-card,
+.menu-item {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+.profile-name,
+.restaurant-name,
+.section-title,
+.info-title {
+  color: var(--emerald);
+}
+
+.profile-status {
+  color: var(--gold);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--emerald);
+  --bs-btn-border-color: var(--emerald);
+  --bs-btn-color: #0E1F1B;
+
+  --bs-btn-hover-bg: var(--mint);
+  --bs-btn-hover-border-color: var(--mint);
+  --bs-btn-hover-color: var(--text-main);
+
+  --bs-btn-active-bg: var(--dark-mint);
+  --bs-btn-active-border-color: var(--dark-mint);
+  --bs-btn-active-color: var(--text-main);
+}
