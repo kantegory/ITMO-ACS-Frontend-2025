@@ -26,6 +26,7 @@
           </li>
         </ul>
         <div class="user-info">
+          <span v-if="username">Привет, {{ username }}!</span>
         </div>
       </div>
     </div>
@@ -33,11 +34,14 @@
 </template>
 
 <script setup>
+import { useUser } from '@/composables/useUser.js'
+
+const { username } = useUser()
 </script>
 
 <style scoped>
 .user-info {
-  /* Чтобы имя пользователя было по правому краю */
   font-weight: 500;
+  padding: 0.5rem 1rem;
 }
 </style>
