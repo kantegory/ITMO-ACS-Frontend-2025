@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Объект — StayNest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .owner-actions {
+      display: none;
+    }
+    .owner-section {
+      display: none;
+    }
+
+    /* Стили для модальных окон */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1050;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content-custom {
+      background: white;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.3s ease;
+    }
+
+    .modal-header-custom {
+      padding: 20px 24px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header-custom h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .modal-close {
+      font-size: 28px;
+      cursor: pointer;
+      color: #777;
+      background: none;
+      border: none;
+      line-height: 1;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #333;
+    }
+
+    .modal-body-custom {
+      padding: 24px;
+    }
+
+    .modal-footer-custom {
+      padding: 20px 24px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn-modal {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      min-width: 100px;
+    }
+
+    .btn-modal-primary {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-modal-primary:hover {
+      background: #2980b9;
+    }
+
+    .btn-modal-secondary {
+      background: #ecf0f1;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-modal-secondary:hover {
+      background: #d5dbdb;
+    }
+
+    .btn-modal-danger {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .btn-modal-danger:hover {
+      background: #c0392b;
+    }
+
+    .booking-success-icon {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .booking-success-icon i {
+      font-size: 64px;
+      color: #2ecc71;
+    }
+
+    .booking-details {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .booking-details p {
+      margin: 8px 0;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fef9e7;
+      color: #f39c12;
+    }
+
+    .status-approved {
+      background: #eafaf1;
+      color: #27ae60;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .modal-content-custom {
+        margin: 10px;
+        max-width: 95%;
+      }
+
+      .modal-footer-custom {
+        flex-direction: column;
+      }
+
+      .btn-modal {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="index.html">StayNest</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+  <div class="row g-4">
+    
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <h4 id="listingTitle" class="mb-0">Название жилья</h4>
+          <div class="btn-group btn-group-sm owner-actions" id="headerButtons">
+            <button class="btn btn-outline-secondary" onclick="editListing()">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-outline-danger" onclick="showDeleteModal()">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <img id="listingImage" class="img-fluid rounded mb-4 w-100" alt="Фото объекта" style="max-height: 420px; object-fit: cover;">
+
+          <div class="row">
+            <div class="col-md-6">
+              <p><i class="bi bi-geo-alt"></i> <strong>Локация:</strong> <span id="listingAddress"></span></p>
+              <p><i class="bi bi-building"></i> <strong>Категория:</strong> <span id="listingType"></span></p>
+              <p><i class="bi bi-clock"></i> <strong>Формат аренды:</strong> <span id="listingRentType"></span></p>
+            </div>
+            <div class="col-md-6">
+              <p><i class="bi bi-cash-stack"></i> <strong>Стоимость:</strong> <span id="listingPrice" class="fw-semibold"></span></p>
+              <p id="listingAreaBlock"><i class="bi bi-aspect-ratio"></i> <strong>Площадь:</strong> <span id="listingArea"></span></p>
+              <p id="listingRoomsBlock"><i class="bi bi-door-open"></i> <strong>Комнат:</strong> <span id="listingRooms"></span></p>
+            </div>
+          </div>
+
+          <hr>
+          <button class="btn btn-dark w-100" onclick="bookProperty()" id="bookButton">Забронировать</button>
+
+          <h6 class="mb-2"><i class="bi bi-card-text"></i> Описание</h6>
+          <p id="listingDescription" class="p-3 bg-light rounded"></p>
+
+          <div class="mt-3">
+            <h6><i class="bi bi-stars"></i> Дополнительно</h6>
+            <div id="featuresList" class="d-flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm owner-section" id="applicationsCard">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Запросы на аренду</h5>
+        </div>
+        <div class="card-body" id="applicationsContainer">
+          <p class="text-muted">Запросов пока нет</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+          <h6 class="mb-0">Активность</h6>
+        </div>
+        <div class="card-body">
+          <div class="row text-center g-3">
+            <div class="col-6">
+              <div class="border rounded p-2">
+                <div id="appsTotal" class="fs-4 fw-bold">0</div>
+                <small class="text-muted">Всего</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="border rounded p-2">
+                <div id="appsPending" class="fs-4 fw-bold text-warning">0</div>
+                <small class="text-muted">В ожидании</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="border rounded p-2">
+                <div id="appsApproved" class="fs-4 fw-bold text-success">0</div>
+                <small class="text-muted">Приняты</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="border rounded p-2">
+                <div id="appsRejected" class="fs-4 fw-bold text-danger">0</div>
+                <small class="text-muted">Отклонены</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-header bg-white">
+          <h6 class="mb-0">Действия</h6>
+        </div>
+        <div class="card-body d-grid gap-2">
+          <button class="btn btn-dark owner-actions" id="sidebarEditButton" onclick="editListing()">
+            <i class="bi bi-pencil"></i> Изменить
+          </button>
+          <a href="chats.html" class="btn btn-outline-dark">
+            <i class="bi bi-chat-dots"></i> Сообщения
+          </a>
+          <a href="profile.html" class="btn btn-outline-secondary">
+            <i class="bi bi-person"></i> Профиль
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="bookingSuccessModal" class="modal-overlay">
+  <div class="modal-content-custom">
+    <div class="modal-header-custom">
+      <h3>Запрос отправлен</h3>
+      <button class="modal-close" onclick="closeModal('bookingSuccessModal')">&times;</button>
+    </div>
+    <div class="modal-body-custom">
+      <div class="booking-success-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+
+      <h5 class="text-center mb-4">Ваш запрос на бронирование успешно отправлен!</h5>
+
+      <div class="booking-details">
+        <p><strong>Объект:</strong> <span id="modalPropertyName">-</span></p>
+        <p><strong>Дата запроса:</strong> <span id="modalBookingDate">-</span></p>
+        <p><strong>Номер брони:</strong> <span id="modalBookingId" class="fw-bold">-</span></p>
+        <p><strong>Статус:</strong> <span class="status-badge status-pending">Ожидает подтверждения</span></p>
+      </div>
+
+      <p class="text-muted small mt-3">
+        <i class="bi bi-info-circle"></i> Владелец жилья рассмотрит ваш запрос в ближайшее время.
+        Вы получите уведомление о решении.
+      </p>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn-modal btn-modal-secondary" onclick="closeModal('bookingSuccessModal')">
+        Закрыть
+      </button>
+      <button class="btn-modal btn-modal-primary" id="modalViewBookingsBtn" onclick="viewMyBookings()">
+        Мои бронирования
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="deleteConfirmationModal" class="modal-overlay">
+  <div class="modal-content-custom">
+    <div class="modal-header-custom">
+      <h3>Подтверждение удаления</h3>
+      <button class="modal-close" onclick="closeModal('deleteConfirmationModal')">&times;</button>
+    </div>
+    <div class="modal-body-custom">
+      <div class="text-center mb-4">
+        <i class="bi bi-exclamation-triangle text-warning" style="font-size: 48px;"></i>
+      </div>
+
+      <h5 class="text-center mb-3">Вы уверены, что хотите удалить это объявление?</h5>
+
+      <div class="alert alert-warning">
+        <i class="bi bi-info-circle"></i> Это действие нельзя отменить. Все данные об объявлении, включая историю бронирований, будут удалены.
+      </div>
+
+      <p>Удаляемое объявление: <strong id="modalDeleteListingName">-</strong></p>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn-modal btn-modal-secondary" onclick="closeModal('deleteConfirmationModal')">
+        Отмена
+      </button>
+      <button class="btn-modal btn-modal-danger" onclick="confirmDeleteListing()">
+        Удалить
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="authErrorModal" class="modal-overlay">
+  <div class="modal-content-custom">
+    <div class="modal-header-custom">
+      <h3>Требуется авторизация</h3>
+      <button class="modal-close" onclick="closeModal('authErrorModal')">&times;</button>
+    </div>
+    <div class="modal-body-custom">
+      <div class="text-center mb-4">
+        <i class="bi bi-shield-exclamation text-primary" style="font-size: 48px;"></i>
+      </div>
+
+      <h5 class="text-center mb-3">Для бронирования необходимо войти в систему</h5>
+
+      <p>Пожалуйста, войдите в свой аккаунт или зарегистрируйтесь, чтобы забронировать это жилье.</p>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn-modal btn-modal-secondary" onclick="closeModal('authErrorModal')">
+        Позже
+      </button>
+      <button class="btn-modal btn-modal-primary" onclick="goToLogin()">
+        Войти
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="ownerErrorModal" class="modal-overlay">
+  <div class="modal-content-custom">
+    <div class="modal-header-custom">
+      <h3>Невозможно забронировать</h3>
+      <button class="modal-close" onclick="closeModal('ownerErrorModal')">&times;</button>
+    </div>
+    <div class="modal-body-custom">
+      <div class="text-center mb-4">
+        <i class="bi bi-house-exclamation text-secondary" style="font-size: 48px;"></i>
+      </div>
+
+      <h5 class="text-center mb-3">Вы не можете забронировать собственное объявление</h5>
+
+      <p>Это объявление принадлежит вам. Вы можете редактировать его или просматривать заявки от других пользователей.</p>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn-modal btn-modal-primary" onclick="closeModal('ownerErrorModal')">
+        Понятно
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  window.MOCK_LISTINGS = [
+    {
+      id: 1,
+      ownerId: 1,
+      title: 'Уютная квартира в центре',
+      address: 'Москва, Арбат',
+      type: 'apartment',
+      period: 'monthly',
+      price: 50000,
+      image: 'images/kv1.png',
+      area: 60,
+      rooms: 2,
+      description: 'Квартира с мебелью и техникой, идеально для семьи.',
+      features: ['Wi-Fi', 'TV', 'Кухня']
+    },
+    {
+      id: 2,
+      ownerId: 1,
+      title: 'Дом с садом',
+      address: 'Санкт-Петербург, Петроградская',
+      type: 'house',
+      period: 'longterm',
+      price: 120000,
+      image: 'images/dom1.png',
+      area: 200,
+      rooms: 5,
+      description: 'Просторный дом с садом и гаражом.',
+      features: ['Парковка', 'Стиральная машина', 'Кондиционер']
+    },
+    {
+      id: 3,
+      ownerId: 1,
+      title: 'Современная студия',
+      address: 'Казань, Центр',
+      type: 'apartment',
+      period: 'daily',
+      price: 3000,
+      image: 'images/kv2.png',
+      area: 30,
+      rooms: 1,
+      description: 'Студия с новым ремонтом и мебелью, идеально для одного человека.',
+      features: ['Wi-Fi', 'TV']
+    },
+    {
+      id: 4,
+      ownerId: 1,
+      title: 'Комната в коммунальной квартире',
+      address: 'Новосибирск, Ленинский район',
+      type: 'room',
+      period: 'monthly',
+      price: 15000,
+      image: 'images/kv3.png',
+      area: 18,
+      rooms: 1,
+      description: 'Светлая комната в квартире с общими удобствами.',
+      features: ['Wi-Fi', 'Стиральная машина']
+    },
+    {
+      id: 5,
+      ownerId: 1,
+      title: 'Коттедж у озера',
+      address: 'Сочи, Лазаревское',
+      type: 'house',
+      period: 'longterm',
+      price: 180000,
+      image: 'images/dom3.png',
+      area: 250,
+      rooms: 6,
+      description: 'Просторный коттедж с видом на озеро и собственной террасой.',
+      features: ['Парковка', 'Кухня', 'Кондиционер']
+    },
+    {
+      id: 6,
+      ownerId: 1,
+      title: 'Апартаменты у моря',
+      address: 'Севастополь, Приморский район',
+      type: 'apartment',
+      period: 'daily',
+      price: 7000,
+      image: 'images/dom2.png',
+      area: 45,
+      rooms: 2,
+      description: 'Апартаменты с балконом и видом на море, полностью оборудованы.',
+      features: ['Wi-Fi', 'TV', 'Кухня']
+    },
+    {
+      id: 7,
+      ownerId: 1,
+      title: 'Уютная дача',
+      address: 'Подмосковье, Красногорск',
+      type: 'house',
+      period: 'monthly',
+      price: 40000,
+      image: 'images/dom4.png',
+      area: 120,
+      rooms: 4,
+      description: 'Дача с садом и баней, идеально для семейного отдыха.',
+      features: ['Парковка', 'Стиральная машина', 'Кухня']
+    }
+  ];
+
+  if (!localStorage.getItem('currentUser')) {
+    localStorage.setItem('currentUser', JSON.stringify({
+      id: 2,
+      username: 'Гость',
+      email: 'guest@example.com'
+    }));
+  }
+</script>
+
+<script>
+  let currentListing = null;
+  let currentUser = null;
+
+  function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  function closeAllModals() {
+    const modals = document.querySelectorAll('.modal-overlay');
+    modals.forEach(modal => {
+      modal.style.display = 'none';
+    });
+    document.body.style.overflow = 'auto';
+  }
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeAllModals();
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal-overlay')) {
+      event.target.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  function initPropertyPage() {
+    currentUser = JSON.parse(localStorage.getItem('currentUser')) || { id: null };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const listingId = parseInt(urlParams.get('id')) || 1;
+
+    currentListing = window.MOCK_LISTINGS.find(l => l.id === listingId);
+
+    if (!currentListing) {
+      console.error('Объявление не найдено');
+      document.body.innerHTML = '<div class="container mt-5"><div class="alert alert-danger">Объявление не найдено</div></div>';
+      return;
+    }
+
+    const isOwner = currentUser.id === currentListing.ownerId;
+
+    console.log('Пользователь ID:', currentUser.id);
+    console.log('Владелец объявления ID:', currentListing.ownerId);
+    console.log('Является владельцем:', isOwner);
+
+    manageVisibility(isOwner);
+
+    fillListingData(currentListing);
+
+    setupBookButton(isOwner);
+
+    if (isOwner) {
+      updateActivityCounters();
+    }
+  }
+
+  function manageVisibility(isOwner) {
+    const ownerActions = document.querySelectorAll('.owner-actions');
+    const ownerSections = document.querySelectorAll('.owner-section');
+
+    if (isOwner) {
+      ownerActions.forEach(el => {
+        el.style.display = 'flex';
+      });
+      ownerSections.forEach(el => {
+        el.style.display = 'block';
+      });
+
+      const headerButtons = document.getElementById('headerButtons');
+      if (headerButtons) {
+        headerButtons.style.display = 'flex';
+      }
+
+      const sidebarEditButton = document.getElementById('sidebarEditButton');
+      if (sidebarEditButton) {
+        sidebarEditButton.style.display = 'block';
+      }
+    } else {
+      ownerActions.forEach(el => {
+        el.style.display = 'none';
+      });
+      ownerSections.forEach(el => {
+        el.style.display = 'none';
+      });
+    }
+  }
+
+  function fillListingData(listing) {
+    document.getElementById('listingTitle').textContent = listing.title;
+    document.getElementById('listingAddress').textContent = listing.address;
+    document.getElementById('listingType').textContent = getPropertyTypeText(listing.type);
+    document.getElementById('listingRentType').textContent = getRentTypeText(listing.period);
+    document.getElementById('listingPrice').textContent = `${listing.price} ₽ / ${getRentTypeText(listing.period)}`;
+    document.getElementById('listingArea').textContent = `${listing.area} м²`;
+    document.getElementById('listingRooms').textContent = listing.rooms;
+    document.getElementById('listingDescription').textContent = listing.description;
+
+    const imageElement = document.getElementById('listingImage');
+    if (imageElement) {
+      imageElement.src = listing.image;
+      imageElement.alt = listing.title;
+    }
+
+    const featuresList = document.getElementById('featuresList');
+    if (featuresList) {
+      featuresList.innerHTML = '';
+      listing.features.forEach(feature => {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-secondary';
+        badge.textContent = feature;
+        featuresList.appendChild(badge);
+      });
+    }
+  }
+
+  function setupBookButton(isOwner) {
+    const bookButton = document.getElementById('bookButton');
+    if (!bookButton) return;
+
+    if (!currentUser || !currentUser.id) {
+      bookButton.textContent = 'Войдите, чтобы забронировать';
+      bookButton.onclick = () => {
+        showModal('authErrorModal');
+      };
+      bookButton.disabled = false;
+    } else if (isOwner) {
+      bookButton.textContent = 'Ваше объявление';
+      bookButton.disabled = true;
+      bookButton.classList.remove('btn-dark');
+      bookButton.classList.add('btn-secondary');
+    } else {
+      bookButton.textContent = 'Забронировать';
+      bookButton.onclick = bookProperty;
+      bookButton.disabled = false;
+      bookButton.classList.remove('btn-secondary');
+      bookButton.classList.add('btn-dark');
+    }
+  }
+
+  function bookProperty() {
+    if (!currentUser || !currentUser.id) {
+      showModal('authErrorModal');
+      return;
+    }
+
+    if (!currentListing) {
+      console.error('Объявление не найдено');
+      return;
+    }
+
+    if (currentUser.id === currentListing.ownerId) {
+      showModal('ownerErrorModal');
+      return;
+    }
+
+    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    const bookingId = 'BK' + Date.now().toString().slice(-8);
+
+    bookings.push({
+      id: bookingId,
+      propertyId: currentListing.id,
+      userId: currentUser.id,
+      date: new Date().toISOString(),
+      status: 'pending'
+    });
+    localStorage.setItem('bookings', JSON.stringify(bookings));
+
+    document.getElementById('modalPropertyName').textContent = currentListing.title;
+    document.getElementById('modalBookingDate').textContent = new Date().toLocaleDateString('ru-RU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    document.getElementById('modalBookingId').textContent = bookingId;
+
+    showModal('bookingSuccessModal');
+
+    if (currentUser.id === currentListing.ownerId) {
+      updateActivityCounters();
+    }
+  }
+
+  function showDeleteModal() {
+    if (!currentUser || !currentListing) {
+      console.error('Ошибка данных');
+      return;
+    }
+
+    if (currentUser.id !== currentListing.ownerId) {
+      console.error('У вас нет прав для удаления этого объявления');
+      return;
+    }
+
+    document.getElementById('modalDeleteListingName').textContent = currentListing.title;
+    showModal('deleteConfirmationModal');
+  }
+
+  function confirmDeleteListing() {
+    const index = window.MOCK_LISTINGS.findIndex(l => l.id === currentListing.id);
+    if (index !== -1) {
+      window.MOCK_LISTINGS.splice(index, 1);
+
+      let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+      bookings = bookings.filter(b => b.propertyId !== currentListing.id);
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+
+      closeModal('deleteConfirmationModal');
+
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 300);
+    }
+  }
+
+  function editListing() {
+    if (!currentUser || !currentListing) {
+      console.error('Ошибка данных');
+      return;
+    }
+
+    if (currentUser.id !== currentListing.ownerId) {
+      console.error('У вас нет прав для редактирования этого объявления');
+      return;
+    }
+
+    window.location.href = `edit-property.html?id=${currentListing.id}`;
+  }
+
+  function viewMyBookings() {
+    closeModal('bookingSuccessModal');
+    console.log('Переход к бронированиям');
+  }
+
+  function goToLogin() {
+    closeModal('authErrorModal');
+    window.location.href = 'login.html';
+  }
+
+  function updateActivityCounters() {
+    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+    const propertyBookings = bookings.filter(b => b.propertyId === currentListing.id);
+
+    document.getElementById('appsTotal').textContent = propertyBookings.length;
+    document.getElementById('appsPending').textContent = propertyBookings.filter(b => b.status === 'pending').length;
+    document.getElementById('appsApproved').textContent = propertyBookings.filter(b => b.status === 'approved').length;
+    document.getElementById('appsRejected').textContent = propertyBookings.filter(b => b.status === 'rejected').length;
+  }
+
+  function getPropertyTypeText(type) {
+    const types = {
+      'apartment': 'Квартира',
+      'house': 'Дом',
+      'room': 'Комната'
+    };
+    return types[type] || type;
+  }
+
+  function getRentTypeText(period) {
+    const periods = {
+      'daily': 'сутки',
+      'monthly': 'месяц',
+      'longterm': 'долгосрочно'
+    };
+    return periods[period] || period;
+  }
+
+  document.addEventListener('DOMContentLoaded', initPropertyPage);
+
+  window.bookProperty = bookProperty;
+  window.editListing = editListing;
+  window.showDeleteModal = showDeleteModal;
+  window.confirmDeleteListing = confirmDeleteListing;
+  window.closeModal = closeModal;
+  window.showModal = showModal;
+  window.viewMyBookings = viewMyBookings;
+  window.goToLogin = goToLogin;
+</script>
+
+</body>
+</html>

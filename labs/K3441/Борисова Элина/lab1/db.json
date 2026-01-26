@@ -1,0 +1,102 @@
+{
+  "listings": [
+    {
+      "id": 1,
+      "ownerId": 1,
+      "title": "Уютная квартира в центре",
+      "address": "Москва, Арбат",
+      "type": "apartment",
+      "period": "monthly",
+      "price": 50000,
+      "image": "images/kv1.png",
+      "area": 60,
+      "rooms": 2,
+      "description": "Квартира с мебелью и техникой, идеально для семьи.",
+      "features": ["Wi-Fi", "TV", "Кухня"]
+    },
+    {
+      "id": 2,
+      "ownerId": 1,
+      "title": "Дом с садом",
+      "address": "Санкт-Петербург, Петроградская",
+      "type": "house",
+      "period": "longterm",
+      "price": 120000,
+      "image": "images/dom1.png",
+      "area": 200,
+      "rooms": 5,
+      "description": "Просторный дом с садом и гаражом.",
+      "features": ["Парковка", "Стиральная машина", "Кондиционер"]
+    },
+    {
+      "id": 3,
+      "ownerId": 1,
+      "title": "Современная студия",
+      "address": "Казань, Центр",
+      "type": "apartment",
+      "period": "daily",
+      "price": 3000,
+      "image": "images/kv2.png",
+      "area": 30,
+      "rooms": 1,
+      "description": "Студия с новым ремонтом и мебелью, идеально для одного человека.",
+      "features": ["Wi-Fi", "TV"]
+    },
+    {
+      "id": 4,
+      "ownerId": 1,
+      "title": "Комната в коммунальной квартире",
+      "address": "Новосибирск, Ленинский район",
+      "type": "room",
+      "period": "monthly",
+      "price": 15000,
+      "image": "images/kv3.png",
+      "area": 18,
+      "rooms": 1,
+      "description": "Светлая комната в квартире с общими удобствами.",
+      "features": ["Wi-Fi", "Стиральная машина"]
+    },
+    {
+      "id": 5,
+      "ownerId": 1,
+      "title": "Коттедж у озера",
+      "address": "Сочи, Лазаревское",
+      "type": "house",
+      "period": "longterm",
+      "price": 180000,
+      "image": "images/dom3.png",
+      "area": 250,
+      "rooms": 6,
+      "description": "Просторный коттедж с видом на озеро и собственной террасой.",
+      "features": ["Парковка", "Кухня", "Кондиционер"]
+    },
+    {
+      "id": 6,
+      "ownerId": 1,
+      "title": "Апартаменты у моря",
+      "address": "Севастополь, Приморский район",
+      "type": "apartment",
+      "period": "daily",
+      "price": 7000,
+      "image": "images/dom2.png",
+      "area": 45,
+      "rooms": 2,
+      "description": "Апартаменты с балконом и видом на море, полностью оборудованы.",
+      "features": ["Wi-Fi", "TV", "Кухня"]
+    },
+    {
+      "id": 7,
+      "ownerId": 1,
+      "title": "Уютная дача",
+      "address": "Подмосковье, Красногорск",
+      "type": "house",
+      "period": "monthly",
+      "price": 40000,
+      "image": "images/dom4.png",
+      "area": 120,
+      "rooms": 4,
+      "description": "Дача с садом и баней, идеально для семейного отдыха.",
+      "features": ["Парковка", "Стиральная машина", "Кухня"]
+    }
+  ]
+}
