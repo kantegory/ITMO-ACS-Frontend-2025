@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Авторизация — StayNest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="index.html">StayNest</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+
+<section class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-5">
+      <div class="card border-0 shadow-sm auth-card">
+        <div class="card-body p-4 p-lg-5">
+
+          <header class="text-center mb-4">
+            <h2 class="fw-bold mb-1">Вход</h2>
+            <p class="text-secondary mb-0">Войдите в свой аккаунт StayNest</p>
+          </header>
+
+          <form id="signinForm" novalidate>
+            <div class="mb-3">
+              <label for="signinEmail" class="form-label">Электронная почта</label>
+              <input type="email" class="form-control" id="signinEmail" placeholder="name@example.com" required>
+              <div class="invalid-feedback">Введите корректный email</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="signinPassword" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="signinPassword" required minlength="6">
+              <div class="invalid-feedback">Минимум 6 символов</div>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">Войти</button>
+
+            <div class="text-center mt-3">
+              <span class="text-muted">Нет аккаунта?</span>
+              <a href="register.html" class="ms-1">Создать</a>
+            </div>
+          </form>
+
+          <div id="signinMessage" class="alert d-none mt-3"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/app.js"></script>
+<script src="./js/modules/data.js"></script>
+<script src="./js/modules/auth.js"></script>
+
+</body>
+</html>
