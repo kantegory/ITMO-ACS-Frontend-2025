@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск жилья — StayNest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+
+<div class="svg-sprite-container" aria-hidden="true">
+    <?php include_once 'assets/icons/icons-sprite.svg'; ?>
+    
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="Главная навигация">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="index.html" aria-label="StayNest - перейти на главную">
+            <svg class="icon icon-home" aria-hidden="true">
+                <use xlink:href="#icon-home"></use>
+            </svg>
+            StayNest
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto" id="navLinks" role="menubar">
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="search.html" role="menuitem" aria-label="Поиск жилья">
+                        <svg class="icon icon-sm" aria-hidden="true">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                        Поиск
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="favorites.html" role="menuitem" aria-label="Избранное">
+                        <svg class="icon icon-sm" aria-hidden="true">
+                            <use xlink:href="#icon-heart"></use>
+                        </svg>
+                        Избранное
+                    </a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a class="nav-link" href="profile.html" role="menuitem" aria-label="Мой профиль">
+                        <svg class="icon icon-sm" aria-hidden="true">
+                            <use xlink:href="#icon-user"></use>
+                        </svg>
+                        Профиль
+                    </a>
+                </li>
+            </ul>
+            <div class="form-check form-switch ms-3">
+                <input class="form-check-input" type="checkbox" id="themeToggle" aria-label="Переключить тему сайта">
+                <label class="form-check-label text-light" for="themeToggle">
+                    <svg class="icon icon-sm me-1" aria-hidden="true">
+                        <use xlink:href="#icon-settings"></use>
+                    </svg>
+                    Тема
+                </label>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header class="py-5 bg-white border-bottom text-center" role="banner">
+    <div class="container">
+        <h1 class="fw-bold mb-3">
+            <svg class="icon icon-lg me-2" aria-hidden="true">
+                <use xlink:href="#icon-home"></use>
+            </svg>
+            Найдите жильё для комфортного проживания
+        </h1>
+        <p class="lead text-muted mb-0">
+            Аренда квартир, домов и комнат по всей стране
+        </p>
+    </div>
+</header>
+
+<main class="container py-4" role="main">
+
+    <section aria-labelledby="filterHeading">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 id="filterHeading" class="h5 mb-3">
+                    <svg class="icon icon-sm me-2" aria-hidden="true">
+                        <use xlink:href="#icon-filter"></use>
+                    </svg>
+                    Параметры поиска
+                </h2>
+                <form id="filterForm" class="row g-3 align-items-end" aria-label="Форма поиска жилья">
+                    <div class="col-md-3">
+                        <label for="filterLocation" class="form-label">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-search"></use>
+                            </svg>
+                            Локация
+                        </label>
+                        <input type="text" class="form-control" id="filterLocation" placeholder="Город или район">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterType" class="form-label">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-home"></use>
+                            </svg>
+                            Тип жилья
+                        </label>
+                        <select class="form-select" id="filterType">
+                            <option value="">Любой</option>
+                            <option value="apartment">Квартира</option>
+                            <option value="house">Дом</option>
+                            <option value="room">Комната</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterPeriod" class="form-label">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-calendar"></use>
+                            </svg>
+                            Срок аренды
+                        </label>
+                        <select class="form-select" id="filterPeriod">
+                            <option value="">Любой</option>
+                            <option value="daily">Посуточно</option>
+                            <option value="monthly">Помесячно</option>
+                            <option value="longterm">Долгосрочно</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="priceFrom" class="form-label">Цена от</label>
+                        <input type="number" class="form-control" id="priceFrom" placeholder="0" min="0">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="priceTo" class="form-label">Цена до</label>
+                        <input type="number" class="form-control" id="priceTo" placeholder="100000" min="0">
+                    </div>
+                    <div class="col-md-1 d-grid">
+                        <button class="btn btn-dark" type="submit" aria-label="Начать поиск">
+                            Поиск
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <button id="clearFilters" class="btn btn-outline-secondary btn-sm">
+                        <svg class="icon icon-xs me-1" aria-hidden="true">
+                            <use xlink:href="#icon-filter"></use>
+                        </svg>
+                        Сбросить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="listingsHeading">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="listingsHeading" class="h4 mb-0">
+                <svg class="icon icon-sm me-2" aria-hidden="true">
+                    <use xlink:href="#icon-home"></use>
+                </svg>
+                Доступное жильё
+            </h2>
+            <div class="d-flex align-items-center">
+                <span class="me-2">Сортировка:</span>
+                <select class="form-select form-select-sm" style="width: auto;" id="sortBy">
+                    <option value="price_asc">По цене (возр.)</option>
+                    <option value="price_desc">По цене (убыв.)</option>
+                    <option value="rating">По рейтингу</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="listingsGrid" class="row g-4" role="list"></div>
+
+        <div id="emptyState" class="d-none text-center mt-5" role="status" aria-live="polite">
+            <div class="card border-dashed py-5">
+                <svg class="icon icon-xl text-muted mb-3" aria-hidden="true">
+                    <use xlink:href="#icon-search"></use>
+                </svg>
+                <h3 class="h5">Ничего не найдено</h3>
+                <p class="text-muted">Попробуйте изменить параметры поиска</p>
+                <button class="btn btn-outline-primary mt-2" id="resetSearchBtn">
+                    <svg class="icon icon-xs me-1" aria-hidden="true">
+                        <use xlink:href="#icon-filter"></use>
+                    </svg>
+                    Сбросить фильтры
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <template id="listingCardTemplate">
+        <div class="col-md-6 col-lg-4" role="listitem">
+            <article class="card h-100 property-card">
+                <div class="position-relative">
+                    <img src="" class="card-img-top" alt="" style="height: 200px; object-fit: cover;">
+                    <button class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 favorite-btn"
+                            aria-label="Добавить в избранное">
+                        <svg class="icon icon-sm" aria-hidden="true">
+                            <use xlink:href="#icon-heart"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h3 class="h5 card-title mb-0"></h3>
+                        <span class="badge bg-secondary"></span>
+                    </div>
+                    <p class="text-muted small mb-2">
+                        <svg class="icon icon-xs me-1" aria-hidden="true">
+                            <use xlink:href="#icon-search"></use>
+                        </svg>
+                        <span class="listing-address"></span>
+                    </p>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <svg class="icon icon-xs me-1 text-warning" aria-hidden="true">
+                                <use xlink:href="#icon-star"></use>
+                            </svg>
+                            <span class="listing-rating"></span>
+                            <span class="text-muted ms-2 listing-reviews"></span>
+                        </div>
+                    </div>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="fw-bold h5 listing-price"></span>
+                            <span class="text-muted">/<span class="listing-period"></span></span>
+                        </div>
+                        <a href="" class="btn btn-dark btn-sm">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-search"></use>
+                            </svg>
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </template>
+
+</main>
+
+<footer class="bg-dark text-white py-4 mt-5" role="contentinfo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h3 class="h5 d-flex align-items-center mb-3">
+                    <svg class="icon icon-sm me-2" aria-hidden="true">
+                        <use xlink:href="#icon-home"></use>
+                    </svg>
+                    StayNest
+                </h3>
+                <p class="small text-white-50">
+                    Сервис аренды недвижимости по всей России
+                </p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h4 class="h6 mb-3">Контакты</h4>
+                <ul class="list-unstyled small">
+                    <li class="mb-2">
+                        <svg class="icon icon-xs me-2" aria-hidden="true">
+                            <use xlink:href="#icon-message"></use>
+                        </svg>
+                        <a href="mailto:info@staynest.ru" class="text-white-50">info@staynest.ru</a>
+                    </li>
+                    <li>
+                        <svg class="icon icon-xs me-2" aria-hidden="true">
+                            <use xlink:href="#icon-user"></use>
+                        </svg>
+                        Телефон: <a href="tel:+78001234567" class="text-white-50">8 800 123-45-67</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h4 class="h6 mb-3">Быстрые ссылки</h4>
+                <ul class="list-unstyled small">
+                    <li class="mb-1">
+                        <a href="search.html" class="text-white-50">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-search"></use>
+                            </svg>
+                            Поиск жилья
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="favorites.html" class="text-white-50">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-heart"></use>
+                            </svg>
+                            Избранное
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html" class="text-white-50">
+                            <svg class="icon icon-xs me-1" aria-hidden="true">
+                                <use xlink:href="#icon-user"></use>
+                            </svg>
+                            Личный кабинет
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function loadSvgSprite() {
+        if (document.querySelector('svg symbols')) {
+            return;
+        }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'assets/icons/icons-sprite.svg', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const div = document.createElement('div');
+                div.style.display = 'none';
+                div.innerHTML = xhr.responseText;
+                document.body.insertBefore(div, document.body.firstChild);
+            }
+        };
+        xhr.send();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSvgSprite);
+</script>
+
+<script src="js/app.js"></script>
+<script src="js/modules/auth.js"></script>
+<script src="js/pages/home.js"></script>
+</body>
+</html>
