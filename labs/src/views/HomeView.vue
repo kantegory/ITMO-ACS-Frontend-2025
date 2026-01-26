@@ -4,42 +4,26 @@
   <div class="container mt-4">
     <h1>Популярные рецепты</h1>
 
-    <div class="row">
-      <!-- Тестовые карточки -->
-      <RecipeCard v-for="i in 3" :key="i" :recipe="testRecipes[i-1]" />
+    <div class="row" v-if="recipes.length > 0">
+      <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
+    </div>
+
+    <div v-else class="text-center my-5">
+      <p>Загрузка рецептов...</p>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import AppNavbar from '@/components/AppNavbar.vue'
 import RecipeCard from '@/components/RecipeCard.vue'
+import { useApi } from '@/composables/useApi.js'
 
-// проверка
-const testRecipes = [
-  {
-    id: '1',
-    title: 'Паста Карбонара',
-    short: 'Классическая итальянская паста с беконом, яйцом и сыром.',
-    time: 20,
-    difficulty: 'Легко',
-    image: '/assets/img/pasta.jpg'  // если картинки нет — будет example.jpg
-  },
-  {
-    id: '2',
-    title: 'Салат Цезарь',
-    short: 'Хрустящий салат с курицей, сухариками и пармезаном.',
-    time: 15,
-    difficulty: 'Легко',
-    image: '/assets/img/salad.jpg'
-  },
-  {
-    id: '3',
-    title: 'Банановые панкейки',
-    short: 'Нежные панкейки с бананом — отличный завтрак.',
-    time: 25,
-    difficulty: 'Средне',
-    image: '/assets/img/pancakes.jpg'
-  }
-]
+const { getRecipes } = useApi()
+const recipes = ref([])
+
+onMounted(async () => {
+  recipes.value = await getRecipes()
+})
 </script>
