@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Диалоги — StayNest</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="index.html">StayNest</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+
+<section class="container-fluid py-4 messenger-layout">
+  <div class="row h-100">
+
+    <aside class="col-lg-4 border-end">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Диалоги</h5>
+        <span id="dialogsUnreadCount" class="badge bg-danger d-none">0</span>
+      </div>
+
+      <div id="dialogsList" class="list-group list-group-flush"></div>
+
+      <div id="emptyDialogs" class="text-center mt-5 d-none">
+        <i class="bi bi-chat-square-text display-1 text-secondary"></i>
+        <h6 class="mt-3">Нет активных диалогов</h6>
+        <p class="text-muted small">
+          Напишите владельцу жилья или арендатору, чтобы начать общение
+        </p>
+      </div>
+    </aside>
+
+    <main class="col-lg-8 position-relative">
+
+      <div id="dialogPlaceholder" class="text-center mt-5">
+        <i class="bi bi-chat display-1 text-muted"></i>
+        <h6 class="mt-3">Откройте диалог</h6>
+        <p class="text-muted small">
+          Выберите переписку слева, чтобы увидеть сообщения
+        </p>
+      </div>
+
+      <div id="dialogWindow" class="d-none h-100">
+
+        <header class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+          <div>
+            <h6 id="dialogTitle" class="mb-0"></h6>
+            <small id="dialogMeta" class="text-muted"></small>
+          </div>
+
+          <button class="btn btn-sm btn-outline-dark" onclick="returnToDialogs()">
+            <i class="bi bi-arrow-left"></i> К списку
+          </button>
+        </header>
+
+        <div id="dialogBody" class="messages-container mb-3">
+          <div id="dialogMessages" class="messages-list"></div>
+        </div>
+
+        <footer class="message-input-container">
+          <form id="sendForm" class="d-flex gap-2">
+            <input
+                    type="text"
+                    id="textMessageInput"
+                    class="form-control"
+                    placeholder="Напишите сообщение..."
+                    maxlength="1000"
+                    required
+            >
+            <button type="submit" class="btn btn-dark">
+              <i class="bi bi-send"></i>
+            </button>
+          </form>
+        </footer>
+
+      </div>
+    </main>
+
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="./js/app.js"></script>
+
+<script src="./js/modules/data.js"></script>
+
+<script src="./js/modules/auth.js"></script>
+<script src="./js/modules/listings.js"></script>
+
+<script src="./js/pages/dialogs.js"></script>
+
+</body>
+</html>
