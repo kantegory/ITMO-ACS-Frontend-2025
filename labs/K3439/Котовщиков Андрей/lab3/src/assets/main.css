@@ -1,0 +1,74 @@
+body, .card-bg, .input-bg, .input-bg:focus  {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+
+.logo, .filter-icon, .city-icon {
+    stroke: var(--text-color);
+}
+
+.price-icon {
+    fill: var(--text-color);
+    stroke: var(--bg-color);
+}
+
+.cuisine-icon {
+    fill: var(--text-color);
+}
+
+.city-icon, .cuisine-icon, .price-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.filter-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.card-bg {
+    border-color: var(--border-color);
+}
+
+.input-bg {
+    border: 1px solid var(--border-color);
+    outline: none;
+}
+
+.input-bg::placeholder {
+    color: var(--text-color);
+    opacity: 0.3;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.restaurant-image {
+    height: 180px;
+    object-fit: cover;
+}
+
+.menu-card-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.restaurant-card-title {
+    font-size: 20px;
+}
+
+.restaurant-slider-image {
+    height: 600px;
+    object-fit: cover;
+}

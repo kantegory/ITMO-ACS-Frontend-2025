@@ -1,0 +1,59 @@
+:root {
+  --bg-color: #333;
+  --text-color: #d7d7d7;
+  --visited-link-color: #d7d7d7;
+  --carousel-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  --carousel-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  --main-h3-color: #d7d7d7;
+  --main-p-color: #a0a0a0;
+  --profile-header-color: #d7d7d7;
+  --carousel-indicator-color: #d7d7d7;
+  --carousel-indicator-active-color: #d7d7d7;
+  --navbar-bg: #1e1e1e;
+  --navbar-text: #d7d7d7;
+
+  --card-header-bg: #2d2d2d;
+  --card-header-text: #d7d7d7;
+  --card-body-text: #2d2d2d;
+  --form-label-color: #d7d7d7;
+  --form-control-bg: #2d2d2d;
+  --form-control-text: #d7d7d7;
+  --form-control-border: #444;
+  --btn-outline-color: #d7d7d7;
+  --btn-outline-hover-bg: #333;
+  --btn-outline-hover-text: #d7d7d7;
+  --link-color: #4dabf7;
+}
+
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}  
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--carousel-indicator-color, #d7d7d7);
+  opacity: 0.5;
+}
+
+.carousel-indicators .active {
+  background-color: var(--carousel-indicator-active-color, #d7d7d7);
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+}
+
+.carousel-caption.d-none.d-md-block h3,
+.carousel-caption.d-none.d-md-block p {
+    color: #ffffff00 !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0) !important;
+}
+
+.carousel-caption p {
+    color: #000000 !important;
+}
+
+
+

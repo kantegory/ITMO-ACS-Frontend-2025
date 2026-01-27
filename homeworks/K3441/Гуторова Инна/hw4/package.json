@@ -1,0 +1,12 @@
+{
+  "name": "fitness-app-mock-api",
+  "version": "1.0.0",
+  "description": "Mock API для фитнес-приложения с авторизацией через json-server-auth",
+  "scripts": {
+    "server": "json-server-auth db.json --port 3000"
+  },
+  "dependencies": {
+    "json-server": "^0.17.3",
+    "json-server-auth": "^2.1.0"
+  }
+}

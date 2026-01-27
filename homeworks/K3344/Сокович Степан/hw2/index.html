@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Поиск недвижимости — RentalSite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+<a href="#main-content" class="visually-hidden-focusable">Перейти к основному содержимому</a>
+
+<header class="bg-light" role="banner">
+    <nav class="navbar navbar-expand-lg w-100 px-3" role="navigation" aria-label="Основная навигация">
+        <a class="navbar-brand" href="index.html" aria-label="RentalSite - главная страница">RentalSite</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav ms-auto" role="menubar">
+                <li class="nav-item" id="loginNav" role="none"><a class="nav-link" href="login.html" role="menuitem">Вход</a></li>
+                <li class="nav-item" id="registerNav" role="none"><a class="btn btn-primary ms-2" href="register.html" role="menuitem">Регистрация</a></li>
+
+                <li class="nav-item" id="profileNav" style="display:none;" role="none">
+                    <a class="nav-link" href="profile.html" role="menuitem">Профиль</a>
+                </li>
+                <li class="nav-item" id="logoutNav" style="display:none;" role="none">
+                    <a class="nav-link text-danger" href="#" id="logoutBtn" role="menuitem" aria-label="Выйти из системы">Выход</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main id="main-content" class="container my-4" role="main">
+    <h1 class="visually-hidden">Поиск недвижимости для аренды</h1>
+    <div class="row g-4">
+        <aside class="col-lg-3" role="complementary" aria-label="Фильтры поиска">
+            <div class="card p-3">
+                <h2>Фильтры</h2>
+                <form id="filterForm" role="search" aria-label="Фильтры поиска недвижимости">
+                    <div class="mb-2">
+                        <label for="typeFilter" class="form-label">Тип недвижимости</label>
+                        <select id="typeFilter" class="form-select" aria-label="Выберите тип недвижимости">
+                            <option value="any">Любой</option>
+                            <option value="apartment">Квартира</option>
+                            <option value="house">Дом</option>
+                            <option value="studio">Студия</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="priceFilter" class="form-label">Максимальная цена, ₽</label>
+                        <input id="priceFilter" type="number" class="form-control" placeholder="Например 50000" aria-label="Максимальная цена в рублях" min="0">
+                    </div>
+                    <div class="mb-2">
+                        <label for="locationFilter" class="form-label">Район</label>
+                        <input id="locationFilter" type="text" class="form-control" placeholder="Поиск по городу/району" aria-label="Поиск по району или городу">
+                    </div>
+                    <button type="button" id="applyFilters" class="btn btn-primary w-100 mt-2" aria-label="Применить фильтры поиска">Применить</button>
+                    <button type="button" id="clearFilters" class="btn btn-outline-secondary w-100 mt-2" aria-label="Сбросить все фильтры">Сбросить</button>
+                </form>
+            </div>
+        </aside>
+
+        <section class="col-lg-9" aria-label="Результаты поиска">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Результаты поиска</h2>
+                <div id="resultsCount" role="status" aria-live="polite" aria-atomic="true">Загрузка...</div>
+            </div>
+
+            <div id="listings" class="row g-3" role="list" aria-label="Список объявлений о недвижимости">
+            </div>
+        </section>
+    </div>
+</main>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-describedby="detailsModalBody" aria-hidden="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="detailsModalLabel">Название</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть модальное окно"></button>
+            </div>
+            <div class="modal-body" id="detailsModalBody" role="document">
+                Информация
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-light py-3 mt-4" role="contentinfo">
+    <div class="container text-center small">© RentalSite</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/listings.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
