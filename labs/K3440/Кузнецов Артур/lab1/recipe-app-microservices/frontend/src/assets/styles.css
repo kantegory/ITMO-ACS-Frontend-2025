@@ -73,10 +73,6 @@ header nav .navbar-brand {
 }
 
 .inline-alert {
-    display: none;
-}
-
-.inline-alert.show {
     display: block;
 }
 
@@ -179,3 +175,12 @@ body.dark-theme .list-group-item {
 body.dark-theme .bg-light {
     background-color: #2d2d2d !important;
 }
+
+.router-link-active {
+    font-weight: 500;
+}
+
+.nav-link.router-link-active {
+    color: #0d6efd !important;
+}
+
