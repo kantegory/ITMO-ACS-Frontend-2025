@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя кухня | Кулинарное сообщество</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-dark fw-bold" href="index.html">
+                <i class="bi bi-egg-fried me-2"></i>КулинарноеСообщество
+            </a>
+            <div class="d-flex align-items-center">
+                <div class="dropdown me-3">
+                    <a href="#" class="d-flex align-items-center text-decoration-none text-dark dropdown-toggle" 
+                       data-bs-toggle="dropdown">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             class="rounded-circle me-2" width="32" height="32" alt="Профиль">
+                        <span>Алексей К.</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.html">Мой профиль</a></li>
+                        <li><a class="dropdown-item" href="#">Настройки</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Выйти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-4">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card border mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                             class="rounded-circle mb-3" width="120" height="120" alt="Аватар">
+                        <h5 class="mb-1">Алексей Кузнецов</h5>
+                        <p class="text-muted small">Любитель готовить</p>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#editProfile">
+                                Редактировать профиль
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border">
+                    <div class="card-body">
+                        <h6>Статистика</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">• Рецептов: 12</li>
+                            <li class="mb-2">• Сохранено: 34</li>
+                            <li class="mb-2">• Подписчиков: 45</li>
+                            <li>• Комментариев: 67</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <ul class="nav nav-tabs mb-4" id="profileTab">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#myRecipes">
+                            Мои рецепты
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#saved">
+                            Сохраненные
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#settings">
+                            Настройки
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="myRecipes">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5>Мои рецепты</h5>
+                            <button class="btn btn-dark btn-sm" onclick="window.location.href='edit-recipe.html'">
+                                <i class="bi bi-plus-lg"></i> Добавить рецепт
+                            </button>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card border h-100">
+                                    <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                                         class="card-img-top" alt="Пицца">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Пицца Маргарита</h6>
+                                        <p class="card-text small text-muted">Классическая итальянская пицца с томатами и моцареллой</p>
+                                        <div class="d-flex justify-content-between">
+                                            <small class="text-muted">50 мин • 421 лайк</small>
+                                            <div>
+                                                <button class="btn btn-outline-dark btn-sm">Редактировать</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border h-100">
+                                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                                         class="card-img-top" alt="Салат">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Греческий салат</h6>
+                                        <p class="card-text small text-muted">Свежий овощной салат с фетой и оливками</p>
+                                        <div class="d-flex justify-content-between">
+                                            <small class="text-muted">20 мин • 189 лайков</small>
+                                            <div>
+                                                <button class="btn btn-outline-dark btn-sm">Редактировать</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="saved">
+                        <h5 class="mb-4">Сохраненные рецепты</h5>
+                        <div class="list-group">
+                            <a href="recipe.html" class="list-group-item list-group-item-action border-0">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Тирамису</h6>
+                                    <small>3 дня назад</small>
+                                </div>
+                                <p class="mb-1 small text-muted">Классический итальянский десерт</p>
+                                <small class="text-muted">Мария Иванова • Десерты</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Крем-суп из тыквы</h6>
+                                    <small>неделю назад</small>
+                                </div>
+                                <p class="mb-1 small text-muted">Ароматный осенний суп</p>
+                                <small class="text-muted">Алексей Петров • Супы</small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="settings">
+                        <h5 class="mb-4">Настройки аккаунта</h5>
+                        <div class="card border">
+                            <div class="card-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">Имя</label>
+                                        <input type="text" class="form-control" value="Алексей Кузнецов">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" value="alex@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">О себе</label>
+                                        <textarea class="form-control" rows="3">Люблю готовить простые и вкусные блюда.</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Новый пароль</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Подтвердите пароль</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-dark">Сохранить изменения</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editProfile">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Редактировать фото</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+                             class="rounded-circle mb-3" width="100" height="100" alt="Аватар">
+                    </div>
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="avatarUpload">
+                    </div>
+                    <button class="btn btn-dark w-100">Загрузить фото</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0 small">&copy; 2026 КулинарноеСообщество</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

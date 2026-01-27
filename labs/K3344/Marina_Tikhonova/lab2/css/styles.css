@@ -1,0 +1,84 @@
+/* Светлая тема (по умолчанию) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --card-bg: #f8f9fa;
+  --border-color: #dee2e6;
+  --header-bg: #f8f9fa;
+  --input-bg: #ffffff;
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #e9ecef;
+  --card-bg: #1e1e1e;
+  --border-color: #343a40;
+  --header-bg: #1e1e1e;
+  --input-bg: #2d2d2d;
+}
+
+/* Применяем переменные */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.navbar,
+footer {
+  background-color: var(--header-bg) !important;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.form-control,
+.form-select {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}
+
+body,
+body * {
+  color: var(--text-color) !important;
+}
+
+body {
+  background-color: var(--bg-color) !important;
+}
+
+.recipe-card {
+    transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #f8f9fa;
+    border-bottom-color: #f8f9fa;
+}
+
+.comment-section {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.login-container, .register-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
