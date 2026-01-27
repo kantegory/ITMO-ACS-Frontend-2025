@@ -490,3 +490,25 @@ async function submitNewRecipe() {
         alert('Ошибка публикации: ' + (error.response?.data?.message || 'Неизвестная ошибка'));
     }
 }
+
+// Темизация
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+
+  // Определяем предпочтительную тему
+  const userPref = localStorage.getItem('theme');
+  const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const theme = userPref || systemPref;
+
+  // Применяем тему
+  document.documentElement.setAttribute('data-theme', theme);
+
+  // Переключение
+  toggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+});
