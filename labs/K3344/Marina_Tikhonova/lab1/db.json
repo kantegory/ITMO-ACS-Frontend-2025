@@ -1,0 +1,141 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Мария Иванова",
+      "email": "maria@example.com",
+      "password": "password123",
+      "avatar": "https://thumbs.dreamstime.com/b/fast-food-menu-big-tasty-hamburger-vegetables-french-fries-tomato-ketchup-cola-drink-33670923.jpg?w=768",
+      "role": "user"
+    },
+    {
+      "id": 2,
+      "name": "Алексей Петров",
+      "email": "alexey@example.com",
+      "password": "password123",
+      "avatar": "https://thumbs.dreamstime.com/b/fast-food-menu-big-tasty-hamburger-vegetables-french-fries-tomato-ketchup-cola-drink-33670923.jpg?w=768",
+      "role": "user"
+    }
+  ],
+  
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Тирамису",
+      "description": "Итальянский десерт с кофейным вкусом",
+      "image": "https://www.kingarthurbaking.com/sites/default/files/2023-03/Tiramisu_1426.jpg",
+      "category": "Десерты",
+      "difficulty": "Средняя",
+      "time": "40 мин",
+      "author": "Мария Иванова",
+      "authorId": 1,
+      "likes": 245,
+      "savedBy": [2],
+      "likedBy": [],
+      "ingredients": [
+        "500 г сыра маскарпоне",
+        "4 яйца",
+        "100 г сахара",
+        "300 мл крепкого кофе",
+        "200 г савоярди",
+        "2 ст.л. какао-порошка"
+      ],
+      "steps": [
+        "Отделите желтки от белков",
+        "Взбейте желтки с сахаром",
+        "Добавьте маскарпоне",
+        "Взбейте белки и добавьте в крем"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": "8 г",
+        "fat": "22 г",
+        "carbs": "25 г"
+      },
+      "createdAt": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Суп из тыквы",
+      "description": "Овощной суп с пряностями",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfaGg3guEwBTKNZVzeNYSgX7PdBy1ibmr0AA&s",
+      "category": "Супы",
+      "difficulty": "Легкая",
+      "time": "30 мин",
+      "author": "Алексей Петров",
+      "authorId": 2,
+      "likes": 189,
+      "savedBy": [1],
+      "likedBy": [1],
+      "ingredients": [
+        "1 кг тыквы",
+        "1 луковица",
+        "2 зубчика чеснока",
+        "500 мл овощного бульона",
+        "200 мл сливок",
+        "Соль, перец по вкусу"
+      ],
+      "steps": [
+        "Нарежьте тыкву кубиками",
+        "Обжарьте лук и чеснок",
+        "Добавьте тыкву и бульон",
+        "Варите до мягкости",
+        "Пюрируйте блендером"
+      ],
+      "createdAt": "2024-01-10T14:20:00Z"
+    }
+  ],
+  
+  "categories": [
+    { "id": 1, "name": "Завтраки", "icon": "cup-straw", "count": 1254 },
+    { "id": 2, "name": "Основные блюда", "icon": "egg-fried", "count": 3567 },
+    { "id": 3, "name": "Десерты", "icon": "cake2", "count": 2345 },
+    { "id": 4, "name": "Напитки", "icon": "cup-hot", "count": 987 }
+  ],
+  
+  "blogPosts": [
+    {
+      "id": 1,
+      "title": "Как организовать свою кухню",
+      "content": "Правильная организация кухни может сделать процесс приготовления пищи намного приятнее и эффективнее.",
+      "image": "https://www.cashandcarrykitchens.ie/images/made/images/uploads/inner/Runske_Kitchen_-_Augusta_Graphite_980x693_10_980_693_80_c1.jpg",
+      "author": "Мария Петрова",
+      "authorId": 1,
+      "date": "2026-01-12",
+      "likes": 42,
+      "comments": 8,
+      "tags": ["советы", "организация"]
+    },
+    {
+      "id": 2,
+      "title": "10 специй которые должны быть на каждой кухне",
+      "content": "Специи могут превратить обычное блюдо в кулинарный шедевр.",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPWN05ZTe2XjovZslRyCSFr3K4D2XMChN8w&s",
+      "author": "Иван Сидоров",
+      "authorId": 2,
+      "date": "2026-01-05",
+      "likes": 31,
+      "comments": 5,
+      "tags": ["специи", "базовые"]
+    }
+  ],
+  
+  "comments": [
+    {
+      "id": 1,
+      "recipeId": 1,
+      "userId": 2,
+      "userName": "Алексей Петров",
+      "text": "Получилось очень вкусно! Спасибо за рецепт.",
+      "date": "2026-01-16T08:30:00Z"
+    },
+    {
+      "id": 2,
+      "recipeId": 1,
+      "userId": 1,
+      "userName": "Мария Иванова",
+      "text": "Рада, что понравилось!",
+      "date": "2026-01-16T10:15:00Z"
+    }
+  ]
+}

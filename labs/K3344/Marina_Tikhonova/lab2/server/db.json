@@ -11,6 +11,12 @@
       "name": "Мария Сидорова",
       "email": "maria@example.com",
       "password": "$2b$10$XOPbrlUPQdwdJ/Zcm/JjS.5a6JWKcP3NMFJaOFf0g8NRS9ClyQDNm"
+    },
+    {
+      "id": 1769525008004,
+      "name": "gege",
+      "email": "marina.tikhonova36@gmail.com",
+      "password": "$2b$10$XOPbrlUPQdwdJ/Zcm/JjS.5a6JWKcP3NMFJaOFf0g8NRS9ClyQDNm"
     }
   ],
   "recipes": [
