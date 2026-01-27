@@ -3,7 +3,6 @@ node_modules
 /dist
 /dbs
 __pycache__/
-static/
 media/
 celerybeat-schedule
 
